@@ -10,9 +10,9 @@ import {
   Text,
   Box,
   BoxProps,
-  Image,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router'
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { signIn } from './api/providers/auth.provider';
 
 export default function Login() {
@@ -28,7 +28,7 @@ export default function Login() {
     const login = await signIn(username, password);
 
     if (login?.access_token) {
-      router.push('/dashboard'); 
+      router.push('/dashboard');
     }
   };
 
@@ -72,7 +72,15 @@ export default function Login() {
             m={4}
           >
             <Stack align={['center', 'center', 'initial']}>
-              <Image src='/logo.png' width={50} height={50} loading={'eager'} mb={4} />
+              <Box mb={4}>
+                <Image
+                  alt='Logo'
+                  src='/logo.png'
+                  width={50}
+                  height={50}
+                  loading={'eager'}
+                />
+              </Box>
             </Stack>
             <form onSubmit={handleSubmit}>
               <Stack spacing={4} w={'full'} maxW={'sm'}>

@@ -15,10 +15,11 @@ import {
   Select,
   Flex,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider';
 import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
 import { createUser } from '@/pages/api/providers/user.provider';
+import { Plus } from 'phosphor-react';
 
 interface CreateUserProps {
   fetchUsersData: () => void;
@@ -26,15 +27,19 @@ interface CreateUserProps {
   planTypes: IPlanTypeInterface[];
 }
 
-export default function UserCreate({ fetchUsersData, userTypes, planTypes }: CreateUserProps) {
+export default function UserCreate({
+  fetchUsersData,
+  userTypes,
+  planTypes,
+}: CreateUserProps) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [ email, setEmail ] = useState<string>('');
-  const [ password, setPassword ] = useState<string>('');
-  const [ userTypeId, setUserTypeId ] = useState<string>('');
-  const [ initDate, setInitDate ] = useState<string>('');
-  const [ endDate, setEndDate ] = useState<string>('');
-  const [ planTypeId, setPlanTypeId ] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [userTypeId, setUserTypeId] = useState<string>('');
+  const [initDate, setInitDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [planTypeId, setPlanTypeId] = useState<string>('');
 
   const handleWithGenPassword = () => {
     setPassword('123');
@@ -52,7 +57,7 @@ export default function UserCreate({ fetchUsersData, userTypes, planTypes }: Cre
       }
 
       await createUser(token, {
-        email, 
+        email,
         password,
         userTypeId,
         plan: {
@@ -75,25 +80,35 @@ export default function UserCreate({ fetchUsersData, userTypes, planTypes }: Cre
 
   return (
     <>
-      <Stack spacing={2} direction={['column', 'row']} mt={4} pb={4}>
-        <Button   
-          bgGradient={[
-            'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-            'linear(to-br, blue.900 20.17%, purple.900 90.87%)'
-          ]} 
+      <Stack>
+        <Button
+          size={'md'}
+          variant={'solid'}
+          color={'blackAlpha.900'}
+          bgColor={'whiteAlpha.900'}
+          _hover={{
+            bg: 'whiteAlpha.700',
+            transition: '0.4s',
+          }}
           onClick={onOpen}
-            >
-          {/* <AddIcon mr={2} /> */}
+          leftIcon={<Plus weight='bold' />}
+        >
           Cadastrar usuário
         </Button>
       </Stack>
-
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>     
+        <ModalContent
+          bgColor={'whiteAlpha.200'}
+          rounded={'lg'}
+          border={'1px'}
+          borderColor={'whiteAlpha.200'}
+          backdropBlur={'1rem'}
+          backdropFilter='blur(15px)'
+          boxShadow={'lg'}
+        >
           <ModalCloseButton />
-          <ModalBody pb={6}>      
-
+          <ModalBody pb={6}>
             <FormControl mt={4} isRequired>
               <FormLabel>Email: </FormLabel>
               <Input
