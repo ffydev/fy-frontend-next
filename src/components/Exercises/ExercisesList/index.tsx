@@ -18,7 +18,7 @@ interface WorkoutsProps {
 }
 
 export default function ExercisesList({ fetchUserWorkouts, exercises }: WorkoutsProps) {
-  const navigate = useRouter();
+  const router = useRouter();
   const [name, setName] = useState<string>('');
   const [sets, setSets] = useState<string>('');
   const [reps, setReps] = useState<string>('');
@@ -30,7 +30,7 @@ export default function ExercisesList({ fetchUserWorkouts, exercises }: Workouts
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -51,7 +51,7 @@ export default function ExercisesList({ fetchUserWorkouts, exercises }: Workouts
     const token = localStorage.getItem('fyToken');
 
     if (!token) {
-      navigate.push('/login');
+      router.push('/login');
       return;
     }
     deleteExercise(token, id).then(() => {

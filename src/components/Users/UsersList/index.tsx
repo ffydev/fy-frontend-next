@@ -29,7 +29,7 @@ export default function UsersList({
   users,
   planTypes,
 }: ClientListProps) {
-  const navigate = useRouter();
+  const router = useRouter();
   const [ firstName, setFirstName ] = useState<string>('');
   const [ lastName, setLastName ] = useState<string>('');
   const [ email, setEmail ] = useState<string>('');
@@ -41,7 +41,7 @@ export default function UsersList({
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -60,7 +60,7 @@ export default function UsersList({
     const token = localStorage.getItem('fyToken');
 
     if (!token) {
-      navigate.push('/login');
+      router.push('/login');
       return;
     }
     deleteUser(token, id).then(() => {

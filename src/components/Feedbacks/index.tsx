@@ -16,7 +16,7 @@ interface feedbacksProps {
 }
 
 export default function Feedbacks ({ userId, workoutId, handleWithCloseFeedback }: feedbacksProps) {
-  const navigate = useRouter();
+  const router = useRouter();
   const [ feedbacks, setFeedbacks ] = useState<IUserFeedbackInterface[]>();
 
   const fetchFeedbacksData = async (userId: string, workoutId: string) => {
@@ -24,7 +24,7 @@ export default function Feedbacks ({ userId, workoutId, handleWithCloseFeedback 
       const token = localStorage.getItem('fyToken');
   
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
   

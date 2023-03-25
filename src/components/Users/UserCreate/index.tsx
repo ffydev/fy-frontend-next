@@ -27,7 +27,7 @@ interface CreateUserProps {
 }
 
 export default function UserCreate({ fetchUsersData, userTypes, planTypes }: CreateUserProps) {
-  const navigate = useRouter();
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [ email, setEmail ] = useState<string>('');
   const [ password, setPassword ] = useState<string>('');
@@ -47,7 +47,7 @@ export default function UserCreate({ fetchUsersData, userTypes, planTypes }: Cre
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 

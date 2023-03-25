@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import { signIn } from './api/providers/auth.provider';
 
 export default function Login() {
-  const navigate = useRouter();
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,7 +28,7 @@ export default function Login() {
     const login = await signIn(username, password);
 
     if (login?.access_token) {
-      navigate.push('/dashboard');
+      router.push('/dashboard'); 
     }
   };
 

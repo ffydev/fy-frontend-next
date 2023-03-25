@@ -25,7 +25,7 @@ interface WorkoutsProps {
 }
 
 export default function WorkoutsList ({ fetchUserWorkouts, workouts, userId }: WorkoutsProps) {
-  const navigate = useRouter();
+  const router = useRouter();
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('');
   const [workoutType, setWorkoutType] = useState<string>('');
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>([]);
@@ -36,7 +36,7 @@ export default function WorkoutsList ({ fetchUserWorkouts, workouts, userId }: W
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -45,7 +45,7 @@ export default function WorkoutsList ({ fetchUserWorkouts, workouts, userId }: W
       setExerciseTypes(response);
     } catch (error) {
       console.error(error);
-      navigate.push('/login');
+      router.push('/login');
     }
   };
 
@@ -58,7 +58,7 @@ export default function WorkoutsList ({ fetchUserWorkouts, workouts, userId }: W
       const token = localStorage.getItem('fyToken');
   
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -80,7 +80,7 @@ export default function WorkoutsList ({ fetchUserWorkouts, workouts, userId }: W
       const token = localStorage.getItem('fyToken');
   
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -101,7 +101,7 @@ export default function WorkoutsList ({ fetchUserWorkouts, workouts, userId }: W
     const token = localStorage.getItem('fyToken');
 
     if (!token) {
-      navigate.push('/login');
+      router.push('/login');
       return;
     }
     deleteWorkout(token, id).then(() => {

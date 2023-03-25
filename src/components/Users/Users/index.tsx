@@ -15,7 +15,7 @@ import { findUserType, IUserTypeInterface } from '@/pages/api/providers/user-typ
 import { findPlanTypes, IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
 
 export default function Users() {
-  const navigate = useRouter();  
+  const router = useRouter();  
   const [users, setUsers] = useState<IUserInterface[]>([]);
   const [userType, setUserType] = useState<IUserTypeInterface[]>([]);
   const [userTypeId, setUserTypeId] = useState<string>('');
@@ -27,7 +27,7 @@ export default function Users() {
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -38,7 +38,7 @@ export default function Users() {
       setUsers(usersData);
     } catch (error) {
       console.error(error);
-      navigate.push('/login');
+      router.push('/login');
     }
   };
 
@@ -47,7 +47,7 @@ export default function Users() {
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -56,7 +56,7 @@ export default function Users() {
       setPlanTypes(response);
     } catch (error) {
       console.error(error);
-      navigate.push('/login');
+      router.push('/login');
     }
   };
 
@@ -65,7 +65,7 @@ export default function Users() {
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
@@ -74,7 +74,7 @@ export default function Users() {
       setUserType(response);
     } catch (error) {
       console.error(error);
-      navigate.push('/login');
+      router.push('/login');
     }
   };
 

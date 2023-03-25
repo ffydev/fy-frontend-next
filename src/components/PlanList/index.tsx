@@ -20,7 +20,7 @@ interface PlanListProps {
 }
 
 export default function PlanList ({ plans, planTypes }: PlanListProps) {
-  const navigate= useRouter();
+  const router= useRouter();
   const [ initDate, setInitDate ] = useState<string>();
   const [ endDate, setEndDate ] = useState<string>();
   const [ planTypeId, setPlanTypeId ] = useState<string>();  
@@ -30,7 +30,7 @@ export default function PlanList ({ plans, planTypes }: PlanListProps) {
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
  

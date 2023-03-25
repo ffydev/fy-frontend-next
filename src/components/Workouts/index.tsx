@@ -8,7 +8,7 @@ interface WorkoutsListProps {
 }
 
 export default function Workouts ({ userId }: WorkoutsListProps) {
-  const navigate = useRouter();
+  const router = useRouter();
   const [ userWorkouts, setUserWorkouts ] = useState<IWorkoutInterface[]>([]); 
 
   const fetchUserWorkouts = async () => {
@@ -16,7 +16,7 @@ export default function Workouts ({ userId }: WorkoutsListProps) {
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }     
 
@@ -25,7 +25,7 @@ export default function Workouts ({ userId }: WorkoutsListProps) {
       setUserWorkouts(workoutsByUser);
     } catch (error) {
       console.error(error);
-      navigate.push('/login');
+      router.push('/login');
     }
   };
 

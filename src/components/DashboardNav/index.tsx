@@ -46,7 +46,7 @@ const LinkItems: Array<LinkItemProps> = [
 ];
 
 export default function DashboardNav () {
-  const navigate = useRouter();
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userComponent, setUserComponent] = useState<boolean>(true);
   const [dietsComponent, setDietsComponent] = useState<boolean>(false);
@@ -61,20 +61,20 @@ export default function DashboardNav () {
       const token = localStorage.getItem('fyToken');
 
       if (!token) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
       const currentUserData = await findCurrentUser(token);
       if (!currentUserData) {
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
 
       setCurrentUser(currentUserData);      
     } catch (error) {
       console.error(error);
-      navigate.push('/login');
+      router.push('/login');
     }
   };
   
@@ -93,7 +93,7 @@ export default function DashboardNav () {
 
       if (token) {
         localStorage.removeItem('fyToken');
-        navigate.push('/login');
+        router.push('/login');
         return;
       }
   }
