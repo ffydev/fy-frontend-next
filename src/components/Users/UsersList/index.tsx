@@ -129,7 +129,7 @@ export default function UsersList({
                   boxShadow={'lg'}
                 >
                   <Flex minWidth='max-content'>
-                    <CloseButton onClick={() => handleWithDelete(user.id)} size='sm' />
+                  <Spacer /><CloseButton onClick={() => handleWithDelete(user.id)} size='sm' />
                   </Flex>
 
                   <Editable defaultValue={user.email}>
