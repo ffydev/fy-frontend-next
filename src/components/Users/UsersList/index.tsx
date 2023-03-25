@@ -91,20 +91,26 @@ export default function UsersList({
     <>
       {workoutsComponents ? (
         <>
-          <Button
-            size={'md'}
-            variant={'solid'}
-            bgGradient={'linear(to-r, purple.900, purple.800)'}
-            _hover={{
-              bgGradient: 'linear(to-r, purple.800, purple.700)',
-              transition: '0.5s ease-in-out',
-            }}
-            mb={3}
-            onClick={handleWithShowUsers}
-          >
-            Voltar
-          </Button>
-          <Workouts userId={userId} />
+          <Stack>
+            <Button
+              size={'md'}
+              variant={'solid'}
+              bgColor={'whiteAlpha.900'}
+              color={'blackAlpha.900'}
+              _hover={{
+                bgColor: 'whiteAlpha.700',
+                transition: '0.5s',
+              }}
+              mt={10}
+              mb={3}
+              onClick={handleWithShowUsers}
+            >
+              Voltar
+            </Button>
+            <Box>
+              <Workouts userId={userId} />
+            </Box>
+          </Stack>
         </>
       ) : (
         <>
@@ -123,7 +129,6 @@ export default function UsersList({
                   boxShadow={'lg'}
                 >
                   <Flex minWidth='max-content'>
-                    <Spacer />{' '}
                     <CloseButton onClick={() => handleWithDelete(user.id)} size='sm' />
                   </Flex>
 
@@ -156,10 +161,7 @@ export default function UsersList({
 
                   <Stack spacing={2} direction={['column', 'row']} mt={3}>
                     <Button
-                      bgGradient={[
-                        'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-                        'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
-                      ]}
+                      bgColor={'purple.400'}
                       size='xs'
                       onClick={() => handleWithFindWorkoutsByUser(user.id)}
                     >
