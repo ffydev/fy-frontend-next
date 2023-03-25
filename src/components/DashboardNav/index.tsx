@@ -124,7 +124,7 @@ export default function DashboardNav () {
         <MobileNav onOpen={onOpen} currentUser={currentUser} handleWithLogout={handleWithLogout} />
         <div>     
           { userComponent ? <Users /> : null }
-          { dietsComponent ? <div></div> : null }
+          { dietsComponent ? <div><h1>Diets</h1></div> : null }
         </div>                             
       </Box>   
   </>
