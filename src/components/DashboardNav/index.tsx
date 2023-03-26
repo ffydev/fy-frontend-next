@@ -28,6 +28,7 @@ import { IconType } from 'react-icons';
 import Users from '../Users/Users';
 import { findCurrentUser, IUserInterface } from '@/pages/api/providers/user.provider';
 import Image from 'next/image';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 interface LinkItemProps {
   name: string;
   icon: IconType;
@@ -53,7 +54,7 @@ export default function DashboardNav() {
 
   const fetchCurrentUserData = async () => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');
@@ -84,7 +85,7 @@ export default function DashboardNav() {
   };
 
   const handleWithLogout = () => {
-    const token = localStorage.getItem('fyToken');
+    const token = getUserToken();
 
     if (token) {
       localStorage.removeItem('fyToken');

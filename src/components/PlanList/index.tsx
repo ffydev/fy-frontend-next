@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/router';
 import { IPlanInterface, updatePlan } from '@/pages/api/providers/plan.provider';
 import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 interface PlanListProps {
   plans: IPlanInterface[];
@@ -31,7 +32,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
 
   const handleUpdatePlan = async (planId: string) => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');

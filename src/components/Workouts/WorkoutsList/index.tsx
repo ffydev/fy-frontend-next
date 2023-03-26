@@ -26,6 +26,7 @@ import {
   findExerciseTypes,
   IExerciseTypesInterface,
 } from '@/pages/api/providers/exercises-types.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void;
@@ -46,7 +47,7 @@ export default function WorkoutsList({
 
   const fetchExercisesTypesData = async () => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');
@@ -68,7 +69,7 @@ export default function WorkoutsList({
 
   const handleCreateExercise = async (workoutId: string, exerciseTypeId: string) => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');
@@ -89,7 +90,7 @@ export default function WorkoutsList({
 
   const handleCreateWorkout = async (userId: string) => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');
@@ -109,7 +110,7 @@ export default function WorkoutsList({
   };
 
   const handleWithDeleteWorkout = (id: string) => {
-    const token = localStorage.getItem('fyToken');
+    const token = getUserToken();
 
     if (!token) {
       router.push('/login');

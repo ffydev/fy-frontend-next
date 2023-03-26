@@ -8,6 +8,7 @@ import {
  } from '@chakra-ui/react';
 import { useRouter } from 'next/router'
 import { findFeedbacks, IUserFeedbackInterface } from '@/pages/api/providers/userFeedback.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 interface feedbacksProps {
   userId: string;
@@ -21,7 +22,7 @@ export default function Feedbacks ({ userId, workoutId, handleWithCloseFeedback 
 
   const fetchFeedbacksData = async (userId: string, workoutId: string) => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
   
       if (!token) {
         router.push('/login');

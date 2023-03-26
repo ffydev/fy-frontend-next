@@ -20,6 +20,7 @@ import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider';
 import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
 import { createUser } from '@/pages/api/providers/user.provider';
 import { Plus } from 'phosphor-react';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 interface CreateUserProps {
   fetchUsersData: () => void;
@@ -49,7 +50,7 @@ export default function UserCreate({
 
   const handleCreateUser = async () => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');

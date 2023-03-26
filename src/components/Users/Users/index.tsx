@@ -20,6 +20,7 @@ import {
   findPlanTypes,
   IPlanTypeInterface,
 } from '@/pages/api/providers/plan-type.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 export default function Users() {
   const router = useRouter();
@@ -31,11 +32,10 @@ export default function Users() {
 
   const fetchUsersData = async () => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
-        router.push('/login');
-        return;
+        return router.push('/login')
       }
 
       const usersData = await findUsers(token, {
@@ -51,7 +51,7 @@ export default function Users() {
 
   const fetchPlanTypeData = async () => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');
@@ -69,7 +69,7 @@ export default function Users() {
 
   const fetchUserTypeData = async () => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');

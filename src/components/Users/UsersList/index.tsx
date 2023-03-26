@@ -27,6 +27,7 @@ import {
   updateUser,
 } from '@/pages/api/providers/user.provider';
 import Workouts from '@/components/Workouts';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 interface ClientListProps {
   fetchUsersData: () => void;
@@ -48,7 +49,7 @@ export default function UsersList({
 
   const handleUpdateUser = async (userId: string) => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');
@@ -67,7 +68,7 @@ export default function UsersList({
   };
 
   const handleWithDelete = (id: string) => {
-    const token = localStorage.getItem('fyToken');
+    const token = getUserToken();
 
     if (!token) {
       router.push('/login');

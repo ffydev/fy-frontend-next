@@ -1,5 +1,5 @@
+import { useRouter } from 'next/router';
 import { api } from '../apis/api';
-
 export interface LoginResponse {
   id?: string;
   name?: string;
@@ -22,3 +22,8 @@ export async function signIn (username: string, password: string) {
     return null
   }   
 } 
+
+export const getUserToken = () => {
+  return localStorage.getItem('fyToken') 
+}
+

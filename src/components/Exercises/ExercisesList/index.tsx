@@ -11,6 +11,7 @@ import {
  } from '@chakra-ui/react';
 import { useRouter } from 'next/router'
 import { deleteExercise, IExerciseInterface, updateExercise } from '@/pages/api/providers/exercise.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void;
@@ -27,7 +28,7 @@ export default function ExercisesList({ fetchUserWorkouts, exercises }: Workouts
 
   const handleUpdateExercise = async (id: string) => {
     try {
-      const token = localStorage.getItem('fyToken');
+      const token = getUserToken();
 
       if (!token) {
         router.push('/login');
@@ -48,7 +49,7 @@ export default function ExercisesList({ fetchUserWorkouts, exercises }: Workouts
   };
   
   const handleWithDeleteExercise = (id: string) => {
-    const token = localStorage.getItem('fyToken');
+    const token = getUserToken();
 
     if (!token) {
       router.push('/login');
