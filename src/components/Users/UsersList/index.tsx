@@ -121,7 +121,7 @@ export default function UsersList({
                 <Box
                   key={user.id}
                   p={4}
-                  bgColor={'whiteAlpha.200'}
+                  bgColor={'whiteAlpha.100'}
                   rounded={'lg'}
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}

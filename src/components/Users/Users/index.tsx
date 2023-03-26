@@ -97,7 +97,10 @@ export default function Users() {
   return (
     <>
       <Box
-        bgImage={'/dashboard.jpg'}
+         bgGradient={[
+          'linear(to-tr, gray.900 30.17%, purple.900 99.87%)',
+          'linear(to-br, gray.900 80.17%, purple.900 99.87%)',
+        ]}
         bgSize={'cover'}
         bgRepeat={'no-repeat'}
         bgPosition={'center'}
