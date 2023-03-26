@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState, useRef } from 'react';
 import {
   Button,
   useDisclosure,
@@ -46,7 +46,7 @@ export default function UserCreate({
     setPassword('123');
   };
 
-  const initialRef = React.useRef<HTMLInputElement>(null);
+  const initialRef = useRef<HTMLInputElement>(null);
 
   const handleCreateUser = async () => {
     try {

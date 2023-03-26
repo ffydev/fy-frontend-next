@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Text, chakra, Stack, HStack, Box } from '@chakra-ui/react';
 
 export default function Progression() {

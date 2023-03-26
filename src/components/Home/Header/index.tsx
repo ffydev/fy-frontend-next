@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Stack, chakra, Flex, Image } from '@chakra-ui/react';
 import FormPlanilha from '../FormPlanilha';
 

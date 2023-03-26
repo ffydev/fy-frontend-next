@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Stack, Flex, Box, Heading, Text, Avatar } from '@chakra-ui/react';
 
 export default function AboutSpecialist() {

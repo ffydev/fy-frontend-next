@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Flex,
@@ -10,13 +10,7 @@ import {
   EditableInput,
   CloseButton,
   Spacer,
-  useColorModeValue,
-  Grid,
-  Wrap,
-  WrapItem,
-  Center,
   Container,
-  Text,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import PlanList from '../../PlanList';
