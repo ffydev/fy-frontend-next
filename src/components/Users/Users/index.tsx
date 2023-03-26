@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -9,7 +8,6 @@ import {
   Stack,
   Input,
   Container,
-  Flex,
 } from '@chakra-ui/react';
 import UsersList from '../UsersList';
 import UserCreate from '../UserCreate';
