@@ -53,25 +53,25 @@ const LinkItems: Array<LinkItemProps> = [
 export default function DashboardNav() {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const token = getUserToken()
   const [userComponent, setUserComponent] = useState<boolean>(true)
   const [dietsComponent, setDietsComponent] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<IUserInterface>()
 
   useEffect(() => {
-    fetchCurrentUserData()
-  }, [])
+    if (token) {
+      fetchCurrentUserData(token)
+      return 
+    } 
+      router.push('/login')   
+      return  // Implementar mensagem personalizada   
+  }, [token])
 
-  const fetchCurrentUserData = async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        router.push('/login')
-        return
-      }
-
+  const fetchCurrentUserData = async (token: string) => {
+    try {       
       const currentUserData = await findCurrentUser(token)
-      if (!currentUserData) {
+
+      if (!currentUserData) { // Implementar mensagem personalizada  
         router.push('/login')
         return
       }
