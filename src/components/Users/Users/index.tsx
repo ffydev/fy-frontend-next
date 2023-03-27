@@ -1,11 +1,11 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlanTypes,
-  IPlanTypeInterface,
+  IPlanTypeInterface
 } from '@/pages/api/providers/plan-type.provider'
 import {
   findUserType,
-  IUserTypeInterface,
+  IUserTypeInterface
 } from '@/pages/api/providers/user-type.provider'
 import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider'
 import {
@@ -15,10 +15,10 @@ import {
   Heading,
   Input,
   Select,
-  Stack,
+  Stack
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import UserCreate from '../UserCreate'
 import UsersList from '../UsersList'
 
@@ -30,11 +30,12 @@ export default function Users() {
   const [searchName, setSearchName] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanTypeInterface[]>([])
 
-  const fetchUsersData = async () => {
+  const fetchUsersData = useCallback(async () => {
     try {
       const token = getUserToken()
 
       if (!token) {
+         // Implementar mensagem personalizada
         return router.push('/login')
       }
 
@@ -47,13 +48,14 @@ export default function Users() {
       console.error(error)
       router.push('/login')
     }
-  }
+  }, [router, userTypeId, searchName, setUsers])
 
-  const fetchPlanTypeData = async () => {
+  const fetchPlanTypeData = useCallback(async () => {
     try {
       const token = getUserToken()
 
       if (!token) {
+         // Implementar mensagem personalizada
         router.push('/login')
         return
       }
@@ -65,13 +67,14 @@ export default function Users() {
       console.error(error)
       router.push('/login')
     }
-  }
+  }, [router, setPlanTypes])
 
-  const fetchUserTypeData = async () => {
+  const fetchUserTypeData = useCallback(async () => {
     try {
       const token = getUserToken()
 
       if (!token) {
+         // Implementar mensagem personalizada
         router.push('/login')
         return
       }
@@ -83,16 +86,16 @@ export default function Users() {
       console.error(error)
       router.push('/login')
     }
-  }
+  }, [router, setUserType])
 
   useEffect(() => {
     fetchPlanTypeData()
     fetchUserTypeData()
-  }, [])
+  }, [fetchPlanTypeData, fetchUserTypeData])
 
   useEffect(() => {
     fetchUsersData()
-  }, [userTypeId, searchName])
+  }, [fetchUsersData])
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findCurrentUser,
-  IUserInterface
+  IUserInterface,
 } from '@/pages/api/providers/user.provider'
 import {
   Avatar,
@@ -24,7 +24,7 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-  VStack
+  VStack,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -35,7 +35,7 @@ import {
   FiChevronDown,
   FiHome,
   FiMenu,
-  FiTrendingUp
+  FiTrendingUp,
 } from 'react-icons/fi'
 import Users from '../Users/Users'
 interface LinkItemProps {
@@ -57,23 +57,26 @@ export default function DashboardNav() {
   const [dietsComponent, setDietsComponent] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<IUserInterface>()
 
-  const fetchCurrentUserData = useCallback(async (token: string) => {
-    try {
-      const currentUserData = await findCurrentUser(token)
-  
-      if (!currentUserData) {
-        // Implementar mensagem personalizada
+  const fetchCurrentUserData = useCallback(
+    async (token: string) => {
+      try {
+        const currentUserData = await findCurrentUser(token)
+
+        if (!currentUserData) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        setCurrentUser(currentUserData)
+      } catch (error) {
+        console.error(error)
         router.push('/login')
-        return
       }
-  
-      setCurrentUser(currentUserData)
-    } catch (error) {
-      console.error(error)
-      router.push('/login')
-    }
-  }, [router, setCurrentUser])
-  
+    },
+    [router, setCurrentUser],
+  )
+
   useEffect(() => {
     const token = getUserToken()
     if (token) {
