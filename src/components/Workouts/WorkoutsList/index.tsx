@@ -1,35 +1,36 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider';
-import { createExercise } from '@/pages/api/providers/exercise.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { createExercise } from '@/pages/api/providers/exercise.provider'
 import {
   findExerciseTypes,
-  IExerciseTypesInterface
-} from '@/pages/api/providers/exercises-types.provider';
+  IExerciseTypesInterface,
+} from '@/pages/api/providers/exercises-types.provider'
 import {
   createWorkout,
   deleteWorkout,
-  IWorkoutInterface
-} from '@/pages/api/providers/workout.provider';
+  IWorkoutInterface,
+} from '@/pages/api/providers/workout.provider'
 import {
   Box,
   Button,
-  CloseButton, Flex,
+  CloseButton,
+  Flex,
   FormControl,
   FormLabel,
   Select,
   SimpleGrid,
   Spacer,
   Stack,
-  Text
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import ExercisesList from '../../Exercises/ExercisesList';
-import Feedbacks from '../../Feedbacks';
+  Text,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import ExercisesList from '../../Exercises/ExercisesList'
+import Feedbacks from '../../Feedbacks'
 
 interface WorkoutsProps {
-  fetchUserWorkouts: () => void;
-  workouts?: IWorkoutInterface[];
-  userId: string;
+  fetchUserWorkouts: () => void
+  workouts?: IWorkoutInterface[]
+  userId: string
 }
 
 export default function WorkoutsList({
@@ -37,95 +38,100 @@ export default function WorkoutsList({
   workouts,
   userId,
 }: WorkoutsProps) {
-  const router = useRouter();
-  const [exerciseTypeId, setExerciseTypeId] = useState<string>('');
-  const [workoutType, setWorkoutType] = useState<string>('');
-  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>([]);
-  const [showFeedback, setShowFeedback] = useState<boolean>(false);
+  const router = useRouter()
+  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
+  const [workoutType, setWorkoutType] = useState<string>('')
+  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
+    [],
+  )
+  const [showFeedback, setShowFeedback] = useState<boolean>(false)
 
   const fetchExercisesTypesData = async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      const response = await findExerciseTypes(token);
+      const response = await findExerciseTypes(token)
 
-      setExerciseTypes(response);
+      setExerciseTypes(response)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  };
+  }
 
   useEffect(() => {
-    fetchExercisesTypesData();
-  }, []);
+    fetchExercisesTypesData()
+  }, [])
 
-  const handleCreateExercise = async (workoutId: string, exerciseTypeId: string) => {
+  const handleCreateExercise = async (
+    workoutId: string,
+    exerciseTypeId: string,
+  ) => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
       if (exerciseTypeId) {
         await createExercise(token, {
           workoutId,
           exerciseTypeId,
-        });
-        fetchUserWorkouts();
+        })
+        fetchUserWorkouts()
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleCreateWorkout = async (userId: string) => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
       if (workoutType) {
         await createWorkout(token, {
           userId,
           workoutType,
-        });
-        fetchUserWorkouts();
+        })
+        fetchUserWorkouts()
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleWithDeleteWorkout = (id: string) => {
-    const token = getUserToken();
+    const token = getUserToken()
 
     if (!token) {
-      router.push('/login');
-      return;
+      router.push('/login')
+      return
     }
     deleteWorkout(token, id).then(() => {
-      fetchUserWorkouts();
-    });
-  };
+      fetchUserWorkouts()
+    })
+  }
 
   const handleWithShowFeedback = () => {
-    setShowFeedback(true);
-  };
+    setShowFeedback(true)
+  }
 
   const handleWithCloseFeedback = () => {
-    setShowFeedback(false);
-  };
+    setShowFeedback(false)
+  }
 
   return (
     <>
@@ -182,7 +188,9 @@ export default function WorkoutsList({
               minWidth='250px'
             >
               <Flex>
-                <Text fontWeight='bold'>Tipo de treino: {workout.workoutType}</Text>
+                <Text fontWeight='bold'>
+                  Tipo de treino: {workout.workoutType}
+                </Text>
                 <Spacer />
                 <Flex minWidth='max-content'>
                   <CloseButton
@@ -213,11 +221,13 @@ export default function WorkoutsList({
                     onChange={(event) => setExerciseTypeId(event.target.value)}
                   >
                     <option value=''></option>
-                    {exerciseTypes.map((exerciseType: IExerciseTypesInterface) => (
-                      <option key={exerciseType.id} value={exerciseType.id}>
-                        {exerciseType.name}
-                      </option>
-                    ))}
+                    {exerciseTypes.map(
+                      (exerciseType: IExerciseTypesInterface) => (
+                        <option key={exerciseType.id} value={exerciseType.id}>
+                          {exerciseType.name}
+                        </option>
+                      ),
+                    )}
                   </Select>
                   <Button
                     ml={3}
@@ -226,7 +236,9 @@ export default function WorkoutsList({
                       'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                       'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
                     ]}
-                    onClick={() => handleCreateExercise(workout.id!, exerciseTypeId)}
+                    onClick={() =>
+                      handleCreateExercise(workout.id!, exerciseTypeId)
+                    }
                   >
                     Adicionar
                   </Button>
@@ -252,5 +264,5 @@ export default function WorkoutsList({
         </SimpleGrid>
       </Stack>
     </>
-  );
+  )
 }

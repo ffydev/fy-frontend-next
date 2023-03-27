@@ -1,5 +1,5 @@
-import { Box, chakra, Flex, Image, Stack } from '@chakra-ui/react';
-import FormPlanilha from '../FormPlanilha';
+import { Box, chakra, Flex, Image, Stack } from '@chakra-ui/react'
+import FormPlanilha from '../FormPlanilha'
 
 export default function Header() {
   return (
@@ -49,7 +49,13 @@ export default function Header() {
                     spacing={5}
                     textAlign='left'
                   >
-                    <Image src='/logo.png' width={50} height={50} loading={'eager'} />
+                    <Image
+                      alt="logo v do Next"
+                      src='/logo.png'
+                      width={50}
+                      height={50}
+                      loading={'eager'}
+                    />
                     <chakra.h1
                       fontSize='4xl'
                       lineHeight={1.2}
@@ -58,9 +64,13 @@ export default function Header() {
                     >
                       Tem dificuldade em acompanhar sua performance nos treinos?
                     </chakra.h1>
-                    <chakra.h2 color='whiteAlpha.800' fontSize='xl' lineHeight={1.2}>
-                      Acompanhe de perto o desempenho da sua saúde com nosso sistema de
-                      monitoramento de performance.
+                    <chakra.h2
+                      color='whiteAlpha.800'
+                      fontSize='xl'
+                      lineHeight={1.2}
+                    >
+                      Acompanhe de perto o desempenho da sua saúde com nosso
+                      sistema de monitoramento de performance.
                     </chakra.h2>
                   </Stack>
                 </Flex>
@@ -73,5 +83,5 @@ export default function Header() {
         </Box>
       </Box>
     </>
-  );
+  )
 }

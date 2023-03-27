@@ -1,4 +1,12 @@
-import { Avatar, Box, Container, Flex, Heading, Stack, Text } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 
 export default function AboutSpecialist() {
   const textHeading = {
@@ -12,7 +20,7 @@ export default function AboutSpecialist() {
       'Largue o treino intuitivo, sem direção, e saia de casa sabendo o que irá fazer, volte para casa sabendo o que foi feito e apure semanalmente se você tem evoluído. Seu esforço só vale a pena se este for aplicado na direção certa.',
     heading6: 'Bons treinos e conte comigo!',
     heading7: '@andremsena',
-  };
+  }
   return (
     <Box bgGradient={'linear(to-l, orange.500, blackAlpha.400)'}>
       <Container maxW={'7xl'} p={8}>
@@ -31,22 +39,40 @@ export default function AboutSpecialist() {
                 >
                   {textHeading.heading1}
                 </Heading>
-                <Text fontSize={{ base: 'sm', lg: 'lg' }} color={'whiteAlpha.800'}>
+                <Text
+                  fontSize={{ base: 'sm', lg: 'lg' }}
+                  color={'whiteAlpha.800'}
+                >
                   {textHeading.heading2}
                 </Text>
-                <Text fontSize={{ base: 'sm', lg: 'lg' }} color={'whiteAlpha.800'}>
+                <Text
+                  fontSize={{ base: 'sm', lg: 'lg' }}
+                  color={'whiteAlpha.800'}
+                >
                   {textHeading.heading3}
                 </Text>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color={'whiteAlpha.800'}>
+                <Text
+                  fontSize={{ base: 'md', lg: 'lg' }}
+                  color={'whiteAlpha.800'}
+                >
                   {textHeading.heading4}
                 </Text>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color={'whiteAlpha.800'}>
+                <Text
+                  fontSize={{ base: 'md', lg: 'lg' }}
+                  color={'whiteAlpha.800'}
+                >
                   {textHeading.heading5}
                 </Text>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color={'whiteAlpha.800'}>
+                <Text
+                  fontSize={{ base: 'md', lg: 'lg' }}
+                  color={'whiteAlpha.800'}
+                >
                   {textHeading.heading6}
                 </Text>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color={'whiteAlpha.800'}>
+                <Text
+                  fontSize={{ base: 'md', lg: 'lg' }}
+                  color={'whiteAlpha.800'}
+                >
                   {textHeading.heading7}
                 </Text>
               </Stack>
@@ -64,5 +90,5 @@ export default function AboutSpecialist() {
         </Stack>
       </Container>
     </Box>
-  );
+  )
 }

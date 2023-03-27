@@ -1,33 +1,38 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlanTypes,
-  IPlanTypeInterface
-} from '@/pages/api/providers/plan-type.provider';
+  IPlanTypeInterface,
+} from '@/pages/api/providers/plan-type.provider'
 import {
   findUserType,
-  IUserTypeInterface
-} from '@/pages/api/providers/user-type.provider';
-import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider';
+  IUserTypeInterface,
+} from '@/pages/api/providers/user-type.provider'
+import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider'
 import {
-  Box, Container, FormControl, Heading, Input, Select,
-  Stack
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import UserCreate from '../UserCreate';
-import UsersList from '../UsersList';
+  Box,
+  Container,
+  FormControl,
+  Heading,
+  Input,
+  Select,
+  Stack,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import UserCreate from '../UserCreate'
+import UsersList from '../UsersList'
 
 export default function Users() {
-  const router = useRouter();
-  const [users, setUsers] = useState<IUserInterface[]>([]);
-  const [userType, setUserType] = useState<IUserTypeInterface[]>([]);
-  const [userTypeId, setUserTypeId] = useState<string>('');
-  const [searchName, setSearchName] = useState<string>('');
-  const [planTypes, setPlanTypes] = useState<IPlanTypeInterface[]>([]);
+  const router = useRouter()
+  const [users, setUsers] = useState<IUserInterface[]>([])
+  const [userType, setUserType] = useState<IUserTypeInterface[]>([])
+  const [userTypeId, setUserTypeId] = useState<string>('')
+  const [searchName, setSearchName] = useState<string>('')
+  const [planTypes, setPlanTypes] = useState<IPlanTypeInterface[]>([])
 
   const fetchUsersData = async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
         return router.push('/login')
@@ -36,63 +41,63 @@ export default function Users() {
       const usersData = await findUsers(token, {
         userTypeId,
         searchName,
-      });
-      setUsers(usersData);
+      })
+      setUsers(usersData)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  };
+  }
 
   const fetchPlanTypeData = async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      const response = await findPlanTypes(token);
+      const response = await findPlanTypes(token)
 
-      setPlanTypes(response);
+      setPlanTypes(response)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  };
+  }
 
   const fetchUserTypeData = async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      const response = await findUserType(token);
+      const response = await findUserType(token)
 
-      setUserType(response);
+      setUserType(response)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  };
+  }
 
   useEffect(() => {
-    fetchPlanTypeData();
-    fetchUserTypeData();
-  }, []);
+    fetchPlanTypeData()
+    fetchUserTypeData()
+  }, [])
 
   useEffect(() => {
-    fetchUsersData();
-  }, [userTypeId, searchName]);
+    fetchUsersData()
+  }, [userTypeId, searchName])
 
   return (
     <>
       <Box
-         bgGradient={[
+        bgGradient={[
           'linear(to-tr, gray.900 30.17%, purple.900 99.87%)',
           'linear(to-br, gray.900 80.17%, purple.900 99.87%)',
         ]}
@@ -102,7 +107,13 @@ export default function Users() {
       >
         <Box ml={{ base: 0, md: 60 }} bgColor={'blackAlpha.400'} minH={'100vh'}>
           <Container maxW='full' p={{ base: 5, md: 10 }}>
-            <Heading as='h3' size='lg' mb='4' fontWeight='medium' textAlign='left'>
+            <Heading
+              as='h3'
+              size='lg'
+              mb='4'
+              fontWeight='medium'
+              textAlign='left'
+            >
               Usuários
             </Heading>
             <Box mb={{ base: '2.5rem', lg: '4rem' }}>
@@ -114,7 +125,11 @@ export default function Users() {
                     planTypes={planTypes}
                   />
                 </FormControl>
-                <FormControl width={'100%'} mb={{ base: '4', lg: '0' }} isRequired>
+                <FormControl
+                  width={'100%'}
+                  mb={{ base: '4', lg: '0' }}
+                  isRequired
+                >
                   <Select
                     size={'md'}
                     border={'1px'}
@@ -154,5 +169,5 @@ export default function Users() {
         </Box>
       </Box>
     </>
-  );
+  )
 }

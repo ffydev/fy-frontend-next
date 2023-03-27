@@ -1,9 +1,13 @@
 import {
-  Box, Container, FormControl, FormLabel, Input,
+  Box,
+  Container,
+  FormControl,
+  FormLabel,
+  Input,
   Stack,
-  VStack
-} from '@chakra-ui/react';
-import CtaForm from '../CtaForm';
+  VStack,
+} from '@chakra-ui/react'
+import CtaForm from '../CtaForm'
 
 export default function FormPlanilha() {
   return (
@@ -68,5 +72,5 @@ export default function FormPlanilha() {
         </Box>
       </Stack>
     </Container>
-  );
+  )
 }

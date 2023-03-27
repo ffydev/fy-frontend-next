@@ -1,4 +1,4 @@
-import { Box, chakra, Container, HStack, Stack, Text } from '@chakra-ui/react';
+import { Box, chakra, Container, HStack, Stack, Text } from '@chakra-ui/react'
 
 export default function Progression() {
   const planList = [
@@ -7,10 +7,12 @@ export default function Progression() {
     'Permite o registro de seu desempenho nos treinos, com repetições, carga e séries.',
     'Garante um diário de treino organizado',
     'Faz com que sua periodização seja baseada em dados',
-  ];
+  ]
 
   return (
-    <Box bgGradient={'linear(to-r, blackAlpha.400, blackAlpha.500, orange.500)'}>
+    <Box
+      bgGradient={'linear(to-r, blackAlpha.400, blackAlpha.500, orange.500)'}
+    >
       <Container maxW='5xl' p={{ base: 4, sm: 10 }}>
         <Stack align={'center'} p={8}>
           <chakra.h1
@@ -33,11 +35,19 @@ export default function Progression() {
           rounded='2xl'
           p={{ base: 4, sm: 8 }}
         >
-          <Stack direction={{ base: 'column', md: 'row' }} justifyContent='center'>
+          <Stack
+            direction={{ base: 'column', md: 'row' }}
+            justifyContent='center'
+          >
             <Stack spacing={4}>
               <Stack spacing={2}>
                 {planList.map((data, index) => (
-                  <HStack key={index} alignItems='center' spacing={1} fontSize='md'>
+                  <HStack
+                    key={index}
+                    alignItems='center'
+                    spacing={1}
+                    fontSize='md'
+                  >
                     {/* <Icon as={GiCheckMark} w={5} h={5} color='orange.400' /> */}
                     <Text color='whiteAlpha.800' fontSize='xl' lineHeight={1.2}>
                       {data}
@@ -50,5 +60,5 @@ export default function Progression() {
         </Box>
       </Container>
     </Box>
-  );
+  )
 }

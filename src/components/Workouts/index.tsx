@@ -1,44 +1,49 @@
-import WorkoutsList from '@/components/Workouts/WorkoutsList';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { findWorkoutsByUserId, IWorkoutInterface } from '../../pages/api/providers/workout.provider';
+import WorkoutsList from '@/components/Workouts/WorkoutsList'
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import {
+  findWorkoutsByUserId,
+  IWorkoutInterface,
+} from '../../pages/api/providers/workout.provider'
 
 interface WorkoutsListProps {
-  userId: string; 
+  userId: string
 }
 
-export default function Workouts ({ userId }: WorkoutsListProps) {
-  const router = useRouter();
-  const [ userWorkouts, setUserWorkouts ] = useState<IWorkoutInterface[]>([]); 
+export default function Workouts({ userId }: WorkoutsListProps) {
+  const router = useRouter()
+  const [userWorkouts, setUserWorkouts] = useState<IWorkoutInterface[]>([])
 
   const fetchUserWorkouts = async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
-      }     
+        router.push('/login')
+        return
+      }
 
-      const workoutsByUser = await findWorkoutsByUserId(token, userId as string);
-      
-      setUserWorkouts(workoutsByUser);
+      const workoutsByUser = await findWorkoutsByUserId(token, userId as string)
+
+      setUserWorkouts(workoutsByUser)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  };
+  }
 
-
-
-useEffect(() => {    
-  fetchUserWorkouts();
-}, []);
+  useEffect(() => {
+    fetchUserWorkouts()
+  }, [])
 
   return (
-    <>      
-      <WorkoutsList fetchUserWorkouts={fetchUserWorkouts}  workouts={ userWorkouts } userId={userId}/>
+    <>
+      <WorkoutsList
+        fetchUserWorkouts={fetchUserWorkouts}
+        workouts={userWorkouts}
+        userId={userId}
+      />
     </>
   )
 }

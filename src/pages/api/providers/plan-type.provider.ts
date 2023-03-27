@@ -1,19 +1,20 @@
-import { api } from '../apis/api';
+import { api } from '../apis/api'
 
-export interface IPlanTypeInterface {  
-  id: string;
-  name: string;  
+export interface IPlanTypeInterface {
+  id: string
+  name: string
 }
 
-export async function findPlanTypes(token: string): Promise<IPlanTypeInterface[]> {
-  try {   
+export async function findPlanTypes(
+  token: string,
+): Promise<IPlanTypeInterface[]> {
+  try {
     const response = await api.get<IPlanTypeInterface[]>('/plan-type', {
       headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
+    })
+    return response.data
   } catch (error) {
-    console.error('Failed to create user', error);
-    throw error;
+    console.error('Failed to create user', error)
+    throw error
   }
 }
-

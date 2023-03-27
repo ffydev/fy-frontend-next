@@ -1,29 +1,37 @@
 import {
   Box,
-  BoxProps, Button, Flex,
+  BoxProps,
+  Button,
+  Flex,
   FormControl,
-  FormLabel, Heading, Input, InputGroup, Stack, Text
+  FormLabel,
+  Heading,
+  Input,
+  InputGroup,
+  Stack,
+  Text
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { signIn } from './api/providers/auth.provider';
 
 export default function Login() {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const formData = new FormData(event.currentTarget);
-    const username = formData.get('username') as string;
-    const password = formData.get('password') as string;
+    const formData = new FormData(event.currentTarget)
+    const username = formData.get('username') as string
+    const password = formData.get('password') as string
 
-    const login = await signIn(username, password);
+    const login = await signIn(username, password)
 
     if (login?.access_token) {
-      router.push('/dashboard');
+      router.push('/dashboard')
     }
-  };
+  }
 
   const BoxBgImage = (props: BoxProps) => {
     return (
@@ -46,8 +54,8 @@ export default function Login() {
         }}
         {...props}
       />
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -138,5 +146,5 @@ export default function Login() {
         </Flex>
       </BoxBgImage>
     </>
-  );
+  )
 }

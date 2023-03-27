@@ -1,4 +1,4 @@
-import { Button, Center, Link, Stack } from '@chakra-ui/react';
+import { Button, Center, Link, Stack } from '@chakra-ui/react'
 
 export default function CtaForm() {
   return (
@@ -28,8 +28,5 @@ export default function CtaForm() {
         </Button>
       </Center>
     </Stack>
-  );
-}
-function lighten(arg0: string, arg1: number) {
-  throw new Error('Function not implemented.');
+  )
 }

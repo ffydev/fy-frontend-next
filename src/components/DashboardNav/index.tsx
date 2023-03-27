@@ -1,84 +1,106 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider';
-import { findCurrentUser, IUserInterface } from '@/pages/api/providers/user.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import {
+  findCurrentUser,
+  IUserInterface,
+} from '@/pages/api/providers/user.provider'
 import {
   Avatar,
-  Box, BoxProps, Button, CloseButton, Drawer,
-  DrawerContent, Flex, FlexProps, HStack, Icon, IconButton, Menu,
+  Box,
+  BoxProps,
+  Button,
+  CloseButton,
+  Drawer,
+  DrawerContent,
+  Flex,
+  FlexProps,
+  HStack,
+  Icon,
+  IconButton,
+  Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
-  MenuList, Text, useColorModeValue, useDisclosure, VStack
-} from '@chakra-ui/react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { IconType } from 'react-icons';
-import { FiBell, FiChevronDown, FiHome, FiMenu, FiTrendingUp } from 'react-icons/fi';
-import Users from '../Users/Users';
+  MenuList,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { IconType } from 'react-icons'
+import {
+  FiBell,
+  FiChevronDown,
+  FiHome,
+  FiMenu,
+  FiTrendingUp,
+} from 'react-icons/fi'
+import Users from '../Users/Users'
 interface LinkItemProps {
-  name: string;
-  icon: IconType;
-  userComponent?: boolean;
-  dietsComponents?: boolean;
+  name: string
+  icon: IconType
+  userComponent?: boolean
+  dietsComponents?: boolean
 }
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, userComponent: true },
   { name: 'Diets', icon: FiTrendingUp, dietsComponents: true },
-];
+]
 
 export default function DashboardNav() {
-  const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [userComponent, setUserComponent] = useState<boolean>(true);
-  const [dietsComponent, setDietsComponent] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<IUserInterface>();
+  const router = useRouter()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [userComponent, setUserComponent] = useState<boolean>(true)
+  const [dietsComponent, setDietsComponent] = useState<boolean>(false)
+  const [currentUser, setCurrentUser] = useState<IUserInterface>()
 
   useEffect(() => {
-    fetchCurrentUserData();
-  }, []);
+    fetchCurrentUserData()
+  }, [])
 
   const fetchCurrentUserData = async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      const currentUserData = await findCurrentUser(token);
+      const currentUserData = await findCurrentUser(token)
       if (!currentUserData) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      setCurrentUser(currentUserData);
+      setCurrentUser(currentUserData)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  };
+  }
 
   const handleWithShowUser = () => {
-    setUserComponent(true);
-    setDietsComponent(false);
-  };
+    setUserComponent(true)
+    setDietsComponent(false)
+  }
 
   const handleWithShowDiets = () => {
-    setUserComponent(false);
-    setDietsComponent(true);
-  };
+    setUserComponent(false)
+    setDietsComponent(true)
+  }
 
   const handleWithLogout = () => {
-    const token = getUserToken();
+    const token = getUserToken()
 
     if (token) {
-      localStorage.removeItem('fyToken');
-      router.push('/login');
-      return;
+      localStorage.removeItem('fyToken')
+      router.push('/login')
     }
-  };
+  }
 
   return (
     <>
@@ -122,13 +144,13 @@ export default function DashboardNav() {
         </div>
       </Box>
     </>
-  );
+  )
 }
 
 interface SidebarProps extends BoxProps {
-  onClose: () => void;
-  handleWithShowUser: () => void;
-  handleWithShowDiets: () => void;
+  onClose: () => void
+  handleWithShowUser: () => void
+  handleWithShowDiets: () => void
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -147,7 +169,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
-        <Image src={'/logo.png'} alt={''} width={50} height={50} loading={'eager'} />
+        <Image
+          src={'/logo.png'}
+          alt={''}
+          width={50}
+          height={50}
+          loading={'eager'}
+        />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -188,12 +216,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
     </Box>
-  );
-};
+  )
+}
 
 interface NavItemProps extends FlexProps {
-  icon: IconType;
-  children: any;
+  icon: IconType
+  children: any
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
@@ -223,14 +251,19 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Box>
-  );
-};
-interface MobileProps extends FlexProps {
-  onOpen: () => void;
-  currentUser?: IUserInterface;
-  handleWithLogout: () => void;
+  )
 }
-const MobileNav = ({ onOpen, currentUser, handleWithLogout, ...rest }: MobileProps) => {
+interface MobileProps extends FlexProps {
+  onOpen: () => void
+  currentUser?: IUserInterface
+  handleWithLogout: () => void
+}
+const MobileNav = ({
+  onOpen,
+  currentUser,
+  handleWithLogout,
+  ...rest
+}: MobileProps) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -266,7 +299,11 @@ const MobileNav = ({ onOpen, currentUser, handleWithLogout, ...rest }: MobilePro
         />
         <Flex alignItems={'center'}>
           <Menu>
-            <MenuButton py={2} transition='all 0.3s' _focus={{ boxShadow: 'none' }}>
+            <MenuButton
+              py={2}
+              transition='all 0.3s'
+              _focus={{ boxShadow: 'none' }}
+            >
               <HStack>
                 <Avatar size={'md'} src={''} name={'Admin'} bg={'purple.400'} />
                 <VStack
@@ -299,5 +336,5 @@ const MobileNav = ({ onOpen, currentUser, handleWithLogout, ...rest }: MobilePro
         </Flex>
       </HStack>
     </Flex>
-  );
-};
+  )
+}

@@ -1,7 +1,5 @@
-import DashboardNav from '@/components/DashboardNav';
+import DashboardNav from '@/components/DashboardNav'
 
 export default function Dashboard() {
-  return (
-    <DashboardNav/>
-  )
+  return <DashboardNav />
 }

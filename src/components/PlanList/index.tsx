@@ -1,42 +1,51 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider';
-import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
-import { IPlanInterface, updatePlan } from '@/pages/api/providers/plan.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider'
+import { IPlanInterface, updatePlan } from '@/pages/api/providers/plan.provider'
 import {
-  Box, chakra,
-  Editable, EditableInput, EditablePreview, FormControl, FormLabel, Select, SimpleGrid, Tag, Text
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+  Box,
+  chakra,
+  Editable,
+  EditableInput,
+  EditablePreview,
+  FormControl,
+  FormLabel,
+  Select,
+  SimpleGrid,
+  Tag,
+  Text,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 interface PlanListProps {
-  plans: IPlanInterface[];
-  planTypes: IPlanTypeInterface[];
+  plans: IPlanInterface[]
+  planTypes: IPlanTypeInterface[]
 }
 
 export default function PlanList({ plans, planTypes }: PlanListProps) {
-  const router = useRouter();
-  const [initDate, setInitDate] = useState<string>();
-  const [endDate, setEndDate] = useState<string>();
-  const [planTypeId, setPlanTypeId] = useState<string>();
+  const router = useRouter()
+  const [initDate, setInitDate] = useState<string>()
+  const [endDate, setEndDate] = useState<string>()
+  const [planTypeId, setPlanTypeId] = useState<string>()
 
   const handleUpdatePlan = async (planId: string) => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
       await updatePlan(token, planId, {
         initDate: initDate ? initDate.toString() : undefined,
         endDate: endDate ? endDate.toString() : undefined,
         planTypeId,
-      });
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <>
@@ -59,7 +68,9 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
                 Início:
               </Tag>
-              <Editable defaultValue={new Date(plan.initDate!).toLocaleDateString()}>
+              <Editable
+                defaultValue={new Date(plan.initDate!).toLocaleDateString()}
+              >
                 <EditablePreview />
                 <EditableInput
                   type='date'
@@ -74,7 +85,9 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
                 Fim:
               </Tag>
-              <Editable defaultValue={new Date(plan.endDate!).toLocaleDateString()}>
+              <Editable
+                defaultValue={new Date(plan.endDate!).toLocaleDateString()}
+              >
                 <EditablePreview />
                 <EditableInput
                   type='date'
@@ -114,5 +127,5 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
         ))}
       </SimpleGrid>
     </>
-  );
+  )
 }

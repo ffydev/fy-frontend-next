@@ -1,43 +1,54 @@
-import { api } from '../apis/api';
-import { IExerciseInterface } from './exercise.provider';
+import { api } from '../apis/api'
+import { IExerciseInterface } from './exercise.provider'
 
 export interface IWorkoutInterface {
-  id?: string;
-  workoutType: string;
-  userId: string;
-  isLatest?: boolean;
+  id?: string
+  workoutType: string
+  userId: string
+  isLatest?: boolean
   exercises?: IExerciseInterface[]
 }
 
-export async function createWorkout(token: string, workout: IWorkoutInterface): Promise<IWorkoutInterface> {
+export async function createWorkout(
+  token: string,
+  workout: IWorkoutInterface,
+): Promise<IWorkoutInterface> {
   try {
     const response = await api.post<IWorkoutInterface>('/workout', workout, {
       headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
+    })
+    return response.data
   } catch (error) {
-    console.error('Failed to create workout', error);
-    throw error;
+    console.error('Failed to create workout', error)
+    throw error
   }
 }
 
-export async function findWorkoutsByUserId(token: string, userId: string): Promise<IWorkoutInterface[]> {
-  try {   
-    const response = await api.get<IWorkoutInterface[]>(`/workout/by-user/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
+export async function findWorkoutsByUserId(
+  token: string,
+  userId: string,
+): Promise<IWorkoutInterface[]> {
+  try {
+    const response = await api.get<IWorkoutInterface[]>(
+      `/workout/by-user/${userId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+    return response.data
   } catch (error) {
-    console.error(`Failed to find workouts for user with id ${userId}`, error);
-    throw error;
+    console.error(`Failed to find workouts for user with id ${userId}`, error)
+    throw error
   }
 }
 export async function deleteWorkout(token: string, id: string): Promise<void> {
   try {
-    await api.delete(`/workout/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+    await api.delete(`/workout/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     return
   } catch (error) {
-    console.error(`Failed to delete user with id ${id}`, error);
-    throw error;
+    console.error(`Failed to delete user with id ${id}`, error)
+    throw error
   }
 }
