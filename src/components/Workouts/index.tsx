@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
-import { findWorkoutsByUserId, IWorkoutInterface } from '../../pages/api/providers/workout.provider';
 import WorkoutsList from '@/components/Workouts/WorkoutsList';
 import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { findWorkoutsByUserId, IWorkoutInterface } from '../../pages/api/providers/workout.provider';
 
 interface WorkoutsListProps {
   userId: string; 

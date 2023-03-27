@@ -1,4 +1,4 @@
-import { Button, Center, Stack, Link } from '@chakra-ui/react';
+import { Button, Center, Link, Stack } from '@chakra-ui/react';
 
 export default function CtaForm() {
   return (

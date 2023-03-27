@@ -1,26 +1,21 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import {
-  Box,
-  Heading,
-  FormControl,
-  Select,
-  Stack,
-  Input,
-  Container,
-} from '@chakra-ui/react';
-import UsersList from '../UsersList';
-import UserCreate from '../UserCreate';
-import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider';
-import {
-  findUserType,
-  IUserTypeInterface,
-} from '@/pages/api/providers/user-type.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 import {
   findPlanTypes,
-  IPlanTypeInterface,
+  IPlanTypeInterface
 } from '@/pages/api/providers/plan-type.provider';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+import {
+  findUserType,
+  IUserTypeInterface
+} from '@/pages/api/providers/user-type.provider';
+import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider';
+import {
+  Box, Container, FormControl, Heading, Input, Select,
+  Stack
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import UserCreate from '../UserCreate';
+import UsersList from '../UsersList';
 
 export default function Users() {
   const router = useRouter();

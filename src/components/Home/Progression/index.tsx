@@ -1,4 +1,4 @@
-import { Container, Text, chakra, Stack, HStack, Box } from '@chakra-ui/react';
+import { Box, chakra, Container, HStack, Stack, Text } from '@chakra-ui/react';
 
 export default function Progression() {
   const planList = [

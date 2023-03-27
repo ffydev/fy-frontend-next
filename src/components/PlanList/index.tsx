@@ -1,23 +1,12 @@
-import { useState } from 'react';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
+import { IPlanInterface, updatePlan } from '@/pages/api/providers/plan.provider';
 import {
-  Box,
-  Text,
-  chakra,
-  Editable,
-  EditablePreview,
-  EditableInput,
-  FormControl,
-  Select,
-  FormLabel,
-  Tag,
-  Container,
-  Stack,
-  SimpleGrid,
+  Box, chakra,
+  Editable, EditableInput, EditablePreview, FormControl, FormLabel, Select, SimpleGrid, Tag, Text
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { IPlanInterface, updatePlan } from '@/pages/api/providers/plan.provider';
-import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { useState } from 'react';
 
 interface PlanListProps {
   plans: IPlanInterface[];

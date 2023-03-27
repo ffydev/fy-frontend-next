@@ -1,4 +1,4 @@
-import { Box, Stack, chakra, Flex, Image } from '@chakra-ui/react';
+import { Box, chakra, Flex, Image, Stack } from '@chakra-ui/react';
 import FormPlanilha from '../FormPlanilha';
 
 export default function Header() {

@@ -1,11 +1,7 @@
 import {
-  Container,
-  Box,
-  FormLabel,
-  FormControl,
-  Input,
+  Box, Container, FormControl, FormLabel, Input,
   Stack,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import CtaForm from '../CtaForm';
 

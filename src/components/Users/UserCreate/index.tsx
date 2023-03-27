@@ -1,26 +1,14 @@
-import  { useState, useRef } from 'react';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
+import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider';
+import { createUser } from '@/pages/api/providers/user.provider';
 import {
-  Button,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalCloseButton,
-  ModalContent,
-  FormLabel,
-  ModalBody,
-  FormControl,
-  Input,
-  Stack,
-  ModalFooter,
-  Select,
-  Flex,
+  Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton,
+  ModalContent, ModalFooter, ModalOverlay, Select, Stack, useDisclosure
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider';
-import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
-import { createUser } from '@/pages/api/providers/user.provider';
 import { Plus } from 'phosphor-react';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { useRef, useState } from 'react';
 
 interface CreateUserProps {
   fetchUsersData: () => void;

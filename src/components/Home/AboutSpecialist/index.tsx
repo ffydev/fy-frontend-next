@@ -1,4 +1,4 @@
-import { Container, Stack, Flex, Box, Heading, Text, Avatar } from '@chakra-ui/react';
+import { Avatar, Box, Container, Flex, Heading, Stack, Text } from '@chakra-ui/react';
 
 export default function AboutSpecialist() {
   const textHeading = {

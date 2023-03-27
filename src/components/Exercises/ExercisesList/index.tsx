@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { 
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { deleteExercise, IExerciseInterface, updateExercise } from '@/pages/api/providers/exercise.provider';
+import {
   Box,
   chakra,
   CloseButton,
@@ -7,11 +8,10 @@ import {
   EditableInput,
   EditablePreview,
   Flex,
-  Spacer,  
- } from '@chakra-ui/react';
-import { useRouter } from 'next/router'
-import { deleteExercise, IExerciseInterface, updateExercise } from '@/pages/api/providers/exercise.provider';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+  Spacer
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void;

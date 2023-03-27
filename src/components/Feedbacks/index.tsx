@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { 
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { findFeedbacks, IUserFeedbackInterface } from '@/pages/api/providers/userFeedback.provider';
+import {
   Box,
   chakra,
   CloseButton,
   Flex,
-  Spacer,  
- } from '@chakra-ui/react';
-import { useRouter } from 'next/router'
-import { findFeedbacks, IUserFeedbackInterface } from '@/pages/api/providers/userFeedback.provider';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+  Spacer
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 interface feedbacksProps {
   userId: string;

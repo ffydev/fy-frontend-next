@@ -1,34 +1,20 @@
-import { useEffect, useState } from 'react';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { findCurrentUser, IUserInterface } from '@/pages/api/providers/user.provider';
 import {
-  Button,
-  IconButton,
   Avatar,
-  Box,
-  CloseButton,
-  Flex,
-  HStack,
-  VStack,
-  Icon,
-  useColorModeValue,
-  Drawer,
-  DrawerContent,
-  Text,
-  useDisclosure,
-  BoxProps,
-  FlexProps,
-  Menu,
+  Box, BoxProps, Button, CloseButton, Drawer,
+  DrawerContent, Flex, FlexProps, HStack, Icon, IconButton, Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
-  MenuList,
+  MenuList, Text, useColorModeValue, useDisclosure, VStack
 } from '@chakra-ui/react';
-import { FiHome, FiTrendingUp, FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
-import { useRouter } from 'next/router';
-import { IconType } from 'react-icons';
-import Users from '../Users/Users';
-import { findCurrentUser, IUserInterface } from '@/pages/api/providers/user.provider';
 import Image from 'next/image';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { IconType } from 'react-icons';
+import { FiBell, FiChevronDown, FiHome, FiMenu, FiTrendingUp } from 'react-icons/fi';
+import Users from '../Users/Users';
 interface LinkItemProps {
   name: string;
   icon: IconType;

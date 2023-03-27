@@ -1,32 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { createExercise } from '@/pages/api/providers/exercise.provider';
+import {
+  findExerciseTypes,
+  IExerciseTypesInterface
+} from '@/pages/api/providers/exercises-types.provider';
+import {
+  createWorkout,
+  deleteWorkout,
+  IWorkoutInterface
+} from '@/pages/api/providers/workout.provider';
 import {
   Box,
   Button,
-  CloseButton,
-  Container,
-  Flex,
+  CloseButton, Flex,
   FormControl,
   FormLabel,
   Select,
   SimpleGrid,
   Spacer,
   Stack,
-  Text,
+  Text
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import ExercisesList from '../../Exercises/ExercisesList';
 import Feedbacks from '../../Feedbacks';
-import { createExercise } from '@/pages/api/providers/exercise.provider';
-import {
-  createWorkout,
-  deleteWorkout,
-  IWorkoutInterface,
-} from '@/pages/api/providers/workout.provider';
-import {
-  findExerciseTypes,
-  IExerciseTypesInterface,
-} from '@/pages/api/providers/exercises-types.provider';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void;

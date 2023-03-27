@@ -1,15 +1,8 @@
 import {
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Stack,
-  Heading,
-  InputGroup,
-  Text,
   Box,
-  BoxProps,
+  BoxProps, Button, Flex,
+  FormControl,
+  FormLabel, Heading, Input, InputGroup, Stack, Text
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';

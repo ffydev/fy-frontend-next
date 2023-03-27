@@ -1,27 +1,17 @@
-import { useState } from 'react';
-import {
-  Box,
-  Flex,
-  Button,
-  SimpleGrid,
-  Stack,
-  Editable,
-  EditablePreview,
-  EditableInput,
-  CloseButton,
-  Spacer,
-  Container,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import PlanList from '../../PlanList';
+import Workouts from '@/components/Workouts';
+import { getUserToken } from '@/pages/api/providers/auth.provider';
 import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
 import {
   deleteUser,
   IUserInterface,
-  updateUser,
+  updateUser
 } from '@/pages/api/providers/user.provider';
-import Workouts from '@/components/Workouts';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+import {
+  Box, Button, CloseButton, Container, Editable, EditableInput, EditablePreview, Flex, SimpleGrid, Spacer, Stack
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import PlanList from '../../PlanList';
 
 interface ClientListProps {
   fetchUsersData: () => void;
