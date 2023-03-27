@@ -4,7 +4,7 @@ import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider'
 import {
   deleteUser,
   IUserInterface,
-  updateUser,
+  updateUser
 } from '@/pages/api/providers/user.provider'
 import {
   Box,
@@ -17,7 +17,7 @@ import {
   Flex,
   SimpleGrid,
   Spacer,
-  Stack,
+  Stack
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -46,6 +46,7 @@ export default function UsersList({
       const token = getUserToken()
 
       if (!token) {
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
@@ -65,6 +66,7 @@ export default function UsersList({
     const token = getUserToken()
 
     if (!token) {
+      // Implementar mensagem personalizada
       router.push('/login')
       return
     }

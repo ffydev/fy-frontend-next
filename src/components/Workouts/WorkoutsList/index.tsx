@@ -2,12 +2,12 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createExercise } from '@/pages/api/providers/exercise.provider'
 import {
   findExerciseTypes,
-  IExerciseTypesInterface,
+  IExerciseTypesInterface
 } from '@/pages/api/providers/exercises-types.provider'
 import {
   createWorkout,
   deleteWorkout,
-  IWorkoutInterface,
+  IWorkoutInterface
 } from '@/pages/api/providers/workout.provider'
 import {
   Box,
@@ -20,7 +20,7 @@ import {
   SimpleGrid,
   Spacer,
   Stack,
-  Text,
+  Text
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
@@ -51,6 +51,7 @@ export default function WorkoutsList({
       const token = getUserToken()
 
       if (!token) {
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
@@ -60,6 +61,7 @@ export default function WorkoutsList({
       setExerciseTypes(response)
     } catch (error) {
       console.error(error)
+      // Implementar mensagem personalizada
       router.push('/login')
     }
   }, [router])
@@ -74,6 +76,7 @@ export default function WorkoutsList({
         const token = getUserToken()
 
         if (!token) {
+          // Implementar mensagem personalizada
           router.push('/login')
           return
         }
@@ -98,6 +101,7 @@ export default function WorkoutsList({
         const token = getUserToken()
 
         if (!token) {
+          // Implementar mensagem personalizada
           router.push('/login')
           return
         }
@@ -120,6 +124,7 @@ export default function WorkoutsList({
     const token = getUserToken()
 
     if (!token) {
+      // Implementar mensagem personalizada
       router.push('/login')
       return
     }

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import {
   findWorkoutsByUserId,
-  IWorkoutInterface,
+  IWorkoutInterface
 } from '../../pages/api/providers/workout.provider'
 
 interface WorkoutsListProps {
@@ -20,6 +20,7 @@ export default function Workouts({ userId }: WorkoutsListProps) {
       const token = getUserToken()
 
       if (!token) {
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
@@ -29,6 +30,7 @@ export default function Workouts({ userId }: WorkoutsListProps) {
       setUserWorkouts(workoutsByUser)
     } catch (error) {
       console.error(error)
+      // Implementar mensagem personalizada
       router.push('/login')
     }
   }, [router, userId])

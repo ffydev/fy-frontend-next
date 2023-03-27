@@ -16,7 +16,7 @@ import {
   ModalOverlay,
   Select,
   Stack,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Plus } from 'phosphor-react'
@@ -53,6 +53,7 @@ export default function UserCreate({
       const token = getUserToken()
 
       if (!token) {
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
