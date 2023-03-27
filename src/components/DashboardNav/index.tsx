@@ -1,7 +1,7 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findCurrentUser,
-  IUserInterface,
+  IUserInterface
 } from '@/pages/api/providers/user.provider'
 import {
   Avatar,
@@ -24,7 +24,7 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-  VStack,
+  VStack
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -35,7 +35,7 @@ import {
   FiChevronDown,
   FiHome,
   FiMenu,
-  FiTrendingUp,
+  FiTrendingUp
 } from 'react-icons/fi'
 import Users from '../Users/Users'
 interface LinkItemProps {
