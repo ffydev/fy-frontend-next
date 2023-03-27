@@ -1,10 +1,10 @@
 import WorkoutsList from '@/components/Workouts/WorkoutsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   findWorkoutsByUserId,
-  IWorkoutInterface,
+  IWorkoutInterface
 } from '../../pages/api/providers/workout.provider'
 
 interface WorkoutsListProps {
@@ -15,7 +15,7 @@ export default function Workouts({ userId }: WorkoutsListProps) {
   const router = useRouter()
   const [userWorkouts, setUserWorkouts] = useState<IWorkoutInterface[]>([])
 
-  const fetchUserWorkouts = async () => {
+  const fetchUserWorkouts = useCallback(async () => {
     try {
       const token = getUserToken()
 
@@ -31,11 +31,11 @@ export default function Workouts({ userId }: WorkoutsListProps) {
       console.error(error)
       router.push('/login')
     }
-  }
+  }, [router, userId])
 
   useEffect(() => {
     fetchUserWorkouts()
-  }, [])
+  }, [fetchUserWorkouts])
 
   return (
     <>
