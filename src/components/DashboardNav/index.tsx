@@ -28,7 +28,7 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import {
   FiBell,
@@ -53,35 +53,34 @@ const LinkItems: Array<LinkItemProps> = [
 export default function DashboardNav() {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const token = getUserToken()
   const [userComponent, setUserComponent] = useState<boolean>(true)
   const [dietsComponent, setDietsComponent] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<IUserInterface>()
 
-  useEffect(() => {
-    if (token) {
-      fetchCurrentUserData(token)
-      return 
-    } 
-      router.push('/login')   
-      return  // Implementar mensagem personalizada   
-  }, [token])
-
-  const fetchCurrentUserData = async (token: string) => {
-    try {       
+  const fetchCurrentUserData = useCallback(async (token: string) => {
+    try {
+      console.log('render')
       const currentUserData = await findCurrentUser(token)
-
-      if (!currentUserData) { // Implementar mensagem personalizada  
+  
+      if (!currentUserData) {
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
-
+  
       setCurrentUser(currentUserData)
     } catch (error) {
       console.error(error)
       router.push('/login')
     }
-  }
+  }, [router, setCurrentUser])
+  
+  useEffect(() => {
+    const token = getUserToken()
+    if (token) {
+      fetchCurrentUserData(token)
+    }
+  }, [fetchCurrentUserData])
 
   const handleWithShowUser = () => {
     setUserComponent(true)
