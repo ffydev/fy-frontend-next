@@ -23,7 +23,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import ExercisesList from '../../Exercises/ExercisesList'
 import Feedbacks from '../../Feedbacks'
 
@@ -46,7 +46,7 @@ export default function WorkoutsList({
   )
   const [showFeedback, setShowFeedback] = useState<boolean>(false)
 
-  const fetchExercisesTypesData = async () => {
+  const fetchExercisesTypesData = useCallback(async () => {
     try {
       const token = getUserToken()
 
@@ -62,56 +62,59 @@ export default function WorkoutsList({
       console.error(error)
       router.push('/login')
     }
-  }
+  }, [router])
 
   useEffect(() => {
     fetchExercisesTypesData()
-  }, [])
+  }, [fetchExercisesTypesData])
 
-  const handleCreateExercise = async (
-    workoutId: string,
-    exerciseTypeId: string,
-  ) => {
-    try {
-      const token = getUserToken()
+  const handleCreateExercise = useCallback(
+    async (workoutId: string, exerciseTypeId: string) => {
+      try {
+        const token = getUserToken()
 
-      if (!token) {
-        router.push('/login')
-        return
+        if (!token) {
+          router.push('/login')
+          return
+        }
+
+        if (exerciseTypeId) {
+          await createExercise(token, {
+            workoutId,
+            exerciseTypeId,
+          })
+          fetchUserWorkouts()
+        }
+      } catch (error) {
+        console.error(error)
       }
+    },
+    [fetchUserWorkouts, router],
+  )
 
-      if (exerciseTypeId) {
-        await createExercise(token, {
-          workoutId,
-          exerciseTypeId,
-        })
-        fetchUserWorkouts()
+  const handleCreateWorkout = useCallback(
+    async (userId: string) => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          router.push('/login')
+          return
+        }
+
+        if (workoutType) {
+          await createWorkout(token, {
+            userId,
+            workoutType,
+          })
+          fetchUserWorkouts()
+        }
+      } catch (error) {
+        console.error(error)
       }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const handleCreateWorkout = async (userId: string) => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        router.push('/login')
-        return
-      }
-
-      if (workoutType) {
-        await createWorkout(token, {
-          userId,
-          workoutType,
-        })
-        fetchUserWorkouts()
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
+    },
+    [fetchUserWorkouts, router, workoutType],
+  )
 
   const handleWithDeleteWorkout = (id: string) => {
     const token = getUserToken()
