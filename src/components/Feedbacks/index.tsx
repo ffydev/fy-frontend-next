@@ -1,11 +1,11 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findFeedbacks,
-  IUserFeedbackInterface,
+  IUserFeedbackInterface
 } from '@/pages/api/providers/userFeedback.provider'
 import { Box, chakra, CloseButton, Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface feedbacksProps {
   userId: string
@@ -21,11 +21,12 @@ export default function Feedbacks({
   const router = useRouter()
   const [feedbacks, setFeedbacks] = useState<IUserFeedbackInterface[]>()
 
-  const fetchFeedbacksData = async (userId: string, workoutId: string) => {
+  const fetchFeedbacksData = useCallback(async () => {
     try {
       const token = getUserToken()
 
       if (!token) {
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
@@ -36,11 +37,11 @@ export default function Feedbacks({
     } catch (error) {
       console.error(error)
     }
-  }
+  }, [router, userId, workoutId])
 
   useEffect(() => {
-    fetchFeedbacksData(userId, workoutId)
-  }, [userId, workoutId])
+    fetchFeedbacksData()
+  }, [fetchFeedbacksData])
 
   return (
     <>

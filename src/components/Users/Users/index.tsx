@@ -1,11 +1,11 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlanTypes,
-  IPlanTypeInterface
+  IPlanTypeInterface,
 } from '@/pages/api/providers/plan-type.provider'
 import {
   findUserType,
-  IUserTypeInterface
+  IUserTypeInterface,
 } from '@/pages/api/providers/user-type.provider'
 import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider'
 import {
@@ -15,7 +15,7 @@ import {
   Heading,
   Input,
   Select,
-  Stack
+  Stack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
@@ -35,7 +35,7 @@ export default function Users() {
       const token = getUserToken()
 
       if (!token) {
-         // Implementar mensagem personalizada
+        // Implementar mensagem personalizada
         return router.push('/login')
       }
 
@@ -55,7 +55,7 @@ export default function Users() {
       const token = getUserToken()
 
       if (!token) {
-         // Implementar mensagem personalizada
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
@@ -74,7 +74,7 @@ export default function Users() {
       const token = getUserToken()
 
       if (!token) {
-         // Implementar mensagem personalizada
+        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
