@@ -59,7 +59,6 @@ export default function DashboardNav() {
 
   const fetchCurrentUserData = useCallback(async (token: string) => {
     try {
-      console.log('render')
       const currentUserData = await findCurrentUser(token)
   
       if (!currentUserData) {
