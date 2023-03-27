@@ -31,7 +31,7 @@ export default function Feedbacks({
       }
 
       const response = await findFeedbacks(token, { userId, workoutId })
-  
+
       setFeedbacks(response)
     } catch (error) {
       console.error(error)

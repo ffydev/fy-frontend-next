@@ -50,7 +50,7 @@ export default function Header() {
                     textAlign='left'
                   >
                     <Image
-                      alt="logo v do Next"
+                      alt='logo v do Next'
                       src='/logo.png'
                       width={50}
                       height={50}
