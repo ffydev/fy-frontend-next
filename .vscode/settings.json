@@ -57,7 +57,6 @@
     "dotenv": "tune"
   },
   "typescript.updateImportsOnFileMove.enabled": "never",
-  
   "material-icon-theme.files.associations": {
     "tsconfig.json": "tune",
     "*.webpack.js": "webpack",
@@ -139,7 +138,7 @@
   "editor.accessibilitySupport": "off",
   "explorer.confirmDragAndDrop": false,
   "terminal.integrated.fontSize": 14,
-  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  "terminal.integrated.fontFamily": "monospace",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     // "source.organizeImports": true

@@ -1,7 +1,7 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider'
-import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider'
-import { createUser } from '@/pages/api/providers/user.provider'
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
+import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider';
+import { createUser } from '@/pages/api/providers/user.provider';
 import {
   Button,
   Flex,
@@ -16,16 +16,16 @@ import {
   ModalOverlay,
   Select,
   Stack,
-  useDisclosure
-} from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { Plus } from 'phosphor-react'
-import { useRef, useState } from 'react'
+  useDisclosure,
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { Plus } from 'phosphor-react';
+import { useRef, useState } from 'react';
 
 interface CreateUserProps {
-  fetchUsersData: () => void
-  userTypes: IUserTypeInterface[]
-  planTypes: IPlanTypeInterface[]
+  fetchUsersData: () => void;
+  userTypes: IUserTypeInterface[];
+  planTypes: IPlanTypeInterface[];
 }
 
 export default function UserCreate({
@@ -33,29 +33,29 @@ export default function UserCreate({
   userTypes,
   planTypes,
 }: CreateUserProps) {
-  const router = useRouter()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [userTypeId, setUserTypeId] = useState<string>('')
-  const [initDate, setInitDate] = useState<string>('')
-  const [endDate, setEndDate] = useState<string>('')
-  const [planTypeId, setPlanTypeId] = useState<string>('')
+  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [userTypeId, setUserTypeId] = useState<string>('');
+  const [initDate, setInitDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [planTypeId, setPlanTypeId] = useState<string>('');
 
   const handleWithGenPassword = () => {
-    setPassword('123')
-  }
+    setPassword('123');
+  };
 
-  const initialRef = useRef<HTMLInputElement>(null)
+  const initialRef = useRef<HTMLInputElement>(null);
 
   const handleCreateUser = async () => {
     try {
-      const token = getUserToken()
+      const token = getUserToken();
 
       if (!token) {
         // Implementar mensagem personalizada
-        router.push('/login')
-        return
+        router.push('/login');
+        return;
       }
 
       await createUser(token, {
@@ -72,13 +72,13 @@ export default function UserCreate({
           ],
         },
       }).then(() => {
-        fetchUsersData()
-      })
-      onClose()
+        fetchUsersData();
+      });
+      onClose();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <>
@@ -194,5 +194,5 @@ export default function UserCreate({
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }

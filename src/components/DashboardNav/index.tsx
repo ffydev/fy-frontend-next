@@ -1,8 +1,5 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider'
-import {
-  findCurrentUser,
-  IUserInterface
-} from '@/pages/api/providers/user.provider'
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { findCurrentUser, IUserInterface } from '@/pages/api/providers/user.provider';
 import {
   Avatar,
   Box,
@@ -22,90 +19,89 @@ import {
   MenuItem,
   MenuList,
   Text,
-  useColorModeValue,
   useDisclosure,
-  VStack
-} from '@chakra-ui/react'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
-import { IconType } from 'react-icons'
-import {
-  FiBell,
-  FiChevronDown,
-  FiHome,
-  FiMenu,
-  FiTrendingUp
-} from 'react-icons/fi'
-import Users from '../Users/Users'
+  VStack,
+} from '@chakra-ui/react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { IconType } from 'react-icons';
+import { FiBell, FiChevronDown, FiHome, FiMenu, FiTrendingUp } from 'react-icons/fi';
+import Users from '../Users/Users';
 interface LinkItemProps {
-  name: string
-  icon: IconType
-  userComponent?: boolean
-  dietsComponents?: boolean
+  name: string;
+  icon: IconType;
+  userComponent?: boolean;
+  dietsComponents?: boolean;
 }
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, userComponent: true },
   { name: 'Diets', icon: FiTrendingUp, dietsComponents: true },
-]
+];
 
 export default function DashboardNav() {
-  const router = useRouter()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [userComponent, setUserComponent] = useState<boolean>(true)
-  const [dietsComponent, setDietsComponent] = useState<boolean>(false)
-  const [currentUser, setCurrentUser] = useState<IUserInterface>()
+  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userComponent, setUserComponent] = useState<boolean>(true);
+  const [dietsComponent, setDietsComponent] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<IUserInterface>();
 
   const fetchCurrentUserData = useCallback(
     async (token: string) => {
       try {
-        const currentUserData = await findCurrentUser(token)
+        const currentUserData = await findCurrentUser(token);
 
         if (!currentUserData) {
           // Implementar mensagem personalizada
-          router.push('/login')
-          return
+          router.push('/login');
+          return;
         }
 
-        setCurrentUser(currentUserData)
+        setCurrentUser(currentUserData);
       } catch (error) {
-        console.error(error)
-        router.push('/login')
+        console.error(error);
+        router.push('/login');
       }
     },
-    [router, setCurrentUser],
-  )
+    [router, setCurrentUser]
+  );
 
   useEffect(() => {
-    const token = getUserToken()
+    const token = getUserToken();
     if (token) {
-      fetchCurrentUserData(token)
+      fetchCurrentUserData(token);
     }
-  }, [fetchCurrentUserData])
+  }, [fetchCurrentUserData]);
 
   const handleWithShowUser = () => {
-    setUserComponent(true)
-    setDietsComponent(false)
-  }
+    setUserComponent(true);
+    setDietsComponent(false);
+  };
 
   const handleWithShowDiets = () => {
-    setUserComponent(false)
-    setDietsComponent(true)
-  }
+    setUserComponent(false);
+    setDietsComponent(true);
+  };
 
   const handleWithLogout = () => {
-    const token = getUserToken()
+    const token = getUserToken();
 
     if (token) {
-      localStorage.removeItem('fyToken')
-      router.push('/login')
+      localStorage.removeItem('fyToken');
+      router.push('/login');
     }
-  }
+  };
 
   return (
     <>
-      <Box minH='100vh' bgColor={'gray.900'}>
+      <Box
+        minH='100vh'
+        bgGradient={[
+          'linear(to-tr, gray.900 30.17%, purple.900 99.87%)',
+          'linear(to-br, gray.900 80.17%, purple.900 99.87%)',
+        ]}
+      >
         <SidebarContent
           onClose={() => onClose}
           handleWithShowUser={handleWithShowUser}
@@ -137,26 +133,24 @@ export default function DashboardNav() {
         />
         <Box>
           {userComponent ? <Users /> : null}
-          {dietsComponent ? (
-           <></>
-          ) : null}
+          {dietsComponent ? <></> : null}
         </Box>
       </Box>
     </>
-  )
+  );
 }
 
 interface SidebarProps extends BoxProps {
-  onClose: () => void
-  handleWithShowUser: () => void
-  handleWithShowDiets: () => void
+  onClose: () => void;
+  handleWithShowUser: () => void;
+  handleWithShowDiets: () => void;
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition='3s ease'
-      bgColor={'whiteAlpha.50'}
+      bgColor={'blackAlpha.50'}
       backdropBlur={'1rem'}
       backdropFilter='blur(15px)'
       boxShadow={'lg'}
@@ -168,13 +162,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
-        <Image
-          src={'/logo.png'}
-          alt={''}
-          width={50}
-          height={50}
-          loading={'eager'}
-        />
+        <Image src={'/logo.png'} alt={''} width={50} height={50} loading={'eager'} />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -215,12 +203,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
     </Box>
-  )
-}
+  );
+};
 
 interface NavItemProps extends FlexProps {
-  icon: IconType
-  children: any
+  icon: IconType;
+  children: any;
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
@@ -250,31 +238,28 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Box>
-  )
-}
+  );
+};
 interface MobileProps extends FlexProps {
-  onOpen: () => void
-  currentUser?: IUserInterface
-  handleWithLogout: () => void
+  onOpen: () => void;
+  currentUser?: IUserInterface;
+  handleWithLogout: () => void;
 }
-const MobileNav = ({
-  onOpen,
-  currentUser,
-  handleWithLogout,
-  ...rest
-}: MobileProps) => {
+const MobileNav = ({ onOpen, currentUser, handleWithLogout, ...rest }: MobileProps) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height={20}
       alignItems='center'
-      bgColor={'blackAlpha.100'}
+      bgColor={'blackAlpha.50'}
       backdropBlur={'1rem'}
       backdropFilter='blur(15px)'
       borderBottomWidth='1px'
       borderBottomColor={'whiteAlpha.100'}
       justifyContent={'space-between'}
+      position={'relative'}
+      zIndex={3}
       {...rest}
     >
       <IconButton
@@ -285,7 +270,7 @@ const MobileNav = ({
         icon={<FiMenu />}
       />
 
-      <Text fontSize='lg' fontFamily='monospace' fontWeight='bold' ml={5}>
+      <Text fontSize={['sm', 'lg']} fontFamily='monospace' fontWeight='bold' ml={5}>
         Olá! Seja muito bem vindo.
       </Text>
 
@@ -298,11 +283,7 @@ const MobileNav = ({
         />
         <Flex alignItems={'center'}>
           <Menu>
-            <MenuButton
-              py={2}
-              transition='all 0.3s'
-              _focus={{ boxShadow: 'none' }}
-            >
+            <MenuButton py={2} transition='all 0.3s' _focus={{ boxShadow: 'none' }}>
               <HStack>
                 <Avatar size={'md'} src={''} name={'Admin'} bg={'purple.400'} />
                 <VStack
@@ -322,18 +303,20 @@ const MobileNav = ({
               </HStack>
             </MenuButton>
             <MenuList
-              bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}
+              bgColor={'blackAlpha.800'}
+              backdropFilter='auto'
+              backdropBlur='20px'
+              borderBottomWidth='1px'
+              borderBottomColor={'whiteAlpha.100'}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
+              <MenuItem>Perfil</MenuItem>
+              <MenuItem>Configuração</MenuItem>
               <MenuDivider />
-              <MenuItem onClick={() => handleWithLogout()}>Sign out</MenuItem>
+              <MenuItem onClick={() => handleWithLogout()}>Sair</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
       </HStack>
     </Flex>
-  )
-}
+  );
+};
