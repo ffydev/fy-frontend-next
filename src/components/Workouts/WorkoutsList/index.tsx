@@ -1,14 +1,14 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider';
-import { createExercise } from '@/pages/api/providers/exercise.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { createExercise } from '@/pages/api/providers/exercise.provider'
 import {
   findExerciseTypes,
   IExerciseTypesInterface,
-} from '@/pages/api/providers/exercises-types.provider';
+} from '@/pages/api/providers/exercises-types.provider'
 import {
   createWorkout,
   deleteWorkout,
   IWorkoutInterface,
-} from '@/pages/api/providers/workout.provider';
+} from '@/pages/api/providers/workout.provider'
 import {
   Box,
   Button,
@@ -22,16 +22,16 @@ import {
   Spacer,
   Stack,
   Text,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
-import ExercisesList from '../../Exercises/ExercisesList';
-import Feedbacks from '../../Feedbacks';
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useCallback, useEffect, useState } from 'react'
+import ExercisesList from '../../Exercises/ExercisesList'
+import Feedbacks from '../../Feedbacks'
 
 interface WorkoutsProps {
-  fetchUserWorkouts: () => void;
-  workouts?: IWorkoutInterface[];
-  userId: string;
+  fetchUserWorkouts: () => void
+  workouts?: IWorkoutInterface[]
+  userId: string
 }
 
 export default function WorkoutsList({
@@ -39,106 +39,108 @@ export default function WorkoutsList({
   workouts,
   userId,
 }: WorkoutsProps) {
-  const router = useRouter();
-  const [exerciseTypeId, setExerciseTypeId] = useState<string>('');
-  const [workoutType, setWorkoutType] = useState<string>('');
-  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>([]);
-  const [showFeedback, setShowFeedback] = useState<boolean>(false);
+  const router = useRouter()
+  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
+  const [workoutType, setWorkoutType] = useState<string>('')
+  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
+    [],
+  )
+  const [showFeedback, setShowFeedback] = useState<boolean>(false)
 
   const fetchExercisesTypesData = useCallback(async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
         // Implementar mensagem personalizada
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      const response = await findExerciseTypes(token);
+      const response = await findExerciseTypes(token)
 
-      setExerciseTypes(response);
+      setExerciseTypes(response)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       // Implementar mensagem personalizada
-      router.push('/login');
+      router.push('/login')
     }
-  }, [router]);
+  }, [router])
 
   useEffect(() => {
-    fetchExercisesTypesData();
-  }, [fetchExercisesTypesData]);
+    fetchExercisesTypesData()
+  }, [fetchExercisesTypesData])
 
   const handleCreateExercise = useCallback(
     async (workoutId: string, exerciseTypeId: string) => {
       try {
-        const token = getUserToken();
+        const token = getUserToken()
 
         if (!token) {
           // Implementar mensagem personalizada
-          router.push('/login');
-          return;
+          router.push('/login')
+          return
         }
 
         if (exerciseTypeId) {
           await createExercise(token, {
             workoutId,
             exerciseTypeId,
-          });
-          fetchUserWorkouts();
+          })
+          fetchUserWorkouts()
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
-    [fetchUserWorkouts, router]
-  );
+    [fetchUserWorkouts, router],
+  )
 
   const handleCreateWorkout = useCallback(
     async (userId: string) => {
       try {
-        const token = getUserToken();
+        const token = getUserToken()
 
         if (!token) {
           // Implementar mensagem personalizada
-          router.push('/login');
-          return;
+          router.push('/login')
+          return
         }
 
         if (workoutType) {
           await createWorkout(token, {
             userId,
             workoutType,
-          });
-          fetchUserWorkouts();
+          })
+          fetchUserWorkouts()
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
-    [fetchUserWorkouts, router, workoutType]
-  );
+    [fetchUserWorkouts, router, workoutType],
+  )
 
   const handleWithDeleteWorkout = (id: string) => {
-    const token = getUserToken();
+    const token = getUserToken()
 
     if (!token) {
       // Implementar mensagem personalizada
-      router.push('/login');
-      return;
+      router.push('/login')
+      return
     }
     deleteWorkout(token, id).then(() => {
-      fetchUserWorkouts();
-    });
-  };
+      fetchUserWorkouts()
+    })
+  }
 
   const handleWithShowFeedback = () => {
-    setShowFeedback(true);
-  };
+    setShowFeedback(true)
+  }
 
   const handleWithCloseFeedback = () => {
-    setShowFeedback(false);
-  };
+    setShowFeedback(false)
+  }
 
   return (
     <>
@@ -303,5 +305,5 @@ export default function WorkoutsList({
         ))}
       </Stack> */}
     </>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlanTypes,
   IPlanTypeInterface,
-} from '@/pages/api/providers/plan-type.provider';
+} from '@/pages/api/providers/plan-type.provider'
 import {
   findUserType,
   IUserTypeInterface,
-} from '@/pages/api/providers/user-type.provider';
-import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider';
+} from '@/pages/api/providers/user-type.provider'
+import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider'
 import {
   Box,
   Container,
@@ -16,87 +16,87 @@ import {
   Input,
   Select,
   Stack,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
-import UserCreate from '../UserCreate';
-import UsersList from '../UsersList';
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useCallback, useEffect, useState } from 'react'
+import UserCreate from '../UserCreate'
+import UsersList from '../UsersList'
 
 export default function Users() {
-  const router = useRouter();
-  const [users, setUsers] = useState<IUserInterface[]>([]);
-  const [userType, setUserType] = useState<IUserTypeInterface[]>([]);
-  const [userTypeId, setUserTypeId] = useState<string>('');
-  const [searchName, setSearchName] = useState<string>('');
-  const [planTypes, setPlanTypes] = useState<IPlanTypeInterface[]>([]);
+  const router = useRouter()
+  const [users, setUsers] = useState<IUserInterface[]>([])
+  const [userType, setUserType] = useState<IUserTypeInterface[]>([])
+  const [userTypeId, setUserTypeId] = useState<string>('')
+  const [searchName, setSearchName] = useState<string>('')
+  const [planTypes, setPlanTypes] = useState<IPlanTypeInterface[]>([])
 
   const fetchUsersData = useCallback(async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
         // Implementar mensagem personalizada
-        return router.push('/login');
+        return router.push('/login')
       }
 
       const usersData = await findUsers(token, {
         userTypeId,
         searchName,
-      });
-      setUsers(usersData);
+      })
+      setUsers(usersData)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  }, [router, userTypeId, searchName, setUsers]);
+  }, [router, userTypeId, searchName, setUsers])
 
   const fetchPlanTypeData = useCallback(async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
         // Implementar mensagem personalizada
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      const response = await findPlanTypes(token);
+      const response = await findPlanTypes(token)
 
-      setPlanTypes(response);
+      setPlanTypes(response)
     } catch (error) {
-      console.error(error);
-      router.push('/login');
+      console.error(error)
+      router.push('/login')
     }
-  }, [router, setPlanTypes]);
+  }, [router, setPlanTypes])
 
   const fetchUserTypeData = useCallback(async () => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
         // Implementar mensagem personalizada
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
-      const response = await findUserType(token);
+      const response = await findUserType(token)
 
-      setUserType(response);
+      setUserType(response)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       // Implementar mensagem personalizada
-      router.push('/login');
+      router.push('/login')
     }
-  }, [router, setUserType]);
+  }, [router, setUserType])
 
   useEffect(() => {
-    fetchPlanTypeData();
-    fetchUserTypeData();
-  }, [fetchPlanTypeData, fetchUserTypeData]);
+    fetchPlanTypeData()
+    fetchUserTypeData()
+  }, [fetchPlanTypeData, fetchUserTypeData])
 
   useEffect(() => {
-    fetchUsersData();
-  }, [fetchUsersData]);
+    fetchUsersData()
+  }, [fetchUsersData])
 
   return (
     <>
@@ -108,7 +108,13 @@ export default function Users() {
       >
         <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
           <Container maxW='7xl' p={{ base: 5, md: 10 }}>
-            <Heading as='h3' size='lg' mb='4' fontWeight='medium' textAlign='left'>
+            <Heading
+              as='h3'
+              size='lg'
+              mb='4'
+              fontWeight='medium'
+              textAlign='left'
+            >
               Usuários
             </Heading>
             <Stack direction={['column', 'row']} spacing={6} w={'full'}>
@@ -119,7 +125,11 @@ export default function Users() {
                   planTypes={planTypes}
                 />
               </FormControl>
-              <FormControl width={'100%'} mb={{ base: '4', lg: '0' }} isRequired>
+              <FormControl
+                width={'100%'}
+                mb={{ base: '4', lg: '0' }}
+                isRequired
+              >
                 <Select
                   size={'md'}
                   border={'1px'}
@@ -158,5 +168,5 @@ export default function Users() {
         </Box>
       </Box>
     </>
-  );
+  )
 }

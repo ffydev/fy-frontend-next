@@ -2,7 +2,7 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   deleteExercise,
   IExerciseInterface,
-  updateExercise
+  updateExercise,
 } from '@/pages/api/providers/exercise.provider'
 import {
   Box,
@@ -12,7 +12,7 @@ import {
   EditableInput,
   EditablePreview,
   Flex,
-  Spacer
+  Spacer,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'

@@ -1,16 +1,15 @@
-import Workouts from '@/components/Workouts';
-import { getUserToken } from '@/pages/api/providers/auth.provider';
-import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider';
+import Workouts from '@/components/Workouts'
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider'
 import {
   deleteUser,
   IUserInterface,
   updateUser,
-} from '@/pages/api/providers/user.provider';
+} from '@/pages/api/providers/user.provider'
 import {
   Box,
   Button,
   CloseButton,
-  Container,
   Editable,
   EditableInput,
   EditablePreview,
@@ -18,15 +17,15 @@ import {
   SimpleGrid,
   Spacer,
   Stack,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import PlanList from '../../PlanList';
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import PlanList from '../../PlanList'
 
 interface ClientListProps {
-  fetchUsersData: () => void;
-  users: IUserInterface[];
-  planTypes: IPlanTypeInterface[];
+  fetchUsersData: () => void
+  users: IUserInterface[]
+  planTypes: IPlanTypeInterface[]
 }
 
 export default function UsersList({
@@ -34,55 +33,55 @@ export default function UsersList({
   users,
   planTypes,
 }: ClientListProps) {
-  const router = useRouter();
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [workoutsComponents, setWorkoutsComponents] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>('');
+  const router = useRouter()
+  const [firstName, setFirstName] = useState<string>('')
+  const [lastName, setLastName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [workoutsComponents, setWorkoutsComponents] = useState<boolean>(false)
+  const [userId, setUserId] = useState<string>('')
 
   const handleUpdateUser = async (userId: string) => {
     try {
-      const token = getUserToken();
+      const token = getUserToken()
 
       if (!token) {
         // Implementar mensagem personalizada
-        router.push('/login');
-        return;
+        router.push('/login')
+        return
       }
 
       await updateUser(token, userId, {
         firstName,
         lastName,
       }).then(() => {
-        fetchUsersData();
-      });
+        fetchUsersData()
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleWithDelete = (id: string) => {
-    const token = getUserToken();
+    const token = getUserToken()
 
     if (!token) {
       // Implementar mensagem personalizada
-      router.push('/login');
-      return;
+      router.push('/login')
+      return
     }
     deleteUser(token, id).then(() => {
-      fetchUsersData();
-    });
-  };
+      fetchUsersData()
+    })
+  }
 
   const handleWithFindWorkoutsByUser = (userId: string) => {
-    setUserId(userId);
-    setWorkoutsComponents(true);
-  };
+    setUserId(userId)
+    setWorkoutsComponents(true)
+  }
 
   const handleWithShowUsers = () => {
-    setWorkoutsComponents(false);
-  };
+    setWorkoutsComponents(false)
+  }
 
   return (
     <>
@@ -128,7 +127,10 @@ export default function UsersList({
               >
                 <Flex minWidth='max-content'>
                   <Spacer />
-                  <CloseButton onClick={() => handleWithDelete(user.id)} size='sm' />
+                  <CloseButton
+                    onClick={() => handleWithDelete(user.id)}
+                    size='sm'
+                  />
                 </Flex>
 
                 <Editable defaultValue={user.email}>
@@ -178,5 +180,5 @@ export default function UsersList({
         </>
       )}
     </>
-  );
+  )
 }

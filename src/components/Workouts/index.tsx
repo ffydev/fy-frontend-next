@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import {
   findWorkoutsByUserId,
-  IWorkoutInterface
+  IWorkoutInterface,
 } from '../../pages/api/providers/workout.provider'
 
 interface WorkoutsListProps {
