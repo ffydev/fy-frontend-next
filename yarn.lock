@@ -1163,11 +1163,6 @@
     "@typescript-eslint/types" "5.57.0"
     eslint-visitor-keys "^3.3.0"
 
-"@wcj/generate-password@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@wcj/generate-password/-/generate-password-1.0.3.tgz#3010d51adfc4b8d3da30cc9fc0debb710968db18"
-  integrity sha512-KhpF9qfDm6nBCeG5o5YfViD+KZRo9ev0jTqu3TCutchf0iNrKF5Gawyx0C9KOkyHp3y8R7SQ9IBoInQVstCBdA==
-
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
