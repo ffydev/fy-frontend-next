@@ -1,11 +1,11 @@
 import Workouts from '@/components/Workouts'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider'
+import { IPlanTypeInterface } from '@/pages/api/providers/plans-types.provider'
 import {
   deleteUser,
   IUserInterface,
   updateUser,
-} from '@/pages/api/providers/user.provider'
+} from '@/pages/api/providers/users.provider'
 import {
   Box,
   Button,

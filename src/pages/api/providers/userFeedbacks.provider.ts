@@ -19,7 +19,7 @@ export async function findFeedbacks(
 ): Promise<IUserFeedbackInterface[]> {
   try {
     const response = await api.get<IUserFeedbackInterface[]>(
-      `/user-feedback?userId=${feedback.userId}&wokoutId=${feedback.workoutId}`,
+      `/user-feedbacks?userId=${feedback.userId}&wokoutId=${feedback.workoutId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },

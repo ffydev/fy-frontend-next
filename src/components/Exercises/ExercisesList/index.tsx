@@ -3,7 +3,7 @@ import {
   deleteExercise,
   IExerciseInterface,
   updateExercise,
-} from '@/pages/api/providers/exercise.provider'
+} from '@/pages/api/providers/exercises.provider'
 import {
   Box,
   chakra,

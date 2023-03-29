@@ -2,7 +2,7 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findFeedbacks,
   IUserFeedbackInterface,
-} from '@/pages/api/providers/userFeedback.provider'
+} from '@/pages/api/providers/userFeedbacks.provider'
 import { Box, chakra, CloseButton, Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'

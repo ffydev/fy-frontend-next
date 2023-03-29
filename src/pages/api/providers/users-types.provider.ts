@@ -1,5 +1,5 @@
 import { api } from '../apis/api'
-import { IUserInterface } from './user.provider'
+import { IUserInterface } from './users.provider'
 
 export interface IUserTypeInterface {
   id: string
@@ -11,7 +11,7 @@ export async function findUserType(
   token: string,
 ): Promise<IUserTypeInterface[]> {
   try {
-    const response = await api.get<IUserTypeInterface[]>('/user-types', {
+    const response = await api.get<IUserTypeInterface[]>('/users-types', {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data

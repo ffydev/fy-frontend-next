@@ -1,8 +1,8 @@
 import ButtonDashboard from '@/components/Button'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider'
-import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider'
-import { createUser } from '@/pages/api/providers/user.provider'
+import { IPlanTypeInterface } from '@/pages/api/providers/plans-types.provider'
+import { IUserTypeInterface } from '@/pages/api/providers/users-types.provider'
+import { createUser } from '@/pages/api/providers/users.provider'
 import {
   Button,
   Flex,

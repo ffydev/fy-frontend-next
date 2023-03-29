@@ -9,7 +9,7 @@ export async function findPlanTypes(
   token: string,
 ): Promise<IPlanTypeInterface[]> {
   try {
-    const response = await api.get<IPlanTypeInterface[]>('/plan-type', {
+    const response = await api.get<IPlanTypeInterface[]>('/plans-types', {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data

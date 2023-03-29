@@ -13,7 +13,7 @@ export interface IExerciseInterface {
 
 export async function deleteExercise(token: string, id: string): Promise<void> {
   try {
-    await api.delete(`/exercise/${id}`, {
+    await api.delete(`/exercises/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return
@@ -30,7 +30,7 @@ export async function updateExercise(
 ): Promise<IExerciseInterface> {
   try {
     const response = await api.patch<IExerciseInterface>(
-      `/exercise/${id}`,
+      `/exercises/${id}`,
       exercise,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -49,9 +49,13 @@ export async function createExercise(
   exercise: IExerciseInterface,
 ): Promise<IExerciseInterface> {
   try {
-    const response = await api.post<IExerciseInterface>(`/exercise`, exercise, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await api.post<IExerciseInterface>(
+      `/exercises`,
+      exercise,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {

@@ -2,7 +2,7 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findCurrentUser,
   IUserInterface,
-} from '@/pages/api/providers/user.provider'
+} from '@/pages/api/providers/users.provider'
 import {
   Avatar,
   Box,

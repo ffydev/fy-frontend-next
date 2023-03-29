@@ -1,7 +1,7 @@
 import { api } from '../apis/api'
-import { IPlanInterface } from './plan.provider'
-import { IUserTypeInterface } from './user-type.provider'
-import { IWorkoutInterface } from './workout.provider'
+import { IPlanInterface } from './plans.provider'
+import { IUserTypeInterface } from './users-types.provider'
+import { IWorkoutInterface } from './workouts.provider'
 
 export interface IUserInterface {
   id: string
@@ -43,7 +43,7 @@ export async function createUser(
   user: ICreateUserWithIPlanInterface,
 ): Promise<IUserInterface> {
   try {
-    const response = await api.post<IUserInterface>('/user', user, {
+    const response = await api.post<IUserInterface>('/users', user, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data
@@ -59,7 +59,7 @@ export async function findUsers(
 ): Promise<IUserInterface[]> {
   try {
     const response = await api.get<IUserInterface[]>(
-      `/user?userTypeId=${query.userTypeId}&searchName=${query.searchName}`,
+      `/users?userTypeId=${query.userTypeId}&searchName=${query.searchName}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
@@ -75,7 +75,7 @@ export async function findCurrentUser(
   token: string,
 ): Promise<IUserInterface | null> {
   try {
-    const response = await api.get<IUserInterface>('/user/profile', {
+    const response = await api.get<IUserInterface>('/users/profile', {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data
@@ -87,7 +87,7 @@ export async function findCurrentUser(
 
 export async function deleteUser(token: string, id: string): Promise<void> {
   try {
-    await api.delete(`/user/${id}`, {
+    await api.delete(`/users/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return
@@ -103,7 +103,7 @@ export async function updateUser(
   user: IUpdateUserWithIPlanInterface,
 ): Promise<IUserInterface> {
   try {
-    const response = await api.patch<IUserInterface>(`/user/${id}`, user, {
+    const response = await api.patch<IUserInterface>(`/users/${id}`, user, {
       headers: { Authorization: `Bearer ${token}` },
     })
 

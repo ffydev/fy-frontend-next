@@ -2,12 +2,12 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlanTypes,
   IPlanTypeInterface,
-} from '@/pages/api/providers/plan-type.provider'
+} from '@/pages/api/providers/plans-types.provider'
 import {
   findUserType,
   IUserTypeInterface,
-} from '@/pages/api/providers/user-type.provider'
-import { findUsers, IUserInterface } from '@/pages/api/providers/user.provider'
+} from '@/pages/api/providers/users-types.provider'
+import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
 import {
   Box,
   Container,
