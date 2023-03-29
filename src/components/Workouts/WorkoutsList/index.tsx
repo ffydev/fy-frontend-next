@@ -1,5 +1,5 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { createExercise } from '@/pages/api/providers/exercise.provider'
+import { createExercise } from '@/pages/api/providers/exercises.provider'
 import {
   findExerciseTypes,
   IExerciseTypesInterface,
@@ -8,7 +8,7 @@ import {
   createWorkout,
   deleteWorkout,
   IWorkoutInterface,
-} from '@/pages/api/providers/workout.provider'
+} from '@/pages/api/providers/workouts.provider'
 import {
   Box,
   Button,
