@@ -1,5 +1,6 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IExercisesNames } from '@/pages/api/providers/exercises-names.provider'
+import { IExerciseTypesInterface } from '@/pages/api/providers/exercises-types.provider'
 import {
   deleteExercise,
   IExerciseInterface,
@@ -26,15 +27,18 @@ interface WorkoutsProps {
   fetchUserWorkouts: () => void
   exercises?: IExerciseInterface[]
   exerciseNames?: IExercisesNames[]
+  exerciseTypes?: IExerciseTypesInterface[]
 }
 
 export default function ExercisesList({
   fetchUserWorkouts,
   exercises,
   exerciseNames,
+  exerciseTypes,
 }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
+  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [sets, setSets] = useState<string>('')
   const [reps, setReps] = useState<string>('')
   const [weight, setWeight] = useState<string>('')
@@ -99,6 +103,36 @@ export default function ExercisesList({
               size='sm'
             />
           </Flex>
+
+          <FormControl mt={2} isRequired>
+            <FormLabel>
+              <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                Tipo de exercício
+              </Tag>
+            </FormLabel>
+            <Select
+              size={'sm'}
+              rounded={'lg'}
+              variant={'filled'}
+              value={exerciseTypeId}
+              onChange={(event) => setExerciseTypeId(event.target.value)}
+              onBlur={() => handleUpdateExercise(exercise.id!)}
+            >
+              <option>{exercise.exerciseType?.name}</option>
+              {exerciseTypes?.map((exerciseType: IExerciseTypesInterface) => (
+                <option
+                  key={exerciseType.id}
+                  value={
+                    exerciseType.id
+                      ? exerciseType.id
+                      : exercise.exerciseType?.id
+                  }
+                >
+                  {exerciseType.name}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
 
           <FormControl mt={2} isRequired>
             <FormLabel>

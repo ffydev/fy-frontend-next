@@ -319,6 +319,7 @@ export default function WorkoutsList({
                 fetchUserWorkouts={fetchUserWorkouts}
                 exercises={workout.exercises}
                 exerciseNames={exerciseNames}
+                exerciseTypes={exerciseTypes}
               />
             )}
           </Box>
