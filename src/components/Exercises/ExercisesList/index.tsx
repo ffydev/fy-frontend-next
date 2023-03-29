@@ -27,7 +27,6 @@ export default function ExercisesList({
   exercises,
 }: WorkoutsProps) {
   const router = useRouter()
-  const [name, setName] = useState<string>('')
   const [sets, setSets] = useState<string>('')
   const [reps, setReps] = useState<string>('')
   const [weight, setWeight] = useState<string>('')
@@ -44,7 +43,6 @@ export default function ExercisesList({
       }
 
       await updateExercise(token, id, {
-        name: name || undefined,
         sets: +sets ? +sets : undefined,
         reps: +reps ? +reps : undefined,
         weight: +weight ? +weight : undefined,
@@ -93,18 +91,6 @@ export default function ExercisesList({
               size='sm'
             />
           </Flex>
-
-          <chakra.h1 fontSize='lg' lineHeight={6}>
-            Nome:
-            <Editable defaultValue={exercise.name ? exercise.name : 'Sem Nome'}>
-              <EditablePreview />
-              <EditableInput
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </Editable>
-          </chakra.h1>
 
           <chakra.h1 fontSize='lg' lineHeight={6}>
             Séries:

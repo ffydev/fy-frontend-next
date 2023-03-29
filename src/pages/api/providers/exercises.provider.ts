@@ -2,7 +2,6 @@ import { api } from '../apis/api'
 
 export interface IExerciseInterface {
   id?: string
-  name?: string
   sets?: number
   reps?: number
   describe?: string
