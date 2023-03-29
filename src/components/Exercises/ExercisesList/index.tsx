@@ -1,4 +1,6 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { IExercisesNames } from '@/pages/api/providers/exercises-names.provider'
+import { IExerciseTypesInterface } from '@/pages/api/providers/exercises-types.provider'
 import {
   deleteExercise,
   IExerciseInterface,
@@ -12,7 +14,11 @@ import {
   EditableInput,
   EditablePreview,
   Flex,
+  FormControl,
+  FormLabel,
+  Select,
   Spacer,
+  Tag,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -20,14 +26,19 @@ import { useState } from 'react'
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
   exercises?: IExerciseInterface[]
+  exerciseNames?: IExercisesNames[]
+  exerciseTypes?: IExerciseTypesInterface[]
 }
 
 export default function ExercisesList({
   fetchUserWorkouts,
   exercises,
+  exerciseNames,
+  exerciseTypes,
 }: WorkoutsProps) {
   const router = useRouter()
-  const [name, setName] = useState<string>('')
+  const [exerciseNameId, setExerciseNameId] = useState<string>('')
+  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [sets, setSets] = useState<string>('')
   const [reps, setReps] = useState<string>('')
   const [weight, setWeight] = useState<string>('')
@@ -44,7 +55,6 @@ export default function ExercisesList({
       }
 
       await updateExercise(token, id, {
-        name: name || undefined,
         sets: +sets ? +sets : undefined,
         reps: +reps ? +reps : undefined,
         weight: +weight ? +weight : undefined,
@@ -94,17 +104,65 @@ export default function ExercisesList({
             />
           </Flex>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
-            Nome:
-            <Editable defaultValue={exercise.name ? exercise.name : 'Sem Nome'}>
-              <EditablePreview />
-              <EditableInput
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </Editable>
-          </chakra.h1>
+          <FormControl mt={2} isRequired>
+            <FormLabel>
+              <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                Tipo de exercício
+              </Tag>
+            </FormLabel>
+            <Select
+              size={'sm'}
+              rounded={'lg'}
+              variant={'filled'}
+              value={exerciseTypeId}
+              onChange={(event) => setExerciseTypeId(event.target.value)}
+              onBlur={() => handleUpdateExercise(exercise.id!)}
+            >
+              <option>{exercise.exerciseType?.name}</option>
+              {exerciseTypes?.map((exerciseType: IExerciseTypesInterface) => (
+                <option
+                  key={exerciseType.id}
+                  value={
+                    exerciseType.id
+                      ? exerciseType.id
+                      : exercise.exerciseType?.id
+                  }
+                >
+                  {exerciseType.name}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl mt={2} isRequired>
+            <FormLabel>
+              <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                Nome do exercício
+              </Tag>
+            </FormLabel>
+            <Select
+              size={'sm'}
+              rounded={'lg'}
+              variant={'filled'}
+              value={exerciseNameId}
+              onChange={(event) => setExerciseNameId(event.target.value)}
+              onBlur={() => handleUpdateExercise(exercise.id!)}
+            >
+              <option>{exercise.exerciseName?.name}</option>
+              {exerciseNames?.map((exerciseName: IExercisesNames) => (
+                <option
+                  key={exerciseName.id}
+                  value={
+                    exerciseName.id
+                      ? exerciseName.id
+                      : exercise.exerciseName?.id
+                  }
+                >
+                  {exerciseName.name}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
 
           <chakra.h1 fontSize='lg' lineHeight={6}>
             Séries:
