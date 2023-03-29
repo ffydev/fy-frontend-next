@@ -1,8 +1,5 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider'
-import {
-  findCurrentUser,
-  IUserInterface,
-} from '@/pages/api/providers/users.provider'
+import { getUserToken } from '@/pages/api/providers/auth.provider';
+import { findCurrentUser, IUserInterface } from '@/pages/api/providers/users.provider';
 import {
   Avatar,
   Box,
@@ -24,78 +21,72 @@ import {
   Text,
   useDisclosure,
   VStack,
-} from '@chakra-ui/react'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
-import { IconType } from 'react-icons'
-import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
-import Users from '../Users/Users'
+} from '@chakra-ui/react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { IconType } from 'react-icons';
+import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi';
+import Users from '../Users/Users';
 interface LinkItemProps {
-  name: string
-  icon: IconType
-  userComponent?: boolean
+  name: string;
+  icon: IconType;
+  userComponent?: boolean;
 }
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, userComponent: true },
-]
+];
 
 export default function DashboardNav() {
-  const router = useRouter()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [userComponent, setUserComponent] = useState<boolean>(true)
-  const [currentUser, setCurrentUser] = useState<IUserInterface>()
+  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userComponent, setUserComponent] = useState<boolean>(true);
+  const [currentUser, setCurrentUser] = useState<IUserInterface>();
 
   const fetchCurrentUserData = useCallback(
     async (token: string) => {
       try {
-        const currentUserData = await findCurrentUser(token)
+        const currentUserData = await findCurrentUser(token);
 
         if (!currentUserData) {
           // Implementar mensagem personalizada
-          router.push('/login')
-          return
+          router.push('/login');
+          return;
         }
 
-        setCurrentUser(currentUserData)
+        setCurrentUser(currentUserData);
       } catch (error) {
-        console.error(error)
-        router.push('/login')
+        console.error(error);
+        router.push('/login');
       }
     },
-    [router, setCurrentUser],
-  )
+    [router, setCurrentUser]
+  );
 
   useEffect(() => {
-    const token = getUserToken()
+    const token = getUserToken();
     if (token) {
-      fetchCurrentUserData(token)
+      fetchCurrentUserData(token);
     }
-  }, [fetchCurrentUserData])
+  }, [fetchCurrentUserData]);
 
   const handleWithShowUser = () => {
-    setUserComponent(true)
-  }
+    setUserComponent(true);
+  };
 
   const handleWithLogout = () => {
-    const token = getUserToken()
+    const token = getUserToken();
 
     if (token) {
-      localStorage.removeItem('fyToken')
-      router.push('/login')
+      localStorage.removeItem('fyToken');
+      router.push('/login');
     }
-  }
+  };
 
   return (
     <>
-      <Box
-        minH='100vh'
-        bgGradient={[
-          'linear(to-tr, gray.900 30.17%, purple.900 99.87%)',
-          'linear(to-br, gray.900 80.17%, purple.900 99.87%)',
-        ]}
-      >
+      <Box minH='100vh' bgGradient={'linear(to-l, blackAlpha.900, orange.500)'}>
         <SidebarContent
           onClose={() => onClose}
           handleWithShowUser={handleWithShowUser}
@@ -111,10 +102,7 @@ export default function DashboardNav() {
           size='full'
         >
           <DrawerContent>
-            <SidebarContent
-              onClose={onClose}
-              handleWithShowUser={handleWithShowUser}
-            />
+            <SidebarContent onClose={onClose} handleWithShowUser={handleWithShowUser} />
           </DrawerContent>
         </Drawer>
         {/* mobilenav */}
@@ -126,12 +114,12 @@ export default function DashboardNav() {
         <Box>{userComponent ? <Users /> : null}</Box>
       </Box>
     </>
-  )
+  );
 }
 
 interface SidebarProps extends BoxProps {
-  onClose: () => void
-  handleWithShowUser: () => void
+  onClose: () => void;
+  handleWithShowUser: () => void;
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -150,13 +138,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
-        <Image
-          src={'/logo.png'}
-          alt={''}
-          width={50}
-          height={50}
-          loading={'eager'}
-        />
+        <Image src={'/logo.png'} alt={''} width={50} height={50} loading={'eager'} />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -181,12 +163,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
     </Box>
-  )
-}
+  );
+};
 
 interface NavItemProps extends FlexProps {
-  icon: IconType
-  children: any
+  icon: IconType;
+  children: any;
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
@@ -216,19 +198,14 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Box>
-  )
-}
+  );
+};
 interface MobileProps extends FlexProps {
-  onOpen: () => void
-  currentUser?: IUserInterface
-  handleWithLogout: () => void
+  onOpen: () => void;
+  currentUser?: IUserInterface;
+  handleWithLogout: () => void;
 }
-const MobileNav = ({
-  onOpen,
-  currentUser,
-  handleWithLogout,
-  ...rest
-}: MobileProps) => {
+const MobileNav = ({ onOpen, currentUser, handleWithLogout, ...rest }: MobileProps) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -253,12 +230,7 @@ const MobileNav = ({
         icon={<FiMenu />}
       />
 
-      <Text
-        fontSize={['sm', 'lg']}
-        fontFamily='monospace'
-        fontWeight='bold'
-        ml={5}
-      >
+      <Text fontSize={['sm', 'lg']} fontFamily='monospace' fontWeight='bold' ml={5}>
         Olá! Seja muito bem vindo.
       </Text>
 
@@ -271,13 +243,9 @@ const MobileNav = ({
         />
         <Flex alignItems={'center'}>
           <Menu>
-            <MenuButton
-              py={2}
-              transition='all 0.3s'
-              _focus={{ boxShadow: 'none' }}
-            >
+            <MenuButton py={2} transition='all 0.3s' _focus={{ boxShadow: 'none' }}>
               <HStack>
-                <Avatar size={'md'} src={''} name={'Admin'} bg={'purple.400'} />
+                <Avatar size={'md'} src={''} name={'Admin'} bg={'orange.400'} />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems='flex-start'
@@ -310,5 +278,5 @@ const MobileNav = ({
         </Flex>
       </HStack>
     </Flex>
-  )
-}
+  );
+};
