@@ -13,12 +13,10 @@ import {
   Box,
   Button,
   CloseButton,
-  Container,
   Flex,
   FormControl,
   FormLabel,
   Select,
-  SimpleGrid,
   Spacer,
   Stack,
   Text,
@@ -27,6 +25,10 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import ExercisesList from '../../Exercises/ExercisesList'
 import Feedbacks from '../../Feedbacks'
+import {
+  findExercisesNames,
+  IExercisesNames,
+} from '@/pages/api/providers/exercises-names.provider'
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
@@ -41,10 +43,12 @@ export default function WorkoutsList({
 }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
+  const [exerciseNameId, setExerciseNameId] = useState<string>('')
   const [workoutType, setWorkoutType] = useState<string>('')
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
     [],
   )
+  const [exerciseNames, setExerciseNames] = useState<IExercisesNames[]>([])
   const [showFeedback, setShowFeedback] = useState<boolean>(false)
 
   const fetchExercisesTypesData = useCallback(async () => {
@@ -67,12 +71,37 @@ export default function WorkoutsList({
     }
   }, [router])
 
+  const fetchExercisesNamesData = useCallback(async () => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      const response = await findExercisesNames(token)
+
+      setExerciseNames(response)
+    } catch (error) {
+      console.error(error)
+      // Implementar mensagem personalizada
+      router.push('/login')
+    }
+  }, [router])
+
   useEffect(() => {
     fetchExercisesTypesData()
-  }, [fetchExercisesTypesData])
+    fetchExercisesNamesData()
+  }, [fetchExercisesTypesData, fetchExercisesNamesData])
 
   const handleCreateExercise = useCallback(
-    async (workoutId: string, exerciseTypeId: string) => {
+    async (
+      workoutId: string,
+      exerciseNameId: string,
+      exerciseTypeId: string,
+    ) => {
       try {
         const token = getUserToken()
 
@@ -82,13 +111,12 @@ export default function WorkoutsList({
           return
         }
 
-        if (exerciseTypeId) {
-          await createExercise(token, {
-            workoutId,
-            exerciseTypeId,
-          })
-          fetchUserWorkouts()
-        }
+        await createExercise(token, {
+          workoutId,
+          exerciseNameId,
+          exerciseTypeId,
+        })
+        fetchUserWorkouts()
       } catch (error) {
         console.error(error)
       }
@@ -144,46 +172,7 @@ export default function WorkoutsList({
 
   return (
     <>
-      <Container maxW='full' p={{ base: 5, md: 10 }}>
-        <Box mb={{ base: '2.5rem', lg: '4rem' }}>
-          <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-            <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
-              <Select
-                size={'md'}
-                border={'1px'}
-                borderColor={'purple.400'}
-                variant={'outline'}
-                placeholder='Tipo de Treino:'
-                value={workoutType}
-                onChange={(event) => setWorkoutType(event.target.value)}
-              >
-                <option value='A'>A</option>
-                <option value='B'>B</option>
-                <option value='C'>C</option>
-                <option value='D'>D</option>
-                <option value='E'>E</option>
-                <option value='F'>F</option>
-              </Select>
-            </FormControl>
-            <Stack>
-              <Button
-                size={'md'}
-                variant={'solid'}
-                color={'blackAlpha.900'}
-                bgColor={'whiteAlpha.900'}
-                _hover={{
-                  bg: 'whiteAlpha.700',
-                  transition: '0.4s',
-                }}
-                onClick={() => handleCreateWorkout(userId!)}
-              >
-                Adicionar treino
-              </Button>
-            </Stack>
-          </Stack>
-        </Box>
-      </Container>
-      {/* <Stack>
+      <Stack>
         <FormControl isRequired>
           <FormLabel>Tipo de Treino:</FormLabel>
           <Flex>
@@ -236,7 +225,9 @@ export default function WorkoutsList({
             minWidth='250px'
           >
             <Flex>
-              <Text fontWeight='bold'>Tipo de treino: {workout.workoutType}</Text>
+              <Text fontWeight='bold'>
+                Tipo de treino: {workout.workoutType}
+              </Text>
               <Spacer />
               <Flex minWidth='max-content'>
                 <CloseButton
@@ -267,25 +258,53 @@ export default function WorkoutsList({
                   onChange={(event) => setExerciseTypeId(event.target.value)}
                 >
                   <option value=''></option>
-                  {exerciseTypes.map((exerciseType: IExerciseTypesInterface) => (
-                    <option key={exerciseType.id} value={exerciseType.id}>
-                      {exerciseType.name}
+                  {exerciseTypes.map(
+                    (exerciseType: IExerciseTypesInterface) => (
+                      <option key={exerciseType.id} value={exerciseType.id}>
+                        {exerciseType.name}
+                      </option>
+                    ),
+                  )}
+                </Select>
+              </Flex>
+            </FormControl>
+
+            <FormControl mt={4} isRequired>
+              <FormLabel>Nome do exercício:</FormLabel>
+              <Flex>
+                <Select
+                  size='xs'
+                  w={'3xs'}
+                  value={exerciseNameId}
+                  onChange={(event) => setExerciseNameId(event.target.value)}
+                >
+                  <option value=''></option>
+                  {exerciseNames.map((exerciseName: IExercisesNames) => (
+                    <option key={exerciseName.id} value={exerciseName.id}>
+                      {exerciseName.name}
                     </option>
                   ))}
                 </Select>
-                <Button
-                  ml={3}
-                  size='xs'
-                  bgGradient={[
-                    'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-                    'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
-                  ]}
-                  onClick={() => handleCreateExercise(workout.id!, exerciseTypeId)}
-                >
-                  Adicionar
-                </Button>
               </Flex>
             </FormControl>
+
+            <Button
+              mt={3}
+              size='xs'
+              bgGradient={[
+                'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
+                'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
+              ]}
+              onClick={() =>
+                handleCreateExercise(
+                  workout.id!,
+                  exerciseNameId,
+                  exerciseTypeId,
+                )
+              }
+            >
+              Adicionar
+            </Button>
 
             {showFeedback ? (
               <Feedbacks
@@ -303,7 +322,7 @@ export default function WorkoutsList({
             )}
           </Box>
         ))}
-      </Stack> */}
+      </Stack>
     </>
   )
 }

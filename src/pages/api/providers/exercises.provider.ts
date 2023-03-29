@@ -8,6 +8,7 @@ export interface IExerciseInterface {
   describe?: string
   weight?: number
   workoutId?: string
+  exerciseNameId?: string
   exerciseTypeId?: string
 }
 
