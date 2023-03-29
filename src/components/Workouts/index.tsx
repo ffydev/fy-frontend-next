@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import {
   findWorkoutsByUserId,
   IWorkoutInterface,
-} from '../../pages/api/providers/workout.provider'
+} from '../../pages/api/providers/workouts.provider'
 
 interface WorkoutsListProps {
   userId: string
