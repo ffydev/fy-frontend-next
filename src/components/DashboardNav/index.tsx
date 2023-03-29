@@ -29,31 +29,22 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
-import {
-  FiBell,
-  FiChevronDown,
-  FiHome,
-  FiMenu,
-  FiTrendingUp,
-} from 'react-icons/fi'
+import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
 import Users from '../Users/Users'
 interface LinkItemProps {
   name: string
   icon: IconType
   userComponent?: boolean
-  dietsComponents?: boolean
 }
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, userComponent: true },
-  { name: 'Diets', icon: FiTrendingUp, dietsComponents: true },
 ]
 
 export default function DashboardNav() {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [userComponent, setUserComponent] = useState<boolean>(true)
-  const [dietsComponent, setDietsComponent] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<IUserInterface>()
 
   const fetchCurrentUserData = useCallback(
@@ -85,12 +76,6 @@ export default function DashboardNav() {
 
   const handleWithShowUser = () => {
     setUserComponent(true)
-    setDietsComponent(false)
-  }
-
-  const handleWithShowDiets = () => {
-    setUserComponent(false)
-    setDietsComponent(true)
   }
 
   const handleWithLogout = () => {
@@ -114,7 +99,6 @@ export default function DashboardNav() {
         <SidebarContent
           onClose={() => onClose}
           handleWithShowUser={handleWithShowUser}
-          handleWithShowDiets={handleWithShowDiets}
           display={{ base: 'none', md: 'block' }}
         />
         <Drawer
@@ -130,7 +114,6 @@ export default function DashboardNav() {
             <SidebarContent
               onClose={onClose}
               handleWithShowUser={handleWithShowUser}
-              handleWithShowDiets={handleWithShowDiets}
             />
           </DrawerContent>
         </Drawer>
@@ -140,10 +123,7 @@ export default function DashboardNav() {
           currentUser={currentUser}
           handleWithLogout={handleWithLogout}
         />
-        <Box>
-          {userComponent ? <Users /> : null}
-          {dietsComponent ? <></> : null}
-        </Box>
+        <Box>{userComponent ? <Users /> : null}</Box>
       </Box>
     </>
   )
@@ -152,7 +132,6 @@ export default function DashboardNav() {
 interface SidebarProps extends BoxProps {
   onClose: () => void
   handleWithShowUser: () => void
-  handleWithShowDiets: () => void
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -194,22 +173,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                   bgColor: 'blackAlpha.900',
                 }}
                 onClick={() => rest.handleWithShowUser()}
-              >
-                {link.name}
-              </Button>
-            ) : null}
-
-            {link.dietsComponents ? (
-              <Button
-                variant='ghost'
-                _active={{
-                  bgColor: 'blackAlpha.900',
-                  transform: 'scale(0.98)',
-                }}
-                _focus={{
-                  bgColor: 'blackAlpha.900',
-                }}
-                onClick={() => rest.handleWithShowDiets()}
               >
                 {link.name}
               </Button>
