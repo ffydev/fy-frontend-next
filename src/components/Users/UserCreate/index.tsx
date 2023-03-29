@@ -100,14 +100,12 @@ export default function UserCreate({
         </Button>
       </Stack>
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
+        <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
         <ModalContent
-          bgColor={'whiteAlpha.200'}
-          rounded={'lg'}
           border={'1px'}
           borderColor={'whiteAlpha.200'}
+          backdropFilter={'auto'}
           backdropBlur={'1rem'}
-          backdropFilter='blur(15px)'
           boxShadow={'lg'}
         >
           <ModalCloseButton />
@@ -150,7 +148,7 @@ export default function UserCreate({
               <FormLabel>Data Final: </FormLabel>
               <Input
                 type='date'
-                placeholder='Data Final '
+                placeholder='Data Final'
                 value={endDate}
                 onChange={(event) => setEndDate(event.target.value)}
               />

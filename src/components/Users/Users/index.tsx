@@ -101,10 +101,10 @@ export default function Users() {
   return (
     <>
       <Box
-        bgGradient={[
-          'linear(to-tr, blackAlpha.50 30.17%, purple.900 99.87%)',
-          'linear(to-br, blackAlpha.50 80.17%, purple.900 99.87%)',
-        ]}
+        style={{
+          background:
+            'linear-gradient(180deg, #161616 0%, #754923 50%, #0c0c0c 100%)',
+        }}
       >
         <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
           <Container maxW='7xl' p={{ base: 5, md: 10 }}>
@@ -133,7 +133,7 @@ export default function Users() {
                 <Select
                   size={'md'}
                   border={'1px'}
-                  borderColor={'purple.400'}
+                  borderColor={'whiteAlpha.900'}
                   variant={'outline'}
                   value={userTypeId}
                   onChange={(event) => setUserTypeId(event.target.value)}
@@ -149,7 +149,7 @@ export default function Users() {
               <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
                 <Input
                   border={'1px'}
-                  borderColor={'purple.400'}
+                  borderColor={'whiteAlpha.900'}
                   variant={'outline'}
                   placeholder='Nome do usuário'
                   value={searchName}

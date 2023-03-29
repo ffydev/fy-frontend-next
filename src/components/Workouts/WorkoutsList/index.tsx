@@ -305,7 +305,6 @@ export default function WorkoutsList({
             >
               Adicionar
             </Button>
-
             {showFeedback ? (
               <Feedbacks
                 userId={userId}
@@ -313,7 +312,6 @@ export default function WorkoutsList({
                 handleWithCloseFeedback={handleWithCloseFeedback}
               />
             ) : null}
-
             {workout.exercises && workout.exercises.length > 0 && (
               <ExercisesList
                 fetchUserWorkouts={fetchUserWorkouts}

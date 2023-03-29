@@ -117,8 +117,8 @@ export default function UsersList({
               <Box
                 key={user.id}
                 p={4}
-                bgColor={'whiteAlpha.100'}
                 rounded={'lg'}
+                bgColor={'whiteAlpha.100'}
                 border={'1px'}
                 borderColor={'whiteAlpha.200'}
                 backdropBlur={'1rem'}
