@@ -1,3 +1,4 @@
+import ButtonDashboard from '@/components/Button'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanTypeInterface } from '@/pages/api/providers/plan-type.provider'
 import { IUserTypeInterface } from '@/pages/api/providers/user-type.provider'
@@ -186,9 +187,11 @@ export default function UserCreate({
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleCreateUser}>
-              Criar
-            </Button>
+            <ButtonDashboard
+              text='Criar'
+              color={'white'}
+              onClick={handleCreateUser}
+            />
             <Button onClick={onClose}>Cancelar</Button>
           </ModalFooter>
         </ModalContent>
