@@ -5,17 +5,17 @@ import { WorkoutCreate } from '../WorkoutCreate'
 interface WorkoutsHeaderProps {
   fetchUserWorkouts: () => void
   userId: string
-  handleWithShowUsers: () => void
+  handleWithHideWorkouts: () => void
 }
 
 export default function WorkoutsHeader({
   fetchUserWorkouts,
   userId,
-  handleWithShowUsers,
+  handleWithHideWorkouts,
 }: WorkoutsHeaderProps) {
   return (
     <>
-      <Heading as='h3' size='lg' mb='4' fontWeight='medium' textAlign='left'>
+      <Heading as="h3" size="lg" mb="4" fontWeight="medium" textAlign="left">
         Workouts
       </Heading>
       <Flex>
@@ -23,9 +23,9 @@ export default function WorkoutsHeader({
           <IconButton
             rounded={'md'}
             w={'3xs'}
-            aria-label='Voltar'
-            icon={<ArrowArcLeft size={28} weight='bold' />}
-            onClick={handleWithShowUsers}
+            aria-label="Voltar"
+            icon={<ArrowArcLeft size={28} weight="bold" />}
+            onClick={handleWithHideWorkouts}
           />
         </Stack>
 

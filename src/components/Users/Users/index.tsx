@@ -130,7 +130,7 @@ export default function Users() {
     setWorkoutsComponents(true)
   }
 
-  const handleWithShowUsers = () => {
+  const handleWithHideWorkouts = () => {
     setWorkoutsComponents(false)
   }
 
@@ -143,7 +143,7 @@ export default function Users() {
               <WorkoutsHeader
                 fetchUserWorkouts={fetchUserWorkouts}
                 userId={userId}
-                handleWithShowUsers={handleWithShowUsers}
+                handleWithHideWorkouts={handleWithHideWorkouts}
               />
               <Stack maxW={'auto'}>
                 <Tabs>
