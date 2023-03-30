@@ -94,13 +94,13 @@ export default function UserCreate({
             transition: '0.4s',
           }}
           onClick={onOpen}
-          leftIcon={<Plus weight='bold' />}
+          leftIcon={<Plus weight="bold" />}
         >
           Cadastrar usuário
         </Button>
       </Stack>
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
+        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           border={'1px'}
           borderColor={'whiteAlpha.200'}
@@ -113,7 +113,7 @@ export default function UserCreate({
             <FormControl mt={4} isRequired>
               <FormLabel>Email: </FormLabel>
               <Input
-                placeholder='Email'
+                placeholder="Email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />
@@ -125,7 +125,7 @@ export default function UserCreate({
                 value={planTypeId}
                 onChange={(event) => setPlanTypeId(event.target.value)}
               >
-                <option value=''>Escolha seu plano</option>
+                <option value="">Escolha seu plano</option>
                 {planTypes.map((planType: IPlanTypeInterface) => (
                   <option key={planType.id} value={planType.id}>
                     {planType.name}
@@ -137,8 +137,8 @@ export default function UserCreate({
             <FormControl mt={4} isRequired>
               <FormLabel>Data de Início: </FormLabel>
               <Input
-                type='date'
-                placeholder='Data de Início'
+                type="date"
+                placeholder="Data de Início"
                 value={initDate}
                 onChange={(event) => setInitDate(event.target.value)}
               />
@@ -147,8 +147,8 @@ export default function UserCreate({
             <FormControl mt={4} isRequired>
               <FormLabel>Data Final: </FormLabel>
               <Input
-                type='date'
-                placeholder='Data Final'
+                type="date"
+                placeholder="Data Final"
                 value={endDate}
                 onChange={(event) => setEndDate(event.target.value)}
               />
@@ -161,7 +161,7 @@ export default function UserCreate({
                   value={userTypeId}
                   onChange={(event) => setUserTypeId(event.target.value)}
                 >
-                  <option value=''></option>
+                  <option value=""></option>
                   {userTypes.map((userType: IUserTypeInterface) => (
                     <option key={userType.id} value={userType.id}>
                       {userType.name}
@@ -186,7 +186,7 @@ export default function UserCreate({
 
           <ModalFooter>
             <ButtonDashboard
-              text='Criar'
+              text="Criar"
               color={'white'}
               onClick={handleCreateUser}
             />

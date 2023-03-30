@@ -51,7 +51,7 @@ export default function Feedbacks({
           p={3}
           m={3}
           backdropBlur={'1rem'}
-          backdropFilter='blur(5px)'
+          backdropFilter="blur(5px)"
           border={'1px'}
           borderColor={'whiteAlpha.700'}
           rounded={'lg'}
@@ -60,28 +60,28 @@ export default function Feedbacks({
             'linear(to-br, gray.900 50.17%, purple.900 90.87%)',
           ]}
         >
-          <Flex minWidth='max-content'>
+          <Flex minWidth="max-content">
             <Spacer />{' '}
-            <CloseButton onClick={() => handleWithCloseFeedback()} size='sm' />
+            <CloseButton onClick={() => handleWithCloseFeedback()} size="sm" />
           </Flex>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6}>
             Dieta: {feedback.diet}
           </chakra.h1>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6}>
             Treinos: {feedback.workouts}
           </chakra.h1>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6}>
             Fadiga: {feedback.fatigue}
           </chakra.h1>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6}>
             Pesos: {feedback.weight}
           </chakra.h1>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6}>
             Outros: {feedback.others}
           </chakra.h1>
         </Box>

@@ -61,14 +61,14 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
           <Box
             key={plan.id}
             p={3}
-            width='100%'
+            width="100%"
             rounded={'lg'}
             border={'1px'}
             bgColor={'whiteAlpha.50'}
             borderColor={'whiteAlpha.100'}
             boxShadow={'lg'}
           >
-            <chakra.h1 fontSize='lg' lineHeight={6} mt={2}>
+            <chakra.h1 fontSize="lg" lineHeight={6} mt={2}>
               <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
                 Início:
               </Tag>
@@ -77,7 +77,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               >
                 <EditablePreview />
                 <EditableInput
-                  type='date'
+                  type="date"
                   value={initDate}
                   onChange={(event) => setInitDate(event.target.value)}
                   onBlur={() => handleUpdatePlan(plan.id!)}
@@ -85,7 +85,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               </Editable>
             </chakra.h1>
 
-            <chakra.h1 fontSize='lg' lineHeight={6} mt={2}>
+            <chakra.h1 fontSize="lg" lineHeight={6} mt={2}>
               <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
                 Fim:
               </Tag>
@@ -94,7 +94,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               >
                 <EditablePreview />
                 <EditableInput
-                  type='date'
+                  type="date"
                   value={endDate}
                   onChange={(event) => setEndDate(event.target.value)}
                   onBlur={() => handleUpdatePlan(plan.id!)}

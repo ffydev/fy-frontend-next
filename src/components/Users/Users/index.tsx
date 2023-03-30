@@ -26,6 +26,7 @@ import {
   Flex,
   FormControl,
   Heading,
+  IconButton,
   Input,
   Select,
   SimpleGrid,
@@ -33,6 +34,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { ArrowArcLeft } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
 import UserCreate from '../UserCreate'
 
@@ -165,33 +167,26 @@ export default function Users() {
       {workoutsComponents ? (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW='8xl' p={{ base: 3, md: 10 }}>
-              <Stack>
-                <Heading
-                  as='h3'
-                  size='lg'
-                  mb='4'
-                  fontWeight='medium'
-                  textAlign='left'
-                >
-                  Workouts
-                </Heading>
-
-                <Button
-                  size={'md'}
-                  variant={'solid'}
-                  color={'blackAlpha.900'}
-                  bgColor={'whiteAlpha.900'}
-                  _hover={{
-                    bg: 'whiteAlpha.700',
-                    transition: '0.4s',
-                  }}
-                  onClick={handleWithShowUsers}
-                >
-                  Voltar
-                </Button>
-                <Workouts userId={userId} />
-              </Stack>
+            <Container maxW="7xl" p={{ base: 3, md: 10 }}>
+              <Heading
+                as="h3"
+                size="lg"
+                mb="4"
+                fontWeight="medium"
+                textAlign="left"
+              >
+                Workouts
+              </Heading>
+              <Flex>
+                <Stack>
+                  <IconButton
+                    aria-label="Voltar"
+                    icon={<ArrowArcLeft size={28} weight="bold" />}
+                    onClick={handleWithShowUsers}
+                  />
+                </Stack>
+              </Flex>
+              <Workouts userId={userId} />
             </Container>
           </Box>
         </>
@@ -203,13 +198,13 @@ export default function Users() {
           ]}
         >
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW='7xl' p={{ base: 5, md: 10 }}>
+            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
               <Heading
-                as='h3'
-                size='lg'
-                mb='4'
-                fontWeight='medium'
-                textAlign='left'
+                as="h3"
+                size="lg"
+                mb="4"
+                fontWeight="medium"
+                textAlign="left"
               >
                 Usuários
               </Heading>
@@ -233,7 +228,7 @@ export default function Users() {
                     variant={'outline'}
                     value={userTypeId}
                     onChange={(event) => setUserTypeId(event.target.value)}
-                    placeholder='Tipo de usuário:'
+                    placeholder="Tipo de usuário:"
                   >
                     {userType.map((userType: IUserTypeInterface) => (
                       <option key={userType.id} value={userType.id}>
@@ -247,7 +242,7 @@ export default function Users() {
                     border={'1px'}
                     borderColor={'purple.400'}
                     variant={'outline'}
-                    placeholder='Nome do usuário'
+                    placeholder="Nome do usuário"
                     value={searchName}
                     onChange={(event) => setSearchName(event.target.value)}
                   />
@@ -270,14 +265,14 @@ export default function Users() {
                       border={'1px'}
                       borderColor={'whiteAlpha.200'}
                       backdropBlur={'1rem'}
-                      backdropFilter='blur(15px)'
+                      backdropFilter="blur(15px)"
                       boxShadow={'lg'}
                     >
-                      <Flex minWidth='max-content'>
+                      <Flex minWidth="max-content">
                         <Spacer />
                         <CloseButton
                           onClick={() => handleWithDelete(user.id)}
-                          size='sm'
+                          size="sm"
                         />
                       </Flex>
 
@@ -311,7 +306,7 @@ export default function Users() {
                       <Stack spacing={2} direction={['column', 'row']} mt={3}>
                         <Button
                           bgColor={'purple.400'}
-                          size='xs'
+                          size="xs"
                           onClick={() => handleWithFindWorkoutsByUser(user.id)}
                         >
                           Workouts

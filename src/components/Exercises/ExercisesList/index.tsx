@@ -18,6 +18,7 @@ import {
   FormLabel,
   Select,
   Spacer,
+  Stack,
   Tag,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -87,7 +88,7 @@ export default function ExercisesList({
           p={3}
           m={3}
           backdropBlur={'1rem'}
-          backdropFilter='blur(5px)'
+          backdropFilter="blur(5px)"
           border={'1px'}
           borderColor={'whiteAlpha.700'}
           rounded={'lg'}
@@ -96,129 +97,130 @@ export default function ExercisesList({
             'linear(to-br, gray.900 50.17%, purple.900 90.87%)',
           ]}
         >
-          <Flex minWidth='max-content'>
-            <Spacer />{' '}
-            <CloseButton
-              onClick={() => handleWithDeleteExercise(exercise.id!)}
-              size='sm'
-            />
-          </Flex>
-
-          <FormControl mt={2} isRequired>
-            <FormLabel>
-              <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
-                Tipo de exercício
-              </Tag>
-            </FormLabel>
-            <Select
-              size={'sm'}
-              rounded={'lg'}
-              variant={'filled'}
-              value={exerciseTypeId}
-              onChange={(event) => setExerciseTypeId(event.target.value)}
-              onBlur={() => handleUpdateExercise(exercise.id!)}
-            >
-              <option>{exercise.exerciseType?.name}</option>
-              {exerciseTypes?.map((exerciseType: IExerciseTypesInterface) => (
-                <option
-                  key={exerciseType.id}
-                  value={
-                    exerciseType.id
-                      ? exerciseType.id
-                      : exercise.exerciseType?.id
-                  }
-                >
-                  {exerciseType.name}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl mt={2} isRequired>
-            <FormLabel>
-              <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
-                Nome do exercício
-              </Tag>
-            </FormLabel>
-            <Select
-              size={'sm'}
-              rounded={'lg'}
-              variant={'filled'}
-              value={exerciseNameId}
-              onChange={(event) => setExerciseNameId(event.target.value)}
-              onBlur={() => handleUpdateExercise(exercise.id!)}
-            >
-              <option>{exercise.exerciseName?.name}</option>
-              {exerciseNames?.map((exerciseName: IExercisesNames) => (
-                <option
-                  key={exerciseName.id}
-                  value={
-                    exerciseName.id
-                      ? exerciseName.id
-                      : exercise.exerciseName?.id
-                  }
-                >
-                  {exerciseName.name}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-
-          <chakra.h1 fontSize='lg' lineHeight={6}>
-            Séries:
-            <Editable
-              defaultValue={`${exercise.sets}` ? `${exercise.sets}` : '0'}
-            >
-              <EditablePreview />
-              <EditableInput
-                value={sets}
-                onChange={(event) => setSets(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
+          <Stack direction={['row', 'column']} spacing={6} w={'full'}>
+            <Flex minW="auto">
+              <Spacer />{' '}
+              <CloseButton
+                onClick={() => handleWithDeleteExercise(exercise.id!)}
+                size="sm"
               />
-            </Editable>
-          </chakra.h1>
-
-          <chakra.h1 fontSize='lg' lineHeight={6}>
-            Repetições:
-            <Editable defaultValue={`${exercise.reps}`}>
-              <EditablePreview />
-              <EditableInput
-                value={reps}
-                onChange={(event) => setReps(event.target.value)}
+            </Flex>
+            <FormControl mt={2} isRequired>
+              <FormLabel>
+                <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                  Tipo de exercício
+                </Tag>
+              </FormLabel>
+              <Select
+                size={'sm'}
+                rounded={'lg'}
+                variant={'filled'}
+                value={exerciseTypeId}
+                onChange={(event) => setExerciseTypeId(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </Editable>
-          </chakra.h1>
+              >
+                <option>{exercise.exerciseType?.name}</option>
+                {exerciseTypes?.map((exerciseType: IExerciseTypesInterface) => (
+                  <option
+                    key={exerciseType.id}
+                    value={
+                      exerciseType.id
+                        ? exerciseType.id
+                        : exercise.exerciseType?.id
+                    }
+                  >
+                    {exerciseType.name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
-            Carga:
-            <Editable
-              defaultValue={`${exercise.weight}` ? `${exercise.weight}` : '0'}
-            >
-              <EditablePreview />
-              <EditableInput
-                value={weight}
-                onChange={(event) => setWeight(event.target.value)}
+            <FormControl mt={2} isRequired>
+              <FormLabel>
+                <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                  Nome do exercício
+                </Tag>
+              </FormLabel>
+              <Select
+                size={'sm'}
+                rounded={'lg'}
+                variant={'filled'}
+                value={exerciseNameId}
+                onChange={(event) => setExerciseNameId(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </Editable>
-          </chakra.h1>
+              >
+                <option>{exercise.exerciseName?.name}</option>
+                {exerciseNames?.map((exerciseName: IExercisesNames) => (
+                  <option
+                    key={exerciseName.id}
+                    value={
+                      exerciseName.id
+                        ? exerciseName.id
+                        : exercise.exerciseName?.id
+                    }
+                  >
+                    {exerciseName.name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
 
-          <chakra.h1 fontSize='lg' lineHeight={6}>
-            Descrição:
-            <Editable
-              defaultValue={
-                exercise.describe ? exercise.describe : 'Sem descrição'
-              }
-            >
-              <EditablePreview />
-              <EditableInput
-                value={describe}
-                onChange={(event) => setDescribe(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </Editable>
-          </chakra.h1>
+            <chakra.h1 fontSize="lg" lineHeight={6}>
+              Séries:
+              <Editable
+                defaultValue={`${exercise.sets}` ? `${exercise.sets}` : '0'}
+              >
+                <EditablePreview />
+                <EditableInput
+                  value={sets}
+                  onChange={(event) => setSets(event.target.value)}
+                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                />
+              </Editable>
+            </chakra.h1>
+
+            <chakra.h1 fontSize="lg" lineHeight={6}>
+              Repetições:
+              <Editable defaultValue={`${exercise.reps}`}>
+                <EditablePreview />
+                <EditableInput
+                  value={reps}
+                  onChange={(event) => setReps(event.target.value)}
+                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                />
+              </Editable>
+            </chakra.h1>
+
+            <chakra.h1 fontSize="lg" lineHeight={6}>
+              Carga:
+              <Editable
+                defaultValue={`${exercise.weight}` ? `${exercise.weight}` : '0'}
+              >
+                <EditablePreview />
+                <EditableInput
+                  value={weight}
+                  onChange={(event) => setWeight(event.target.value)}
+                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                />
+              </Editable>
+            </chakra.h1>
+
+            <chakra.h1 fontSize="lg" lineHeight={6}>
+              Descrição:
+              <Editable
+                defaultValue={
+                  exercise.describe ? exercise.describe : 'Sem descrição'
+                }
+              >
+                <EditablePreview />
+                <EditableInput
+                  value={describe}
+                  onChange={(event) => setDescribe(event.target.value)}
+                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                />
+              </Editable>
+            </chakra.h1>
+          </Stack>
         </Box>
       ))}
     </>

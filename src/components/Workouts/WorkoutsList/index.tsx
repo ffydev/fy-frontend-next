@@ -17,6 +17,7 @@ import {
   FormControl,
   FormLabel,
   Select,
+  SimpleGrid,
   Spacer,
   Stack,
   Text,
@@ -172,29 +173,29 @@ export default function WorkoutsList({
 
   return (
     <>
-      <Stack>
+      <Stack maxW={'auto'}>
         <FormControl isRequired>
           <FormLabel>Tipo de Treino:</FormLabel>
           <Flex>
             <Select
               rounded={'md'}
-              size='xs'
+              size="xs"
               w={'3xs'}
               value={workoutType}
               onChange={(event) => setWorkoutType(event.target.value)}
             >
               <option></option>
-              <option value='A'>A</option>
-              <option value='B'>B</option>
-              <option value='C'>C</option>
-              <option value='D'>D</option>
-              <option value='E'>E</option>
-              <option value='F'>F</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
             </Select>
             <Flex>
               <Button
                 ml={3}
-                size='xs'
+                size="xs"
                 bgGradient={[
                   'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                   'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
@@ -212,31 +213,30 @@ export default function WorkoutsList({
             key={workout.id}
             p={3}
             m={3}
-            bgGradient={[
-              'linear(to-tr, gray.900 70.17%, purple.900 90.87%)',
-              'linear(to-br, gray.900 50.17%, purple.900 90.87%)',
-            ]}
-            backdropBlur={'1rem'}
-            backdropFilter='blur(5px)'
-            border={'1px'}
-            borderColor={'whiteAlpha.700'}
+            width="100%"
             rounded={'lg'}
-            minWidth='250px'
+            border={'1px'}
+            bgColor={'whiteAlpha.50'}
+            borderColor={'whiteAlpha.100'}
+            boxShadow={'lg'}
+            backdropBlur={'1rem'}
+            backdropFilter="blur(5px)"
+            minWidth="250px"
           >
             <Flex>
-              <Text fontWeight='bold'>
+              <Text fontWeight="bold">
                 Tipo de treino: {workout.workoutType}
               </Text>
               <Spacer />
 
               <CloseButton
                 onClick={() => handleWithDeleteWorkout(workout.id!)}
-                size='sm'
+                size="sm"
               />
             </Flex>
 
             <Button
-              size='xs'
+              size="xs"
               bgGradient={[
                 'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                 'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
@@ -246,72 +246,91 @@ export default function WorkoutsList({
               Feedback
             </Button>
 
-            <Flex mt={3} maxW={'3xl'}>
-              <FormControl isRequired>
-                <Select
-                  size='xs'
-                  w={'3xs'}
-                  value={exerciseTypeId}
-                  onChange={(event) => setExerciseTypeId(event.target.value)}
-                >
-                  <option>Tipo de exercício</option>
-                  {exerciseTypes.map(
-                    (exerciseType: IExerciseTypesInterface) => (
-                      <option key={exerciseType.id} value={exerciseType.id}>
-                        {exerciseType.name}
+            <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+              <SimpleGrid
+                columns={{ base: 1, sm: 2, md: 3 }}
+                spacing={5}
+                mt={12}
+                mb={4}
+                w={'full'}
+              >
+                <FormControl isRequired>
+                  <Select
+                    rounded={'lg'}
+                    variant={'filled'}
+                    bgColor={'blackAlpha.600'}
+                    _hover={{
+                      bgColor: 'blackAlpha.500',
+                      transform: '0.3s',
+                    }}
+                    size={'md'}
+                    w={'auto'}
+                    value={exerciseTypeId}
+                    onChange={(event) => setExerciseTypeId(event.target.value)}
+                  >
+                    <option>Tipo de exercício</option>
+                    {exerciseTypes.map(
+                      (exerciseType: IExerciseTypesInterface) => (
+                        <option key={exerciseType.id} value={exerciseType.id}>
+                          {exerciseType.name}
+                        </option>
+                      ),
+                    )}
+                  </Select>
+                </FormControl>
+
+                <FormControl isRequired>
+                  <Select
+                    rounded={'lg'}
+                    variant={'filled'}
+                    bgColor={'blackAlpha.600'}
+                    _hover={{
+                      bgColor: 'blackAlpha.500',
+                      transform: '0.3s',
+                    }}
+                    size={'md'}
+                    w={'auto'}
+                    value={exerciseNameId}
+                    onChange={(event) => setExerciseNameId(event.target.value)}
+                  >
+                    <option>Nome do Exercício</option>
+                    {exerciseNames.map((exerciseName: IExercisesNames) => (
+                      <option key={exerciseName.id} value={exerciseName.id}>
+                        {exerciseName.name}
                       </option>
-                    ),
-                  )}
-                </Select>
-              </FormControl>
+                    ))}
+                  </Select>
+                </FormControl>
 
-              <FormControl isRequired>
-                <Select
-                  size='xs'
-                  w={'3xs'}
-                  value={exerciseNameId}
-                  onChange={(event) => setExerciseNameId(event.target.value)}
-                >
-                  <option>Nome do Exercício</option>
-                  {exerciseNames.map((exerciseName: IExercisesNames) => (
-                    <option key={exerciseName.id} value={exerciseName.id}>
-                      {exerciseName.name}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <Flex>
-                <Button
-                  ml={3}
-                  size='xs'
-                  bgGradient={[
-                    'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-                    'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
-                  ]}
-                  onClick={() =>
-                    handleCreateExercise(
-                      workout.id!,
-                      exerciseNameId,
-                      exerciseTypeId,
-                    )
-                  }
-                >
-                  Adicionar Exercício
-                </Button>
-              </Flex>
-            </Flex>
-
-            <Flex>
-              {workout.exercises && workout.exercises.length > 0 && (
-                <ExercisesList
-                  fetchUserWorkouts={fetchUserWorkouts}
-                  exercises={workout.exercises}
-                  exerciseNames={exerciseNames}
-                  exerciseTypes={exerciseTypes}
-                />
-              )}
-            </Flex>
+                <Stack>
+                  <Button
+                    ml={3}
+                    size="md"
+                    bgGradient={[
+                      'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
+                      'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
+                    ]}
+                    onClick={() =>
+                      handleCreateExercise(
+                        workout.id!,
+                        exerciseNameId,
+                        exerciseTypeId,
+                      )
+                    }
+                  >
+                    Adicionar Exercício
+                  </Button>
+                </Stack>
+                {workout.exercises && workout.exercises.length > 0 && (
+                  <ExercisesList
+                    fetchUserWorkouts={fetchUserWorkouts}
+                    exercises={workout.exercises}
+                    exerciseNames={exerciseNames}
+                    exerciseTypes={exerciseTypes}
+                  />
+                )}
+              </SimpleGrid>
+            </Stack>
 
             {showFeedback ? (
               <Feedbacks
