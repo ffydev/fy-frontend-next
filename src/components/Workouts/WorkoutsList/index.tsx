@@ -1,3 +1,4 @@
+import ExercisesList from '@/components/Exercises/ExercisesList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IExercisesNames } from '@/pages/api/providers/exercises-names.provider'
 import { IExerciseTypesInterface } from '@/pages/api/providers/exercises-types.provider'
@@ -22,7 +23,6 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
-import ExercisesList from '../Exercises/ExercisesList'
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
