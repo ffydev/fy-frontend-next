@@ -221,7 +221,6 @@ export default function WorkoutsList({
             border={'1px'}
             borderColor={'whiteAlpha.700'}
             rounded={'lg'}
-            width={['100%', '50%', '33.33%', '25%']}
             minWidth='250px'
           >
             <Flex>
@@ -229,12 +228,11 @@ export default function WorkoutsList({
                 Tipo de treino: {workout.workoutType}
               </Text>
               <Spacer />
-              <Flex minWidth='max-content'>
-                <CloseButton
-                  onClick={() => handleWithDeleteWorkout(workout.id!)}
-                  size='sm'
-                />
-              </Flex>
+
+              <CloseButton
+                onClick={() => handleWithDeleteWorkout(workout.id!)}
+                size='sm'
+              />
             </Flex>
 
             <Button
@@ -248,16 +246,15 @@ export default function WorkoutsList({
               Feedback
             </Button>
 
-            <FormControl mt={4} isRequired>
-              <FormLabel>Tipo de exercício:</FormLabel>
-              <Flex>
+            <Flex mt={3} maxW={'3xl'}>
+              <FormControl isRequired>
                 <Select
                   size='xs'
                   w={'3xs'}
                   value={exerciseTypeId}
                   onChange={(event) => setExerciseTypeId(event.target.value)}
                 >
-                  <option value=''></option>
+                  <option>Tipo de exercício</option>
                   {exerciseTypes.map(
                     (exerciseType: IExerciseTypesInterface) => (
                       <option key={exerciseType.id} value={exerciseType.id}>
@@ -266,45 +263,55 @@ export default function WorkoutsList({
                     ),
                   )}
                 </Select>
-              </Flex>
-            </FormControl>
+              </FormControl>
 
-            <FormControl mt={4} isRequired>
-              <FormLabel>Nome do exercício:</FormLabel>
-              <Flex>
+              <FormControl isRequired>
                 <Select
                   size='xs'
                   w={'3xs'}
                   value={exerciseNameId}
                   onChange={(event) => setExerciseNameId(event.target.value)}
                 >
-                  <option value=''></option>
+                  <option>Nome do Exercício</option>
                   {exerciseNames.map((exerciseName: IExercisesNames) => (
                     <option key={exerciseName.id} value={exerciseName.id}>
                       {exerciseName.name}
                     </option>
                   ))}
                 </Select>
-              </Flex>
-            </FormControl>
+              </FormControl>
 
-            <Button
-              mt={3}
-              size='xs'
-              bgGradient={[
-                'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-                'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
-              ]}
-              onClick={() =>
-                handleCreateExercise(
-                  workout.id!,
-                  exerciseNameId,
-                  exerciseTypeId,
-                )
-              }
-            >
-              Adicionar
-            </Button>
+              <Flex>
+                <Button
+                  ml={3}
+                  size='xs'
+                  bgGradient={[
+                    'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
+                    'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
+                  ]}
+                  onClick={() =>
+                    handleCreateExercise(
+                      workout.id!,
+                      exerciseNameId,
+                      exerciseTypeId,
+                    )
+                  }
+                >
+                  Adicionar Exercício
+                </Button>
+              </Flex>
+            </Flex>
+
+            <Flex>
+              {workout.exercises && workout.exercises.length > 0 && (
+                <ExercisesList
+                  fetchUserWorkouts={fetchUserWorkouts}
+                  exercises={workout.exercises}
+                  exerciseNames={exerciseNames}
+                  exerciseTypes={exerciseTypes}
+                />
+              )}
+            </Flex>
 
             {showFeedback ? (
               <Feedbacks
@@ -313,15 +320,6 @@ export default function WorkoutsList({
                 handleWithCloseFeedback={handleWithCloseFeedback}
               />
             ) : null}
-
-            {workout.exercises && workout.exercises.length > 0 && (
-              <ExercisesList
-                fetchUserWorkouts={fetchUserWorkouts}
-                exercises={workout.exercises}
-                exerciseNames={exerciseNames}
-                exerciseTypes={exerciseTypes}
-              />
-            )}
           </Box>
         ))}
       </Stack>
