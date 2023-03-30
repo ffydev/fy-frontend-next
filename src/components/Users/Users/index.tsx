@@ -22,7 +22,6 @@ import {
   deleteUser,
   findUsers,
   IUserInterface,
-  updateUser,
 } from '@/pages/api/providers/users.provider'
 import {
   findWorkoutsByUserId,
@@ -33,9 +32,6 @@ import {
   Button,
   CloseButton,
   Container,
-  Editable,
-  EditableInput,
-  EditablePreview,
   Flex,
   FormControl,
   Heading,
@@ -53,6 +49,7 @@ import { useRouter } from 'next/router'
 import { ArrowArcLeft } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
 import UserCreate from '../UserCreate'
+import { UsersList } from '../UsersList'
 
 export default function Users() {
   const router = useRouter()
@@ -61,9 +58,6 @@ export default function Users() {
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [searchName, setSearchName] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanTypeInterface[]>([])
-  const [firstName, setFirstName] = useState<string>('')
-  const [lastName, setLastName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
   const [workoutsComponents, setWorkoutsComponents] = useState<boolean>(false)
   const [userId, setUserId] = useState<string>('')
   const [userWorkouts, setUserWorkouts] = useState<IWorkoutInterface[]>([])
@@ -165,27 +159,6 @@ export default function Users() {
   useEffect(() => {
     fetchUsersData()
   }, [fetchUsersData])
-
-  const handleUpdateUser = async (userId: string) => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      await updateUser(token, userId, {
-        firstName,
-        lastName,
-      }).then(() => {
-        fetchUsersData()
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
@@ -401,32 +374,7 @@ export default function Users() {
                         </Button>
                       </Flex>
 
-                      <Editable defaultValue={user.email}>
-                        <EditablePreview />
-                        <EditableInput
-                          value={email}
-                          onChange={(event) => setEmail(event.target.value)}
-                          onBlur={() => handleUpdateUser(user.id!)}
-                        />
-                      </Editable>
-
-                      <Editable defaultValue={user.firstName}>
-                        <EditablePreview />
-                        <EditableInput
-                          value={firstName}
-                          onChange={(event) => setFirstName(event.target.value)}
-                          onBlur={() => handleUpdateUser(user.id!)}
-                        />
-                      </Editable>
-
-                      <Editable defaultValue={user.lastName}>
-                        <EditablePreview />
-                        <EditableInput
-                          value={lastName}
-                          onChange={(event) => setLastName(event.target.value)}
-                          onBlur={() => handleUpdateUser(user.id!)}
-                        />
-                      </Editable>
+                      <UsersList fetchUsersData={fetchUsersData} user={user} />
 
                       <Box>
                         {user.plan && user.plan.length > 0 && (
