@@ -1,6 +1,16 @@
+import ExercisesList from '@/components/Exercises/ExercisesList'
+import Feedbacks from '@/components/Feedbacks'
 import PlanList from '@/components/PlanList'
-import Workouts from '@/components/Workouts'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
+import {
+  findExercisesNames,
+  IExercisesNames,
+} from '@/pages/api/providers/exercises-names.provider'
+import {
+  findExerciseTypes,
+  IExerciseTypesInterface,
+} from '@/pages/api/providers/exercises-types.provider'
+import { createExercise } from '@/pages/api/providers/exercises.provider'
 import {
   findPlanTypes,
   IPlanTypeInterface,
@@ -15,6 +25,12 @@ import {
   IUserInterface,
   updateUser,
 } from '@/pages/api/providers/users.provider'
+import {
+  createWorkout,
+  deleteWorkout,
+  findWorkoutsByUserId,
+  IWorkoutInterface,
+} from '@/pages/api/providers/workouts.provider'
 import {
   Box,
   Button,
@@ -32,6 +48,7 @@ import {
   SimpleGrid,
   Spacer,
   Stack,
+  Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { ArrowArcLeft } from 'phosphor-react'
@@ -50,6 +67,15 @@ export default function Users() {
   const [email, setEmail] = useState<string>('')
   const [workoutsComponents, setWorkoutsComponents] = useState<boolean>(false)
   const [userId, setUserId] = useState<string>('')
+  const [userWorkouts, setUserWorkouts] = useState<IWorkoutInterface[]>([])
+  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
+  const [exerciseNameId, setExerciseNameId] = useState<string>('')
+  const [workoutType, setWorkoutType] = useState<string>('')
+  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
+    [],
+  )
+  const [exerciseNames, setExerciseNames] = useState<IExercisesNames[]>([])
+  const [showFeedback, setShowFeedback] = useState<boolean>(false)
 
   const fetchUsersData = useCallback(async () => {
     try {
@@ -110,6 +136,32 @@ export default function Users() {
     }
   }, [router, setUserType])
 
+  const fetchUserWorkouts = useCallback(async () => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      const workoutsByUser = await findWorkoutsByUserId(token, userId as string)
+
+      setUserWorkouts(workoutsByUser)
+    } catch (error) {
+      console.error(error)
+      // Implementar mensagem personalizada
+      router.push('/login')
+    }
+  }, [router, userId])
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserWorkouts()
+    }
+  }, [fetchUserWorkouts])
+
   useEffect(() => {
     fetchPlanTypeData()
     fetchUserTypeData()
@@ -162,31 +214,330 @@ export default function Users() {
     setWorkoutsComponents(false)
   }
 
+  const fetchExercisesTypesData = useCallback(async () => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      const response = await findExerciseTypes(token)
+
+      setExerciseTypes(response)
+    } catch (error) {
+      console.error(error)
+      // Implementar mensagem personalizada
+      router.push('/login')
+    }
+  }, [router])
+
+  const fetchExercisesNamesData = useCallback(async () => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      const response = await findExercisesNames(token)
+
+      setExerciseNames(response)
+    } catch (error) {
+      console.error(error)
+      // Implementar mensagem personalizada
+      router.push('/login')
+    }
+  }, [router])
+
+  useEffect(() => {
+    fetchExercisesTypesData()
+    fetchExercisesNamesData()
+  }, [fetchExercisesTypesData, fetchExercisesNamesData])
+
+  const handleCreateExercise = useCallback(
+    async (
+      workoutId: string,
+      exerciseNameId: string,
+      exerciseTypeId: string,
+    ) => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        await createExercise(token, {
+          workoutId,
+          exerciseNameId,
+          exerciseTypeId,
+        })
+        fetchUserWorkouts()
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [fetchUserWorkouts, router],
+  )
+
+  const handleCreateWorkout = useCallback(
+    async (userId: string) => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        if (workoutType) {
+          await createWorkout(token, {
+            userId,
+            workoutType,
+          })
+          fetchUserWorkouts()
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [fetchUserWorkouts, router, workoutType],
+  )
+
+  const handleWithDeleteWorkout = (id: string) => {
+    const token = getUserToken()
+
+    if (!token) {
+      // Implementar mensagem personalizada
+      router.push('/login')
+      return
+    }
+    deleteWorkout(token, id).then(() => {
+      fetchUserWorkouts()
+    })
+  }
+
+  const handleWithShowFeedback = () => {
+    setShowFeedback(true)
+  }
+
+  const handleWithCloseFeedback = () => {
+    setShowFeedback(false)
+  }
+
   return (
     <>
       {workoutsComponents ? (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 3, md: 10 }}>
+            <Container maxW='7xl' p={{ base: 3, md: 10 }}>
               <Heading
-                as="h3"
-                size="lg"
-                mb="4"
-                fontWeight="medium"
-                textAlign="left"
+                as='h3'
+                size='lg'
+                mb='4'
+                fontWeight='medium'
+                textAlign='left'
               >
                 Workouts
               </Heading>
               <Flex>
                 <Stack>
                   <IconButton
-                    aria-label="Voltar"
-                    icon={<ArrowArcLeft size={28} weight="bold" />}
+                    rounded={'md'}
+                    w={'3xs'}
+                    aria-label='Voltar'
+                    icon={<ArrowArcLeft size={28} weight='bold' />}
                     onClick={handleWithShowUsers}
                   />
                 </Stack>
+                <FormControl isRequired>
+                  <Flex>
+                    <Select
+                      rounded={'md'}
+                      size='xs'
+                      w={'3xs'}
+                      value={workoutType}
+                      onChange={(event) => setWorkoutType(event.target.value)}
+                    >
+                      <option>Tipo de treino</option>
+                      <option value='A'>A</option>
+                      <option value='B'>B</option>
+                      <option value='C'>C</option>
+                      <option value='D'>D</option>
+                      <option value='E'>E</option>
+                      <option value='F'>F</option>
+                    </Select>
+                    <Flex>
+                      <Button
+                        ml={3}
+                        size='xs'
+                        bgGradient={[
+                          'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
+                          'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
+                        ]}
+                        onClick={() => handleCreateWorkout(userId!)}
+                      >
+                        Adicionar Treino
+                      </Button>
+                    </Flex>
+                  </Flex>
+                </FormControl>
               </Flex>
-              <Workouts userId={userId} />
+              <Stack maxW={'auto'}>
+                {userWorkouts?.map((workout: IWorkoutInterface) => (
+                  <Box
+                    key={workout.id}
+                    p={3}
+                    m={3}
+                    width='100%'
+                    rounded={'lg'}
+                    border={'1px'}
+                    bgColor={'whiteAlpha.50'}
+                    borderColor={'whiteAlpha.100'}
+                    boxShadow={'lg'}
+                    backdropBlur={'1rem'}
+                    backdropFilter='blur(5px)'
+                    minWidth='250px'
+                  >
+                    <Flex>
+                      <Text fontWeight='bold'>
+                        Tipo de treino: {workout.workoutType}
+                      </Text>
+                      <Spacer />
+
+                      <CloseButton
+                        onClick={() => handleWithDeleteWorkout(workout.id!)}
+                        size='sm'
+                      />
+                    </Flex>
+
+                    <Button
+                      size='xs'
+                      bgGradient={[
+                        'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
+                        'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
+                      ]}
+                      onClick={() => handleWithShowFeedback()}
+                    >
+                      Feedback
+                    </Button>
+
+                    <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+                      <SimpleGrid
+                        columns={{ base: 1, sm: 2, md: 3 }}
+                        spacing={5}
+                        mt={12}
+                        mb={4}
+                        w={'full'}
+                      >
+                        <FormControl isRequired>
+                          <Select
+                            rounded={'lg'}
+                            variant={'filled'}
+                            bgColor={'blackAlpha.600'}
+                            _hover={{
+                              bgColor: 'blackAlpha.500',
+                              transform: '0.3s',
+                            }}
+                            size={'md'}
+                            w={'auto'}
+                            value={exerciseTypeId}
+                            onChange={(event) =>
+                              setExerciseTypeId(event.target.value)
+                            }
+                          >
+                            <option>Tipo de exercício</option>
+                            {exerciseTypes.map(
+                              (exerciseType: IExerciseTypesInterface) => (
+                                <option
+                                  key={exerciseType.id}
+                                  value={exerciseType.id}
+                                >
+                                  {exerciseType.name}
+                                </option>
+                              ),
+                            )}
+                          </Select>
+                        </FormControl>
+
+                        <FormControl isRequired>
+                          <Select
+                            rounded={'lg'}
+                            variant={'filled'}
+                            bgColor={'blackAlpha.600'}
+                            _hover={{
+                              bgColor: 'blackAlpha.500',
+                              transform: '0.3s',
+                            }}
+                            size={'md'}
+                            w={'auto'}
+                            value={exerciseNameId}
+                            onChange={(event) =>
+                              setExerciseNameId(event.target.value)
+                            }
+                          >
+                            <option>Nome do Exercício</option>
+                            {exerciseNames.map(
+                              (exerciseName: IExercisesNames) => (
+                                <option
+                                  key={exerciseName.id}
+                                  value={exerciseName.id}
+                                >
+                                  {exerciseName.name}
+                                </option>
+                              ),
+                            )}
+                          </Select>
+                        </FormControl>
+
+                        <Stack>
+                          <Button
+                            ml={3}
+                            size='md'
+                            bgGradient={[
+                              'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
+                              'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
+                            ]}
+                            onClick={() =>
+                              handleCreateExercise(
+                                workout.id!,
+                                exerciseNameId,
+                                exerciseTypeId,
+                              )
+                            }
+                          >
+                            Adicionar Exercício
+                          </Button>
+                        </Stack>
+                        {workout.exercises && workout.exercises.length > 0 && (
+                          <ExercisesList
+                            fetchUserWorkouts={fetchUserWorkouts}
+                            exercises={workout.exercises}
+                            exerciseNames={exerciseNames}
+                            exerciseTypes={exerciseTypes}
+                          />
+                        )}
+                      </SimpleGrid>
+                    </Stack>
+
+                    {showFeedback ? (
+                      <Feedbacks
+                        userId={userId}
+                        workoutId={workout.id!}
+                        handleWithCloseFeedback={handleWithCloseFeedback}
+                      />
+                    ) : null}
+                  </Box>
+                ))}
+              </Stack>
             </Container>
           </Box>
         </>
@@ -198,13 +549,13 @@ export default function Users() {
           ]}
         >
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+            <Container maxW='7xl' p={{ base: 5, md: 10 }}>
               <Heading
-                as="h3"
-                size="lg"
-                mb="4"
-                fontWeight="medium"
-                textAlign="left"
+                as='h3'
+                size='lg'
+                mb='4'
+                fontWeight='medium'
+                textAlign='left'
               >
                 Usuários
               </Heading>
@@ -228,7 +579,7 @@ export default function Users() {
                     variant={'outline'}
                     value={userTypeId}
                     onChange={(event) => setUserTypeId(event.target.value)}
-                    placeholder="Tipo de usuário:"
+                    placeholder='Tipo de usuário:'
                   >
                     {userType.map((userType: IUserTypeInterface) => (
                       <option key={userType.id} value={userType.id}>
@@ -242,7 +593,7 @@ export default function Users() {
                     border={'1px'}
                     borderColor={'purple.400'}
                     variant={'outline'}
-                    placeholder="Nome do usuário"
+                    placeholder='Nome do usuário'
                     value={searchName}
                     onChange={(event) => setSearchName(event.target.value)}
                   />
@@ -265,14 +616,14 @@ export default function Users() {
                       border={'1px'}
                       borderColor={'whiteAlpha.200'}
                       backdropBlur={'1rem'}
-                      backdropFilter="blur(15px)"
+                      backdropFilter='blur(15px)'
                       boxShadow={'lg'}
                     >
-                      <Flex minWidth="max-content">
+                      <Flex minWidth='max-content'>
                         <Spacer />
                         <CloseButton
                           onClick={() => handleWithDelete(user.id)}
-                          size="sm"
+                          size='sm'
                         />
                       </Flex>
 
@@ -306,7 +657,7 @@ export default function Users() {
                       <Stack spacing={2} direction={['column', 'row']} mt={3}>
                         <Button
                           bgColor={'purple.400'}
-                          size="xs"
+                          size='xs'
                           onClick={() => handleWithFindWorkoutsByUser(user.id)}
                         >
                           Workouts
