@@ -347,7 +347,6 @@ export default function Users() {
                       </Tab>
                     ))}
                   </TabList>
-
                   <WorkoutsLists
                     fetchUserWorkouts={fetchUserWorkouts}
                     workouts={userWorkouts}
