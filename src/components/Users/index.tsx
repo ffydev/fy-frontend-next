@@ -17,8 +17,8 @@ import {
 import { Box, Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import UsersHeader from '../UsersHeader'
-import { UsersList } from '../UsersList'
+import UsersHeader from './UsersHeader'
+import { UsersList } from './UsersList'
 
 export default function Users() {
   const router = useRouter()

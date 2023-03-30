@@ -30,7 +30,7 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
-import Users from '../Users/Users'
+import Users from '../Users'
 interface LinkItemProps {
   name: string
   icon: IconType
@@ -90,7 +90,7 @@ export default function DashboardNav() {
   return (
     <>
       <Box
-        minH='100vh'
+        minH="100vh"
         style={{
           background:
             'linear-gradient(180deg, #161616 0%, #754923 50%, #0c0c0c 100%)',
@@ -104,11 +104,11 @@ export default function DashboardNav() {
         <Drawer
           autoFocus={false}
           isOpen={isOpen}
-          placement='left'
+          placement="left"
           onClose={onClose}
           returnFocusOnClose={false}
           onOverlayClick={onClose}
-          size='full'
+          size="full"
         >
           <DrawerContent>
             <SidebarContent
@@ -137,19 +137,19 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
-      transition='0.3s ease'
+      transition="0.3s ease"
       style={{
         background:
           'linear-gradient(180deg, #161616 0%, #754923 50%, #0c0c0c 100%)',
       }}
-      borderRight='1px'
+      borderRight="1px"
       borderRightColor={'whiteAlpha.100'}
       w={{ base: 60, md: 60 }}
-      pos='fixed'
-      h='full'
+      pos="fixed"
+      h="full"
       {...rest}
     >
-      <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
+      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Image
           src={'/logo.png'}
           alt={''}
@@ -164,7 +164,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           <>
             {link.userComponent ? (
               <Button
-                variant='ghost'
+                variant="ghost"
                 _active={{
                   bgColor: 'blackAlpha.900',
                   transform: 'scale(0.98)',
@@ -192,12 +192,12 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
     <Box style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
-        align='center'
-        p='4'
-        mx='4'
-        borderRadius='lg'
-        role='group'
-        cursor='pointer'
+        align="center"
+        p="4"
+        mx="4"
+        borderRadius="lg"
+        role="group"
+        cursor="pointer"
         _focus={{
           bgColor: 'blackAlpha.900',
         }}
@@ -205,8 +205,8 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
       >
         {icon && (
           <Icon
-            mr='4'
-            fontSize='16'
+            mr="4"
+            fontSize="16"
             _groupHover={{
               color: 'white',
             }}
@@ -234,11 +234,11 @@ const MobileNav = ({
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height={20}
-      alignItems='center'
+      alignItems="center"
       bgColor={'blackAlpha.50'}
       backdropBlur={'1rem'}
       backdropFilter={'auto'}
-      borderBottomWidth='1px'
+      borderBottomWidth="1px"
       borderBottomColor={'whiteAlpha.100'}
       justifyContent={'space-between'}
       position={'relative'}
@@ -248,15 +248,15 @@ const MobileNav = ({
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
-        variant='outline'
-        aria-label='open menu'
+        variant="outline"
+        aria-label="open menu"
         icon={<FiMenu />}
       />
 
       <Text
         fontSize={['sm', 'lg']}
-        fontFamily='monospace'
-        fontWeight='bold'
+        fontFamily="monospace"
+        fontWeight="bold"
         ml={5}
       >
         Olá! Seja muito bem vindo.
@@ -264,28 +264,28 @@ const MobileNav = ({
 
       <HStack spacing={{ base: '0', md: '6' }}>
         <IconButton
-          size='lg'
-          variant='ghost'
-          aria-label='open menu'
+          size="lg"
+          variant="ghost"
+          aria-label="open menu"
           icon={<FiBell />}
         />
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
               py={2}
-              transition='all 0.3s'
+              transition="all 0.3s"
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
                 <Avatar size={'md'} src={''} name={'Admin'} bg={'orange.400'} />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
-                  alignItems='flex-start'
-                  spacing='1px'
-                  ml='2'
+                  alignItems="flex-start"
+                  spacing="1px"
+                  ml="2"
                 >
-                  <Text fontSize='sm'>{currentUser?.firstName}</Text>
-                  <Text fontSize='xs' color='whiteAlpha.900'>
+                  <Text fontSize="sm">{currentUser?.firstName}</Text>
+                  <Text fontSize="xs" color="whiteAlpha.900">
                     Admin
                   </Text>
                 </VStack>
@@ -298,8 +298,8 @@ const MobileNav = ({
               border={'1px'}
               borderColor={'whiteAlpha.200'}
               bgColor={'whiteAlpha.100'}
-              backdropFilter='auto'
-              backdropBlur='1rem'
+              backdropFilter="auto"
+              backdropBlur="1rem"
               boxShadow={'lg'}
             >
               <MenuItem
