@@ -1,5 +1,5 @@
 import PlanList from '@/components/PlanList'
-import { WorkoutCreate } from '@/components/Workouts/WorkoutCreate'
+import WorkoutsHeader from '@/components/Workouts/WorkoutsHeader'
 import { WorkoutsLists } from '@/components/Workouts/WorkoutsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
@@ -34,7 +34,6 @@ import {
   Container,
   Flex,
   Heading,
-  IconButton,
   SimpleGrid,
   Spacer,
   Stack,
@@ -43,7 +42,6 @@ import {
   Tabs,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { ArrowArcLeft } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
 import UsersHeader from '../UsersHeader'
 import { UsersList } from '../UsersList'
@@ -230,31 +228,11 @@ export default function Users() {
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
             <Container maxW='7xl' p={{ base: 3, md: 10 }}>
-              <Heading
-                as='h3'
-                size='lg'
-                mb='4'
-                fontWeight='medium'
-                textAlign='left'
-              >
-                Workouts
-              </Heading>
-              <Flex>
-                <Stack>
-                  <IconButton
-                    rounded={'md'}
-                    w={'3xs'}
-                    aria-label='Voltar'
-                    icon={<ArrowArcLeft size={28} weight='bold' />}
-                    onClick={handleWithShowUsers}
-                  />
-                </Stack>
-
-                <WorkoutCreate
-                  fetchUserWorkouts={fetchUserWorkouts}
-                  userId={userId}
-                />
-              </Flex>
+              <WorkoutsHeader
+                fetchUserWorkouts={fetchUserWorkouts}
+                userId={userId}
+                handleWithShowUsers={handleWithShowUsers}
+              />
               <Stack maxW={'auto'}>
                 <Tabs>
                   <TabList>
