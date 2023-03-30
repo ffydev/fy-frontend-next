@@ -91,21 +91,21 @@ export function UsersList({
               border={'1px'}
               borderColor={'whiteAlpha.200'}
               backdropBlur={'1rem'}
-              backdropFilter='blur(15px)'
+              backdropFilter="blur(15px)"
               boxShadow={'lg'}
             >
-              <Flex minWidth='max-content'>
+              <Flex minWidth="max-content">
                 <Spacer />
                 <CloseButton
                   onClick={() => handleWithDeleteUser(user.id)}
-                  size='sm'
+                  size="sm"
                 />
               </Flex>
 
               <Flex>
                 <Button
                   bgColor={'purple.400'}
-                  size='xs'
+                  size="xs"
                   onClick={() => handleWithFindWorkoutsByUser(user.id)}
                 >
                   Workouts
