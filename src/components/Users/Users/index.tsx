@@ -33,11 +33,8 @@ import {
   CloseButton,
   Container,
   Flex,
-  FormControl,
   Heading,
   IconButton,
-  Input,
-  Select,
   SimpleGrid,
   Spacer,
   Stack,
@@ -48,7 +45,7 @@ import {
 import { useRouter } from 'next/router'
 import { ArrowArcLeft } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
-import UserCreate from '../UserCreate'
+import UsersHeader from '../UsersHeader'
 import { UsersList } from '../UsersList'
 
 export default function Users() {
@@ -296,46 +293,17 @@ export default function Users() {
               >
                 Usuários
               </Heading>
-              <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-                <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
-                  <UserCreate
-                    fetchUsersData={fetchUsersData}
-                    userTypes={userType}
-                    planTypes={planTypes}
-                  />
-                </FormControl>
-                <FormControl
-                  width={'100%'}
-                  mb={{ base: '4', lg: '0' }}
-                  isRequired
-                >
-                  <Select
-                    size={'md'}
-                    border={'1px'}
-                    borderColor={'purple.400'}
-                    variant={'outline'}
-                    value={userTypeId}
-                    onChange={(event) => setUserTypeId(event.target.value)}
-                    placeholder='Tipo de usuário:'
-                  >
-                    {userType.map((userType: IUserTypeInterface) => (
-                      <option key={userType.id} value={userType.id}>
-                        {userType.name}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
-                  <Input
-                    border={'1px'}
-                    borderColor={'purple.400'}
-                    variant={'outline'}
-                    placeholder='Nome do usuário'
-                    value={searchName}
-                    onChange={(event) => setSearchName(event.target.value)}
-                  />
-                </FormControl>
-              </Stack>
+
+              <UsersHeader
+                fetchUsersData={fetchUsersData}
+                userType={userType}
+                planTypes={planTypes}
+                userTypeId={userTypeId}
+                searchName={searchName}
+                setUserTypeId={setUserTypeId}
+                setSearchName={setSearchName}
+              />
+
               <Stack direction={['column', 'row']} spacing={6} w={'full'}>
                 <SimpleGrid
                   columns={{ base: 1, sm: 2, md: 3 }}
