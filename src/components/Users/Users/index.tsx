@@ -338,13 +338,13 @@ export default function Users() {
       {workoutsComponents ? (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW='7xl' p={{ base: 3, md: 10 }}>
+            <Container maxW="7xl" p={{ base: 3, md: 10 }}>
               <Heading
-                as='h3'
-                size='lg'
-                mb='4'
-                fontWeight='medium'
-                textAlign='left'
+                as="h3"
+                size="lg"
+                mb="4"
+                fontWeight="medium"
+                textAlign="left"
               >
                 Workouts
               </Heading>
@@ -353,8 +353,8 @@ export default function Users() {
                   <IconButton
                     rounded={'md'}
                     w={'3xs'}
-                    aria-label='Voltar'
-                    icon={<ArrowArcLeft size={28} weight='bold' />}
+                    aria-label="Voltar"
+                    icon={<ArrowArcLeft size={28} weight="bold" />}
                     onClick={handleWithShowUsers}
                   />
                 </Stack>
@@ -362,23 +362,23 @@ export default function Users() {
                   <Flex>
                     <Select
                       rounded={'md'}
-                      size='xs'
+                      size="xs"
                       w={'3xs'}
                       value={workoutType}
                       onChange={(event) => setWorkoutType(event.target.value)}
                     >
                       <option>Tipo de treino</option>
-                      <option value='A'>A</option>
-                      <option value='B'>B</option>
-                      <option value='C'>C</option>
-                      <option value='D'>D</option>
-                      <option value='E'>E</option>
-                      <option value='F'>F</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
                     </Select>
                     <Flex>
                       <Button
                         ml={3}
-                        size='xs'
+                        size="xs"
                         bgGradient={[
                           'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                           'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
@@ -397,30 +397,28 @@ export default function Users() {
                     key={workout.id}
                     p={3}
                     m={3}
-                    width='100%'
+                    width="100%"
                     rounded={'lg'}
                     border={'1px'}
                     bgColor={'whiteAlpha.50'}
                     borderColor={'whiteAlpha.100'}
                     boxShadow={'lg'}
                     backdropBlur={'1rem'}
-                    backdropFilter='blur(5px)'
-                    minWidth='250px'
+                    backdropFilter="blur(5px)"
+                    minWidth="250px"
                   >
                     <Flex>
-                      <Text fontWeight='bold'>
+                      <Text fontWeight="bold">
                         Tipo de treino: {workout.workoutType}
                       </Text>
                       <Spacer />
-
                       <CloseButton
                         onClick={() => handleWithDeleteWorkout(workout.id!)}
-                        size='sm'
+                        size="sm"
                       />
                     </Flex>
-
                     <Button
-                      size='xs'
+                      size="xs"
                       bgGradient={[
                         'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                         'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
@@ -501,7 +499,7 @@ export default function Users() {
                         <Stack>
                           <Button
                             ml={3}
-                            size='md'
+                            size="md"
                             bgGradient={[
                               'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                               'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
@@ -549,13 +547,13 @@ export default function Users() {
           ]}
         >
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW='7xl' p={{ base: 5, md: 10 }}>
+            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
               <Heading
-                as='h3'
-                size='lg'
-                mb='4'
-                fontWeight='medium'
-                textAlign='left'
+                as="h3"
+                size="lg"
+                mb="4"
+                fontWeight="medium"
+                textAlign="left"
               >
                 Usuários
               </Heading>
@@ -579,7 +577,7 @@ export default function Users() {
                     variant={'outline'}
                     value={userTypeId}
                     onChange={(event) => setUserTypeId(event.target.value)}
-                    placeholder='Tipo de usuário:'
+                    placeholder="Tipo de usuário:"
                   >
                     {userType.map((userType: IUserTypeInterface) => (
                       <option key={userType.id} value={userType.id}>
@@ -593,7 +591,7 @@ export default function Users() {
                     border={'1px'}
                     borderColor={'purple.400'}
                     variant={'outline'}
-                    placeholder='Nome do usuário'
+                    placeholder="Nome do usuário"
                     value={searchName}
                     onChange={(event) => setSearchName(event.target.value)}
                   />
@@ -616,14 +614,14 @@ export default function Users() {
                       border={'1px'}
                       borderColor={'whiteAlpha.200'}
                       backdropBlur={'1rem'}
-                      backdropFilter='blur(15px)'
+                      backdropFilter="blur(15px)"
                       boxShadow={'lg'}
                     >
-                      <Flex minWidth='max-content'>
+                      <Flex minWidth="max-content">
                         <Spacer />
                         <CloseButton
                           onClick={() => handleWithDelete(user.id)}
-                          size='sm'
+                          size="sm"
                         />
                       </Flex>
 
@@ -657,7 +655,7 @@ export default function Users() {
                       <Stack spacing={2} direction={['column', 'row']} mt={3}>
                         <Button
                           bgColor={'purple.400'}
-                          size='xs'
+                          size="xs"
                           onClick={() => handleWithFindWorkoutsByUser(user.id)}
                         >
                           Workouts
