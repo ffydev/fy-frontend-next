@@ -188,7 +188,7 @@ export default function Users() {
     }
   }
 
-  const handleWithDelete = (id: string) => {
+  const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
 
     if (!token) {
@@ -440,7 +440,7 @@ export default function Users() {
                       <Flex minWidth='max-content'>
                         <Spacer />
                         <CloseButton
-                          onClick={() => handleWithDelete(user.id)}
+                          onClick={() => handleWithDeleteUser(user.id)}
                           size='sm'
                         />
                       </Flex>
