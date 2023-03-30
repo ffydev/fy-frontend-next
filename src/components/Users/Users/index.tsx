@@ -1,4 +1,5 @@
 import PlanList from '@/components/PlanList'
+import { WorkoutCreate } from '@/components/Workouts/WorkoutCreate'
 import { WorkoutsLists } from '@/components/Workouts/WorkoutsLists'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
@@ -24,7 +25,6 @@ import {
   updateUser,
 } from '@/pages/api/providers/users.provider'
 import {
-  createWorkout,
   findWorkoutsByUserId,
   IWorkoutInterface,
 } from '@/pages/api/providers/workouts.provider'
@@ -67,7 +67,6 @@ export default function Users() {
   const [workoutsComponents, setWorkoutsComponents] = useState<boolean>(false)
   const [userId, setUserId] = useState<string>('')
   const [userWorkouts, setUserWorkouts] = useState<IWorkoutInterface[]>([])
-  const [workoutType, setWorkoutType] = useState<string>('')
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
     [],
   )
@@ -255,31 +254,6 @@ export default function Users() {
     fetchExercisesNamesData()
   }, [fetchExercisesTypesData, fetchExercisesNamesData])
 
-  const handleCreateWorkout = useCallback(
-    async (userId: string) => {
-      try {
-        const token = getUserToken()
-
-        if (!token) {
-          // Implementar mensagem personalizada
-          router.push('/login')
-          return
-        }
-
-        if (workoutType) {
-          await createWorkout(token, {
-            userId,
-            workoutType,
-          })
-          fetchUserWorkouts()
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    },
-    [fetchUserWorkouts, router, workoutType],
-  )
-
   return (
     <>
       {workoutsComponents ? (
@@ -305,38 +279,11 @@ export default function Users() {
                     onClick={handleWithShowUsers}
                   />
                 </Stack>
-                <FormControl isRequired>
-                  <Flex>
-                    <Select
-                      rounded={'md'}
-                      size='xs'
-                      w={'3xs'}
-                      value={workoutType}
-                      onChange={(event) => setWorkoutType(event.target.value)}
-                    >
-                      <option>Tipo de treino</option>
-                      <option value='A'>A</option>
-                      <option value='B'>B</option>
-                      <option value='C'>C</option>
-                      <option value='D'>D</option>
-                      <option value='E'>E</option>
-                      <option value='F'>F</option>
-                    </Select>
-                    <Flex>
-                      <Button
-                        ml={3}
-                        size='xs'
-                        bgGradient={[
-                          'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-                          'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
-                        ]}
-                        onClick={() => handleCreateWorkout(userId!)}
-                      >
-                        Adicionar Treino
-                      </Button>
-                    </Flex>
-                  </Flex>
-                </FormControl>
+
+                <WorkoutCreate
+                  fetchUserWorkouts={fetchUserWorkouts}
+                  userId={userId}
+                />
               </Flex>
               <Stack maxW={'auto'}>
                 <Tabs>
