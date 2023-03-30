@@ -139,7 +139,7 @@ export default function Users() {
       {workoutsComponents ? (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW='7xl' p={{ base: 3, md: 10 }}>
+            <Container maxW="7xl" p={{ base: 3, md: 10 }}>
               <WorkoutsHeader
                 fetchUserWorkouts={fetchUserWorkouts}
                 userId={userId}
@@ -171,7 +171,7 @@ export default function Users() {
           ]}
         >
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW='7xl' p={{ base: 5, md: 10 }}>
+            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
               <UsersHeader
                 fetchUsersData={fetchUsersData}
                 userType={userType}
