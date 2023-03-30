@@ -1,6 +1,6 @@
 import PlanList from '@/components/PlanList'
 import { WorkoutCreate } from '@/components/Workouts/WorkoutCreate'
-import { WorkoutsLists } from '@/components/Workouts/WorkoutsLists'
+import { WorkoutsLists } from '@/components/Workouts/WorkoutsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findExercisesNames,
