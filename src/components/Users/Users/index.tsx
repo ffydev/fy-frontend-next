@@ -33,7 +33,6 @@ import {
   CloseButton,
   Container,
   Flex,
-  Heading,
   SimpleGrid,
   Spacer,
   Stack,
@@ -262,16 +261,6 @@ export default function Users() {
         >
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
             <Container maxW='7xl' p={{ base: 5, md: 10 }}>
-              <Heading
-                as='h3'
-                size='lg'
-                mb='4'
-                fontWeight='medium'
-                textAlign='left'
-              >
-                Usuários
-              </Heading>
-
               <UsersHeader
                 fetchUsersData={fetchUsersData}
                 userType={userType}

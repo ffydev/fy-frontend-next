@@ -1,6 +1,6 @@
 import { IPlanTypeInterface } from '@/pages/api/providers/plans-types.provider'
 import { IUserTypeInterface } from '@/pages/api/providers/users-types.provider'
-import { FormControl, Input, Select, Stack } from '@chakra-ui/react'
+import { FormControl, Heading, Input, Select, Stack } from '@chakra-ui/react'
 import UserCreate from '../UserCreate'
 
 interface UsersHeaderProps {
@@ -24,6 +24,9 @@ export default function UsersHeader({
 }: UsersHeaderProps) {
   return (
     <>
+      <Heading as='h3' size='lg' mb='4' fontWeight='medium' textAlign='left'>
+        Usuários
+      </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
           <UserCreate
