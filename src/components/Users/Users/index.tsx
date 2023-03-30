@@ -2,14 +2,6 @@ import WorkoutsHeader from '@/components/Workouts/WorkoutsHeader'
 import { WorkoutsLists } from '@/components/Workouts/WorkoutsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
-  findExercisesNames,
-  IExercisesNames,
-} from '@/pages/api/providers/exercises-names.provider'
-import {
-  findExerciseTypes,
-  IExerciseTypesInterface,
-} from '@/pages/api/providers/exercises-types.provider'
-import {
   findPlanTypes,
   IPlanTypeInterface,
 } from '@/pages/api/providers/plans-types.provider'
@@ -38,10 +30,6 @@ export default function Users() {
   const [workoutsComponents, setWorkoutsComponents] = useState<boolean>(false)
   const [userId, setUserId] = useState<string>('')
   const [userWorkouts, setUserWorkouts] = useState<IWorkoutInterface[]>([])
-  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
-    [],
-  )
-  const [exerciseNames, setExerciseNames] = useState<IExercisesNames[]>([])
 
   const fetchUsersData = useCallback(async () => {
     try {
@@ -146,51 +134,6 @@ export default function Users() {
     setWorkoutsComponents(false)
   }
 
-  const fetchExercisesTypesData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findExerciseTypes(token)
-
-      setExerciseTypes(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router])
-
-  const fetchExercisesNamesData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findExercisesNames(token)
-
-      setExerciseNames(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router])
-
-  useEffect(() => {
-    fetchExercisesTypesData()
-    fetchExercisesNamesData()
-  }, [fetchExercisesTypesData, fetchExercisesNamesData])
-
   return (
     <>
       {workoutsComponents ? (
@@ -214,8 +157,6 @@ export default function Users() {
                   <WorkoutsLists
                     fetchUserWorkouts={fetchUserWorkouts}
                     workouts={userWorkouts}
-                    exerciseTypes={exerciseTypes}
-                    exerciseNames={exerciseNames}
                   />
                 </Tabs>
               </Stack>

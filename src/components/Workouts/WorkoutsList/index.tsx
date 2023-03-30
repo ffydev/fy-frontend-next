@@ -1,7 +1,13 @@
 import ExercisesList from '@/components/Exercises/ExercisesList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IExercisesNames } from '@/pages/api/providers/exercises-names.provider'
-import { IExerciseTypesInterface } from '@/pages/api/providers/exercises-types.provider'
+import {
+  findExercisesNames,
+  IExercisesNames,
+} from '@/pages/api/providers/exercises-names.provider'
+import {
+  findExerciseTypes,
+  IExerciseTypesInterface,
+} from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
 import {
   deleteWorkout,
@@ -22,24 +28,21 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
   workouts: IWorkoutInterface[]
-  exerciseTypes: IExerciseTypesInterface[]
-  exerciseNames: IExercisesNames[]
 }
 
-export function WorkoutsLists({
-  fetchUserWorkouts,
-  workouts,
-  exerciseTypes,
-  exerciseNames,
-}: WorkoutsProps) {
+export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
+  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
+    [],
+  )
+  const [exerciseNames, setExerciseNames] = useState<IExercisesNames[]>([])
 
   const handleCreateExercise = useCallback(
     async (
@@ -81,6 +84,51 @@ export function WorkoutsLists({
       fetchUserWorkouts()
     })
   }
+
+  const fetchExercisesTypesData = useCallback(async () => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      const response = await findExerciseTypes(token)
+
+      setExerciseTypes(response)
+    } catch (error) {
+      console.error(error)
+      // Implementar mensagem personalizada
+      router.push('/login')
+    }
+  }, [router])
+
+  const fetchExercisesNamesData = useCallback(async () => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      const response = await findExercisesNames(token)
+
+      setExerciseNames(response)
+    } catch (error) {
+      console.error(error)
+      // Implementar mensagem personalizada
+      router.push('/login')
+    }
+  }, [router])
+
+  useEffect(() => {
+    fetchExercisesTypesData()
+    fetchExercisesNamesData()
+  }, [fetchExercisesTypesData, fetchExercisesNamesData])
 
   return (
     <>
