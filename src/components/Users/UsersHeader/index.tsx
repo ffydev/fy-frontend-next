@@ -24,7 +24,7 @@ export default function UsersHeader({
 }: UsersHeaderProps) {
   return (
     <>
-      <Heading as='h3' size='lg' mb='4' fontWeight='medium' textAlign='left'>
+      <Heading as="h3" size="lg" mb="4" fontWeight="medium" textAlign="left">
         Usuários
       </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
@@ -43,7 +43,7 @@ export default function UsersHeader({
             variant={'outline'}
             value={userTypeId}
             onChange={(event) => setUserTypeId(event.target.value)}
-            placeholder='Tipo de usuário:'
+            placeholder="Tipo de usuário:"
           >
             {userType.map((userType: IUserTypeInterface) => (
               <option key={userType.id} value={userType.id}>
@@ -57,7 +57,7 @@ export default function UsersHeader({
             border={'1px'}
             borderColor={'purple.400'}
             variant={'outline'}
-            placeholder='Nome do usuário'
+            placeholder="Nome do usuário"
             value={searchName}
             onChange={(event) => setSearchName(event.target.value)}
           />

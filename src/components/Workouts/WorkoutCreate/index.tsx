@@ -46,23 +46,23 @@ export function WorkoutCreate({
         <Flex>
           <Select
             rounded={'md'}
-            size='xs'
+            size="xs"
             w={'3xs'}
             value={workoutType}
             onChange={(event) => setWorkoutType(event.target.value)}
           >
             <option>Tipo de treino</option>
-            <option value='A'>A</option>
-            <option value='B'>B</option>
-            <option value='C'>C</option>
-            <option value='D'>D</option>
-            <option value='E'>E</option>
-            <option value='F'>F</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
           </Select>
           <Flex>
             <Button
               ml={3}
-              size='xs'
+              size="xs"
               bgGradient={[
                 'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                 'linear(to-br, blue.900 20.17%, purple.900 90.87%)',

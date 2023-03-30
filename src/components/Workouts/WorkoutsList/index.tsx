@@ -138,24 +138,24 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
             <Box
               p={3}
               m={3}
-              width='100%'
+              width="100%"
               rounded={'lg'}
               border={'1px'}
               bgColor={'whiteAlpha.50'}
               borderColor={'whiteAlpha.100'}
               boxShadow={'lg'}
               backdropBlur={'1rem'}
-              backdropFilter='blur(5px)'
-              minWidth='250px'
+              backdropFilter="blur(5px)"
+              minWidth="250px"
             >
               <Flex>
-                <Text fontWeight='bold'>
+                <Text fontWeight="bold">
                   Tipo de treino: {workout.workoutType}
                 </Text>
                 <Spacer />
                 <CloseButton
                   onClick={() => handleWithDeleteWorkout(workout.id!)}
-                  size='sm'
+                  size="sm"
                 />
               </Flex>
 
@@ -222,7 +222,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                   <Stack>
                     <Button
                       ml={3}
-                      size='md'
+                      size="md"
                       bgGradient={[
                         'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
                         'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
