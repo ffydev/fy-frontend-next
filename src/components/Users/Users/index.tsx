@@ -1,4 +1,3 @@
-import PlanList from '@/components/PlanList'
 import WorkoutsHeader from '@/components/Workouts/WorkoutsHeader'
 import { WorkoutsLists } from '@/components/Workouts/WorkoutsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
@@ -18,28 +17,12 @@ import {
   findUserType,
   IUserTypeInterface,
 } from '@/pages/api/providers/users-types.provider'
-import {
-  deleteUser,
-  findUsers,
-  IUserInterface,
-} from '@/pages/api/providers/users.provider'
+import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
 import {
   findWorkoutsByUserId,
   IWorkoutInterface,
 } from '@/pages/api/providers/workouts.provider'
-import {
-  Box,
-  Button,
-  CloseButton,
-  Container,
-  Flex,
-  SimpleGrid,
-  Spacer,
-  Stack,
-  Tab,
-  TabList,
-  Tabs,
-} from '@chakra-ui/react'
+import { Box, Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import UsersHeader from '../UsersHeader'
@@ -154,19 +137,6 @@ export default function Users() {
     fetchUsersData()
   }, [fetchUsersData])
 
-  const handleWithDeleteUser = (id: string) => {
-    const token = getUserToken()
-
-    if (!token) {
-      // Implementar mensagem personalizada
-      router.push('/login')
-      return
-    }
-    deleteUser(token, id).then(() => {
-      fetchUsersData()
-    })
-  }
-
   const handleWithFindWorkoutsByUser = (userId: string) => {
     setUserId(userId)
     setWorkoutsComponents(true)
@@ -271,55 +241,12 @@ export default function Users() {
                 setSearchName={setSearchName}
               />
 
-              <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-                <SimpleGrid
-                  columns={{ base: 1, sm: 2, md: 3 }}
-                  spacing={5}
-                  mt={12}
-                  mb={4}
-                  w={'full'}
-                >
-                  {users.map((user: IUserInterface) => (
-                    <Box
-                      key={user.id}
-                      p={4}
-                      bgColor={'whiteAlpha.100'}
-                      rounded={'lg'}
-                      border={'1px'}
-                      borderColor={'whiteAlpha.200'}
-                      backdropBlur={'1rem'}
-                      backdropFilter='blur(15px)'
-                      boxShadow={'lg'}
-                    >
-                      <Flex minWidth='max-content'>
-                        <Spacer />
-                        <CloseButton
-                          onClick={() => handleWithDeleteUser(user.id)}
-                          size='sm'
-                        />
-                      </Flex>
-
-                      <Flex>
-                        <Button
-                          bgColor={'purple.400'}
-                          size='xs'
-                          onClick={() => handleWithFindWorkoutsByUser(user.id)}
-                        >
-                          Workouts
-                        </Button>
-                      </Flex>
-
-                      <UsersList fetchUsersData={fetchUsersData} user={user} />
-
-                      <Box>
-                        {user.plan && user.plan.length > 0 && (
-                          <PlanList plans={user.plan} planTypes={planTypes} />
-                        )}
-                      </Box>
-                    </Box>
-                  ))}
-                </SimpleGrid>
-              </Stack>
+              <UsersList
+                fetchUsersData={fetchUsersData}
+                users={users}
+                handleWithFindWorkoutsByUser={handleWithFindWorkoutsByUser}
+                planTypes={planTypes}
+              />
             </Container>
           </Box>
         </Box>
