@@ -391,6 +391,16 @@ export default function Users() {
                         />
                       </Flex>
 
+                      <Flex>
+                        <Button
+                          bgColor={'purple.400'}
+                          size='xs'
+                          onClick={() => handleWithFindWorkoutsByUser(user.id)}
+                        >
+                          Workouts
+                        </Button>
+                      </Flex>
+
                       <Editable defaultValue={user.email}>
                         <EditablePreview />
                         <EditableInput
@@ -418,15 +428,6 @@ export default function Users() {
                         />
                       </Editable>
 
-                      <Stack spacing={2} direction={['column', 'row']} mt={3}>
-                        <Button
-                          bgColor={'purple.400'}
-                          size='xs'
-                          onClick={() => handleWithFindWorkoutsByUser(user.id)}
-                        >
-                          Workouts
-                        </Button>
-                      </Stack>
                       <Box>
                         {user.plan && user.plan.length > 0 && (
                           <PlanList plans={user.plan} planTypes={planTypes} />
