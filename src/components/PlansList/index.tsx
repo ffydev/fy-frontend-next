@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { SelectComponent } from '../Select'
+import { SelectUpdateComponent } from '../Select'
 
 interface PlanListProps {
   plans: IPlan[]
@@ -97,7 +97,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               </Editable>
             </chakra.h1>
 
-            <SelectComponent
+            <SelectUpdateComponent
               tag={'Tipo de Plano'}
               value={planTypeId!}
               id={plan.id!}

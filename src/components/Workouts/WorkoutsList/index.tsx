@@ -206,6 +206,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       ))}
                     </Select>
                   </FormControl>
+
                   <FormControl isRequired>
                     <Select
                       size={'md'}

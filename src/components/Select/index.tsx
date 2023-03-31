@@ -1,6 +1,6 @@
 import { FormControl, FormLabel, Tag, Select } from '@chakra-ui/react'
 
-interface SelectComponentProps {
+interface SelectUpdateComponentProps {
   tag: string
   value: string
   id: string
@@ -11,7 +11,7 @@ interface SelectComponentProps {
   valuesMap: any
 }
 
-export function SelectComponent({
+export function SelectUpdateComponent({
   tag,
   value,
   id,
@@ -20,7 +20,7 @@ export function SelectComponent({
   defaultName,
   defaultId,
   valuesMap,
-}: SelectComponentProps) {
+}: SelectUpdateComponentProps) {
   return (
     <>
       <FormControl mt={2} isRequired>

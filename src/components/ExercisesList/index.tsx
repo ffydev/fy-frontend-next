@@ -14,15 +14,12 @@ import {
   EditableInput,
   EditablePreview,
   Flex,
-  FormControl,
-  FormLabel,
-  Select,
   Spacer,
   Stack,
-  Tag,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { SelectUpdateComponent } from '../Select'
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
@@ -38,8 +35,8 @@ export default function ExercisesList({
   exerciseTypes,
 }: WorkoutsProps) {
   const router = useRouter()
-  const [exerciseNameId, setExerciseNameId] = useState<string>('')
-  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
+  const [exerciseNameId, setExerciseNameId] = useState<string | undefined>('')
+  const [exerciseTypeId, setExerciseTypeId] = useState<string | undefined>('')
   const [sets, setSets] = useState<string | undefined>('')
   const [reps, setReps] = useState<string | undefined>('')
   const [weight, setWeight] = useState<string | undefined>('')
@@ -62,12 +59,16 @@ export default function ExercisesList({
         weight: weight ? +weight : undefined,
         rir: rir || undefined,
         describe: describe || undefined,
+        exerciseNameId: exerciseNameId || undefined,
+        exerciseTypeId: exerciseTypeId || undefined,
       })
       setSets(undefined)
       setReps(undefined)
       setWeight(undefined)
       setRir(undefined)
       setDescribe(undefined)
+      setExerciseNameId(undefined)
+      setExerciseTypeId(undefined)
       fetchUserWorkouts()
     } catch (error) {
       console.error(error)
@@ -109,65 +110,28 @@ export default function ExercisesList({
                 size="sm"
               />
             </Flex>
-            <FormControl mt={2} isRequired>
-              <FormLabel>
-                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
-                  Tipo de exercício
-                </Tag>
-              </FormLabel>
-              <Select
-                size={'sm'}
-                rounded={'lg'}
-                variant={'filled'}
-                value={exerciseTypeId}
-                onChange={(event) => setExerciseTypeId(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              >
-                <option>{exercise.exerciseType?.name}</option>
-                {exerciseTypes?.map((exerciseType: IExerciseType) => (
-                  <option
-                    key={exerciseType.id}
-                    value={
-                      exerciseType.id
-                        ? exerciseType.id
-                        : exercise.exerciseType?.id
-                    }
-                  >
-                    {exerciseType.name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
 
-            <FormControl mt={2} isRequired>
-              <FormLabel>
-                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
-                  Nome do exercício
-                </Tag>
-              </FormLabel>
-              <Select
-                size={'sm'}
-                rounded={'lg'}
-                variant={'filled'}
-                value={exerciseNameId}
-                onChange={(event) => setExerciseNameId(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              >
-                <option>{exercise.exerciseNames?.name}</option>
-                {exerciseNames?.map((exerciseName: IExerciseName) => (
-                  <option
-                    key={exerciseName.id}
-                    value={
-                      exerciseName.id
-                        ? exerciseName.id
-                        : exercise.exerciseNames?.id
-                    }
-                  >
-                    {exerciseName.name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
+            <SelectUpdateComponent
+              tag={'Tipo de Exercício'}
+              value={exercise.exerciseType?.id!}
+              id={exercise.id!}
+              setValue={setExerciseTypeId}
+              onBlurAction={() => handleUpdateExercise(exercise.id!)}
+              defaultName={exercise.exerciseType?.name!}
+              defaultId={exercise.exerciseType?.id!}
+              valuesMap={exerciseTypes}
+            />
+
+            <SelectUpdateComponent
+              tag={'Nome do Exercício'}
+              value={exercise.exerciseNames?.id!}
+              id={exercise.id!}
+              setValue={setExerciseNameId}
+              onBlurAction={() => handleUpdateExercise(exercise.id!)}
+              defaultName={exercise.exerciseNames?.name!}
+              defaultId={exercise.exerciseNames?.id!}
+              valuesMap={exerciseNames}
+            />
 
             <chakra.h1 fontSize="lg" lineHeight={6}>
               Séries:
