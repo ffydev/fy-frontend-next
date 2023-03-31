@@ -104,7 +104,6 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               setValue={setPlanTypeId}
               onBlurAction={() => handleUpdatePlan(plan.id!)}
               defaultName={plan.planType?.name!}
-              defaultId={plan.planType?.id!}
               valuesMap={planTypes}
             />
           </Box>
