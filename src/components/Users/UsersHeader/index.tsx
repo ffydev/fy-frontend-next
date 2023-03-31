@@ -1,6 +1,7 @@
+import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import { IUserType } from '@/pages/api/providers/users-types.provider'
-import { FormControl, Heading, Input, Select, Stack } from '@chakra-ui/react'
+import { FormControl, Heading, Input, Stack } from '@chakra-ui/react'
 import UserCreate from '../UserCreate'
 
 interface UsersHeaderProps {
@@ -35,23 +36,13 @@ export default function UsersHeader({
             planTypes={planTypes}
           />
         </FormControl>
-        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }} isRequired>
-          <Select
-            size={'md'}
-            border={'1px'}
-            borderColor={'whiteAlpha.900'}
-            variant={'outline'}
-            value={userTypeId}
-            onChange={(event) => setUserTypeId(event.target.value)}
-            placeholder="Tipo de usuário:"
-          >
-            {userType.map((userType: IUserType) => (
-              <option key={userType.id} value={userType.id}>
-                {userType.name}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
+
+        <SelectSettingValue
+          tag={'Tipo de usuário'}
+          value={userTypeId}
+          setValue={setUserTypeId}
+          mapValues={userType}
+        />
 
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
           <Input
