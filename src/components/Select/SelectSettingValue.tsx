@@ -17,7 +17,7 @@ export default function SelectSettingValue({
 }: SelectSettingValueProps) {
   return (
     <>
-      <FormControl isRequired mt={4}>
+      <FormControl isRequired>
         <Select
           size={'md'}
           border={'1px'}

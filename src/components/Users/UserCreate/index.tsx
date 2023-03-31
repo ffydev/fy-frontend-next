@@ -154,12 +154,14 @@ export default function UserCreate({
               />
             </FormControl>
 
-            <SelectSettingValue
-              tag={'Tipo de usuário'}
-              value={userTypeId}
-              setValue={setUserTypeId}
-              mapValues={userTypes}
-            />
+            <FormControl mt={6}>
+              <SelectSettingValue
+                tag={'Tipo de usuário'}
+                value={userTypeId}
+                setValue={setUserTypeId}
+                mapValues={userTypes}
+              />
+            </FormControl>
 
             <FormControl mt={4} isRequired>
               <FormLabel>Senha</FormLabel>

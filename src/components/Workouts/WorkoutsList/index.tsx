@@ -1,4 +1,5 @@
 import ExercisesList from '@/components/ExercisesList'
+import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findExercisesNames,
@@ -18,8 +19,6 @@ import {
   Button,
   CloseButton,
   Flex,
-  FormControl,
-  Select,
   SimpleGrid,
   Spacer,
   Stack,
@@ -181,47 +180,23 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       Adicionar Exercício
                     </Button>
                   </Stack>
-                  <FormControl isRequired>
-                    <Select
-                      size={'md'}
-                      w={'auto'}
-                      border={'1px'}
-                      borderColor={'whiteAlpha.900'}
-                      variant={'outline'}
-                      value={exerciseTypeId}
-                      onChange={(event) =>
-                        setExerciseTypeId(event.target.value)
-                      }
-                    >
-                      <option>Tipo de exercício</option>
-                      {exerciseTypes.map((exerciseType: IExerciseType) => (
-                        <option key={exerciseType.id} value={exerciseType.id}>
-                          {exerciseType.name}
-                        </option>
-                      ))}
-                    </Select>
-                  </FormControl>
 
-                  <FormControl isRequired>
-                    <Select
-                      size={'md'}
-                      w={'auto'}
-                      border={'1px'}
-                      borderColor={'whiteAlpha.900'}
-                      variant={'outline'}
-                      value={exerciseNameId}
-                      onChange={(event) =>
-                        setExerciseNameId(event.target.value)
-                      }
-                    >
-                      <option>Nome do Exercício</option>
-                      {exerciseNames.map((exerciseName: IExerciseName) => (
-                        <option key={exerciseName.id} value={exerciseName.id}>
-                          {exerciseName.name}
-                        </option>
-                      ))}
-                    </Select>
-                  </FormControl>
+                  <SelectSettingValue
+                    tag={'Tipo de exercício'}
+                    value={exerciseTypeId}
+                    setValue={setExerciseTypeId}
+                    mapValues={exerciseTypes}
+                    borderColor={'whiteAlpha.900'}
+                  />
+
+                  <SelectSettingValue
+                    tag={'Nome do Exercício'}
+                    value={exerciseNameId}
+                    setValue={setExerciseNameId}
+                    mapValues={exerciseNames}
+                    borderColor={'whiteAlpha.900'}
+                  />
+
                   {workout.exercises && workout.exercises.length > 0 && (
                     <ExercisesList
                       fetchUserWorkouts={fetchUserWorkouts}
