@@ -7,7 +7,6 @@ interface SelectUpdateComponentProps {
   setValue: (event: string) => void
   onBlurAction: (event: string) => void
   defaultName: string
-  defaultId: string
   valuesMap: any
 }
 
@@ -18,7 +17,6 @@ export function SelectUpdateComponent({
   setValue,
   onBlurAction,
   defaultName,
-  defaultId,
   valuesMap,
 }: SelectUpdateComponentProps) {
   return (
@@ -39,10 +37,7 @@ export function SelectUpdateComponent({
         >
           <option>{defaultName}</option>
           {valuesMap.map((valueMap: any) => (
-            <option
-              key={valueMap.id}
-              value={valueMap.id ? valueMap.id : { defaultId }}
-            >
+            <option key={valueMap.id} value={valueMap.id}>
               {valueMap.name}
             </option>
           ))}
