@@ -1,4 +1,4 @@
-import ExercisesList from '@/components/Exercises/ExercisesList'
+import ExercisesList from '@/components/ExercisesList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findExercisesNames,
