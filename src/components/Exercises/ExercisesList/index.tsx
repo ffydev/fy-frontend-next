@@ -1,9 +1,9 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IExercisesNames } from '@/pages/api/providers/exercises-names.provider'
-import { IExerciseTypesInterface } from '@/pages/api/providers/exercises-types.provider'
+import { IExerciseTypes } from '@/pages/api/providers/exercises-types.provider'
 import {
   deleteExercise,
-  IExerciseInterface,
+  IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
 import {
@@ -26,9 +26,9 @@ import { useState } from 'react'
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
-  exercises?: IExerciseInterface[]
+  exercises?: IExercise[]
   exerciseNames?: IExercisesNames[]
-  exerciseTypes?: IExerciseTypesInterface[]
+  exerciseTypes?: IExerciseTypes[]
 }
 
 export default function ExercisesList({
@@ -82,7 +82,7 @@ export default function ExercisesList({
 
   return (
     <>
-      {exercises?.map((exercise: IExerciseInterface) => (
+      {exercises?.map((exercise: IExercise) => (
         <Box
           key={exercise.id}
           p={4}
@@ -117,7 +117,7 @@ export default function ExercisesList({
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               >
                 <option>{exercise.exerciseType?.name}</option>
-                {exerciseTypes?.map((exerciseType: IExerciseTypesInterface) => (
+                {exerciseTypes?.map((exerciseType: IExerciseTypes) => (
                   <option
                     key={exerciseType.id}
                     value={

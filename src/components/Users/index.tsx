@@ -3,16 +3,16 @@ import { WorkoutsLists } from '@/components/Workouts/WorkoutsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlanTypes,
-  IPlanTypeInterface,
+  IPlanType,
 } from '@/pages/api/providers/plans-types.provider'
 import {
   findUserType,
-  IUserTypeInterface,
+  IUserType,
 } from '@/pages/api/providers/users-types.provider'
 import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
 import {
   findWorkoutsByUserId,
-  IWorkoutInterface,
+  IWorkout,
 } from '@/pages/api/providers/workouts.provider'
 import { Box, Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -23,13 +23,13 @@ import { UsersList } from './UsersList'
 export default function Users() {
   const router = useRouter()
   const [users, setUsers] = useState<IUserInterface[]>([])
-  const [userType, setUserType] = useState<IUserTypeInterface[]>([])
+  const [userType, setUserType] = useState<IUserType[]>([])
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [searchName, setSearchName] = useState<string>('')
-  const [planTypes, setPlanTypes] = useState<IPlanTypeInterface[]>([])
+  const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
   const [workoutsComponents, setWorkoutsComponents] = useState<boolean>(false)
   const [userId, setUserId] = useState<string>('')
-  const [userWorkouts, setUserWorkouts] = useState<IWorkoutInterface[]>([])
+  const [userWorkouts, setUserWorkouts] = useState<IWorkout[]>([])
 
   const fetchUsersData = useCallback(async () => {
     try {
@@ -148,7 +148,7 @@ export default function Users() {
               <Stack maxW={'auto'}>
                 <Tabs>
                   <TabList>
-                    {userWorkouts?.map((workout: IWorkoutInterface) => (
+                    {userWorkouts?.map((workout: IWorkout) => (
                       <Tab key={workout.id}>
                         Tipo de treino: {workout.workoutType}
                       </Tab>

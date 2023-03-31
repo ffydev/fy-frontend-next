@@ -1,8 +1,8 @@
-import { IExerciseTypesInterface } from './exercises-types.provider'
+import { IExerciseTypes } from './exercises-types.provider'
 import { IExercisesNames } from '@/pages/api/providers/exercises-names.provider'
 import { api } from '../apis/api'
 
-export interface IExerciseInterface {
+export interface IExercise {
   id?: string
   sets?: number
   reps?: number
@@ -12,7 +12,7 @@ export interface IExerciseInterface {
   exerciseNameId?: string
   exerciseTypeId?: string
   exerciseName?: IExercisesNames
-  exerciseType?: IExerciseTypesInterface
+  exerciseType?: IExerciseTypes
 }
 
 export async function deleteExercise(token: string, id: string): Promise<void> {
@@ -30,16 +30,12 @@ export async function deleteExercise(token: string, id: string): Promise<void> {
 export async function updateExercise(
   token: string,
   id: string,
-  exercise: IExerciseInterface,
-): Promise<IExerciseInterface> {
+  exercise: IExercise,
+): Promise<IExercise> {
   try {
-    const response = await api.patch<IExerciseInterface>(
-      `/exercises/${id}`,
-      exercise,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    )
+    const response = await api.patch<IExercise>(`/exercises/${id}`, exercise, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
 
     return response.data
   } catch (error) {
@@ -50,16 +46,12 @@ export async function updateExercise(
 
 export async function createExercise(
   token: string,
-  exercise: IExerciseInterface,
-): Promise<IExerciseInterface> {
+  exercise: IExercise,
+): Promise<IExercise> {
   try {
-    const response = await api.post<IExerciseInterface>(
-      `/exercises`,
-      exercise,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    )
+    const response = await api.post<IExercise>(`/exercises`, exercise, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
 
     return response.data
   } catch (error) {

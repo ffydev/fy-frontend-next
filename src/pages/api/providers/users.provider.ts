@@ -1,7 +1,7 @@
 import { api } from '../apis/api'
 import { IPlanInterface } from './plans.provider'
-import { IUserTypeInterface } from './users-types.provider'
-import { IWorkoutInterface } from './workouts.provider'
+import { IUserType } from './users-types.provider'
+import { IWorkout } from './workouts.provider'
 
 export interface IUserInterface {
   id: string
@@ -11,10 +11,10 @@ export interface IUserInterface {
   userTypeId: string
   access_token?: string
   plan: IPlanInterface[]
-  workout: IWorkoutInterface[]
-  userType: IUserTypeInterface
+  workout: IWorkout[]
+  userType: IUserType
 }
-export interface ICreateUserWithIPlanInterface {
+export interface ICreateUserWithIPlan {
   email: string
   firstName?: string
   lastName?: string
@@ -24,7 +24,7 @@ export interface ICreateUserWithIPlanInterface {
     create: IPlanInterface[]
   }
 }
-export interface IUpdateUserWithIPlanInterface {
+export interface IUpdateUserWithIPlan {
   id?: string
   email?: string
   firstName?: string
@@ -40,7 +40,7 @@ export interface IUserFilter {
 
 export async function createUser(
   token: string,
-  user: ICreateUserWithIPlanInterface,
+  user: ICreateUserWithIPlan,
 ): Promise<IUserInterface> {
   try {
     const response = await api.post<IUserInterface>('/users', user, {
@@ -100,7 +100,7 @@ export async function deleteUser(token: string, id: string): Promise<void> {
 export async function updateUser(
   token: string,
   id: string,
-  user: IUpdateUserWithIPlanInterface,
+  user: IUpdateUserWithIPlan,
 ): Promise<IUserInterface> {
   try {
     const response = await api.patch<IUserInterface>(`/users/${id}`, user, {

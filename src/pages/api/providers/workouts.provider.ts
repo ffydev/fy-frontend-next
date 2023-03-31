@@ -1,20 +1,20 @@
 import { api } from '../apis/api'
-import { IExerciseInterface } from './exercises.provider'
+import { IExercise } from './exercises.provider'
 
-export interface IWorkoutInterface {
+export interface IWorkout {
   id?: string
   workoutType: string
   userId: string
   isLatest?: boolean
-  exercises?: IExerciseInterface[]
+  exercises?: IExercise[]
 }
 
 export async function createWorkout(
   token: string,
-  workout: IWorkoutInterface,
-): Promise<IWorkoutInterface> {
+  workout: IWorkout,
+): Promise<IWorkout> {
   try {
-    const response = await api.post<IWorkoutInterface>('/workouts', workout, {
+    const response = await api.post<IWorkout>('/workouts', workout, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data
@@ -27,14 +27,11 @@ export async function createWorkout(
 export async function findWorkoutsByUserId(
   token: string,
   userId: string,
-): Promise<IWorkoutInterface[]> {
+): Promise<IWorkout[]> {
   try {
-    const response = await api.get<IWorkoutInterface[]>(
-      `/workouts/by-user/${userId}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    )
+    const response = await api.get<IWorkout[]>(`/workouts/by-user/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     return response.data
   } catch (error) {
     console.error(`Failed to find workouts for user with id ${userId}`, error)

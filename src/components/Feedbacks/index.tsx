@@ -1,7 +1,7 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findFeedbacks,
-  IUserFeedbackInterface,
+  IUserFeedback,
 } from '@/pages/api/providers/userFeedbacks.provider'
 import { Box, chakra, CloseButton, Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -19,7 +19,7 @@ export default function Feedbacks({
   handleWithCloseFeedback,
 }: feedbacksProps) {
   const router = useRouter()
-  const [feedbacks, setFeedbacks] = useState<IUserFeedbackInterface[]>()
+  const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
 
   const fetchFeedbacksData = useCallback(async () => {
     try {
@@ -45,7 +45,7 @@ export default function Feedbacks({
 
   return (
     <>
-      {feedbacks?.map((feedback: IUserFeedbackInterface) => (
+      {feedbacks?.map((feedback: IUserFeedback) => (
         <Box
           key={feedback.id}
           p={3}

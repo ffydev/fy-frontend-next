@@ -1,22 +1,19 @@
-import { IExerciseInterface } from './exercises.provider'
+import { IExercise } from './exercises.provider'
 import { api } from '../apis/api'
 
-export interface IExerciseTypesInterface {
+export interface IExerciseTypes {
   id?: string
   name?: string
-  exercises?: IExerciseInterface[]
+  exercises?: IExercise[]
 }
 
 export async function findExerciseTypes(
   token: string,
-): Promise<IExerciseTypesInterface[]> {
+): Promise<IExerciseTypes[]> {
   try {
-    const response = await api.get<IExerciseTypesInterface[]>(
-      '/exercises-types',
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    )
+    const response = await api.get<IExerciseTypes[]>('/exercises-types', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     return response.data
   } catch (error) {
     console.error('Failed to find users', error)

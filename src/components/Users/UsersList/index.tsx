@@ -1,6 +1,6 @@
 import PlanList from '@/components/PlanList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IPlanTypeInterface } from '@/pages/api/providers/plans-types.provider'
+import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
   deleteUser,
   IUserInterface,
@@ -25,7 +25,7 @@ interface UsersListProps {
   fetchUsersData: () => void
   users: IUserInterface[]
   handleWithFindWorkoutsByUser: (userId: string) => void
-  planTypes: IPlanTypeInterface[]
+  planTypes: IPlanType[]
 }
 export function UsersList({
   fetchUsersData,

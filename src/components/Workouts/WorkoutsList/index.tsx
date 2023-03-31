@@ -6,12 +6,12 @@ import {
 } from '@/pages/api/providers/exercises-names.provider'
 import {
   findExerciseTypes,
-  IExerciseTypesInterface,
+  IExerciseTypes,
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
 import {
   deleteWorkout,
-  IWorkoutInterface,
+  IWorkout,
 } from '@/pages/api/providers/workouts.provider'
 import {
   Box,
@@ -33,16 +33,14 @@ import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
-  workouts: IWorkoutInterface[]
+  workouts: IWorkout[]
 }
 
 export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
-  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypesInterface[]>(
-    [],
-  )
+  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypes[]>([])
   const [exerciseNames, setExerciseNames] = useState<IExercisesNames[]>([])
 
   const handleCreateExercise = useCallback(
@@ -134,7 +132,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
   return (
     <>
       <TabPanels>
-        {workouts?.map((workout: IWorkoutInterface) => (
+        {workouts?.map((workout: IWorkout) => (
           <TabPanel key={workout.id}>
             <Box
               p={4}
@@ -201,13 +199,11 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       }
                     >
                       <option>Tipo de exercício</option>
-                      {exerciseTypes.map(
-                        (exerciseType: IExerciseTypesInterface) => (
-                          <option key={exerciseType.id} value={exerciseType.id}>
-                            {exerciseType.name}
-                          </option>
-                        ),
-                      )}
+                      {exerciseTypes.map((exerciseType: IExerciseTypes) => (
+                        <option key={exerciseType.id} value={exerciseType.id}>
+                          {exerciseType.name}
+                        </option>
+                      ))}
                     </Select>
                   </FormControl>
                   <FormControl isRequired>

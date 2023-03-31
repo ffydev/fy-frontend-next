@@ -1,7 +1,7 @@
 import ButtonDashboard from '@/components/Button'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IPlanTypeInterface } from '@/pages/api/providers/plans-types.provider'
-import { IUserTypeInterface } from '@/pages/api/providers/users-types.provider'
+import { IPlanType } from '@/pages/api/providers/plans-types.provider'
+import { IUserType } from '@/pages/api/providers/users-types.provider'
 import { createUser } from '@/pages/api/providers/users.provider'
 import {
   Button,
@@ -25,8 +25,8 @@ import { useRef, useState } from 'react'
 
 interface CreateUserProps {
   fetchUsersData: () => void
-  userTypes: IUserTypeInterface[]
-  planTypes: IPlanTypeInterface[]
+  userTypes: IUserType[]
+  planTypes: IPlanType[]
 }
 
 export default function UserCreate({
@@ -126,7 +126,7 @@ export default function UserCreate({
                 onChange={(event) => setPlanTypeId(event.target.value)}
               >
                 <option value="">Escolha seu plano</option>
-                {planTypes.map((planType: IPlanTypeInterface) => (
+                {planTypes.map((planType: IPlanType) => (
                   <option key={planType.id} value={planType.id}>
                     {planType.name}
                   </option>
@@ -162,7 +162,7 @@ export default function UserCreate({
                   onChange={(event) => setUserTypeId(event.target.value)}
                 >
                   <option value=""></option>
-                  {userTypes.map((userType: IUserTypeInterface) => (
+                  {userTypes.map((userType: IUserType) => (
                     <option key={userType.id} value={userType.id}>
                       {userType.name}
                     </option>

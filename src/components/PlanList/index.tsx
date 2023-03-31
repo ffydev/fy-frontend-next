@@ -1,5 +1,5 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IPlanTypeInterface } from '@/pages/api/providers/plans-types.provider'
+import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
   IPlanInterface,
   updatePlan,
@@ -22,7 +22,7 @@ import { useState } from 'react'
 
 interface PlanListProps {
   plans: IPlanInterface[]
-  planTypes: IPlanTypeInterface[]
+  planTypes: IPlanType[]
 }
 
 export default function PlanList({ plans, planTypes }: PlanListProps) {
@@ -117,7 +117,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
                 onBlur={() => handleUpdatePlan(plan.id!)}
               >
                 <option>{plan.planType?.name}</option>
-                {planTypes.map((planType: IPlanTypeInterface) => (
+                {planTypes.map((planType: IPlanType) => (
                   <option
                     key={planType.id}
                     value={planType.id ? planType.id : plan.planType?.id}

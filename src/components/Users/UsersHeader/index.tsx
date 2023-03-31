@@ -1,12 +1,12 @@
-import { IPlanTypeInterface } from '@/pages/api/providers/plans-types.provider'
-import { IUserTypeInterface } from '@/pages/api/providers/users-types.provider'
+import { IPlanType } from '@/pages/api/providers/plans-types.provider'
+import { IUserType } from '@/pages/api/providers/users-types.provider'
 import { FormControl, Heading, Input, Select, Stack } from '@chakra-ui/react'
 import UserCreate from '../UserCreate'
 
 interface UsersHeaderProps {
   fetchUsersData: () => void
-  userType: IUserTypeInterface[]
-  planTypes: IPlanTypeInterface[]
+  userType: IUserType[]
+  planTypes: IPlanType[]
   userTypeId: string
   searchName: string
   setUserTypeId: (event: string) => void
@@ -45,7 +45,7 @@ export default function UsersHeader({
             onChange={(event) => setUserTypeId(event.target.value)}
             placeholder="Tipo de usuário:"
           >
-            {userType.map((userType: IUserTypeInterface) => (
+            {userType.map((userType: IUserType) => (
               <option key={userType.id} value={userType.id}>
                 {userType.name}
               </option>

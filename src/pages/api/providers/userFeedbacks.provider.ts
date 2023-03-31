@@ -1,6 +1,6 @@
 import { api } from '../apis/api'
 
-export interface IUserFeedbackInterface {
+export interface IUserFeedback {
   id?: string
   diet?: string
   workouts?: string
@@ -15,10 +15,10 @@ export interface IUserFeedbackInterface {
 
 export async function findFeedbacks(
   token: string,
-  feedback: IUserFeedbackInterface,
-): Promise<IUserFeedbackInterface[]> {
+  feedback: IUserFeedback,
+): Promise<IUserFeedback[]> {
   try {
-    const response = await api.get<IUserFeedbackInterface[]>(
+    const response = await api.get<IUserFeedback[]>(
       `/user-feedbacks?userId=${feedback.userId}&wokoutId=${feedback.workoutId}`,
       {
         headers: { Authorization: `Bearer ${token}` },

@@ -1,5 +1,5 @@
 import { api } from '../apis/api'
-import { IPlanTypeInterface } from './plans-types.provider'
+import { IPlanType } from './plans-types.provider'
 
 export interface IPlanInterface {
   id?: string
@@ -7,7 +7,7 @@ export interface IPlanInterface {
   endDate?: string
   isActive?: boolean
   planTypeId?: string
-  planType?: IPlanTypeInterface
+  planType?: IPlanType
   userId?: string
 }
 
