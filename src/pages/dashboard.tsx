@@ -135,9 +135,13 @@ interface SidebarProps extends BoxProps {
   handleWithShowUsers: () => void
 }
 
-const SidebarContent = ({ onClose, handleWithShowUsers }: SidebarProps) => {
+const SidebarContent = ({
+  onClose,
+  handleWithShowUsers,
+  ...rest
+}: SidebarProps) => {
   return (
-    <Box
+    <Flex
       transition="0.3s ease"
       style={{
         background:
@@ -148,6 +152,7 @@ const SidebarContent = ({ onClose, handleWithShowUsers }: SidebarProps) => {
       w={{ base: 60, md: 60 }}
       pos="fixed"
       h="full"
+      {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Image
@@ -180,7 +185,7 @@ const SidebarContent = ({ onClose, handleWithShowUsers }: SidebarProps) => {
           </>
         </NavItem>
       ))}
-    </Box>
+    </Flex>
   )
 }
 
