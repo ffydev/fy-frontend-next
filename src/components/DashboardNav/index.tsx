@@ -31,6 +31,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
 import Users from '../Users'
+
 interface LinkItemProps {
   name: string
   icon: IconType
@@ -74,7 +75,7 @@ export default function DashboardNav() {
     }
   }, [fetchCurrentUserData])
 
-  const handleWithShowUser = () => {
+  const handleWithShowUsers = () => {
     setUserComponent(true)
   }
 
@@ -98,7 +99,7 @@ export default function DashboardNav() {
       >
         <SidebarContent
           onClose={() => onClose}
-          handleWithShowUser={handleWithShowUser}
+          handleWithShowUsers={handleWithShowUsers}
           display={{ base: 'none', md: 'block' }}
         />
         <Drawer
@@ -113,7 +114,7 @@ export default function DashboardNav() {
           <DrawerContent>
             <SidebarContent
               onClose={onClose}
-              handleWithShowUser={handleWithShowUser}
+              handleWithShowUsers={handleWithShowUsers}
             />
           </DrawerContent>
         </Drawer>
@@ -131,10 +132,10 @@ export default function DashboardNav() {
 
 interface SidebarProps extends BoxProps {
   onClose: () => void
-  handleWithShowUser: () => void
+  handleWithShowUsers: () => void
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, handleWithShowUsers }: SidebarProps) => {
   return (
     <Box
       transition="0.3s ease"
@@ -147,7 +148,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: 60, md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Image
@@ -172,7 +172,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 _focus={{
                   bgColor: 'blackAlpha.900',
                 }}
-                onClick={() => rest.handleWithShowUser()}
+                onClick={() => handleWithShowUsers()}
               >
                 {link.name}
               </Button>
