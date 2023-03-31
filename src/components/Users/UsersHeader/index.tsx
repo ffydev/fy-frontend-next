@@ -28,7 +28,7 @@ export default function UsersHeader({
         Usuários
       </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
+        <FormControl width={'100%'}>
           <UserCreate
             fetchUsersData={fetchUsersData}
             userTypes={userType}
@@ -39,7 +39,7 @@ export default function UsersHeader({
           <Select
             size={'md'}
             border={'1px'}
-            borderColor={'purple.400'}
+            borderColor={'whiteAlpha.900'}
             variant={'outline'}
             value={userTypeId}
             onChange={(event) => setUserTypeId(event.target.value)}
@@ -55,7 +55,7 @@ export default function UsersHeader({
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
           <Input
             border={'1px'}
-            borderColor={'purple.400'}
+            borderColor={'whiteAlpha.900'}
             variant={'outline'}
             placeholder="Nome do usuário"
             value={searchName}

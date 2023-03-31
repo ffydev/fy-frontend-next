@@ -85,19 +85,16 @@ export default function ExercisesList({
       {exercises?.map((exercise: IExerciseInterface) => (
         <Box
           key={exercise.id}
-          p={3}
-          m={3}
+          p={4}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
-          border={'1px'}
-          borderColor={'whiteAlpha.700'}
           rounded={'lg'}
-          bgGradient={[
-            'linear(to-tr, gray.900 70.17%, purple.900 90.87%)',
-            'linear(to-br, gray.900 50.17%, purple.900 90.87%)',
-          ]}
+          border={'1px'}
+          bgColor={'whiteAlpha.50'}
+          borderColor={'whiteAlpha.100'}
+          boxShadow={'lg'}
         >
-          <Stack direction={['row', 'column']} spacing={6} w={'full'}>
+          <Stack direction={'column'} spacing={6} w={'full'}>
             <Flex minW="auto">
               <Spacer />{' '}
               <CloseButton
@@ -107,7 +104,7 @@ export default function ExercisesList({
             </Flex>
             <FormControl mt={2} isRequired>
               <FormLabel>
-                <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
                   Tipo de exercício
                 </Tag>
               </FormLabel>
@@ -137,7 +134,7 @@ export default function ExercisesList({
 
             <FormControl mt={2} isRequired>
               <FormLabel>
-                <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
                   Nome do exercício
                 </Tag>
               </FormLabel>

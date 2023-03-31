@@ -25,7 +25,7 @@ import {
   Stack,
   TabPanel,
   TabPanels,
-  Text,
+  Tag,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
@@ -136,8 +136,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
         {workouts?.map((workout: IWorkoutInterface) => (
           <TabPanel key={workout.id}>
             <Box
-              p={3}
-              m={3}
+              p={4}
               width="100%"
               rounded={'lg'}
               border={'1px'}
@@ -149,21 +148,20 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
               minWidth="250px"
             >
               <Flex>
-                <Text fontWeight="bold">
+                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
                   Tipo de treino: {workout.workoutType}
-                </Text>
+                </Tag>
                 <Spacer />
                 <CloseButton
                   onClick={() => handleWithDeleteWorkout(workout.id!)}
                   size="sm"
                 />
               </Flex>
-
               <Stack direction={['column', 'row']} spacing={6} w={'full'}>
                 <SimpleGrid
-                  columns={{ base: 1, sm: 2, md: 3 }}
+                  columns={{ base: 1, md: 3 }}
                   spacing={5}
-                  mt={12}
+                  mt={4}
                   mb={4}
                   w={'full'}
                 >
@@ -193,7 +191,6 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       )}
                     </Select>
                   </FormControl>
-
                   <FormControl isRequired>
                     <Select
                       rounded={'lg'}
@@ -218,15 +215,15 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       ))}
                     </Select>
                   </FormControl>
-
                   <Stack>
                     <Button
-                      ml={3}
                       size="md"
-                      bgGradient={[
-                        'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-                        'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
-                      ]}
+                      bgColor={'whiteAlpha.900'}
+                      color={'blackAlpha.900'}
+                      _hover={{
+                        bgColor: 'whiteAlpha.700',
+                        transform: '0.3s',
+                      }}
                       onClick={() =>
                         handleCreateExercise(
                           workout.id!,

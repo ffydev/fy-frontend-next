@@ -1,7 +1,8 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
-import { Button, Flex, FormControl, Select } from '@chakra-ui/react'
+import { Button, FormControl, Select, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { Plus } from 'phosphor-react'
 import { useState, useCallback } from 'react'
 
 interface WorkoutCreateProps {
@@ -42,12 +43,13 @@ export function WorkoutCreate({
   )
   return (
     <>
-      <FormControl isRequired>
-        <Flex>
+      <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }} isRequired>
           <Select
-            rounded={'md'}
-            size="xs"
-            w={'3xs'}
+            size={'md'}
+            border={'1px'}
+            borderColor={'purple.400'}
+            variant={'outline'}
             value={workoutType}
             onChange={(event) => setWorkoutType(event.target.value)}
           >
@@ -59,21 +61,26 @@ export function WorkoutCreate({
             <option value="E">E</option>
             <option value="F">F</option>
           </Select>
-          <Flex>
+        </FormControl>
+        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
+          <Stack>
             <Button
-              ml={3}
-              size="xs"
-              bgGradient={[
-                'linear(to-tr, blue.900 20.17%, purple.900 90.87%)',
-                'linear(to-br, blue.900 20.17%, purple.900 90.87%)',
-              ]}
+              size={'md'}
+              variant={'solid'}
+              color={'blackAlpha.900'}
+              bgColor={'whiteAlpha.900'}
+              _hover={{
+                bg: 'whiteAlpha.700',
+                transition: '0.4s',
+              }}
+              leftIcon={<Plus weight="bold" />}
               onClick={() => handleCreateWorkout(userId!)}
             >
               Adicionar Treino
             </Button>
-          </Flex>
-        </Flex>
-      </FormControl>
+          </Stack>
+        </FormControl>
+      </Stack>
     </>
   )
 }

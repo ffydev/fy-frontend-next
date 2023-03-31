@@ -69,7 +69,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
             boxShadow={'lg'}
           >
             <chakra.h1 fontSize="lg" lineHeight={6} mt={2}>
-              <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+              <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
                 Início:
               </Tag>
               <Editable
@@ -86,7 +86,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
             </chakra.h1>
 
             <chakra.h1 fontSize="lg" lineHeight={6} mt={2}>
-              <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+              <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
                 Fim:
               </Tag>
               <Editable
@@ -104,7 +104,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
 
             <FormControl mt={2} isRequired>
               <FormLabel>
-                <Tag size={'md'} colorScheme={'purple'} variant={'subtle'}>
+                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
                   Tipo de Plano:
                 </Tag>
               </FormLabel>

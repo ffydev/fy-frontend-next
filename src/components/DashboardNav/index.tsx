@@ -38,7 +38,7 @@ interface LinkItemProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome, userComponent: true },
+  { name: 'Início', icon: FiHome, userComponent: true },
 ]
 
 export default function DashboardNav() {

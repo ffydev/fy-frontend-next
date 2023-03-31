@@ -104,7 +104,7 @@ export function UsersList({
 
               <Flex>
                 <Button
-                  bgColor={'purple.400'}
+                  colorScheme={'orange'}
                   size="xs"
                   onClick={() => handleWithFindWorkoutsByUser(user.id)}
                 >
