@@ -24,7 +24,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
   const router = useRouter()
   const [initDate, setInitDate] = useState<string>()
   const [endDate, setEndDate] = useState<string>()
-  const [planTypeId, setPlanTypeId] = useState<string>()
+  const [planTypeId, setPlanTypeId] = useState<string | undefined>()
 
   const handleUpdatePlan = async (planId: string) => {
     try {
@@ -39,7 +39,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
       await updatePlan(token, planId, {
         initDate: initDate ? initDate.toString() : undefined,
         endDate: endDate ? endDate.toString() : undefined,
-        planTypeId,
+        planTypeId: planTypeId || undefined,
       })
     } catch (error) {
       console.error(error)
