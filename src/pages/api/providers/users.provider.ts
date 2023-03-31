@@ -13,6 +13,7 @@ export interface IUserInterface {
   plan: IPlan[]
   workout: IWorkout[]
   userType: IUserType
+  isRegistered: boolean
 }
 export interface ICreateUserWithIPlan {
   email: string

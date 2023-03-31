@@ -14,6 +14,7 @@ import {
   EditableInput,
   EditablePreview,
   Flex,
+  FormLabel,
   SimpleGrid,
   Spacer,
   Stack,
@@ -121,7 +122,13 @@ export function UsersList({
                 />
               </Editable>
 
-              <Editable defaultValue={user.firstName}>
+              <Editable
+                defaultValue={
+                  user.firstName === '' || user.firstName === null
+                    ? 'Aguardando registro'
+                    : user.firstName
+                }
+              >
                 <EditablePreview />
                 <EditableInput
                   value={firstName}
@@ -130,13 +137,23 @@ export function UsersList({
                 />
               </Editable>
 
-              <Editable defaultValue={user.lastName}>
+              <Editable
+                defaultValue={
+                  user.lastName === '' || user.lastName === null
+                    ? 'Aguardando registro'
+                    : user.lastName
+                }
+              >
                 <EditablePreview />
                 <EditableInput
                   value={lastName}
                   onChange={(event) => setLastName(event.target.value)}
                   onBlur={() => handleUpdateUser(user.id!)}
                 />
+
+                <FormLabel>
+                  Status: {user.isRegistered ? 'Ativo' : 'Inativo'}
+                </FormLabel>
               </Editable>
 
               <Box>
