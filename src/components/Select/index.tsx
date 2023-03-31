@@ -23,21 +23,27 @@ export function SelectUpdateComponent({
     <>
       <FormControl mt={2} isRequired>
         <FormLabel>
-          <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
+          <Tag size={'md'} colorScheme={'orange'}>
             {tag}
           </Tag>
         </FormLabel>
         <Select
-          size={'sm'}
-          rounded={'lg'}
-          variant={'filled'}
+          bg={'whiteAlpha.200'}
+          color={'white'}
+          size={'md'}
+          rounded={'md'}
+          variant={'outline'}
           value={value}
           onChange={(event) => setValue(event.target.value)}
           onBlur={() => onBlurAction(id)}
         >
-          <option>{defaultName}</option>
+          <option style={{ backgroundColor: '#1A202C' }}>{defaultName}</option>
           {valuesMap.map((valueMap: any) => (
-            <option key={valueMap.id} value={valueMap.id}>
+            <option
+              style={{ backgroundColor: '#4A5568' }}
+              key={valueMap.id}
+              value={valueMap.id}
+            >
               {valueMap.name}
             </option>
           ))}

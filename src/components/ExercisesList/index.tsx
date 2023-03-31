@@ -112,7 +112,7 @@ export default function ExercisesList({
             </Flex>
 
             <SelectUpdateComponent
-              tag={'Tipo'}
+              tag={'Grupo Muscular'}
               value={exercise.exerciseType?.id!}
               id={exercise.id!}
               setValue={setExerciseTypeId}
