@@ -1,9 +1,6 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
-import {
-  IPlan,
-  updatePlan,
-} from '@/pages/api/providers/plans.provider'
+import { IPlan, updatePlan } from '@/pages/api/providers/plans.provider'
 import {
   Box,
   chakra,
