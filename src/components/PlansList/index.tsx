@@ -41,6 +41,9 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
         endDate: endDate ? endDate.toString() : undefined,
         planTypeId: planTypeId || undefined,
       })
+      setInitDate(undefined)
+      setEndDate(undefined)
+      setPlanTypeId(undefined)
     } catch (error) {
       console.error(error)
     }
