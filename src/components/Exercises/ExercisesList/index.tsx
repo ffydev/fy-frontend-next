@@ -55,7 +55,7 @@ export default function ExercisesList({
         router.push('/login')
         return
       }
-      console.log(sets, reps, weight, rir, describe)
+
       await updateExercise(token, id, {
         sets: sets ? +sets : undefined,
         reps: reps ? +reps : undefined,
