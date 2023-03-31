@@ -39,7 +39,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
       await updatePlan(token, planId, {
         initDate: initDate ? initDate.toString() : undefined,
         endDate: endDate ? endDate.toString() : undefined,
-        planTypeId: planTypeId || undefined,
+        planTypeId: planTypeId !== '' ? planTypeId : undefined,
       })
       setInitDate(undefined)
       setEndDate(undefined)
