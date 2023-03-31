@@ -1,4 +1,4 @@
-import HandleButton from '@/components/Button'
+import HandleButton from '@/components/Buttons/HandleButton'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import { IUserType } from '@/pages/api/providers/users-types.provider'
