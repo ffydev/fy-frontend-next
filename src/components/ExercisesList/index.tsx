@@ -35,8 +35,8 @@ export default function ExercisesList({
   exerciseTypes,
 }: WorkoutsProps) {
   const router = useRouter()
-  const [exerciseNameId, setExerciseNameId] = useState<string | undefined>('')
-  const [exerciseTypeId, setExerciseTypeId] = useState<string | undefined>('')
+  const [exerciseNameId, setExerciseNameId] = useState<string | undefined>()
+  const [exerciseTypeId, setExerciseTypeId] = useState<string | undefined>()
   const [sets, setSets] = useState<string | undefined>('')
   const [reps, setReps] = useState<string | undefined>('')
   const [weight, setWeight] = useState<string | undefined>('')
@@ -62,6 +62,7 @@ export default function ExercisesList({
         exerciseNameId: exerciseNameId || undefined,
         exerciseTypeId: exerciseTypeId || undefined,
       })
+      fetchUserWorkouts()
       setSets(undefined)
       setReps(undefined)
       setWeight(undefined)
@@ -69,7 +70,6 @@ export default function ExercisesList({
       setDescribe(undefined)
       setExerciseNameId(undefined)
       setExerciseTypeId(undefined)
-      fetchUserWorkouts()
     } catch (error) {
       console.error(error)
     }
@@ -118,7 +118,6 @@ export default function ExercisesList({
               setValue={setExerciseTypeId}
               onBlurAction={() => handleUpdateExercise(exercise.id!)}
               defaultName={exercise.exerciseType?.name!}
-              defaultId={exercise.exerciseType?.id!}
               valuesMap={exerciseTypes}
             />
 
@@ -129,7 +128,6 @@ export default function ExercisesList({
               setValue={setExerciseNameId}
               onBlurAction={() => handleUpdateExercise(exercise.id!)}
               defaultName={exercise.exerciseNames?.name!}
-              defaultId={exercise.exerciseNames?.id!}
               valuesMap={exerciseNames}
             />
 
