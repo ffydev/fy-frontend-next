@@ -11,7 +11,7 @@ export interface IExercise {
   workoutId?: string
   exerciseNameId?: string
   exerciseTypeId?: string
-  exerciseName?: IExerciseName
+  exerciseNames?: IExerciseName
   exerciseType?: IExerciseType
 }
 

@@ -146,14 +146,14 @@ export default function ExercisesList({
                 onChange={(event) => setExerciseNameId(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               >
-                <option>{exercise.exerciseName?.name}</option>
+                <option>{exercise.exerciseNames?.name}</option>
                 {exerciseNames?.map((exerciseName: IExerciseName) => (
                   <option
                     key={exerciseName.id}
                     value={
                       exerciseName.id
                         ? exerciseName.id
-                        : exercise.exerciseName?.id
+                        : exercise.exerciseNames?.id
                     }
                   >
                     {exerciseName.name}
