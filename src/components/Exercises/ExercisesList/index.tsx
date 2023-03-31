@@ -40,10 +40,11 @@ export default function ExercisesList({
   const router = useRouter()
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
-  const [sets, setSets] = useState<string>('')
-  const [reps, setReps] = useState<string>('')
-  const [weight, setWeight] = useState<string>('')
-  const [describe, setDescribe] = useState<string>('')
+  const [sets, setSets] = useState<string | undefined>('')
+  const [reps, setReps] = useState<string | undefined>('')
+  const [weight, setWeight] = useState<string | undefined>('')
+  const [rir, setRir] = useState<string | undefined>('')
+  const [describe, setDescribe] = useState<string | undefined>('')
 
   const handleUpdateExercise = async (id: string) => {
     try {
@@ -54,13 +55,19 @@ export default function ExercisesList({
         router.push('/login')
         return
       }
-      console.log(sets, reps, weight)
+      console.log(sets, reps, weight, rir, describe)
       await updateExercise(token, id, {
-        sets: +sets ? +sets : undefined,
-        reps: +reps ? +reps : undefined,
-        weight: +weight ? +weight : undefined,
+        sets: sets ? +sets : undefined,
+        reps: reps ? +reps : undefined,
+        weight: weight ? +weight : undefined,
+        rir: rir || undefined,
         describe: describe || undefined,
       })
+      setSets(undefined)
+      setReps(undefined)
+      setWeight(undefined)
+      setRir(undefined)
+      setDescribe(undefined)
       fetchUserWorkouts()
     } catch (error) {
       console.error(error)
@@ -193,6 +200,20 @@ export default function ExercisesList({
                 <EditableInput
                   value={weight}
                   onChange={(event) => setWeight(event.target.value)}
+                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                />
+              </Editable>
+            </chakra.h1>
+
+            <chakra.h1 fontSize="lg" lineHeight={6}>
+              Repetições em reserva:
+              <Editable
+                defaultValue={exercise.rir ? exercise.rir : 'falha/falha/falha'}
+              >
+                <EditablePreview />
+                <EditableInput
+                  value={rir}
+                  onChange={(event) => setRir(event.target.value)}
                   onBlur={() => handleUpdateExercise(exercise.id!)}
                 />
               </Editable>
