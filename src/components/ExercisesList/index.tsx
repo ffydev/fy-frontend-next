@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { SelectUpdateComponent } from '../Select'
+import { SelectUpdate } from '../Select/SelectUpdate'
 
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
@@ -111,7 +111,7 @@ export default function ExercisesList({
               />
             </Flex>
 
-            <SelectUpdateComponent
+            <SelectUpdate
               tag={'Grupo Muscular'}
               value={exercise.exerciseType?.id!}
               id={exercise.id!}
@@ -121,7 +121,7 @@ export default function ExercisesList({
               valuesMap={exerciseTypes}
             />
 
-            <SelectUpdateComponent
+            <SelectUpdate
               tag={'Nome'}
               value={exercise.exerciseNames?.id!}
               id={exercise.id!}
