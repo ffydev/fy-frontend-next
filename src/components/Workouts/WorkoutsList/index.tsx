@@ -5,7 +5,7 @@ import {
   IExercisesNames,
 } from '@/pages/api/providers/exercises-names.provider'
 import {
-  findExerciseTypes,
+  findExercisesTypes,
   IExerciseTypes,
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
@@ -94,7 +94,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
         return
       }
 
-      const response = await findExerciseTypes(token)
+      const response = await findExercisesTypes(token)
 
       setExerciseTypes(response)
     } catch (error) {

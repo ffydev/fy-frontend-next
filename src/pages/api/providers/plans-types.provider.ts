@@ -5,7 +5,7 @@ export interface IPlanType {
   name: string
 }
 
-export async function findPlanTypes(token: string): Promise<IPlanType[]> {
+export async function findPlansTypes(token: string): Promise<IPlanType[]> {
   try {
     const response = await api.get<IPlanType[]>('/plans-types', {
       headers: { Authorization: `Bearer ${token}` },

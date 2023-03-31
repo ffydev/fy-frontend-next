@@ -13,7 +13,7 @@ export interface IUserFeedback {
   createdAt?: string
 }
 
-export async function findFeedbacks(
+export async function findUserFeedbacks(
   token: string,
   feedback: IUserFeedback,
 ): Promise<IUserFeedback[]> {

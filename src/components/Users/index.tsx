@@ -2,11 +2,11 @@ import WorkoutsHeader from '@/components/Workouts/WorkoutsHeader'
 import { WorkoutsLists } from '@/components/Workouts/WorkoutsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
-  findPlanTypes,
+  findPlansTypes,
   IPlanType,
 } from '@/pages/api/providers/plans-types.provider'
 import {
-  findUserType,
+  findUsersTypes,
   IUserType,
 } from '@/pages/api/providers/users-types.provider'
 import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
@@ -61,7 +61,7 @@ export default function Users() {
         return
       }
 
-      const response = await findPlanTypes(token)
+      const response = await findPlansTypes(token)
 
       setPlanTypes(response)
     } catch (error) {
@@ -80,7 +80,7 @@ export default function Users() {
         return
       }
 
-      const response = await findUserType(token)
+      const response = await findUsersTypes(token)
 
       setUserType(response)
     } catch (error) {

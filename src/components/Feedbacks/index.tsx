@@ -1,6 +1,6 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
-  findFeedbacks,
+  findUserFeedbacks,
   IUserFeedback,
 } from '@/pages/api/providers/userFeedbacks.provider'
 import { Box, chakra, CloseButton, Flex, Spacer } from '@chakra-ui/react'
@@ -31,7 +31,7 @@ export default function Feedbacks({
         return
       }
 
-      const response = await findFeedbacks(token, { userId, workoutId })
+      const response = await findUserFeedbacks(token, { userId, workoutId })
 
       setFeedbacks(response)
     } catch (error) {

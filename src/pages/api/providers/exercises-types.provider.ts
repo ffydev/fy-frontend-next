@@ -7,7 +7,7 @@ export interface IExerciseTypes {
   exercises?: IExercise[]
 }
 
-export async function findExerciseTypes(
+export async function findExercisesTypes(
   token: string,
 ): Promise<IExerciseTypes[]> {
   try {

@@ -7,7 +7,7 @@ export interface IUserType {
   user: IUserInterface[]
 }
 
-export async function findUserType(token: string): Promise<IUserType[]> {
+export async function findUsersTypes(token: string): Promise<IUserType[]> {
   try {
     const response = await api.get<IUserType[]>('/users-types', {
       headers: { Authorization: `Bearer ${token}` },
