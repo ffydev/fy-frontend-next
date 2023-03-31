@@ -112,7 +112,7 @@ export default function ExercisesList({
             </Flex>
 
             <SelectUpdateComponent
-              tag={'Tipo de Exercício'}
+              tag={'Tipo'}
               value={exercise.exerciseType?.id!}
               id={exercise.id!}
               setValue={setExerciseTypeId}
@@ -122,7 +122,7 @@ export default function ExercisesList({
             />
 
             <SelectUpdateComponent
-              tag={'Nome do Exercício'}
+              tag={'Nome'}
               value={exercise.exerciseNames?.id!}
               id={exercise.id!}
               setValue={setExerciseNameId}
