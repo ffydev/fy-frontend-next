@@ -1,5 +1,5 @@
 import { api } from '../apis/api'
-import { IPlanInterface } from './plans.provider'
+import { IPlan } from './plans.provider'
 import { IUserType } from './users-types.provider'
 import { IWorkout } from './workouts.provider'
 
@@ -10,7 +10,7 @@ export interface IUserInterface {
   email: string
   userTypeId: string
   access_token?: string
-  plan: IPlanInterface[]
+  plan: IPlan[]
   workout: IWorkout[]
   userType: IUserType
 }
@@ -21,7 +21,7 @@ export interface ICreateUserWithIPlan {
   password: string
   userTypeId: string
   plan: {
-    create: IPlanInterface[]
+    create: IPlan[]
   }
 }
 export interface IUpdateUserWithIPlan {

@@ -1,6 +1,6 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IExercisesNames } from '@/pages/api/providers/exercises-names.provider'
-import { IExerciseTypes } from '@/pages/api/providers/exercises-types.provider'
+import { IExerciseName } from '@/pages/api/providers/exercises-names.provider'
+import { IExerciseType } from '@/pages/api/providers/exercises-types.provider'
 import {
   deleteExercise,
   IExercise,
@@ -27,8 +27,8 @@ import { useState } from 'react'
 interface WorkoutsProps {
   fetchUserWorkouts: () => void
   exercises?: IExercise[]
-  exerciseNames?: IExercisesNames[]
-  exerciseTypes?: IExerciseTypes[]
+  exerciseNames?: IExerciseName[]
+  exerciseTypes?: IExerciseType[]
 }
 
 export default function ExercisesList({
@@ -117,7 +117,7 @@ export default function ExercisesList({
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               >
                 <option>{exercise.exerciseType?.name}</option>
-                {exerciseTypes?.map((exerciseType: IExerciseTypes) => (
+                {exerciseTypes?.map((exerciseType: IExerciseType) => (
                   <option
                     key={exerciseType.id}
                     value={
@@ -147,7 +147,7 @@ export default function ExercisesList({
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               >
                 <option>{exercise.exerciseName?.name}</option>
-                {exerciseNames?.map((exerciseName: IExercisesNames) => (
+                {exerciseNames?.map((exerciseName: IExerciseName) => (
                   <option
                     key={exerciseName.id}
                     value={

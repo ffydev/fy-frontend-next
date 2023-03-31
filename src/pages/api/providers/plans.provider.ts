@@ -1,7 +1,7 @@
 import { api } from '../apis/api'
 import { IPlanType } from './plans-types.provider'
 
-export interface IPlanInterface {
+export interface IPlan {
   id?: string
   initDate?: string
   endDate?: string
@@ -14,10 +14,10 @@ export interface IPlanInterface {
 export async function updatePlan(
   token: string,
   id: string,
-  plan: IPlanInterface,
-): Promise<IPlanInterface> {
+  plan: IPlan,
+): Promise<IPlan> {
   try {
-    const response = await api.patch<IPlanInterface>(`/plans/${id}`, plan, {
+    const response = await api.patch<IPlan>(`/plans/${id}`, plan, {
       headers: { Authorization: `Bearer ${token}` },
     })
 

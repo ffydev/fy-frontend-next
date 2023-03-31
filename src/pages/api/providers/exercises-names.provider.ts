@@ -1,15 +1,15 @@
 import { api } from '../apis/api'
 
-export interface IExercisesNames {
+export interface IExerciseName {
   id: string
   name: string
 }
 
 export async function findExercisesNames(
   token: string,
-): Promise<IExercisesNames[]> {
+): Promise<IExerciseName[]> {
   try {
-    const response = await api.get<IExercisesNames[]>('/exercises-names', {
+    const response = await api.get<IExerciseName[]>('/exercises-names', {
       headers: { Authorization: `Bearer ${token}` },
     })
 

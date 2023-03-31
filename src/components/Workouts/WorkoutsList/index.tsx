@@ -2,11 +2,11 @@ import ExercisesList from '@/components/Exercises/ExercisesList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findExercisesNames,
-  IExercisesNames,
+  IExerciseName,
 } from '@/pages/api/providers/exercises-names.provider'
 import {
   findExercisesTypes,
-  IExerciseTypes,
+  IExerciseType,
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
 import {
@@ -40,8 +40,8 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
-  const [exerciseTypes, setExerciseTypes] = useState<IExerciseTypes[]>([])
-  const [exerciseNames, setExerciseNames] = useState<IExercisesNames[]>([])
+  const [exerciseTypes, setExerciseTypes] = useState<IExerciseType[]>([])
+  const [exerciseNames, setExerciseNames] = useState<IExerciseName[]>([])
 
   const handleCreateExercise = useCallback(
     async (
@@ -199,7 +199,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       }
                     >
                       <option>Tipo de exercício</option>
-                      {exerciseTypes.map((exerciseType: IExerciseTypes) => (
+                      {exerciseTypes.map((exerciseType: IExerciseType) => (
                         <option key={exerciseType.id} value={exerciseType.id}>
                           {exerciseType.name}
                         </option>
@@ -219,7 +219,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       }
                     >
                       <option>Nome do Exercício</option>
-                      {exerciseNames.map((exerciseName: IExercisesNames) => (
+                      {exerciseNames.map((exerciseName: IExerciseName) => (
                         <option key={exerciseName.id} value={exerciseName.id}>
                           {exerciseName.name}
                         </option>

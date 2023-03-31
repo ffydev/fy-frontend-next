@@ -1,7 +1,7 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
-  IPlanInterface,
+  IPlan,
   updatePlan,
 } from '@/pages/api/providers/plans.provider'
 import {
@@ -21,7 +21,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 interface PlanListProps {
-  plans: IPlanInterface[]
+  plans: IPlan[]
   planTypes: IPlanType[]
 }
 
@@ -57,7 +57,7 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
         <Box mb={4}>
           <Text>Acompanhamento</Text>
         </Box>
-        {plans.map((plan: IPlanInterface) => (
+        {plans.map((plan: IPlan) => (
           <Box
             key={plan.id}
             p={3}
