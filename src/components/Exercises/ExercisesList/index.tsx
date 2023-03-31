@@ -54,7 +54,7 @@ export default function ExercisesList({
         router.push('/login')
         return
       }
-
+      console.log(sets, reps, weight)
       await updateExercise(token, id, {
         sets: +sets ? +sets : undefined,
         reps: +reps ? +reps : undefined,
@@ -164,9 +164,7 @@ export default function ExercisesList({
 
             <chakra.h1 fontSize="lg" lineHeight={6}>
               Séries:
-              <Editable
-                defaultValue={`${exercise.sets}` ? `${exercise.sets}` : '0'}
-              >
+              <Editable defaultValue={`${exercise.sets}`}>
                 <EditablePreview />
                 <EditableInput
                   value={sets}
@@ -190,9 +188,7 @@ export default function ExercisesList({
 
             <chakra.h1 fontSize="lg" lineHeight={6}>
               Carga:
-              <Editable
-                defaultValue={`${exercise.weight}` ? `${exercise.weight}` : '0'}
-              >
+              <Editable defaultValue={`${exercise.weight}`}>
                 <EditablePreview />
                 <EditableInput
                   value={weight}
