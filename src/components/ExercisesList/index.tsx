@@ -57,10 +57,10 @@ export default function ExercisesList({
         sets: sets ? +sets : undefined,
         reps: reps ? +reps : undefined,
         weight: weight ? +weight : undefined,
-        rir: rir || undefined,
-        describe: describe || undefined,
-        exerciseNameId: exerciseNameId || undefined,
-        exerciseTypeId: exerciseTypeId || undefined,
+        rir: rir !== '' ? rir : undefined,
+        describe: describe !== '' ? describe : undefined,
+        exerciseNameId: exerciseNameId !== '' ? exerciseNameId : undefined,
+        exerciseTypeId: exerciseTypeId !== '' ? exerciseTypeId : undefined,
       })
       fetchUserWorkouts()
       setSets(undefined)
