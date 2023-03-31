@@ -6,7 +6,7 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-export default function ButtonDashboard({ text, color, onClick }: ButtonProps) {
+export default function HandleButton({ text, color, onClick }: ButtonProps) {
   return (
     <>
       <Button

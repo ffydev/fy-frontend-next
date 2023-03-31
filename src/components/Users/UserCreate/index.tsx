@@ -1,4 +1,4 @@
-import ButtonDashboard from '@/components/Button'
+import HandleButton from '@/components/Button'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import { IUserType } from '@/pages/api/providers/users-types.provider'
@@ -185,7 +185,7 @@ export default function UserCreate({
           </ModalBody>
 
           <ModalFooter>
-            <ButtonDashboard
+            <HandleButton
               text="Criar"
               color={'white'}
               onClick={handleCreateUser}
