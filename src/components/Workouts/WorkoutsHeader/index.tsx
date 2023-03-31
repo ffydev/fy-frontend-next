@@ -4,18 +4,12 @@ import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { ArrowArcLeft, Plus } from 'phosphor-react'
-// import { WorkoutCreate } from '../WorkoutCreate'
 
 interface WorkoutsHeaderProps {
   fetchUserWorkouts: () => void
   userId: string
   handleWithHideWorkouts: () => void
 }
-
-// interface WorkoutCreateProps {
-//   fetchUserWorkouts: () => void
-//   userId: string
-// }
 
 export default function WorkoutsHeader({
   fetchUserWorkouts,
@@ -73,10 +67,6 @@ export default function WorkoutsHeader({
           </Stack>
         </FormControl>
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
-          {/* <WorkoutCreate
-            fetchUserWorkouts={fetchUserWorkouts}
-            userId={userId}
-          /> */}
           <Select
             size={'md'}
             border={'1px'}
@@ -95,13 +85,6 @@ export default function WorkoutsHeader({
           </Select>
         </FormControl>
         <FormControl width={'100%'}>
-          {/* <IconButton
-            rounded={'md'}
-            w={'3xs'}
-            aria-label="Voltar"
-            leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-            onClick={handleWithHideWorkouts}
-          /> */}
           <Stack>
             <Button
               size={'md'}
