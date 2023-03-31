@@ -63,11 +63,10 @@ export function UsersList({
       }
 
       await updateUser(token, userId, {
-        firstName,
-        lastName,
-      }).then(() => {
-        fetchUsersData()
+        firstName: firstName !== '' ? firstName : undefined,
+        lastName: lastName !== '' ? lastName : undefined,
       })
+      fetchUsersData()
     } catch (error) {
       console.error(error)
     }
