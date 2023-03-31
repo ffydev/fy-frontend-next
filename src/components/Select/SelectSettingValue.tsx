@@ -5,6 +5,7 @@ interface SelectSettingValueProps {
   value: string
   setValue: (event: string) => void
   mapValues: any
+  borderColor?: string
 }
 
 export default function SelectSettingValue({
@@ -12,14 +13,15 @@ export default function SelectSettingValue({
   value,
   setValue,
   mapValues,
+  borderColor,
 }: SelectSettingValueProps) {
   return (
     <>
-      <FormControl isRequired>
+      <FormControl isRequired mt={4}>
         <Select
           size={'md'}
           border={'1px'}
-          borderColor={'whiteAlpha.900'}
+          borderColor={borderColor}
           variant={'outline'}
           value={value}
           onChange={(event) => setValue(event.target.value)}

@@ -42,6 +42,7 @@ export default function UsersHeader({
           value={userTypeId}
           setValue={setUserTypeId}
           mapValues={userType}
+          borderColor={'whiteAlpha.900'}
         />
 
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>

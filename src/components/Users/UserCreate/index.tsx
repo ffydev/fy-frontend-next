@@ -1,11 +1,11 @@
 import HandleButton from '@/components/Buttons/HandleButton'
+import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import { IUserType } from '@/pages/api/providers/users-types.provider'
 import { createUser } from '@/pages/api/providers/users.provider'
 import {
   Button,
-  Flex,
   FormControl,
   FormLabel,
   Input,
@@ -154,22 +154,12 @@ export default function UserCreate({
               />
             </FormControl>
 
-            <FormControl mt={4} isRequired>
-              <FormLabel>Tipo de usuário:</FormLabel>
-              <Flex>
-                <Select
-                  value={userTypeId}
-                  onChange={(event) => setUserTypeId(event.target.value)}
-                >
-                  <option value=""></option>
-                  {userTypes.map((userType: IUserType) => (
-                    <option key={userType.id} value={userType.id}>
-                      {userType.name}
-                    </option>
-                  ))}
-                </Select>
-              </Flex>
-            </FormControl>
+            <SelectSettingValue
+              tag={'Tipo de usuário'}
+              value={userTypeId}
+              setValue={setUserTypeId}
+              mapValues={userTypes}
+            />
 
             <FormControl mt={4} isRequired>
               <FormLabel>Senha</FormLabel>
