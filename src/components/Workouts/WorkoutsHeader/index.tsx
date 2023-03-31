@@ -62,7 +62,7 @@ export default function WorkoutsHeader({
               leftIcon={<Plus weight="bold" />}
               onClick={() => handleCreateWorkout(userId!)}
             >
-              Adicionar Treino
+              Adicionar Workout
             </Button>
           </Stack>
         </FormControl>
@@ -75,7 +75,6 @@ export default function WorkoutsHeader({
             value={workoutType}
             onChange={(event) => setWorkoutType(event.target.value)}
           >
-            <option>Tipo de treino</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>

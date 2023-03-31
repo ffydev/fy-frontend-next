@@ -147,9 +147,6 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
               minWidth="250px"
             >
               <Flex>
-                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
-                  Tipo de treino: {workout.workoutType}
-                </Tag>
                 <Spacer />
                 <CloseButton
                   onClick={() => handleWithDeleteWorkout(workout.id!)}
@@ -160,7 +157,6 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                 <SimpleGrid
                   columns={{ base: 1, md: 3 }}
                   spacing={5}
-                  mt={4}
                   mb={4}
                   w={'full'}
                 >

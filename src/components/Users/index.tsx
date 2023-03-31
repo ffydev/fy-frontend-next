@@ -149,9 +149,7 @@ export default function Users() {
                 <Tabs>
                   <TabList>
                     {userWorkouts?.map((workout: IWorkout) => (
-                      <Tab key={workout.id}>
-                        Tipo de treino: {workout.workoutType}
-                      </Tab>
+                      <Tab key={workout.id}>Workout: {workout.workoutType}</Tab>
                     ))}
                   </TabList>
                   <WorkoutsLists
