@@ -7,15 +7,13 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
-  FormControl,
-  FormLabel,
-  Select,
   SimpleGrid,
   Tag,
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { SelectComponent } from '../Select'
 
 interface PlanListProps {
   plans: IPlan[]
@@ -99,31 +97,16 @@ export default function PlanList({ plans, planTypes }: PlanListProps) {
               </Editable>
             </chakra.h1>
 
-            <FormControl mt={2} isRequired>
-              <FormLabel>
-                <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
-                  Tipo de Plano:
-                </Tag>
-              </FormLabel>
-              <Select
-                size={'sm'}
-                rounded={'lg'}
-                variant={'filled'}
-                value={planTypeId}
-                onChange={(event) => setPlanTypeId(event.target.value)}
-                onBlur={() => handleUpdatePlan(plan.id!)}
-              >
-                <option>{plan.planType?.name}</option>
-                {planTypes.map((planType: IPlanType) => (
-                  <option
-                    key={planType.id}
-                    value={planType.id ? planType.id : plan.planType?.id}
-                  >
-                    {planType.name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
+            <SelectComponent
+              tag={'Tipo de Plano'}
+              value={planTypeId!}
+              id={plan.id!}
+              setValue={setPlanTypeId}
+              onBlurAction={() => handleUpdatePlan(plan.id!)}
+              defaultName={plan.planType?.name!}
+              defaultId={plan.planType?.id!}
+              valuesMap={planTypes}
+            />
           </Box>
         ))}
       </SimpleGrid>
