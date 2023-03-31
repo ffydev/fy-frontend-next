@@ -54,22 +54,21 @@ export default function WorkoutsHeader({
         Workouts
       </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={4}>
-        <FormControl width={'100%'}>
-          {/* <IconButton
-            rounded={'md'}
-            w={'3xs'}
-            aria-label="Voltar"
-            leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-            onClick={handleWithHideWorkouts}
-          /> */}
+        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
           <Stack>
             <Button
               size={'md'}
               variant={'solid'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={handleWithHideWorkouts}
+              color={'blackAlpha.900'}
+              bgColor={'whiteAlpha.900'}
+              _hover={{
+                bg: 'whiteAlpha.700',
+                transition: '0.4s',
+              }}
+              leftIcon={<Plus weight="bold" />}
+              onClick={() => handleCreateWorkout(userId!)}
             >
-              Voltar
+              Adicionar Treino
             </Button>
           </Stack>
         </FormControl>
@@ -95,21 +94,22 @@ export default function WorkoutsHeader({
             <option value="F">F</option>
           </Select>
         </FormControl>
-        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
+        <FormControl width={'100%'}>
+          {/* <IconButton
+            rounded={'md'}
+            w={'3xs'}
+            aria-label="Voltar"
+            leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+            onClick={handleWithHideWorkouts}
+          /> */}
           <Stack>
             <Button
               size={'md'}
               variant={'solid'}
-              color={'blackAlpha.900'}
-              bgColor={'whiteAlpha.900'}
-              _hover={{
-                bg: 'whiteAlpha.700',
-                transition: '0.4s',
-              }}
-              leftIcon={<Plus weight="bold" />}
-              onClick={() => handleCreateWorkout(userId!)}
+              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              onClick={handleWithHideWorkouts}
             >
-              Adicionar Treino
+              Voltar
             </Button>
           </Stack>
         </FormControl>

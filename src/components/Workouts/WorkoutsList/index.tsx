@@ -28,6 +28,7 @@ import {
   Tag,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { Plus } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
@@ -165,17 +166,35 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                   mb={4}
                   w={'full'}
                 >
+                  <Stack>
+                    <Button
+                      size={'md'}
+                      variant={'solid'}
+                      color={'blackAlpha.900'}
+                      bgColor={'whiteAlpha.900'}
+                      _hover={{
+                        bg: 'whiteAlpha.700',
+                        transition: '0.4s',
+                      }}
+                      leftIcon={<Plus weight="bold" />}
+                      onClick={() =>
+                        handleCreateExercise(
+                          workout.id!,
+                          exerciseNameId,
+                          exerciseTypeId,
+                        )
+                      }
+                    >
+                      Adicionar Exercício
+                    </Button>
+                  </Stack>
                   <FormControl isRequired>
                     <Select
-                      rounded={'lg'}
-                      variant={'filled'}
-                      bgColor={'blackAlpha.600'}
-                      _hover={{
-                        bgColor: 'blackAlpha.500',
-                        transform: '0.3s',
-                      }}
                       size={'md'}
                       w={'auto'}
+                      border={'1px'}
+                      borderColor={'whiteAlpha.900'}
+                      variant={'outline'}
                       value={exerciseTypeId}
                       onChange={(event) =>
                         setExerciseTypeId(event.target.value)
@@ -193,15 +212,11 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                   </FormControl>
                   <FormControl isRequired>
                     <Select
-                      rounded={'lg'}
-                      variant={'filled'}
-                      bgColor={'blackAlpha.600'}
-                      _hover={{
-                        bgColor: 'blackAlpha.500',
-                        transform: '0.3s',
-                      }}
                       size={'md'}
                       w={'auto'}
+                      border={'1px'}
+                      borderColor={'whiteAlpha.900'}
+                      variant={'outline'}
                       value={exerciseNameId}
                       onChange={(event) =>
                         setExerciseNameId(event.target.value)
@@ -215,26 +230,6 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                       ))}
                     </Select>
                   </FormControl>
-                  <Stack>
-                    <Button
-                      size="md"
-                      bgColor={'whiteAlpha.900'}
-                      color={'blackAlpha.900'}
-                      _hover={{
-                        bgColor: 'whiteAlpha.700',
-                        transform: '0.3s',
-                      }}
-                      onClick={() =>
-                        handleCreateExercise(
-                          workout.id!,
-                          exerciseNameId,
-                          exerciseTypeId,
-                        )
-                      }
-                    >
-                      Adicionar Exercício
-                    </Button>
-                  </Stack>
                   {workout.exercises && workout.exercises.length > 0 && (
                     <ExercisesList
                       fetchUserWorkouts={fetchUserWorkouts}
