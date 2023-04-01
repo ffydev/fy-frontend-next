@@ -24,13 +24,13 @@ import { useRef, useState } from 'react'
 
 interface CreateUserProps {
   fetchUsersData: () => void
-  userTypes: IUserType[]
+  usersTypes: IUserType[]
   planTypes: IPlanType[]
 }
 
 export default function UserCreate({
   fetchUsersData,
-  userTypes,
+  usersTypes,
   planTypes,
 }: CreateUserProps) {
   const router = useRouter()
@@ -150,7 +150,7 @@ export default function UserCreate({
                 tag={'Tipo de usuário'}
                 value={userTypeId}
                 setValue={setUserTypeId}
-                mapValues={userTypes}
+                mapValues={usersTypes}
               />
             </FormControl>
 

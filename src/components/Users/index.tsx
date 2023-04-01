@@ -5,10 +5,6 @@ import {
   findPlansTypes,
   IPlanType,
 } from '@/pages/api/providers/plans-types.provider'
-import {
-  findUsersTypes,
-  IUserType,
-} from '@/pages/api/providers/users-types.provider'
 import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
 import {
   findWorkoutsByUserId,
@@ -23,7 +19,6 @@ import { UsersList } from './UsersList'
 export default function Users() {
   const router = useRouter()
   const [users, setUsers] = useState<IUserInterface[]>([])
-  const [userType, setUserType] = useState<IUserType[]>([])
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [searchName, setSearchName] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
@@ -70,26 +65,6 @@ export default function Users() {
     }
   }, [router, setPlanTypes])
 
-  const fetchUserTypeData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findUsersTypes(token)
-
-      setUserType(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router, setUserType])
-
   const fetchUserWorkouts = useCallback(async () => {
     try {
       const token = getUserToken()
@@ -118,8 +93,7 @@ export default function Users() {
 
   useEffect(() => {
     fetchPlanTypeData()
-    fetchUserTypeData()
-  }, [fetchPlanTypeData, fetchUserTypeData])
+  }, [fetchPlanTypeData])
 
   useEffect(() => {
     fetchUsersData()
@@ -166,7 +140,6 @@ export default function Users() {
           <Container maxW="7xl" p={{ base: 5, md: 10 }}>
             <UsersHeader
               fetchUsersData={fetchUsersData}
-              userType={userType}
               planTypes={planTypes}
               userTypeId={userTypeId}
               searchName={searchName}
