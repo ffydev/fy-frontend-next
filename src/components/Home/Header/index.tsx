@@ -7,66 +7,66 @@ export default function Header() {
       <Box bgGradient={'linear(to-l, orange.500, blackAlpha.400)'}>
         <Box pb={8}>
           <Stack
-            pos='relative'
-            bgImage='https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80'
-            bgPosition='center'
-            bgRepeat='no-repeat'
-            bgSize='cover'
-            height='250px'
+            pos="relative"
+            bgImage="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            bgSize="cover"
+            height="250px"
             opacity={'0.5'}
           ></Stack>
           <Box
-            maxW='6xl'
+            maxW="6xl"
             p={4}
-            isolation='isolate'
+            isolation="isolate"
             zIndex={3}
-            mt='-10rem'
-            marginInline='auto'
+            mt="-10rem"
+            marginInline="auto"
           >
             <Box
               boxShadow={'lg'}
               bgColor={'whiteAlpha.200'}
               backdropBlur={'1rem'}
-              backdropFilter='blur(10px)'
+              backdropFilter="blur(10px)"
               border={'1px'}
               borderColor={'whiteAlpha.200'}
-              rounded='2xl'
+              rounded="2xl"
               p={{ base: 4, sm: 8 }}
-              overflow='hidden'
+              overflow="hidden"
             >
               <Stack
-                pos='relative'
+                pos="relative"
                 direction={{ base: 'column', md: 'row' }}
                 zIndex={1}
                 spacing={5}
-                textAlign='center'
+                textAlign="center"
               >
-                <Flex flex={1} p={8} align='center' justify='center'>
+                <Flex flex={1} p={8} align="center" justify="center">
                   <Stack
-                    pos='relative'
+                    pos="relative"
                     direction={'column'}
                     zIndex={1}
                     spacing={5}
-                    textAlign='left'
+                    textAlign="left"
                   >
                     <Image
-                      alt='logo v do Next'
-                      src='/logo.png'
+                      alt="logo v do Next"
+                      src="/logo.png"
                       width={50}
                       height={50}
                       loading={'eager'}
                     />
                     <chakra.h1
-                      fontSize='4xl'
+                      fontSize={['2xl', '4xl']}
                       lineHeight={1.2}
-                      fontWeight='bold'
+                      fontWeight="bold"
                       color={'whiteAlpha.900'}
                     >
                       Tem dificuldade em acompanhar sua performance nos treinos?
                     </chakra.h1>
                     <chakra.h2
-                      color='whiteAlpha.800'
-                      fontSize='xl'
+                      color="whiteAlpha.800"
+                      fontSize={['lg', 'xl']}
                       lineHeight={1.2}
                     >
                       Acompanhe de perto o desempenho da sua saúde com nosso
