@@ -71,9 +71,8 @@ export default function UserCreate({
             },
           ],
         },
-      }).then(() => {
-        fetchUsersData()
       })
+      fetchUsersData()
       onClose()
     } catch (error) {
       console.error(error)
