@@ -1,11 +1,11 @@
-import { Box, FormControl, Heading, Stack } from '@chakra-ui/react'
+import { Box, Flex, FormControl, Heading, Stack } from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
-import { ArrowArcLeft, Plus } from 'phosphor-react'
 import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import HandleButton from '@/components/Buttons/HandleButton'
+import { Plus } from 'phosphor-react'
 
 interface WorkoutsHeaderProps {
   fetchUserWorkouts: () => void
@@ -43,10 +43,10 @@ const workoutTypes = [
 export default function WorkoutsHeader({
   fetchUserWorkouts,
   userId,
-  handleWithHideWorkouts,
 }: WorkoutsHeaderProps) {
   const router = useRouter()
   const [workoutType, setWorkoutType] = useState<string>('')
+
   const handleCreateWorkout = useCallback(
     async (userId: string) => {
       try {
@@ -84,40 +84,32 @@ export default function WorkoutsHeader({
           Workouts
         </Heading>
       </Box>
-      <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={4}>
-        <FormControl width={'100%'}>
-          <Stack>
-            <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={handleWithHideWorkouts}
-            />
-          </Stack>
-        </FormControl>
+      <Stack direction={['column', 'row']} spacing={3} w={'100%'} mb={4}>
+        <Flex>
+          <FormControl width={'100%'}>
+            <Stack>
+              <HandleButton
+                text="Adicionar Workout"
+                color={'blackAlpha.900'}
+                bgColor={'whiteAlpha.900'}
+                _hover={{
+                  bg: 'whiteAlpha.700',
+                  transition: '0.4s',
+                }}
+                leftIcon={<Plus weight="bold" />}
+                onClick={() => handleCreateWorkout(userId!)}
+              />
+            </Stack>
+          </FormControl>
 
-        <FormControl width={'100%'}>
-          <Stack>
-            <HandleButton
-              text="Adicionar Workout"
-              color={'blackAlpha.900'}
-              bgColor={'whiteAlpha.900'}
-              _hover={{
-                bg: 'whiteAlpha.700',
-                transition: '0.4s',
-              }}
-              leftIcon={<Plus weight="bold" />}
-              onClick={() => handleCreateWorkout(userId!)}
-            />
-          </Stack>
-        </FormControl>
-
-        <SelectSettingValue
-          tag={'Tipo de workout'}
-          value={workoutType}
-          setValue={setWorkoutType}
-          mapValues={workoutTypes}
-          borderColor={'whiteAlpha.900'}
-        />
+          <SelectSettingValue
+            tag={'Tipo de workout'}
+            value={workoutType}
+            setValue={setWorkoutType}
+            mapValues={workoutTypes}
+            borderColor={'whiteAlpha.900'}
+          />
+        </Flex>
       </Stack>
     </>
   )

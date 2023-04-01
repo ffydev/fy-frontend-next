@@ -12,7 +12,9 @@ import {
 } from '@/pages/api/providers/workouts.provider'
 import { Box, Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { ArrowArcLeft } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
+import HandleButton from '../Buttons/HandleButton'
 import UsersHeader from './UsersHeader'
 import { UsersList } from './UsersList'
 
@@ -113,7 +115,22 @@ export default function Users() {
       {workoutsComponents ? (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 3, md: 10 }}>
+            <Stack
+              direction={'column'}
+              align={'start'}
+              alignSelf={'center'}
+              position={'relative'}
+              mt={3}
+              ml={3}
+            >
+              <HandleButton
+                text={'Voltar'}
+                leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+                onClick={handleWithHideWorkouts}
+              />
+            </Stack>
+
+            <Container maxW="7xl" p={{ base: 3, md: 1 }}>
               <WorkoutsHeader
                 fetchUserWorkouts={fetchUserWorkouts}
                 userId={userId}
@@ -136,7 +153,7 @@ export default function Users() {
           </Box>
         </>
       ) : (
-        <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+        <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
           <Container maxW="7xl" p={{ base: 5, md: 10 }}>
             <UsersHeader
               fetchUsersData={fetchUsersData}
