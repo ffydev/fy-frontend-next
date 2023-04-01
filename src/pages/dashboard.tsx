@@ -17,6 +17,7 @@ import {
   HStack,
   Icon,
   IconButton,
+  Link,
   Menu,
   MenuButton,
   MenuDivider,
@@ -141,15 +142,15 @@ const SidebarContent = ({
   ...rest
 }: SidebarProps) => {
   return (
-    <Flex
-      transition="0.3s ease"
+    <Box
+      transition="3s ease"
       style={{
         background:
           'linear-gradient(180deg, #161616 0%, #754923 50%, #0c0c0c 100%)',
       }}
       borderRight="1px"
       borderRightColor={'whiteAlpha.100'}
-      w={{ base: 60, md: 60 }}
+      w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}
@@ -185,7 +186,7 @@ const SidebarContent = ({
           </>
         </NavItem>
       ))}
-    </Flex>
+    </Box>
   )
 }
 
@@ -195,7 +196,11 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
-    <Box style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link
+      href="#"
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
+    >
       <Flex
         align="center"
         p="4"
@@ -220,7 +225,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         )}
         {children}
       </Flex>
-    </Box>
+    </Link>
   )
 }
 interface MobileProps extends FlexProps {
@@ -238,7 +243,7 @@ const MobileNav = ({
     <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
-      height={20}
+      height="20"
       alignItems="center"
       bgColor={'blackAlpha.50'}
       backdropBlur={'1rem'}
@@ -246,8 +251,6 @@ const MobileNav = ({
       borderBottomWidth="1px"
       borderBottomColor={'whiteAlpha.100'}
       justifyContent={'space-between'}
-      position={'relative'}
-      zIndex={3}
       {...rest}
     >
       <IconButton

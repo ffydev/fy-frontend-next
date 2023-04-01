@@ -162,32 +162,25 @@ export default function Users() {
           </Box>
         </>
       ) : (
-        <Box
-          bgGradient={[
-            'linear(to-tr, blackAlpha.50 30.17%, purple.900 99.87%)',
-            'linear(to-br, blackAlpha.50 80.17%, purple.900 99.87%)',
-          ]}
-        >
-          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
-              <UsersHeader
-                fetchUsersData={fetchUsersData}
-                userType={userType}
-                planTypes={planTypes}
-                userTypeId={userTypeId}
-                searchName={searchName}
-                setUserTypeId={setUserTypeId}
-                setSearchName={setSearchName}
-              />
+        <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+          <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+            <UsersHeader
+              fetchUsersData={fetchUsersData}
+              userType={userType}
+              planTypes={planTypes}
+              userTypeId={userTypeId}
+              searchName={searchName}
+              setUserTypeId={setUserTypeId}
+              setSearchName={setSearchName}
+            />
 
-              <UsersList
-                fetchUsersData={fetchUsersData}
-                users={users}
-                handleWithFindWorkoutsByUser={handleWithFindWorkoutsByUser}
-                planTypes={planTypes}
-              />
-            </Container>
-          </Box>
+            <UsersList
+              fetchUsersData={fetchUsersData}
+              users={users}
+              handleWithFindWorkoutsByUser={handleWithFindWorkoutsByUser}
+              planTypes={planTypes}
+            />
+          </Container>
         </Box>
       )}
     </>

@@ -1,4 +1,11 @@
-import { Button, FormControl, Heading, Select, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Select,
+  Stack,
+} from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useState, useCallback } from 'react'
@@ -44,25 +51,27 @@ export default function WorkoutsHeader({
   )
   return (
     <>
-      <Heading as="h3" size="lg" mb="4" fontWeight="medium" textAlign="left">
-        Workouts
-      </Heading>
+      <Box>
+        <Heading
+          as={'h3'}
+          size={'lg'}
+          mb={'4'}
+          fontWeight={'medium'}
+          textAlign={['center', 'left']}
+        >
+          Workouts
+        </Heading>
+      </Box>
       <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={4}>
-        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
+        <FormControl width={'100%'}>
           <Stack>
             <Button
               size={'md'}
               variant={'solid'}
-              color={'blackAlpha.900'}
-              bgColor={'whiteAlpha.900'}
-              _hover={{
-                bg: 'whiteAlpha.700',
-                transition: '0.4s',
-              }}
-              leftIcon={<Plus weight="bold" />}
-              onClick={() => handleCreateWorkout(userId!)}
+              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              onClick={handleWithHideWorkouts}
             >
-              Adicionar Workout
+              Voltar
             </Button>
           </Stack>
         </FormControl>
@@ -88,10 +97,16 @@ export default function WorkoutsHeader({
             <Button
               size={'md'}
               variant={'solid'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={handleWithHideWorkouts}
+              color={'blackAlpha.900'}
+              bgColor={'whiteAlpha.900'}
+              _hover={{
+                bg: 'whiteAlpha.700',
+                transition: '0.4s',
+              }}
+              leftIcon={<Plus weight="bold" />}
+              onClick={() => handleCreateWorkout(userId!)}
             >
-              Voltar
+              Adicionar Workout
             </Button>
           </Stack>
         </FormControl>
