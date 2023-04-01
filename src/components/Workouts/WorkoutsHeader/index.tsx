@@ -97,14 +97,6 @@ export default function WorkoutsHeader({
           </Stack>
         </FormControl>
 
-        <SelectSettingValue
-          tag={'Tipo de workout'}
-          value={workoutType}
-          setValue={setWorkoutType}
-          mapValues={workoutTypes}
-          borderColor={'whiteAlpha.900'}
-        />
-
         <FormControl width={'100%'}>
           <Stack>
             <Button
@@ -123,6 +115,14 @@ export default function WorkoutsHeader({
             </Button>
           </Stack>
         </FormControl>
+
+        <SelectSettingValue
+          tag={'Tipo de workout'}
+          value={workoutType}
+          setValue={setWorkoutType}
+          mapValues={workoutTypes}
+          borderColor={'whiteAlpha.900'}
+        />
       </Stack>
     </>
   )

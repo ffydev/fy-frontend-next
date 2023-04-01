@@ -182,7 +182,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                   </Stack>
 
                   <SelectSettingValue
-                    tag={'Tipo de exercício'}
+                    tag={'Grupo Muscular'}
                     value={exerciseTypeId}
                     setValue={setExerciseTypeId}
                     mapValues={exerciseTypes}
