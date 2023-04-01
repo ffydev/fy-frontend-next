@@ -84,9 +84,8 @@ export default function UserCreate({
   return (
     <>
       <Stack>
-        <Button
-          size={'md'}
-          variant={'solid'}
+        <HandleButton
+          text="Cadastrar usuário"
           color={'blackAlpha.900'}
           bgColor={'whiteAlpha.900'}
           _hover={{
@@ -95,9 +94,7 @@ export default function UserCreate({
           }}
           onClick={onOpen}
           leftIcon={<Plus weight="bold" />}
-        >
-          Cadastrar usuário
-        </Button>
+        />
       </Stack>
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
@@ -180,6 +177,7 @@ export default function UserCreate({
             <HandleButton
               text="Criar"
               color={'white'}
+              _hover={{ bgColor: 'orange.400', transform: '0.3s' }}
               onClick={handleCreateUser}
             />
             <Button onClick={onClose}>Cancelar</Button>

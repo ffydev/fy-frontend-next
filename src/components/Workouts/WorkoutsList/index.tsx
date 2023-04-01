@@ -1,3 +1,4 @@
+import HandleButton from '@/components/Buttons/HandleButton'
 import ExercisesList from '@/components/ExercisesList'
 import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
@@ -16,7 +17,6 @@ import {
 } from '@/pages/api/providers/workouts.provider'
 import {
   Box,
-  Button,
   CloseButton,
   Flex,
   SimpleGrid,
@@ -158,28 +158,23 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
                   mb={4}
                   w={'full'}
                 >
-                  <Stack>
-                    <Button
-                      size={'md'}
-                      variant={'solid'}
-                      color={'blackAlpha.900'}
-                      bgColor={'whiteAlpha.900'}
-                      _hover={{
-                        bg: 'whiteAlpha.700',
-                        transition: '0.4s',
-                      }}
-                      leftIcon={<Plus weight="bold" />}
-                      onClick={() =>
-                        handleCreateExercise(
-                          workout.id!,
-                          exerciseNameId,
-                          exerciseTypeId,
-                        )
-                      }
-                    >
-                      Adicionar Exercício
-                    </Button>
-                  </Stack>
+                  <HandleButton
+                    text="Adicionar Exercício"
+                    color={'blackAlpha.900'}
+                    bgColor={'whiteAlpha.900'}
+                    _hover={{
+                      bg: 'whiteAlpha.700',
+                      transition: '0.4s',
+                    }}
+                    leftIcon={<Plus weight="bold" />}
+                    onClick={() =>
+                      handleCreateExercise(
+                        workout.id!,
+                        exerciseNameId,
+                        exerciseTypeId,
+                      )
+                    }
+                  />
 
                   <SelectSettingValue
                     tag={'Grupo Muscular'}
