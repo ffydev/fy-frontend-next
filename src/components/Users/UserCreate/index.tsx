@@ -15,7 +15,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalOverlay,
-  Select,
   Stack,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -117,18 +116,13 @@ export default function UserCreate({
             </FormControl>
 
             <FormControl mt={4} isRequired>
-              <FormLabel>Tipo de Plano:</FormLabel>
-              <Select
+              <SelectSettingValue
+                tag={'Tipo de Plano'}
                 value={planTypeId}
-                onChange={(event) => setPlanTypeId(event.target.value)}
-              >
-                <option value="">Escolha seu plano</option>
-                {planTypes.map((planType: IPlanType) => (
-                  <option key={planType.id} value={planType.id}>
-                    {planType.name}
-                  </option>
-                ))}
-              </Select>
+                setValue={setPlanTypeId}
+                mapValues={planTypes}
+                borderColor={'whiteAlpha.900'}
+              />
             </FormControl>
 
             <FormControl mt={4} isRequired>
