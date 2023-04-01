@@ -10,7 +10,6 @@ import { Plus } from 'phosphor-react'
 interface WorkoutsHeaderProps {
   fetchUserWorkouts: () => void
   userId: string
-  handleWithHideWorkouts: () => void
 }
 
 const workoutTypes = [

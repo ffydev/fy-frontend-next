@@ -134,7 +134,6 @@ export default function Users() {
               <WorkoutsHeader
                 fetchUserWorkouts={fetchUserWorkouts}
                 userId={userId}
-                handleWithHideWorkouts={handleWithHideWorkouts}
               />
               <Stack maxW={'auto'}>
                 <Tabs>
