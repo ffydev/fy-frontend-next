@@ -174,7 +174,7 @@ export default function UserCreate({
               _hover={{ bgColor: 'orange.400', transform: '0.3s' }}
               onClick={handleCreateUser}
             />
-            <Button onClick={onClose}>Cancelar</Button>
+            <HandleButton text={'Cancelar'} onClick={onClose} />
           </ModalFooter>
         </ModalContent>
       </Modal>

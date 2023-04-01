@@ -1,10 +1,11 @@
-import { Box, Button, FormControl, Heading, Stack } from '@chakra-ui/react'
+import { Box, FormControl, Heading, Stack } from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { ArrowArcLeft, Plus } from 'phosphor-react'
 import SelectSettingValue from '@/components/Select/SelectSettingValue'
+import HandleButton from '@/components/Buttons/HandleButton'
 
 interface WorkoutsHeaderProps {
   fetchUserWorkouts: () => void
@@ -86,22 +87,18 @@ export default function WorkoutsHeader({
       <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={4}>
         <FormControl width={'100%'}>
           <Stack>
-            <Button
-              size={'md'}
-              variant={'solid'}
+            <HandleButton
+              text={'Voltar'}
               leftIcon={<ArrowArcLeft size={28} weight="bold" />}
               onClick={handleWithHideWorkouts}
-            >
-              Voltar
-            </Button>
+            />
           </Stack>
         </FormControl>
 
         <FormControl width={'100%'}>
           <Stack>
-            <Button
-              size={'md'}
-              variant={'solid'}
+            <HandleButton
+              text="Adicionar Workout"
               color={'blackAlpha.900'}
               bgColor={'whiteAlpha.900'}
               _hover={{
@@ -110,9 +107,7 @@ export default function WorkoutsHeader({
               }}
               leftIcon={<Plus weight="bold" />}
               onClick={() => handleCreateWorkout(userId!)}
-            >
-              Adicionar Workout
-            </Button>
+            />
           </Stack>
         </FormControl>
 

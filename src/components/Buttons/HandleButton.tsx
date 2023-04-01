@@ -1,8 +1,8 @@
 import { Button } from '@chakra-ui/react'
 
 interface ButtonProps {
-  text: string
-  color: string
+  text?: string
+  color?: string
   bgColor?: string
   _hover?: any
   leftIcon?: any
