@@ -1,22 +1,43 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  Heading,
-  Select,
-  Stack,
-} from '@chakra-ui/react'
+import { Box, Button, FormControl, Heading, Stack } from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { ArrowArcLeft, Plus } from 'phosphor-react'
+import SelectSettingValue from '@/components/Select/SelectSettingValue'
 
 interface WorkoutsHeaderProps {
   fetchUserWorkouts: () => void
   userId: string
   handleWithHideWorkouts: () => void
 }
+
+const workoutTypes = [
+  {
+    id: 'A',
+    name: 'A',
+  },
+  {
+    id: 'B',
+    name: 'B',
+  },
+  {
+    id: 'C',
+    name: 'C',
+  },
+  {
+    id: 'D',
+    name: 'D',
+  },
+  {
+    id: 'E',
+    name: 'E',
+  },
+  {
+    id: 'F',
+    name: 'F',
+  },
+]
 
 export default function WorkoutsHeader({
   fetchUserWorkouts,
@@ -75,23 +96,15 @@ export default function WorkoutsHeader({
             </Button>
           </Stack>
         </FormControl>
-        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
-          <Select
-            size={'md'}
-            border={'1px'}
-            borderColor={'whiteAlpha.900'}
-            variant={'outline'}
-            value={workoutType}
-            onChange={(event) => setWorkoutType(event.target.value)}
-          >
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-          </Select>
-        </FormControl>
+
+        <SelectSettingValue
+          tag={'Tipo de workout'}
+          value={workoutType}
+          setValue={setWorkoutType}
+          mapValues={workoutTypes}
+          borderColor={'whiteAlpha.900'}
+        />
+
         <FormControl width={'100%'}>
           <Stack>
             <Button

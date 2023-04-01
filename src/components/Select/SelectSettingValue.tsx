@@ -25,8 +25,8 @@ export default function SelectSettingValue({
           variant={'outline'}
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          placeholder={tag}
         >
+          <option value="">{tag}</option>
           {mapValues.map((mapValue: any) => (
             <option
               style={{ backgroundColor: '#4A5568' }}
