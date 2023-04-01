@@ -1,4 +1,5 @@
 import PlanList from '@/components/PlansList'
+import { Context } from '@/hooks/Context'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
@@ -20,24 +21,24 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 interface UsersListProps {
   fetchUsersData: () => void
   users: IUserInterface[]
-  handleWithFindWorkoutsByUser: (userId: string) => void
   planTypes: IPlanType[]
 }
 export function UsersList({
   fetchUsersData,
   users,
-  handleWithFindWorkoutsByUser,
   planTypes,
 }: UsersListProps) {
   const router = useRouter()
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const { isShowingWorkouts, changeUserId, handleWithShowWorkouts } =
+    useContext(Context)
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
@@ -70,6 +71,11 @@ export function UsersList({
     } catch (error) {
       console.error(error)
     }
+  }
+
+  const handleWithShowUserWorkouts = (userId: string) => {
+    changeUserId(userId)
+    handleWithShowWorkouts(!isShowingWorkouts)
   }
 
   return (
@@ -106,7 +112,7 @@ export function UsersList({
                 <Button
                   colorScheme={'orange'}
                   size="xs"
-                  onClick={() => handleWithFindWorkoutsByUser(user.id)}
+                  onClick={() => handleWithShowUserWorkouts(user.id)}
                 >
                   Workouts
                 </Button>

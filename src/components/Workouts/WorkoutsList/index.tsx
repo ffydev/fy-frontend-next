@@ -30,11 +30,10 @@ import { Plus } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
-  fetchUserWorkouts: () => void
   workouts: IWorkout[]
 }
 
-export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
+export function WorkoutsLists({ workouts }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
@@ -61,12 +60,11 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
           exerciseNameId,
           exerciseTypeId,
         })
-        fetchUserWorkouts()
       } catch (error) {
         console.error(error)
       }
     },
-    [fetchUserWorkouts, router],
+    [router],
   )
 
   const handleWithDeleteWorkout = (id: string) => {
@@ -77,9 +75,7 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
       router.push('/login')
       return
     }
-    deleteWorkout(token, id).then(() => {
-      fetchUserWorkouts()
-    })
+    deleteWorkout(token, id)
   }
 
   const fetchExercisesTypesData = useCallback(async () => {
@@ -194,7 +190,6 @@ export function WorkoutsLists({ fetchUserWorkouts, workouts }: WorkoutsProps) {
 
                   {workout.exercises && workout.exercises.length > 0 && (
                     <ExercisesList
-                      fetchUserWorkouts={fetchUserWorkouts}
                       exercises={workout.exercises}
                       exerciseNames={exerciseNames}
                       exerciseTypes={exerciseTypes}

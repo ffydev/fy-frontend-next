@@ -22,14 +22,12 @@ import { useState } from 'react'
 import { SelectUpdate } from '../Select/SelectUpdate'
 
 interface WorkoutsProps {
-  fetchUserWorkouts: () => void
   exercises?: IExercise[]
   exerciseNames?: IExerciseName[]
   exerciseTypes?: IExerciseType[]
 }
 
 export default function ExercisesList({
-  fetchUserWorkouts,
   exercises,
   exerciseNames,
   exerciseTypes,
@@ -62,7 +60,6 @@ export default function ExercisesList({
         exerciseNameId: exerciseNameId !== '' ? exerciseNameId : undefined,
         exerciseTypeId: exerciseTypeId !== '' ? exerciseTypeId : undefined,
       })
-      fetchUserWorkouts()
       setSets(undefined)
       setReps(undefined)
       setWeight(undefined)
@@ -83,9 +80,7 @@ export default function ExercisesList({
       router.push('/login')
       return
     }
-    deleteExercise(token, id).then(() => {
-      fetchUserWorkouts()
-    })
+    deleteExercise(token, id)
   }
 
   return (
