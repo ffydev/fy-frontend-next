@@ -32,7 +32,6 @@ export function SelectUpdate({
           color={'white'}
           size={'md'}
           rounded={'md'}
-          variant={'outline'}
           value={value}
           onChange={(event) => setValue(event.target.value)}
           onBlur={() => onBlurAction(id)}
@@ -40,11 +39,11 @@ export function SelectUpdate({
           <option style={{ backgroundColor: '#1A202C' }}>{defaultName}</option>
           {valuesMap.map((valueMap: any) => (
             <option
-              style={{ backgroundColor: '#4A5568' }}
               key={valueMap.id}
               value={valueMap.id}
+              onClick={() => setValue(valueMap.id)}
             >
-              {valueMap.name}
+              <div style={{ backgroundColor: '#4A5568' }}>{valueMap.name}</div>
             </option>
           ))}
         </Select>
