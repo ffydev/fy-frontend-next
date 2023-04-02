@@ -89,7 +89,7 @@ export default function ExercisesList({
     })
   }
 
-  const renderItem = (exercise: any) => {
+  const renderItem = (exercise: IExercise) => {
     return (
       <>
         <Box
