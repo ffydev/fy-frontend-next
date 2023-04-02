@@ -9,8 +9,6 @@ import {
 import {
   CloseButton,
   Container,
-  Flex,
-  Spacer,
   Stack,
   Tab,
   TabList,
@@ -114,21 +112,19 @@ export function Workouts() {
           fetchWorkoutsNames={fetchWorkoutsNames}
         />
         <Stack maxW={'auto'}>
-          <Tabs>
+          <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
             <TabList>
               {workoutsNames?.map((workout: IWorkout) => (
                 <Tab
                   key={workout.id}
                   onClick={() => handleWithSettingWorkoutId(workout.id!)}
+                  mb={4}
                 >
                   Workout: {workout.workoutType}
-                  <Flex>
-                    <Spacer />
-                    <CloseButton
-                      onClick={() => handleWithDeleteWorkout(workout.id!)}
-                      size="sm"
-                    />
-                  </Flex>
+                  <CloseButton
+                    onClick={() => handleWithDeleteWorkout(workout.id!)}
+                    size="sm"
+                  />
                 </Tab>
               ))}
             </TabList>
