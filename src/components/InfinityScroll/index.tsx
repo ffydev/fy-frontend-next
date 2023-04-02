@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import Loading from '../Loading'
 
 interface InfiniteScrollProps {
   data: unknown[] | any
@@ -32,14 +33,14 @@ const InfiniteScroll = ({ data, renderItem }: InfiniteScrollProps) => {
       setList(list.concat(data.slice(page * 10, page * 10 + 10)))
       setPage(page + 1)
       setLoading(false)
-    }, 100)
+    }, 250)
   }, [loading])
 
   return (
     <>
       {list.map(renderItem)}
       <div ref={sentinelRef} style={{ height: '1px' }}></div>
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
     </>
   )
 }
