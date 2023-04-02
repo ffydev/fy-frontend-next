@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-const InfiniteScroll = ({ data, renderItem }: any) => {
+interface InfiniteScrollProps {
+  data: unknown[] | any
+  renderItem: unknown[] | any
+}
+
+const InfiniteScroll = ({ data, renderItem }: InfiniteScrollProps) => {
   const [list, setList] = useState(data.slice(0, 6))
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
