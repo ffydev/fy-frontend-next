@@ -34,7 +34,7 @@ export function SelectUpdate({
           rounded={'md'}
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          onBlur={() => onBlurAction(id)}
+          onMouseOverCapture={() => onBlurAction(id)}
         >
           <option style={{ backgroundColor: '#1A202C' }}>{defaultName}</option>
           {valuesMap.map((valueMap: any) => (
