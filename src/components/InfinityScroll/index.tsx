@@ -6,10 +6,10 @@ interface InfiniteScrollProps<T> {
   renderItem: (item: T, index: number) => React.ReactNode
 }
 
-const InfiniteScroll = <T extends unknown>({
+export default function InfiniteScroll<T extends unknown>({
   data,
   renderItem,
-}: InfiniteScrollProps<T>) => {
+}: InfiniteScrollProps<T>) {
   const [list, setList] = useState<T[]>([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -58,5 +58,3 @@ const InfiniteScroll = <T extends unknown>({
     </>
   )
 }
-
-export default InfiniteScroll
