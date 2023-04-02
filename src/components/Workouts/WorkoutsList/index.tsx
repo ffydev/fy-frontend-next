@@ -29,10 +29,15 @@ import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
   workouts: IWorkout[]
+  fetchWorkoutsNames: () => void
   fetchUserWorkouts: () => void
 }
 
-export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
+export function WorkoutsLists({
+  workouts,
+  fetchWorkoutsNames,
+  fetchUserWorkouts,
+}: WorkoutsProps) {
   const router = useRouter()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
@@ -76,7 +81,7 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
       return
     }
     deleteWorkout(token, id).then(() => {
-      fetchUserWorkouts()
+      fetchWorkoutsNames()
     })
   }
 

@@ -8,8 +8,8 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus } from 'phosphor-react'
 
 interface WorkoutsHeaderProps {
-  fetchUserWorkouts: () => void
   userId: string
+  fetchWorkoutsNames: () => void
 }
 
 const workoutTypes = [
@@ -40,8 +40,8 @@ const workoutTypes = [
 ]
 
 export default function WorkoutsHeader({
-  fetchUserWorkouts,
   userId,
+  fetchWorkoutsNames,
 }: WorkoutsHeaderProps) {
   const router = useRouter()
   const [workoutType, setWorkoutType] = useState<string>('')
@@ -60,13 +60,14 @@ export default function WorkoutsHeader({
         await createWorkout(token, {
           userId,
           workoutType,
+        }).then(() => {
+          fetchWorkoutsNames()
         })
-        fetchUserWorkouts()
       } catch (error) {
         console.error(error)
       }
     },
-    [fetchUserWorkouts, router, workoutType],
+    [fetchWorkoutsNames, router, workoutType],
   )
   return (
     <>

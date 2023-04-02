@@ -83,8 +83,8 @@ export function Workouts() {
     <>
       <Container maxW="7xl" p={{ base: 3, md: 1 }}>
         <WorkoutsHeader
-          fetchUserWorkouts={fetchWorkoutsNames}
           userId={userId}
+          fetchWorkoutsNames={fetchWorkoutsNames}
         />
         <Stack maxW={'auto'}>
           <Tabs>
@@ -100,6 +100,7 @@ export function Workouts() {
             </TabList>
             <WorkoutsLists
               workouts={workouts}
+              fetchWorkoutsNames={fetchWorkoutsNames}
               fetchUserWorkouts={fetchUserWorkouts}
             />
           </Tabs>
