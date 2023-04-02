@@ -205,7 +205,7 @@ export default function ExercisesList({
 
   return (
     <>
-      <InfiniteScroll data={exercises} renderItem={renderItem} />
+      <InfiniteScroll data={exercises!} renderItem={renderItem} />
     </>
   )
 }
