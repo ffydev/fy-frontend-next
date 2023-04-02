@@ -1,40 +1,54 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import Loading from '../Loading'
 
-interface InfiniteScrollProps {
-  data: unknown[] | any
-  renderItem: unknown[] | any
+interface InfiniteScrollProps<T> {
+  data: T[]
+  renderItem: (item: T, index: number) => React.ReactNode
 }
 
-const InfiniteScroll = ({ data, renderItem }: InfiniteScrollProps) => {
-  const [list, setList] = useState(data.slice(0, 6))
+const InfiniteScroll = <T extends unknown>({
+  data,
+  renderItem,
+}: InfiniteScrollProps<T>) => {
+  const [list, setList] = useState<T[]>([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const sentinelRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        sentinelRef.current &&
-        sentinelRef.current.offsetTop <
-          window.innerHeight + document.documentElement.scrollTop
-      ) {
-        setLoading(true)
-      }
+  const handleScroll = useCallback(() => {
+    if (
+      sentinelRef.current &&
+      sentinelRef.current.offsetTop <
+        window.innerHeight + document.documentElement.scrollTop
+    ) {
+      setLoading(true)
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  useEffect(() => {
     if (!loading) return
-    if (page * 10 >= data.length) return setLoading(false)
-    setTimeout(() => {
-      setList(list.concat(data.slice(page * 10, page * 10 + 10)))
-      setPage(page + 1)
+
+    if (page * 10 >= data.length) {
       setLoading(false)
-    }, 250)
-  }, [loading])
+      return
+    }
+
+    const newData = data.slice(page * 10, page * 10 + 10)
+    setList((prevList) => [...prevList, ...newData])
+    setPage((prevPage) => prevPage + 1)
+    setLoading(false)
+  }, [loading, data, page])
+
+  useEffect(() => {
+    const newData = data.slice(0, 6)
+    setList(newData)
+    setPage(1)
+  }, [data])
 
   return (
     <>
