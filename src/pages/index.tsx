@@ -1,15 +1,11 @@
-import Footer from '@/components/Footer'
-import AboutSpecialist from '@/components/Home/AboutSpecialist'
 import Header from '@/components/Home/Header'
-import Progression from '@/components/Home/Progression'
+// import Navbar from '@/components/Home/Navbar'
 
 export default function Home() {
   return (
     <>
+      {/* <Navbar /> */}
       <Header />
-      <Progression />
-      <AboutSpecialist />
-      <Footer />
     </>
   )
 }

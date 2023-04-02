@@ -12,11 +12,9 @@ export default function Progression() {
   ]
 
   return (
-    <Box
-      bgGradient={'linear(to-r, blackAlpha.400, blackAlpha.500, orange.500)'}
-    >
+    <>
       <Container maxW="5xl" p={{ base: 4, sm: 10 }}>
-        <Stack align={'center'} p={8}>
+        <Stack align={'center'} p={4}>
           <chakra.h1
             fontSize={['2xl', '4xl']}
             lineHeight={1.2}
@@ -33,7 +31,6 @@ export default function Progression() {
           backdropFilter="blur(10px)"
           border={'1px'}
           borderColor={'whiteAlpha.200'}
-          overflow="hidden"
           rounded="2xl"
           p={{ base: 4, sm: 8 }}
         >
@@ -47,7 +44,7 @@ export default function Progression() {
                   <HStack
                     key={index}
                     alignItems="center"
-                    spacing={1}
+                    spacing={2}
                     fontSize="md"
                   >
                     <Icon
@@ -70,6 +67,6 @@ export default function Progression() {
           </Stack>
         </Box>
       </Container>
-    </Box>
+    </>
   )
 }

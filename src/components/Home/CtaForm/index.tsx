@@ -1,5 +1,5 @@
 import { Button, Center, Link, Stack } from '@chakra-ui/react'
-import { ArrowBendDownRight } from 'phosphor-react'
+import { ArrowBendDownRight } from '@phosphor-icons/react'
 
 export default function CtaForm() {
   return (
