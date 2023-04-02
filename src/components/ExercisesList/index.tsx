@@ -3,6 +3,7 @@ import { IExerciseName } from '@/pages/api/providers/exercises-names.provider'
 import { IExerciseType } from '@/pages/api/providers/exercises-types.provider'
 import {
   deleteExercise,
+  findExerciseById,
   IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
@@ -26,14 +27,12 @@ interface WorkoutsProps {
   exercises?: IExercise[]
   exerciseNames?: IExerciseName[]
   exerciseTypes?: IExerciseType[]
-  fetchUserWorkouts: () => void
 }
 
 export default function ExercisesList({
   exercises,
   exerciseNames,
   exerciseTypes,
-  fetchUserWorkouts,
 }: WorkoutsProps) {
   const router = useRouter()
   const [exercisesState, setExercisesState] = useState<IExercise[]>([])
@@ -64,6 +63,16 @@ export default function ExercisesList({
         exerciseNameId: exerciseNameId !== '' ? exerciseNameId : undefined,
         exerciseTypeId: exerciseTypeId !== '' ? exerciseTypeId : undefined,
       })
+
+      const exerciseUpdated = await findExerciseById(token, id)
+
+      setExercisesState((prevExercisesState) => {
+        const updatedExercisesState = prevExercisesState.map((exercise) =>
+          exercise.id === id ? exerciseUpdated : exercise,
+        )
+        return updatedExercisesState
+      })
+
       setSets(undefined)
       setReps(undefined)
       setWeight(undefined)
@@ -71,7 +80,6 @@ export default function ExercisesList({
       setDescribe(undefined)
       setExerciseNameId(undefined)
       setExerciseTypeId(undefined)
-      fetchUserWorkouts()
     } catch (error) {
       console.error(error)
     }

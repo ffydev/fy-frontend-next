@@ -60,3 +60,19 @@ export async function createExercise(
     throw error
   }
 }
+
+export async function findExerciseById(
+  token: string,
+  id: string,
+): Promise<IExercise> {
+  try {
+    const response = await api.get<IExercise>(`/exercises/exercise/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to find users', error)
+    throw error
+  }
+}

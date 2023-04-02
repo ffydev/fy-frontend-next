@@ -199,7 +199,6 @@ export function WorkoutsLists({
                   exercises={workout.exercises}
                   exerciseNames={exerciseNames}
                   exerciseTypes={exerciseTypes}
-                  fetchUserWorkouts={fetchUserWorkouts}
                 />
               )}
             </SimpleGrid>
