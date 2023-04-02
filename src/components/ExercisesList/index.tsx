@@ -18,7 +18,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import InfiniteScroll from '../InfinityScroll'
 import { SelectUpdate } from '../Select/SelectUpdate'
 
@@ -36,6 +36,7 @@ export default function ExercisesList({
   fetchUserWorkouts,
 }: WorkoutsProps) {
   const router = useRouter()
+  const [exercisesState, setExercisesState] = useState<IExercise[]>([])
   const [exerciseNameId, setExerciseNameId] = useState<string | undefined>()
   const [exerciseTypeId, setExerciseTypeId] = useState<string | undefined>()
   const [sets, setSets] = useState<string | undefined>('')
@@ -80,14 +81,23 @@ export default function ExercisesList({
     const token = getUserToken()
 
     if (!token) {
-      // Implementar mensagem personalizada
       router.push('/login')
       return
     }
+
     deleteExercise(token, id).then(() => {
-      fetchUserWorkouts()
+      const updatedExercises = updatingExercisesState(exercisesState, id)
+      setExercisesState(updatedExercises)
     })
   }
+
+  const updatingExercisesState = (exercises: IExercise[], id: string) => {
+    return exercises.filter((exercise: IExercise) => exercise.id !== id)
+  }
+
+  useEffect(() => {
+    setExercisesState(exercises!)
+  }, [exercises])
 
   const renderItem = (exercise: IExercise) => {
     return (
@@ -205,7 +215,7 @@ export default function ExercisesList({
 
   return (
     <>
-      <InfiniteScroll data={exercises!} renderItem={renderItem} />
+      <InfiniteScroll data={exercisesState!} renderItem={renderItem} />
     </>
   )
 }
