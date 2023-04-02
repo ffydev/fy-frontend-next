@@ -30,7 +30,7 @@ export function Workouts() {
 
       const response = await findWorkoutsNamesByUserId(token, userId as string)
 
-      if (response && response.length > 0 && !selectedWorkoutId) {
+      if (response && response.length > 0 && selectedWorkoutId === '') {
         setSelectedWorkoutId(response?.[0].id!)
       }
 
@@ -74,9 +74,7 @@ export function Workouts() {
   }, [fetchWorkoutsNames])
 
   useEffect(() => {
-    if (selectedWorkoutId) {
-      fetchUserWorkouts()
-    }
+    fetchUserWorkouts()
   }, [selectedWorkoutId, fetchWorkoutsNames])
 
   return (

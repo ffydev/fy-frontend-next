@@ -69,7 +69,7 @@ export function WorkoutsLists({
         console.error(error)
       }
     },
-    [router],
+    [router, fetchUserWorkouts],
   )
 
   const handleWithDeleteWorkout = (id: string) => {
