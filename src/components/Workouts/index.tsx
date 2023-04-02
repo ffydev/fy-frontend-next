@@ -17,6 +17,7 @@ export function Workouts() {
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
+  console.log(userId)
 
   const fetchWorkoutsNames = useCallback(async () => {
     try {

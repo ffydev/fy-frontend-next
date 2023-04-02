@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import InfiniteScroll from '../InfinityScroll'
 import { SelectUpdate } from '../Select/SelectUpdate'
 
 interface WorkoutsProps {
@@ -88,9 +89,9 @@ export default function ExercisesList({
     })
   }
 
-  return (
-    <>
-      {exercises?.map((exercise: IExercise) => (
+  const renderItem = (exercise: any) => {
+    return (
+      <>
         <Box
           key={exercise.id}
           p={4}
@@ -198,7 +199,13 @@ export default function ExercisesList({
             </chakra.h1>
           </Stack>
         </Box>
-      ))}
+      </>
+    )
+  }
+
+  return (
+    <>
+      <InfiniteScroll data={exercises} renderItem={renderItem} />
     </>
   )
 }
