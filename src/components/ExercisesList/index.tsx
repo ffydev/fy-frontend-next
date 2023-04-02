@@ -45,15 +45,15 @@ export default function ExercisesList({
   const [describe, setDescribe] = useState<string | undefined>('')
 
   const handleUpdateExercise = async (id: string) => {
+    const token = getUserToken()
+
+    if (!token) {
+      // Implementar mensagem personalizada
+      router.push('/login')
+      return
+    }
+
     try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
       await updateExercise(token, id, {
         sets: sets ? +sets : undefined,
         reps: reps ? +reps : undefined,
@@ -66,13 +66,6 @@ export default function ExercisesList({
 
       const exerciseUpdated = await findExerciseById(token, id)
 
-      setExercisesState((prevExercisesState) => {
-        const updatedExercisesState = prevExercisesState.map((exercise) =>
-          exercise.id === id ? exerciseUpdated : exercise,
-        )
-        return updatedExercisesState
-      })
-
       setSets(undefined)
       setReps(undefined)
       setWeight(undefined)
@@ -80,6 +73,13 @@ export default function ExercisesList({
       setDescribe(undefined)
       setExerciseNameId(undefined)
       setExerciseTypeId(undefined)
+
+      setExercisesState((prevExercisesState) => {
+        const updatedExercisesState = prevExercisesState.map((exercise) =>
+          exercise.id === id ? exerciseUpdated : exercise,
+        )
+        return updatedExercisesState
+      })
     } catch (error) {
       console.error(error)
     }
