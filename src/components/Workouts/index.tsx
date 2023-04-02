@@ -1,11 +1,21 @@
 import { Context } from '@/hooks/Context'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
+  deleteWorkout,
   findWorkoutsByUserId,
   findWorkoutsNamesByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
+import {
+  CloseButton,
+  Container,
+  Flex,
+  Spacer,
+  Stack,
+  Tab,
+  TabList,
+  Tabs,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import WorkoutsHeader from './WorkoutsHeader'
@@ -77,6 +87,25 @@ export function Workouts() {
     fetchUserWorkouts()
   }, [selectedWorkoutId, fetchWorkoutsNames])
 
+  const handleWithDeleteWorkout = (id: string) => {
+    const token = getUserToken()
+
+    if (!token) {
+      // Implementar mensagem personalizada
+      router.push('/login')
+      return
+    }
+
+    deleteWorkout(token, id).then(() => {
+      const updatedWokouts = updatingWorkoutsState(workoutsNames, id)
+      setWorkoutsNames(updatedWokouts)
+    })
+  }
+
+  const updatingWorkoutsState = (workouts: IWorkout[], id: string) => {
+    return workouts.filter((workout: IWorkout) => workout.id !== id)
+  }
+
   return (
     <>
       <Container maxW="7xl" p={{ base: 3, md: 1 }}>
@@ -93,12 +122,18 @@ export function Workouts() {
                   onClick={() => handleWithSettingWorkoutId(workout.id!)}
                 >
                   Workout: {workout.workoutType}
+                  <Flex>
+                    <Spacer />
+                    <CloseButton
+                      onClick={() => handleWithDeleteWorkout(workout.id!)}
+                      size="sm"
+                    />
+                  </Flex>
                 </Tab>
               ))}
             </TabList>
             <WorkoutsLists
               workouts={workouts}
-              fetchWorkoutsNames={fetchWorkoutsNames}
               fetchUserWorkouts={fetchUserWorkouts}
             />
           </Tabs>

@@ -11,34 +11,20 @@ import {
   IExerciseType,
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
-import {
-  deleteWorkout,
-  IWorkout,
-} from '@/pages/api/providers/workouts.provider'
-import {
-  Box,
-  CloseButton,
-  Flex,
-  SimpleGrid,
-  Spacer,
-  Stack,
-} from '@chakra-ui/react'
+import { IWorkout } from '@/pages/api/providers/workouts.provider'
+import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Plus } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
   workouts: IWorkout[]
-  fetchWorkoutsNames: () => void
   fetchUserWorkouts: () => void
 }
 
-export function WorkoutsLists({
-  workouts,
-  fetchWorkoutsNames,
-  fetchUserWorkouts,
-}: WorkoutsProps) {
+export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
   const router = useRouter()
+  const [workoutsState, setWorkoutsState] = useState<IWorkout[]>([])
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseType[]>([])
@@ -71,19 +57,6 @@ export function WorkoutsLists({
     },
     [router, fetchUserWorkouts],
   )
-
-  const handleWithDeleteWorkout = (id: string) => {
-    const token = getUserToken()
-
-    if (!token) {
-      // Implementar mensagem personalizada
-      router.push('/login')
-      return
-    }
-    deleteWorkout(token, id).then(() => {
-      fetchWorkoutsNames()
-    })
-  }
 
   const fetchExercisesTypesData = useCallback(async () => {
     try {
@@ -130,9 +103,13 @@ export function WorkoutsLists({
     fetchExercisesNamesData()
   }, [fetchExercisesTypesData, fetchExercisesNamesData])
 
+  useEffect(() => {
+    setWorkoutsState(workouts)
+  }, [workouts])
+
   return (
     <>
-      {workouts?.map((workout: IWorkout) => (
+      {workoutsState?.map((workout: IWorkout) => (
         <Box
           key={workout.id}
           p={4}
@@ -146,13 +123,6 @@ export function WorkoutsLists({
           backdropFilter="blur(5px)"
           minWidth="250px"
         >
-          <Flex>
-            <Spacer />
-            <CloseButton
-              onClick={() => handleWithDeleteWorkout(workout.id!)}
-              size="sm"
-            />
-          </Flex>
           <Stack direction={['column', 'row']} spacing={6} w={'full'}>
             <SimpleGrid
               columns={{ base: 1, md: 3 }}
