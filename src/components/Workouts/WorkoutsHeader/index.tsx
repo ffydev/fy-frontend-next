@@ -57,13 +57,11 @@ export default function WorkoutsHeader({
           return
         }
 
-        if (workoutType) {
-          await createWorkout(token, {
-            userId,
-            workoutType,
-          })
-          fetchUserWorkouts()
-        }
+        await createWorkout(token, {
+          userId,
+          workoutType,
+        })
+        fetchUserWorkouts()
       } catch (error) {
         console.error(error)
       }

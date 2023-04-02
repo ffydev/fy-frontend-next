@@ -24,12 +24,12 @@ export async function createWorkout(
   }
 }
 
-export async function findWorkoutsByUserId(
+export async function findWorkoutsNamesByUserId(
   token: string,
   userId: string,
 ): Promise<IWorkout[]> {
   try {
-    const response = await api.get<IWorkout[]>(`/workouts/by-user/${userId}`, {
+    const response = await api.get<IWorkout[]>(`/workouts/names/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data
@@ -38,6 +38,26 @@ export async function findWorkoutsByUserId(
     throw error
   }
 }
+
+export async function findWorkoutsByUserId(
+  token: string,
+  workoutId: string,
+  userId: string,
+): Promise<IWorkout[]> {
+  try {
+    const response = await api.get<IWorkout[]>(
+      `/workouts/by-user?workoutId=${workoutId}&userId=${userId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+    return response.data
+  } catch (error) {
+    console.error(`Failed to find workouts for user with id ${userId}`, error)
+    throw error
+  }
+}
+
 export async function deleteWorkout(token: string, id: string): Promise<void> {
   try {
     await api.delete(`/workouts/${id}`, {

@@ -63,12 +63,9 @@ export default function Users() {
   }, [router, setPlanTypes])
 
   useEffect(() => {
-    fetchPlanTypeData()
-  }, [fetchPlanTypeData])
-
-  useEffect(() => {
     fetchUsersData()
-  }, [fetchUsersData])
+    fetchPlanTypeData()
+  }, [fetchUsersData, fetchPlanTypeData])
 
   const handleWithHideWorkouts = () => {
     handleWithShowWorkouts(!isShowingWorkouts)

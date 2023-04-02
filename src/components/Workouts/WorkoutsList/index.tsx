@@ -22,8 +22,6 @@ import {
   SimpleGrid,
   Spacer,
   Stack,
-  TabPanel,
-  TabPanels,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Plus } from 'phosphor-react'
@@ -31,9 +29,10 @@ import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
   workouts: IWorkout[]
+  fetchUserWorkouts: () => void
 }
 
-export function WorkoutsLists({ workouts }: WorkoutsProps) {
+export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
@@ -60,6 +59,7 @@ export function WorkoutsLists({ workouts }: WorkoutsProps) {
           exerciseNameId,
           exerciseTypeId,
         })
+        fetchUserWorkouts()
       } catch (error) {
         console.error(error)
       }
@@ -75,7 +75,9 @@ export function WorkoutsLists({ workouts }: WorkoutsProps) {
       router.push('/login')
       return
     }
-    deleteWorkout(token, id)
+    deleteWorkout(token, id).then(() => {
+      fetchUserWorkouts()
+    })
   }
 
   const fetchExercisesTypesData = useCallback(async () => {
@@ -125,82 +127,80 @@ export function WorkoutsLists({ workouts }: WorkoutsProps) {
 
   return (
     <>
-      <TabPanels>
-        {workouts?.map((workout: IWorkout) => (
-          <TabPanel key={workout.id}>
-            <Box
-              p={4}
-              width="100%"
-              rounded={'lg'}
-              border={'1px'}
-              bgColor={'whiteAlpha.50'}
-              borderColor={'whiteAlpha.100'}
-              boxShadow={'lg'}
-              backdropBlur={'1rem'}
-              backdropFilter="blur(5px)"
-              minWidth="250px"
+      {workouts?.map((workout: IWorkout) => (
+        <Box
+          key={workout.id}
+          p={4}
+          width="100%"
+          rounded={'lg'}
+          border={'1px'}
+          bgColor={'whiteAlpha.50'}
+          borderColor={'whiteAlpha.100'}
+          boxShadow={'lg'}
+          backdropBlur={'1rem'}
+          backdropFilter="blur(5px)"
+          minWidth="250px"
+        >
+          <Flex>
+            <Spacer />
+            <CloseButton
+              onClick={() => handleWithDeleteWorkout(workout.id!)}
+              size="sm"
+            />
+          </Flex>
+          <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+            <SimpleGrid
+              columns={{ base: 1, md: 3 }}
+              spacing={5}
+              mb={4}
+              w={'full'}
             >
-              <Flex>
-                <Spacer />
-                <CloseButton
-                  onClick={() => handleWithDeleteWorkout(workout.id!)}
-                  size="sm"
+              <HandleButton
+                text="Adicionar Exercício"
+                color={'blackAlpha.900'}
+                bgColor={'whiteAlpha.900'}
+                _hover={{
+                  bg: 'whiteAlpha.700',
+                  transition: '0.4s',
+                }}
+                leftIcon={<Plus weight="bold" />}
+                onClick={() =>
+                  handleCreateExercise(
+                    workout.id!,
+                    exerciseNameId,
+                    exerciseTypeId,
+                  )
+                }
+              />
+
+              <SelectSettingValue
+                tag={'Grupo Muscular'}
+                value={exerciseTypeId}
+                setValue={setExerciseTypeId}
+                mapValues={exerciseTypes}
+                borderColor={'whiteAlpha.900'}
+              />
+
+              <SelectSettingValue
+                tag={'Nome do Exercício'}
+                value={exerciseNameId}
+                setValue={setExerciseNameId}
+                mapValues={exerciseNames}
+                borderColor={'whiteAlpha.900'}
+              />
+
+              {workout.exercises && workout.exercises.length > 0 && (
+                <ExercisesList
+                  exercises={workout.exercises}
+                  exerciseNames={exerciseNames}
+                  exerciseTypes={exerciseTypes}
+                  fetchUserWorkouts={fetchUserWorkouts}
                 />
-              </Flex>
-              <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-                <SimpleGrid
-                  columns={{ base: 1, md: 3 }}
-                  spacing={5}
-                  mb={4}
-                  w={'full'}
-                >
-                  <HandleButton
-                    text="Adicionar Exercício"
-                    color={'blackAlpha.900'}
-                    bgColor={'whiteAlpha.900'}
-                    _hover={{
-                      bg: 'whiteAlpha.700',
-                      transition: '0.4s',
-                    }}
-                    leftIcon={<Plus weight="bold" />}
-                    onClick={() =>
-                      handleCreateExercise(
-                        workout.id!,
-                        exerciseNameId,
-                        exerciseTypeId,
-                      )
-                    }
-                  />
-
-                  <SelectSettingValue
-                    tag={'Grupo Muscular'}
-                    value={exerciseTypeId}
-                    setValue={setExerciseTypeId}
-                    mapValues={exerciseTypes}
-                    borderColor={'whiteAlpha.900'}
-                  />
-
-                  <SelectSettingValue
-                    tag={'Nome do Exercício'}
-                    value={exerciseNameId}
-                    setValue={setExerciseNameId}
-                    mapValues={exerciseNames}
-                    borderColor={'whiteAlpha.900'}
-                  />
-
-                  {workout.exercises && workout.exercises.length > 0 && (
-                    <ExercisesList
-                      exercises={workout.exercises}
-                      exerciseNames={exerciseNames}
-                      exerciseTypes={exerciseTypes}
-                    />
-                  )}
-                </SimpleGrid>
-              </Stack>
-            </Box>
-          </TabPanel>
-        ))}
-      </TabPanels>
+              )}
+            </SimpleGrid>
+          </Stack>
+        </Box>
+      ))}
     </>
   )
 }

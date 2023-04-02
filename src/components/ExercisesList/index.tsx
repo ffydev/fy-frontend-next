@@ -25,12 +25,14 @@ interface WorkoutsProps {
   exercises?: IExercise[]
   exerciseNames?: IExerciseName[]
   exerciseTypes?: IExerciseType[]
+  fetchUserWorkouts: () => void
 }
 
 export default function ExercisesList({
   exercises,
   exerciseNames,
   exerciseTypes,
+  fetchUserWorkouts,
 }: WorkoutsProps) {
   const router = useRouter()
   const [exerciseNameId, setExerciseNameId] = useState<string | undefined>()
@@ -67,6 +69,7 @@ export default function ExercisesList({
       setDescribe(undefined)
       setExerciseNameId(undefined)
       setExerciseTypeId(undefined)
+      fetchUserWorkouts()
     } catch (error) {
       console.error(error)
     }
@@ -80,7 +83,9 @@ export default function ExercisesList({
       router.push('/login')
       return
     }
-    deleteExercise(token, id)
+    deleteExercise(token, id).then(() => {
+      fetchUserWorkouts()
+    })
   }
 
   return (
