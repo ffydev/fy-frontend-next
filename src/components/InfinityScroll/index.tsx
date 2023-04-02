@@ -45,7 +45,7 @@ export default function InfiniteScroll<T extends unknown>({
   }, [loading, data, page])
 
   useEffect(() => {
-    const newData = data.slice(0, 6)
+    const newData = data.slice(0, 9)
     setList(newData)
     setPage(1)
   }, [data])
