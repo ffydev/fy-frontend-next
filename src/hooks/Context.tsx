@@ -40,9 +40,9 @@ export default function ContextProvider({ children }: any) {
       value={{
         userId,
         isShowingUsers,
+        isShowingWorkouts,
         changeUserId,
         handleWithShowUsers,
-        isShowingWorkouts,
         handleWithShowWorkouts,
       }}
     >
