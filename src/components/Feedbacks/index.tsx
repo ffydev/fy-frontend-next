@@ -123,7 +123,7 @@ export default function Feedbacks() {
                   transition: '0.4s',
                 }}
                 leftIcon={
-                  <PaperPlaneTilt size={40} color="#0987A0" weight="fill" />
+                  <PaperPlaneTilt size={30} color="#DD6B20" weight="fill" />
                 }
                 w={'37%'}
                 onClick={() => handleWithAswerFeedback()}
