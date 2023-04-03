@@ -45,16 +45,18 @@ export default function InfiniteScroll<T extends unknown>({
   }, [loading, data, page])
 
   useEffect(() => {
-    const newData = data.slice(0, 9)
+    const newData = data.slice(0, 6)
     setList(newData)
     setPage(1)
   }, [data])
 
   return (
     <>
-      {list.map(renderItem)}
+      {list.map((item, index) => (
+        <div key={index}>{renderItem(item, index)}</div>
+      ))}
       <div ref={sentinelRef} style={{ height: '1px' }}></div>
-      {loading && <Loading />}
+      {loading && <Loading key="loading" />}
     </>
   )
 }
