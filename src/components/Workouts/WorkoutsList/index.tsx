@@ -50,9 +50,10 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
           exerciseNameId,
           exerciseTypeId,
         })
-        fetchUserWorkouts()
       } catch (error) {
         console.error(error)
+      } finally {
+        fetchUserWorkouts()
       }
     },
     [router, fetchUserWorkouts],

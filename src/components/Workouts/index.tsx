@@ -85,7 +85,7 @@ export function Workouts() {
     fetchUserWorkouts()
   }, [selectedWorkoutId, fetchWorkoutsNames])
 
-  const handleWithDeleteWorkout = (id: string) => {
+  const handleWithDeleteWorkout = async (id: string) => {
     const token = getUserToken()
 
     if (!token) {
@@ -94,10 +94,13 @@ export function Workouts() {
       return
     }
 
-    deleteWorkout(token, id).then(() => {
-      const updatedWokouts = updatingWorkoutsState(workoutsNames, id)
-      setWorkoutsNames(updatedWokouts)
-    })
+    try {
+      await deleteWorkout(token, id)
+      const updatedWorkouts = updatingWorkoutsState(workoutsNames, id)
+      setWorkoutsNames(updatedWorkouts)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const updatingWorkoutsState = (workouts: IWorkout[], id: string) => {

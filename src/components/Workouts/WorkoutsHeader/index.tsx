@@ -60,11 +60,11 @@ export default function WorkoutsHeader({
         await createWorkout(token, {
           userId,
           workoutType,
-        }).then(() => {
-          fetchWorkoutsNames()
         })
       } catch (error) {
         console.error(error)
+      } finally {
+        fetchWorkoutsNames()
       }
     },
     [fetchWorkoutsNames, router, workoutType],
