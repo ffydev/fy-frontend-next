@@ -22,7 +22,7 @@ export async function findUserFeedbacks(
         headers: { Authorization: `Bearer ${token}` },
       },
     )
-    console.log(response.data)
+
     return response.data
   } catch (error) {
     console.error('Failed to find users', error)
