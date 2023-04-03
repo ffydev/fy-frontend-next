@@ -20,8 +20,13 @@ export default function Users() {
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [searchName, setSearchName] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
-  const { isShowingWorkouts, changeUserId, handleWithShowWorkouts } =
-    useContext(Context)
+  const {
+    isShowingUsers,
+    isShowingWorkouts,
+    changeUserId,
+    handleWithShowUsers,
+    handleWithShowWorkouts,
+  } = useContext(Context)
 
   const fetchUsersData = useCallback(async () => {
     try {
@@ -69,12 +74,34 @@ export default function Users() {
 
   const handleWithHideWorkouts = () => {
     handleWithShowWorkouts(!isShowingWorkouts)
+    handleWithShowUsers(!isShowingUsers)
     changeUserId('')
   }
 
   return (
     <>
-      {isShowingWorkouts ? (
+      {isShowingUsers && (
+        <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
+          <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+            <UsersHeader
+              fetchUsersData={fetchUsersData}
+              planTypes={planTypes}
+              userTypeId={userTypeId}
+              searchName={searchName}
+              setUserTypeId={setUserTypeId}
+              setSearchName={setSearchName}
+            />
+
+            <UsersList
+              fetchUsersData={fetchUsersData}
+              users={users}
+              planTypes={planTypes}
+            />
+          </Container>
+        </Box>
+      )}
+
+      {isShowingWorkouts && (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
             <Stack
@@ -95,25 +122,6 @@ export default function Users() {
             <Workouts />
           </Box>
         </>
-      ) : (
-        <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
-          <Container maxW="7xl" p={{ base: 5, md: 10 }}>
-            <UsersHeader
-              fetchUsersData={fetchUsersData}
-              planTypes={planTypes}
-              userTypeId={userTypeId}
-              searchName={searchName}
-              setUserTypeId={setUserTypeId}
-              setSearchName={setSearchName}
-            />
-
-            <UsersList
-              fetchUsersData={fetchUsersData}
-              users={users}
-              planTypes={planTypes}
-            />
-          </Container>
-        </Box>
       )}
     </>
   )

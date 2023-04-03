@@ -37,8 +37,13 @@ export function UsersList({
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
-  const { isShowingWorkouts, changeUserId, handleWithShowWorkouts } =
-    useContext(Context)
+  const {
+    changeUserId,
+    isShowingUsers,
+    handleWithShowUsers,
+    isShowingWorkouts,
+    handleWithShowWorkouts,
+  } = useContext(Context)
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
@@ -75,6 +80,7 @@ export function UsersList({
 
   const handleWithShowUserWorkouts = (userId: string) => {
     changeUserId(userId)
+    handleWithShowUsers(!isShowingUsers)
     handleWithShowWorkouts(!isShowingWorkouts)
   }
 
