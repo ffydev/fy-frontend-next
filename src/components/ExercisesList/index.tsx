@@ -108,7 +108,7 @@ export default function ExercisesList({
 
   return (
     <>
-      {exercises?.map((exercise) => (
+      {exercisesState?.map((exercise) => (
         <Box
           key={exercise.id}
           p={4}
