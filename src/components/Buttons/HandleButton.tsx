@@ -6,6 +6,7 @@ interface ButtonProps {
   bgColor?: string
   _hover?: any
   leftIcon?: any
+  w?: string
   onClick?: () => void
 }
 
@@ -15,6 +16,7 @@ export default function HandleButton({
   bgColor,
   _hover,
   leftIcon,
+  w,
   onClick,
 }: ButtonProps) {
   return (
@@ -25,6 +27,7 @@ export default function HandleButton({
         onClick={onClick}
         bgColor={bgColor}
         _hover={_hover}
+        w={w}
         leftIcon={leftIcon}
       >
         {text}
