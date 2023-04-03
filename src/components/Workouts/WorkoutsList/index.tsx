@@ -99,13 +99,13 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
   }, [router])
 
   useEffect(() => {
+    setWorkoutsState(workouts)
+  }, [workouts])
+
+  useEffect(() => {
     fetchExercisesTypesData()
     fetchExercisesNamesData()
   }, [fetchExercisesTypesData, fetchExercisesNamesData])
-
-  useEffect(() => {
-    setWorkoutsState(workouts)
-  }, [workouts])
 
   return (
     <>
