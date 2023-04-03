@@ -150,7 +150,9 @@ export default function Users() {
                 onClick={handleWithHideFeedbacks}
               />
             </Stack>
-            <Feedbacks />
+            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+              <Feedbacks />
+            </Container>
           </Box>
         </>
       )}

@@ -40,17 +40,14 @@ export default function Feedbacks() {
       {feedbacks?.map((feedback: IUserFeedback) => (
         <Box
           key={feedback.id}
-          p={3}
-          m={3}
+          p={4}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
-          border={'1px'}
-          borderColor={'whiteAlpha.700'}
           rounded={'lg'}
-          bgGradient={[
-            'linear(to-tr, gray.900 70.17%, purple.900 90.87%)',
-            'linear(to-br, gray.900 50.17%, purple.900 90.87%)',
-          ]}
+          border={'1px'}
+          bgColor={'whiteAlpha.50'}
+          borderColor={'whiteAlpha.100'}
+          boxShadow={'lg'}
         >
           <Flex minWidth="max-content">
             <Spacer /> <CloseButton size="sm" />
