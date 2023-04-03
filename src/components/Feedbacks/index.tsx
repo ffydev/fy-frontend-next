@@ -123,7 +123,7 @@ export default function Feedbacks() {
                   transition: '0.4s',
                 }}
                 leftIcon={<Plus weight="bold" />}
-                w={'30%'}
+                w={'37%'}
                 onClick={() => handleWithAswerFeedback()}
               />
             </Flex>
