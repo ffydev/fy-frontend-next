@@ -4,7 +4,7 @@ import { answerFeedback } from '@/pages/api/providers/doctor.feedbacks'
 import {
   findUserFeedbacks,
   IUserFeedback,
-} from '@/pages/api/providers/userFeedbacks.provider'
+} from '@/pages/api/providers/user-feedbacks.provider'
 import {
   Box,
   chakra,
