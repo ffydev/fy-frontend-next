@@ -14,7 +14,7 @@ import {
   Spacer,
   Textarea,
 } from '@chakra-ui/react'
-import { Plus } from '@phosphor-icons/react'
+import { PaperPlaneTilt } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import HandleButton from '../Buttons/HandleButton'
@@ -122,7 +122,9 @@ export default function Feedbacks() {
                   bg: 'whiteAlpha.700',
                   transition: '0.4s',
                 }}
-                leftIcon={<Plus weight="bold" />}
+                leftIcon={
+                  <PaperPlaneTilt size={40} color="#0987A0" weight="fill" />
+                }
                 w={'37%'}
                 onClick={() => handleWithAswerFeedback()}
               />
