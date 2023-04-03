@@ -34,7 +34,9 @@ export default function InfiniteScroll<T extends unknown>({
     if (!loading) return
 
     if (page * 10 >= data.length) {
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
       return
     }
 
