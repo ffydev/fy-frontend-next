@@ -98,6 +98,7 @@ export function Workouts() {
       await deleteWorkout(token, id)
       const updatedWorkouts = updatingWorkoutsState(workoutsNames, id)
       setWorkoutsNames(updatedWorkouts)
+      setSelectedWorkoutId(workoutsNames?.[0].id!)
     } catch (error) {
       console.error(error)
     }
