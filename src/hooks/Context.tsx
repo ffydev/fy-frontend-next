@@ -23,16 +23,16 @@ export default function ContextProvider({ children }: any) {
   const [isShowingUsers, setIsShowingUsers] = useState<boolean>(true)
   const [isShowingWorkouts, setIsShowingWorkouts] = useState<boolean>(false)
 
+  const changeUserId = (newValue: string) => {
+    setuserId(newValue)
+  }
+
   const handleWithShowUsers = (isShowingUsers: boolean) => {
     setIsShowingUsers(isShowingUsers)
   }
 
   const handleWithShowWorkouts = (isShowingWorkouts: boolean) => {
     setIsShowingWorkouts(isShowingWorkouts)
-  }
-
-  const changeUserId = (newValue: string) => {
-    setuserId(newValue)
   }
 
   return (
