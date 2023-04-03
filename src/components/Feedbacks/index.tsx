@@ -66,7 +66,7 @@ export default function Feedbacks() {
           </chakra.h1>
 
           <chakra.h1 fontSize="lg" lineHeight={6}>
-            Pesos: {feedback.weight}
+            Peso: {feedback.weight}
           </chakra.h1>
 
           <chakra.h1 fontSize="lg" lineHeight={6}>
