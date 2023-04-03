@@ -1,3 +1,4 @@
+import { Context } from '@/hooks/Context'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findUserFeedbacks,
@@ -5,20 +6,11 @@ import {
 } from '@/pages/api/providers/userFeedbacks.provider'
 import { Box, chakra, CloseButton, Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
-interface feedbacksProps {
-  userId: string
-  workoutId: string
-  handleWithCloseFeedback: () => void
-}
-
-export default function Feedbacks({
-  userId,
-  workoutId,
-  handleWithCloseFeedback,
-}: feedbacksProps) {
+export default function Feedbacks() {
   const router = useRouter()
+  const { userId } = useContext(Context)
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
 
   const fetchFeedbacksData = useCallback(async () => {
@@ -31,13 +23,13 @@ export default function Feedbacks({
         return
       }
 
-      const response = await findUserFeedbacks(token, { userId, workoutId })
+      const response = await findUserFeedbacks(token, userId)
 
       setFeedbacks(response)
     } catch (error) {
       console.error(error)
     }
-  }, [router, userId, workoutId])
+  }, [router, userId])
 
   useEffect(() => {
     fetchFeedbacksData()
@@ -61,8 +53,7 @@ export default function Feedbacks({
           ]}
         >
           <Flex minWidth="max-content">
-            <Spacer />{' '}
-            <CloseButton onClick={() => handleWithCloseFeedback()} size="sm" />
+            <Spacer /> <CloseButton size="sm" />
           </Flex>
 
           <chakra.h1 fontSize="lg" lineHeight={6}>

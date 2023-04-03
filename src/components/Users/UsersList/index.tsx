@@ -43,6 +43,8 @@ export function UsersList({
     handleWithShowUsers,
     isShowingWorkouts,
     handleWithShowWorkouts,
+    isShowingFeedbacks,
+    handleWithShowFeedbacks,
   } = useContext(Context)
 
   const handleWithDeleteUser = (id: string) => {
@@ -84,6 +86,12 @@ export function UsersList({
     handleWithShowWorkouts(!isShowingWorkouts)
   }
 
+  const handleWithShowUserFeedbacks = (userId: string) => {
+    changeUserId(userId)
+    handleWithShowUsers(!isShowingUsers)
+    handleWithShowFeedbacks(!isShowingFeedbacks)
+  }
+
   return (
     <>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
@@ -114,13 +122,22 @@ export function UsersList({
                 />
               </Flex>
 
-              <Flex>
+              <Flex justifyContent={'initial'}>
                 <Button
+                  mr={2}
                   colorScheme={'orange'}
                   size="xs"
                   onClick={() => handleWithShowUserWorkouts(user.id)}
                 >
                   Workouts
+                </Button>
+
+                <Button
+                  colorScheme={'orange'}
+                  size="xs"
+                  onClick={() => handleWithShowUserFeedbacks(user.id)}
+                >
+                  Feedbacks
                 </Button>
               </Flex>
 

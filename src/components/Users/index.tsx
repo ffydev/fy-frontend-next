@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { ArrowArcLeft } from 'phosphor-react'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import HandleButton from '../Buttons/HandleButton'
+import Feedbacks from '../Feedbacks'
 import { Workouts } from '../Workouts'
 import UsersHeader from './UsersHeader'
 import { UsersList } from './UsersList'
@@ -23,9 +24,11 @@ export default function Users() {
   const {
     isShowingUsers,
     isShowingWorkouts,
+    isShowingFeedbacks,
     changeUserId,
     handleWithShowUsers,
     handleWithShowWorkouts,
+    handleWithShowFeedbacks,
   } = useContext(Context)
 
   const fetchUsersData = useCallback(async () => {
@@ -78,6 +81,12 @@ export default function Users() {
     changeUserId('')
   }
 
+  const handleWithHideFeedbacks = () => {
+    handleWithShowFeedbacks(!isShowingFeedbacks)
+    handleWithShowUsers(!isShowingUsers)
+    changeUserId('')
+  }
+
   return (
     <>
       {isShowingUsers && (
@@ -120,6 +129,28 @@ export default function Users() {
             </Stack>
 
             <Workouts />
+          </Box>
+        </>
+      )}
+
+      {isShowingFeedbacks && (
+        <>
+          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+            <Stack
+              direction={'column'}
+              align={'start'}
+              alignSelf={'center'}
+              position={'relative'}
+              mt={3}
+              ml={3}
+            >
+              <HandleButton
+                text={'Voltar'}
+                leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+                onClick={handleWithHideFeedbacks}
+              />
+            </Stack>
+            <Feedbacks />
           </Box>
         </>
       )}

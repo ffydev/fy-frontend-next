@@ -8,18 +8,16 @@ export interface IUserFeedback {
   fatigue?: string
   others?: string
   videoLinks?: string
-  userId: string
-  workoutId: string
   createdAt?: string
 }
 
 export async function findUserFeedbacks(
   token: string,
-  feedback: IUserFeedback,
+  userId: string,
 ): Promise<IUserFeedback[]> {
   try {
     const response = await api.get<IUserFeedback[]>(
-      `/user-feedbacks?userId=${feedback.userId}&wokoutId=${feedback.workoutId}`,
+      `/user-feedbacks?userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
