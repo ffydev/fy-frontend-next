@@ -85,7 +85,7 @@ export default function UsersHeader({
             border={'1px'}
             borderColor={'whiteAlpha.900'}
             variant={'outline'}
-            placeholder="Nome do usuário"
+            placeholder="Pesquisar"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
