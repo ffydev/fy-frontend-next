@@ -19,6 +19,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+// @ts-ignore
 import { Plus } from 'phosphor-react'
 import { useRef, useState } from 'react'
 
