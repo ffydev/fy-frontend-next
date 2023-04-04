@@ -7,6 +7,7 @@ import {
   IconButton,
   LinkProps,
   Box,
+  Text,
 } from '@chakra-ui/react'
 // Here we have used react-icons package for the icons
 import { InstagramLogo } from '@phosphor-icons/react'
@@ -35,16 +36,14 @@ export default function Footer() {
           alignItems="center"
           direction={{ base: 'column', md: 'row' }}
         >
-          <Link href="#" isExternal>
-            <Image
-              alt="logo"
-              src="/logo.png"
-              width={10}
-              height={10}
-              loading={'eager'}
-            />
-          </Link>
-
+          <Image
+            alt="logo"
+            src="/logo.png"
+            width={10}
+            height={10}
+            loading={'eager'}
+          />
+          <Text>André Sena</Text>
           {/* Desktop Screen */}
           <HStack
             spacing={4}
@@ -59,7 +58,6 @@ export default function Footer() {
           {/* Mobile and Tablet Screens */}
           <Stack display={{ base: 'flex', md: 'none' }} alignItems="center">
             <HStack alignItems="center">
-              <Divider h="1rem" orientation="vertical" />
               <CustomLink>Termos de Uso</CustomLink>
             </HStack>
             <CustomLink>Política de Privacidade</CustomLink>
@@ -68,7 +66,7 @@ export default function Footer() {
           <Stack
             direction="row"
             spacing={5}
-            pt={{ base: 4, md: 0 }}
+            pt={{ base: 2, md: 0 }}
             alignItems="center"
           >
             {accounts.map((sc, index) => (
