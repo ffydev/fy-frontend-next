@@ -36,7 +36,7 @@ export interface IUpdateUserWithIPlan {
 
 export interface IUserFilter {
   userTypeId?: string
-  searchName?: string
+  search?: string
 }
 
 export async function createUser(
@@ -60,7 +60,7 @@ export async function findUsers(
 ): Promise<IUserInterface[]> {
   try {
     const response = await api.get<IUserInterface[]>(
-      `/users?userTypeId=${query.userTypeId}&searchName=${query.searchName}`,
+      `/users?userTypeId=${query.userTypeId}&searchName=${query.search}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
