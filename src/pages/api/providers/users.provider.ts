@@ -14,6 +14,7 @@ export interface IUserInterface {
   workout: IWorkout[]
   userType: IUserType
   isRegistered: boolean
+  deletedAt?: string
 }
 export interface ICreateUserWithIPlan {
   email: string
@@ -32,11 +33,13 @@ export interface IUpdateUserWithIPlan {
   lastName?: string
   password?: string
   userTypeId?: string
+  deletedAt?: string
 }
 
 export interface IUserFilter {
   userTypeId?: string
-  searchName?: string
+  search?: string
+  isDeleted?: string // '1' or undefined
 }
 
 export async function createUser(
@@ -60,7 +63,7 @@ export async function findUsers(
 ): Promise<IUserInterface[]> {
   try {
     const response = await api.get<IUserInterface[]>(
-      `/users?userTypeId=${query.userTypeId}&searchName=${query.searchName}`,
+      `/users?userTypeId=${query.userTypeId}&searchName=${query.search}&isDeleted=${query.isDeleted}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },

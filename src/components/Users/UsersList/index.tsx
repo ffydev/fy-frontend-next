@@ -1,3 +1,4 @@
+import HandleButton from '@/components/Buttons/HandleButton'
 import PlanList from '@/components/PlansList'
 import { Context } from '@/hooks/Context'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
@@ -20,6 +21,7 @@ import {
   Spacer,
   Stack,
 } from '@chakra-ui/react'
+import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
 
@@ -37,6 +39,7 @@ export function UsersList({
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [deletedAt, setDeletedAt] = useState<string>('')
   const {
     changeUserId,
     isShowingUsers,
@@ -73,7 +76,9 @@ export function UsersList({
       await updateUser(token, userId, {
         firstName: firstName !== '' ? firstName : undefined,
         lastName: lastName !== '' ? lastName : undefined,
+        deletedAt: deletedAt !== '' ? deletedAt : undefined,
       })
+
       fetchUsersData()
     } catch (error) {
       console.error(error)
@@ -90,6 +95,16 @@ export function UsersList({
     changeUserId(userId)
     handleWithShowUsers(!isShowingUsers)
     handleWithShowFeedbacks(!isShowingFeedbacks)
+  }
+
+  const handleWithActiveUser = async (userId: string) => {
+    try {
+      setDeletedAt('Ativar')
+    } catch (error) {
+      console.log(error)
+    } finally {
+      await handleUpdateUser(userId)
+    }
   }
 
   return (
@@ -180,9 +195,30 @@ export function UsersList({
                 />
 
                 <FormLabel>
-                  Status: {user.isRegistered ? 'Ativo' : 'Inativo'}
+                  Status: {user.isRegistered ? 'Registrado' : 'Não registrado'}
                 </FormLabel>
               </Editable>
+
+              {user.deletedAt && (
+                <Flex>
+                  <FormLabel>{`Deletado em ${new Date(
+                    user.deletedAt!,
+                  ).toLocaleDateString()}`}</FormLabel>
+
+                  <HandleButton
+                    text="Ativar"
+                    color={'whiteAlpga.900'}
+                    _hover={{
+                      bg: 'whiteAlpha.700',
+                      transition: '0.4s',
+                    }}
+                    leftIcon={
+                      <ArrowArcLeft size={20} color="#DD6B20" weight="fill" />
+                    }
+                    onClick={() => handleWithActiveUser(user.id)}
+                  />
+                </Flex>
+              )}
 
               <Box>
                 {user.plan && user.plan.length > 0 && (

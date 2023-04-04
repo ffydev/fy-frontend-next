@@ -5,7 +5,7 @@ import {
   findUsersTypes,
   IUserType,
 } from '@/pages/api/providers/users-types.provider'
-import { FormControl, Heading, Input, Stack } from '@chakra-ui/react'
+import { Checkbox, FormControl, Heading, Input, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import UserCreate from '../UserCreate'
@@ -14,18 +14,20 @@ interface UsersHeaderProps {
   fetchUsersData: () => void
   planTypes: IPlanType[]
   userTypeId: string
-  searchName: string
+  search: string
   setUserTypeId: (event: string) => void
-  setSearchName: (event: string) => void
+  setSearch: (event: string) => void
+  setIsDeleted: (event: string) => void
 }
 
 export default function UsersHeader({
   fetchUsersData,
   planTypes,
   userTypeId,
-  searchName,
+  search,
   setUserTypeId,
-  setSearchName,
+  setSearch,
+  setIsDeleted,
 }: UsersHeaderProps) {
   const router = useRouter()
   const [usersTypes, setUsersTypes] = useState<IUserType[]>([])
@@ -81,10 +83,20 @@ export default function UsersHeader({
             border={'1px'}
             borderColor={'whiteAlpha.900'}
             variant={'outline'}
-            placeholder="Nome do usuário"
-            value={searchName}
-            onChange={(event) => setSearchName(event.target.value)}
+            placeholder="Pesquisar"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
           />
+        </FormControl>
+        <FormControl>
+          <Checkbox
+            value={'1'}
+            onChange={(event) =>
+              setIsDeleted(event.target.checked ? event.target.value : '')
+            }
+          >
+            Buscar Deletados
+          </Checkbox>
         </FormControl>
       </Stack>
     </>
