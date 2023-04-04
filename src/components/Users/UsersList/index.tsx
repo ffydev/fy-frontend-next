@@ -39,7 +39,7 @@ export function UsersList({
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
-  const [deletedAt, setDeletedAt] = useState<string>('')
+  const [deletedAt, setDeletedAt] = useState<string | null>(null)
   const {
     changeUserId,
     isShowingUsers,
@@ -78,10 +78,10 @@ export function UsersList({
         lastName: lastName !== '' ? lastName : undefined,
         deletedAt: deletedAt !== '' ? deletedAt : undefined,
       })
-
-      fetchUsersData()
     } catch (error) {
       console.error(error)
+    } finally {
+      fetchUsersData()
     }
   }
 

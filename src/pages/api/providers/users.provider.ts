@@ -33,7 +33,7 @@ export interface IUpdateUserWithIPlan {
   lastName?: string
   password?: string
   userTypeId?: string
-  deletedAt?: string
+  deletedAt?: string | null
 }
 
 export interface IUserFilter {
