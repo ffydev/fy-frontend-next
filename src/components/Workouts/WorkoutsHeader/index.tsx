@@ -5,7 +5,8 @@ import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus } from 'phosphor-react'
+import { Plus } from '@phosphor-icons/react'
+
 
 interface WorkoutsHeaderProps {
   userId: string

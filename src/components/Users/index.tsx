@@ -6,8 +6,9 @@ import {
 } from '@/pages/api/providers/plans-types.provider'
 import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
 import { Box, Container, Stack } from '@chakra-ui/react'
+import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { ArrowArcLeft } from 'phosphor-react'
+
 import { useCallback, useContext, useEffect, useState } from 'react'
 import HandleButton from '../Buttons/HandleButton'
 import Feedbacks from '../Feedbacks'

@@ -13,8 +13,8 @@ import {
 import { createExercise } from '@/pages/api/providers/exercises.provider'
 import { IWorkout } from '@/pages/api/providers/workouts.provider'
 import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { Plus } from 'phosphor-react'
 import { useCallback, useEffect, useState } from 'react'
 
 interface WorkoutsProps {
