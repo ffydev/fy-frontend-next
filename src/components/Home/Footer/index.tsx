@@ -1,9 +1,8 @@
 import {
   Stack,
   HStack,
+  VStack,
   Link,
-  Divider,
-  Image,
   IconButton,
   LinkProps,
   Box,
@@ -36,14 +35,6 @@ export default function Footer() {
           alignItems="center"
           direction={{ base: 'column', md: 'row' }}
         >
-          <Image
-            alt="logo"
-            src="/logo.png"
-            width={10}
-            height={10}
-            loading={'eager'}
-          />
-          <Text>André Sena</Text>
           {/* Desktop Screen */}
           <HStack
             spacing={4}
@@ -83,6 +74,11 @@ export default function Footer() {
             ))}
           </Stack>
         </Stack>
+        <VStack alignItems={'center'} pt={4} pb={8}>
+          <Text color={'whiteAlpha.500'}>
+            © André Sena | 2023. Todos os Direitos Reservados.
+          </Text>
+        </VStack>
       </Box>
     </>
   )
@@ -94,6 +90,7 @@ const CustomLink = ({ children, ...props }: LinkProps) => {
       <Link
         href="#"
         fontSize="sm"
+        color={'whiteAlpha.500'}
         _hover={{ textDecoration: 'underline' }}
         {...props}
       >

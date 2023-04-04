@@ -7,7 +7,7 @@ import ScrollDown from '../ScrollDown'
 import CardProgression from '../CardProgression'
 import Footer from '../Footer'
 
-export default function Header() {
+export function Header() {
   return (
     <>
       <Box pb={4}>
@@ -27,49 +27,49 @@ export default function Header() {
             <Navbar />
             <Container maxW={'7xl'}>
               <Box
-                maxW="5xl"
+                maxW='5xl'
                 p={4}
-                isolation="isolate"
+                isolation='isolate'
                 zIndex={3}
-                mt="5rem"
-                marginInline="auto"
+                mt='5rem'
+                marginInline='auto'
               >
                 <Box
                   boxShadow={'lg'}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter="blur(10px)"
+                  backdropFilter='blur(10px)'
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
-                  rounded="2xl"
+                  rounded='2xl'
                   p={{ base: 4, sm: 8 }}
                 >
                   <Stack
-                    pos="relative"
+                    pos='relative'
                     direction={{ base: 'column', md: 'row' }}
                     zIndex={1}
                     spacing={5}
-                    textAlign="center"
+                    textAlign='center'
                   >
-                    <Flex flex={1} p={8} align="center" justify="center">
+                    <Flex flex={1} p={8} align='center' justify='center'>
                       <Stack
-                        pos="relative"
+                        pos='relative'
                         direction={'column'}
                         zIndex={1}
                         spacing={5}
-                        textAlign="left"
+                        textAlign='left'
                       >
                         <chakra.h1
                           fontSize={['2xl', '4xl']}
                           lineHeight={1.2}
-                          fontWeight="bold"
+                          fontWeight='bold'
                           color={'whiteAlpha.900'}
                         >
                           Tem dificuldade em acompanhar sua performance nos
                           treinos?
                         </chakra.h1>
                         <chakra.h2
-                          color="whiteAlpha.800"
+                          color='whiteAlpha.800'
                           fontSize={['lg', 'xl']}
                           lineHeight={1.2}
                         >
