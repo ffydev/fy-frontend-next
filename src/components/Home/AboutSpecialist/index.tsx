@@ -1,4 +1,4 @@
-import { Avatar, Box, Container, Flex, chakra, Stack } from '@chakra-ui/react'
+import { Avatar, Box, Flex, chakra, Stack } from '@chakra-ui/react'
 
 export default function AboutSpecialist() {
   const textHeading = {
@@ -12,65 +12,63 @@ export default function AboutSpecialist() {
   }
   return (
     <>
-      <Container maxW={'7xl'} p={8}>
-        <Stack direction={{ base: 'column', md: 'row' }}>
-          <Flex flex={1} justifyContent="center" align="center">
-            <Box p={6}>
-              <Stack
-                spacing={2}
-                w={'full'}
-                maxW={'lg'}
-                textAlign={{ base: 'center', md: 'left' }}
+      <Stack direction={{ base: 'column', md: 'row' }} pt={20} pb={10}>
+        <Flex flex={1} align="center">
+          <Box pt={6}>
+            <Stack
+              spacing={4}
+              w={'full'}
+              maxW={'lg'}
+              textAlign={{ base: 'center', md: 'left' }}
+            >
+              <chakra.h1
+                fontSize={['2xl', '4xl']}
+                lineHeight={1.4}
+                fontWeight="bold"
+                color={'whiteAlpha.900'}
               >
-                <chakra.h1
-                  fontSize={['2xl', '4xl']}
-                  lineHeight={1.4}
-                  fontWeight="bold"
-                  color={'whiteAlpha.900'}
-                >
-                  {textHeading.heading1}
-                </chakra.h1>
-                <chakra.h2
-                  color="whiteAlpha.800"
-                  fontSize={['lg', 'xl']}
-                  lineHeight={1.4}
-                >
-                  {textHeading.heading2}
-                </chakra.h2>
-                <chakra.h2
-                  color="whiteAlpha.800"
-                  fontSize={['lg', 'xl']}
-                  lineHeight={1.4}
-                >
-                  {textHeading.heading3}
-                </chakra.h2>
-                <chakra.h2
-                  color="whiteAlpha.800"
-                  fontSize={['lg', 'xl']}
-                  lineHeight={1.4}
-                >
-                  {textHeading.heading4}
-                </chakra.h2>
-                <chakra.h2
-                  color="whiteAlpha.500"
-                  fontSize={['lg', 'xl']}
-                  lineHeight={1.2}
-                >
-                  {textHeading.heading5}
-                </chakra.h2>
-              </Stack>
-            </Box>
-          </Flex>
-          <Flex flex={1} align={'center'} justify={'center'}>
-            <Avatar
-              src={'/andresena.webp'}
-              size="3xl"
-              loading={'lazy'}
-              shadow={'dark-lg'}
-            />
-          </Flex>
-        </Stack>
-      </Container>
+                {textHeading.heading1}
+              </chakra.h1>
+              <chakra.h2
+                color="whiteAlpha.800"
+                fontSize={['lg', 'xl']}
+                lineHeight={1.4}
+              >
+                {textHeading.heading2}
+              </chakra.h2>
+              <chakra.h2
+                color="whiteAlpha.800"
+                fontSize={['lg', 'xl']}
+                lineHeight={1.4}
+              >
+                {textHeading.heading3}
+              </chakra.h2>
+              <chakra.h2
+                color="whiteAlpha.800"
+                fontSize={['lg', 'xl']}
+                lineHeight={1.4}
+              >
+                {textHeading.heading4}
+              </chakra.h2>
+              <chakra.h2
+                color="whiteAlpha.500"
+                fontSize={['lg', 'xl']}
+                lineHeight={1.2}
+              >
+                {textHeading.heading5}
+              </chakra.h2>
+            </Stack>
+          </Box>
+        </Flex>
+        <Flex align={'center'} justify={'center'} pt={6}>
+          <Avatar
+            src={'/andresena.webp'}
+            size="3xl"
+            loading={'lazy'}
+            shadow={'dark-lg'}
+          />
+        </Flex>
+      </Stack>
     </>
   )
 }
