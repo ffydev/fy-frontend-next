@@ -20,6 +20,7 @@ export default function Users() {
   const [users, setUsers] = useState<IUserInterface[]>([])
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [search, setSearch] = useState<string>('')
+  const [isDeleted, setIsDeleted] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
   const {
     isShowingUsers,
@@ -43,13 +44,14 @@ export default function Users() {
       const response = await findUsers(token, {
         userTypeId,
         search,
+        isDeleted,
       })
       setUsers(response)
     } catch (error) {
       console.error(error)
       router.push('/login')
     }
-  }, [router, userTypeId, search, setUsers])
+  }, [router, userTypeId, search, isDeleted])
 
   const fetchPlanTypeData = useCallback(async () => {
     try {
@@ -96,9 +98,11 @@ export default function Users() {
               fetchUsersData={fetchUsersData}
               planTypes={planTypes}
               userTypeId={userTypeId}
-              searchName={search}
+              search={search}
+              isDeleted={isDeleted}
               setUserTypeId={setUserTypeId}
-              setSearchName={setSearch}
+              setSearch={setSearch}
+              setIsDeleted={setIsDeleted}
             />
 
             <UsersList
