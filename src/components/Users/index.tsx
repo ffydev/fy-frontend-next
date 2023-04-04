@@ -99,7 +99,6 @@ export default function Users() {
               planTypes={planTypes}
               userTypeId={userTypeId}
               search={search}
-              isDeleted={isDeleted}
               setUserTypeId={setUserTypeId}
               setSearch={setSearch}
               setIsDeleted={setIsDeleted}

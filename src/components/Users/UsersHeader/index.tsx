@@ -15,7 +15,6 @@ interface UsersHeaderProps {
   planTypes: IPlanType[]
   userTypeId: string
   search: string
-  isDeleted: string
   setUserTypeId: (event: string) => void
   setSearch: (event: string) => void
   setIsDeleted: (event: string) => void
@@ -26,7 +25,6 @@ export default function UsersHeader({
   planTypes,
   userTypeId,
   search,
-  isDeleted,
   setUserTypeId,
   setSearch,
   setIsDeleted,
