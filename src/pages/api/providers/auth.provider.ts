@@ -1,5 +1,5 @@
 import { api } from '../apis/api'
-export interface LoginResponse {
+export interface ILoginResponse {
   id?: string
   name?: string
   email?: string
@@ -16,7 +16,7 @@ export async function signIn(username: string, password: string) {
     if (response.data) {
       localStorage.setItem('fyToken', response.data.access_token)
 
-      return response.data as LoginResponse
+      return response.data as ILoginResponse
     }
     return null
   } catch (error) {
