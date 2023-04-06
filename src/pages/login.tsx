@@ -39,7 +39,7 @@ export default function Login() {
         setError('Usuário ou senha inválidos')
       }
     }
-  }, [user, router])
+  }, [user, router, setError])
 
   const BoxBgImage = (props: BoxProps) => {
     return (
