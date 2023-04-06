@@ -4,6 +4,7 @@ export interface LoginResponse {
   name?: string
   email?: string
   access_token?: string
+  userType: string
 }
 
 export async function signIn(username: string, password: string) {

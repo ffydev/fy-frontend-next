@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks/ContextAuth'
 import {
   Box,
   BoxProps,
@@ -13,25 +14,33 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
-import { signIn } from './api/providers/auth.provider'
+import React, { useEffect } from 'react'
 
 export default function Login() {
   const router = useRouter()
+  const { user, signIn, error, setError } = useAuth()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     const formData = new FormData(event.currentTarget)
     const username = formData.get('username') as string
     const password = formData.get('password') as string
 
-    const login = await signIn(username, password)
-
-    if (login?.access_token) {
-      router.push('/dashboard')
-    }
+    signIn(username, password)
   }
+
+  useEffect(() => {
+    if (user) {
+      if (user.userType === 'admin') {
+        console.log(user)
+        router.push('/dashboard')
+      } else if (user.userType === 'client') {
+        router.push('/client-dashboard')
+      } else {
+        setError('Usuário ou senha inválidos')
+      }
+    }
+  }, [user, router])
 
   const BoxBgImage = (props: BoxProps) => {
     return (
@@ -84,6 +93,7 @@ export default function Login() {
               </Box>
             </Stack>
             <form onSubmit={handleSubmit}>
+              {error && <p>{error}</p>}
               <Stack spacing={4} w={'full'} maxW={'sm'}>
                 <Heading
                   as={'h1'}
