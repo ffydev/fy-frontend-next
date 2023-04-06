@@ -1,9 +1,9 @@
 import { api } from '@/pages/api/apis/api'
-import { LoginResponse } from '@/pages/api/providers/auth.provider'
+import { ILoginResponse } from '@/pages/api/providers/auth.provider'
 import { createContext, useContext, useState, ReactNode } from 'react'
 
 type AuthContextData = {
-  user: LoginResponse | undefined
+  user: ILoginResponse | undefined
   signIn: (username: string, password: string) => void
   signOut: () => void
   setError: (error: string) => void
@@ -17,7 +17,7 @@ type AuthProviderProps = {
 const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<LoginResponse | undefined>(undefined)
+  const [user, setUser] = useState<ILoginResponse | undefined>(undefined)
   const [error, setError] = useState('')
 
   const signIn = async (username: string, password: string) => {
