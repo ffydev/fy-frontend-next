@@ -1,8 +1,9 @@
 import { api } from '../apis/api'
 export interface ILoginResponse {
-  id?: string
-  name?: string
-  email?: string
+  id: string
+  firstName: string
+  lastName: string
+  email: string
   access_token?: string
   userType: {
     name: string

@@ -1,6 +1,7 @@
 import { api } from '@/pages/api/apis/api'
 import { ILoginResponse } from '@/pages/api/providers/auth.provider'
 import { createContext, useContext, useState, ReactNode } from 'react'
+import { useRouter } from 'next/router'
 
 type AuthContextData = {
   user: ILoginResponse | undefined
@@ -19,6 +20,7 @@ const AuthContext = createContext({} as AuthContextData)
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<ILoginResponse | undefined>(undefined)
   const [error, setError] = useState('')
+  const router = useRouter()
 
   const signIn = async (username: string, password: string) => {
     try {
@@ -39,6 +41,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     localStorage.removeItem('fyToken')
     setUser(undefined)
     setError('')
+    router.push('/login')
   }
 
   return (

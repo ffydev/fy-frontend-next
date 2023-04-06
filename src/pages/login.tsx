@@ -31,7 +31,6 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
-      console.log('teste')
       if (user.userType.name === 'admin') {
         router.push('/dashboard')
       } else if (user.userType.name === 'client') {
@@ -40,8 +39,7 @@ export default function Login() {
         setError('Usuário ou senha inválidos')
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+  }, [user, router, setError])
 
   const BoxBgImage = (props: BoxProps) => {
     return (

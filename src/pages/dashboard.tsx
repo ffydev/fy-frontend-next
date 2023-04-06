@@ -1,9 +1,6 @@
 import Users from '@/components/Users'
-import { getUserToken } from '@/pages/api/providers/auth.provider'
-import {
-  findCurrentUser,
-  IUserInterface,
-} from '@/pages/api/providers/users.provider'
+import { useAuth } from '@/hooks/ContextAuth'
+import { ILoginResponse } from '@/pages/api/providers/auth.provider'
 import {
   Avatar,
   Box,
@@ -29,7 +26,7 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
 
@@ -47,46 +44,20 @@ export default function Dashboard() {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [userComponent, setUserComponent] = useState<boolean>(true)
-  const [currentUser, setCurrentUser] = useState<IUserInterface>()
-
-  const fetchCurrentUserData = useCallback(
-    async (token: string) => {
-      try {
-        const currentUserData = await findCurrentUser(token)
-
-        if (!currentUserData) {
-          // Implementar mensagem personalizada
-          router.push('/login')
-          return
-        }
-
-        setCurrentUser(currentUserData)
-      } catch (error) {
-        console.error(error)
-        router.push('/login')
-      }
-    },
-    [router, setCurrentUser],
-  )
+  const { user, signOut } = useAuth()
 
   useEffect(() => {
-    const token = getUserToken()
-    if (token) {
-      fetchCurrentUserData(token)
+    if (!user) {
+      router.replace('/login')
     }
-  }, [fetchCurrentUserData])
+
+    if (user?.userType.name !== 'admin') {
+      router.replace('/login')
+    }
+  }, [router, user])
 
   const handleWithShowUsers = () => {
     setUserComponent(true)
-  }
-
-  const handleWithLogout = () => {
-    const token = getUserToken()
-
-    if (token) {
-      localStorage.removeItem('fyToken')
-      router.push('/login')
-    }
   }
 
   return (
@@ -120,11 +91,7 @@ export default function Dashboard() {
           </DrawerContent>
         </Drawer>
         {/* mobilenav */}
-        <MobileNav
-          onOpen={onOpen}
-          currentUser={currentUser}
-          handleWithLogout={handleWithLogout}
-        />
+        <MobileNav onOpen={onOpen} user={user} signOut={signOut} />
         <Box>{userComponent ? <Users /> : null}</Box>
       </Box>
     </>
@@ -230,15 +197,10 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 }
 interface MobileProps extends FlexProps {
   onOpen: () => void
-  currentUser?: IUserInterface
-  handleWithLogout: () => void
+  user?: ILoginResponse
+  signOut: () => void
 }
-const MobileNav = ({
-  onOpen,
-  currentUser,
-  handleWithLogout,
-  ...rest
-}: MobileProps) => {
+const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -292,7 +254,7 @@ const MobileNav = ({
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">{currentUser?.firstName}</Text>
+                  <Text fontSize="sm">{user?.firstName}</Text>
                   <Text fontSize="xs" color="whiteAlpha.900">
                     Admin
                   </Text>
@@ -328,7 +290,7 @@ const MobileNav = ({
               </MenuItem>
               <MenuDivider />
               <MenuItem
-                onClick={() => handleWithLogout()}
+                onClick={() => signOut()}
                 _hover={{
                   bgColor: 'blackAlpha.400',
                   rounded: 'lg',
