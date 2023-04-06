@@ -67,7 +67,7 @@ export default function Login() {
             border={'1px'}
             borderColor={'whiteAlpha.200'}
             backdropBlur={'1rem'}
-            backdropFilter='blur(10px)'
+            backdropFilter="blur(10px)"
             boxShadow={'lg'}
             p={8}
             m={4}
@@ -75,8 +75,8 @@ export default function Login() {
             <Stack align={['center', 'center', 'initial']}>
               <Box mb={4}>
                 <Image
-                  alt='Logo'
-                  src='/logo.png'
+                  alt="Logo"
+                  src="/logo.png"
                   width={50}
                   height={50}
                   loading={'eager'}
@@ -100,22 +100,22 @@ export default function Login() {
                   Se você já possui uma conta, preencha seus dados de acesso à
                   plataforma.
                 </Text>
-                <FormControl id='email'>
+                <FormControl id="email">
                   <FormLabel>Seu E-mail</FormLabel>
                   <Input
-                    type='email'
-                    name='username'
-                    placeholder='Coloque o seu e-mail'
+                    type="email"
+                    name="username"
+                    placeholder="Coloque o seu e-mail"
                     required
                   />
                 </FormControl>
-                <FormControl id='password'>
+                <FormControl id="password">
                   <FormLabel>Sua Senha</FormLabel>
-                  <InputGroup size='md'>
+                  <InputGroup size="md">
                     <Input
                       type={'password'}
-                      name='password'
-                      placeholder='Coloque sua senha'
+                      name="password"
+                      placeholder="Coloque sua senha"
                       required
                     />
                   </InputGroup>
@@ -124,8 +124,8 @@ export default function Login() {
                   <Button
                     w={'full'}
                     variant={'solid'}
-                    colorScheme='teal'
-                    type='submit'
+                    colorScheme="teal"
+                    type="submit"
                     // rightIcon={'asdsa'}
                   >
                     Acessar sua conta
@@ -133,8 +133,8 @@ export default function Login() {
                   <Button
                     w={'full'}
                     variant={'outline'}
-                    colorScheme='teal'
-                    type='reset'
+                    colorScheme="teal"
+                    type="reset"
                     // rightIcon={'2121'}
                   >
                     Limpar dados

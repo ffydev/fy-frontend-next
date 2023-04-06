@@ -1,4 +1,4 @@
-import { Context } from '@/hooks/Context'
+import { ContextDashboard } from '@/hooks/ContextDashboard'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlansTypes,
@@ -8,7 +8,6 @@ import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
 import { Box, Container, Stack } from '@chakra-ui/react'
 import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-
 import { useCallback, useContext, useEffect, useState } from 'react'
 import HandleButton from '../Buttons/HandleButton'
 import Feedbacks from '../Feedbacks'
@@ -31,7 +30,7 @@ export default function Users() {
     handleWithShowUsers,
     handleWithShowWorkouts,
     handleWithShowFeedbacks,
-  } = useContext(Context)
+  } = useContext(ContextDashboard)
 
   const fetchUsersData = useCallback(async () => {
     try {

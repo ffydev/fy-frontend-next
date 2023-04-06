@@ -1,4 +1,4 @@
-import ContextProvider from '@/hooks/Context'
+import ContextDashboardProvider from '@/hooks/ContextDashboard'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import React from 'react'
@@ -13,9 +13,9 @@ const theme = extendTheme({ config })
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <ContextProvider>
+      <ContextDashboardProvider>
         <Component {...pageProps} />
-      </ContextProvider>
+      </ContextDashboardProvider>
     </ChakraProvider>
   )
 }
