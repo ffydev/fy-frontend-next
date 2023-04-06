@@ -32,7 +32,6 @@ export default function Login() {
   useEffect(() => {
     if (user) {
       if (user.userType === 'admin') {
-        console.log(user)
         router.push('/dashboard')
       } else if (user.userType === 'client') {
         router.push('/client-dashboard')
