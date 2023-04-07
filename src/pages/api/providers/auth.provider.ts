@@ -6,6 +6,7 @@ export interface IUser {
   lastName: string
   email: string
   isRegistered: boolean
+  hasAmnesis: boolean
   access_token?: string
   userType: {
     name: string
