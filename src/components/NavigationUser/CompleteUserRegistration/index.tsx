@@ -23,8 +23,26 @@ import { useCallback } from 'react'
 
 const createUserFormSchema = z
   .object({
-    firstName: z.string().nonempty({ message: 'Campo obrigatório' }),
-    lastName: z.string().nonempty({ message: 'Campo obrigatório' }),
+    firstName: z
+      .string()
+      .nonempty({ message: 'Campo obrigatório' })
+      .transform((value) =>
+        value
+          .trim()
+          .split(' ')
+          .map((word) => word[0].toUpperCase() + word.slice(1))
+          .join(' '),
+      ),
+    lastName: z
+      .string()
+      .nonempty({ message: 'Campo obrigatório' })
+      .transform((value) =>
+        value
+          .trim()
+          .split(' ')
+          .map((word) => word[0].toUpperCase() + word.slice(1))
+          .join(' '),
+      ),
     password: z.string().nonempty({ message: 'Campo obrigatório' }),
     confirmPassword: z.string().nonempty({ message: 'Campo obrigatório' }),
   })
@@ -83,14 +101,7 @@ export default function CompleteUserRegistration() {
         isRegistered: true,
       }
 
-      const cleanedData = Object.fromEntries(
-        Object.entries(userData).map(([key, value]) => [
-          key,
-          typeof value === 'string' ? value.trim() : value,
-        ]),
-      )
-
-      await updateUser(token, user!.id, cleanedData)
+      await updateUser(token, user!.id, userData)
       await fetchCurrentUserData(token)
     } catch (error) {
       console.error(error)
