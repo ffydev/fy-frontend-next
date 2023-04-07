@@ -31,13 +31,9 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
-      if (user.userType.name === 'admin') {
-        router.push('/dashboard')
-      } else if (user.userType.name === 'client') {
-        router.push('/client-dashboard')
-      } else {
-        setError('Usuário ou senha inválidos')
-      }
+      router.push('/dashboard')
+    } else {
+      setError('Usuário ou senha inválidos')
     }
   }, [user, router, setError])
 
