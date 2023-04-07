@@ -21,13 +21,6 @@ import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCallback } from 'react'
 
-interface IFormInput {
-  firstName: string
-  lastName: string
-  password: string
-  confirmPassword: string
-}
-
 const createUserFormSchema = z
   .object({
     firstName: z.string().nonempty({ message: 'Campo obrigatório' }),
@@ -39,6 +32,8 @@ const createUserFormSchema = z
     message: 'As senhas não coincidem',
     path: ['confirmPassword'],
   })
+
+type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 
 export default function CompleteUserRegistration() {
   const router = useRouter()
@@ -68,11 +63,11 @@ export default function CompleteUserRegistration() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<createUserFormSchemaType>({
     resolver: zodResolver(createUserFormSchema),
   })
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<createUserFormSchemaType> = async (data) => {
     try {
       const token = getUserToken()
 
