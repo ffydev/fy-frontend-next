@@ -25,6 +25,20 @@ export async function signIn(username: string, password: string) {
   }
 }
 
+export async function findCurrentUser(
+  token: string,
+): Promise<ILoginResponse | null> {
+  try {
+    const response = await api.get<ILoginResponse>('/users/profile', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    return response.data
+  } catch (error) {
+    console.error('Failed to find current user', error)
+    return null
+  }
+}
+
 export const getUserToken = () => {
   return localStorage.getItem('fyToken')
 }

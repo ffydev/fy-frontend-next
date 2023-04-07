@@ -75,20 +75,6 @@ export async function findUsers(
   }
 }
 
-export async function findCurrentUser(
-  token: string,
-): Promise<IUserInterface | null> {
-  try {
-    const response = await api.get<IUserInterface>('/users/profile', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    return response.data
-  } catch (error) {
-    console.error('Failed to find current user', error)
-    return null
-  }
-}
-
 export async function deleteUser(token: string, id: string): Promise<void> {
   try {
     await api.delete(`/users/${id}`, {

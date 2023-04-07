@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 type AuthContextData = {
   user: ILoginResponse | undefined
+  setUser: (user: ILoginResponse) => void
   signIn: (username: string, password: string) => void
   signOut: () => void
   setError: (error: string) => void
@@ -45,7 +46,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut, setError, error }}>
+    <AuthContext.Provider
+      value={{ user, setUser, signIn, signOut, setError, error }}
+    >
       {children}
     </AuthContext.Provider>
   )
