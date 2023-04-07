@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks/ContextAuth'
-import { createAnamnesi } from '@/pages/api/providers/anamnesis.provider'
+import { createAnamnesis } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {
@@ -23,7 +23,7 @@ interface IFormInput {
   mealPlanAtHome?: string
   foodPreferences?: string
   mealTimes?: string
-  last24hFoodIntake?: string
+  lastDayFoodIntake?: string
   allergies?: string
   physicalActivities?: string
   jointPainDiscomfort?: boolean
@@ -58,7 +58,7 @@ export default function AnamnesisCreate() {
         return
       }
 
-      const anamnesiData = stringifyData({
+      const anamnesisData = stringifyData({
         gender: data.gender,
         age: data.age,
         height: data.height,
@@ -66,7 +66,7 @@ export default function AnamnesisCreate() {
         mealPlanAtHome: data.mealPlanAtHome,
         foodPreferences: data.foodPreferences,
         mealTimes: data.mealTimes,
-        last24hFoodIntake: data.last24hFoodIntake,
+        lastDayFoodIntake: data.lastDayFoodIntake,
         allergies: data.allergies,
         physicalActivities: data.physicalActivities,
         jointPainDiscomfort: data.jointPainDiscomfort,
@@ -75,8 +75,8 @@ export default function AnamnesisCreate() {
         supplementsPharmaceuticalsUsed: data.supplementsPharmaceuticalsUsed,
       })
 
-      await createAnamnesi(token, {
-        ...anamnesiData,
+      await createAnamnesis(token, {
+        ...anamnesisData,
         userId: user!.id,
       })
     } catch (error) {
@@ -164,7 +164,7 @@ export default function AnamnesisCreate() {
             <FormControl gridColumn="span 2">
               <FormLabel>Alimentação das últimas 24 horas</FormLabel>
               <Input
-                {...register('last24hFoodIntake')}
+                {...register('lastDayFoodIntake')}
                 placeholder="Alimentação nas últimas 24 horas"
               />
             </FormControl>

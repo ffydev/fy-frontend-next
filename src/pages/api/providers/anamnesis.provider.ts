@@ -1,6 +1,6 @@
 import { api } from '../apis/api'
 
-interface IAnamnesi {
+interface IAnamnesis {
   id?: string
   gender?: 'feminino' | 'masculino' | 'outro' | string | undefined
   age?: string
@@ -9,7 +9,7 @@ interface IAnamnesi {
   mealPlanAtHome?: string
   foodPreferences?: string
   mealTimes?: string
-  last24hFoodIntake?: string
+  lastDayFoodIntake?: string
   allergies?: string
   physicalActivities?: string
   jointPainDiscomfort?: string
@@ -23,12 +23,12 @@ interface IAnamnesi {
   deletedAt?: Date
 }
 
-export async function createAnamnesi(
+export async function createAnamnesis(
   token: string,
-  anamnesi: IAnamnesi,
-): Promise<IAnamnesi> {
+  anamnesi: IAnamnesis,
+): Promise<IAnamnesis> {
   try {
-    const response = await api.post<IAnamnesi>('/anamnesis', anamnesi, {
+    const response = await api.post<IAnamnesis>('/anamnesis', anamnesi, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
