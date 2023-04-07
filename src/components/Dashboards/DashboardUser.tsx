@@ -28,6 +28,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
+import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 
 interface LinkItemProps {
   name: string
@@ -94,8 +95,11 @@ export default function DashboardUser() {
         <Box>
           {anyComponent ? (
             <>
-              {' '}
-              <h1>Hello Component</h1>
+              {!user?.isRegistered ? (
+                <AnamnesisCreate />
+              ) : (
+                <h1>Hello Component</h1>
+              )}
             </>
           ) : null}
         </Box>
