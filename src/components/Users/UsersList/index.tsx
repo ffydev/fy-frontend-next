@@ -221,8 +221,8 @@ export function UsersList({
               )}
 
               <Box>
-                {user.plan && user.plan.length > 0 && (
-                  <PlanList plans={user.plan} planTypes={planTypes} />
+                {user.plan && (
+                  <PlanList plan={user.plan} planTypes={planTypes} />
                 )}
               </Box>
             </Box>
