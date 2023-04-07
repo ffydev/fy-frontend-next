@@ -96,15 +96,9 @@ export default function DashboardUser() {
         <Box>
           {anyComponent ? (
             <>
-              {!user?.isRegistered ? (
-                <>
-                  <Center minH={'40vh'}>
-                    <NavigationUser />
-                  </Center>
-                </>
-              ) : (
-                <h1>Hello Component</h1>
-              )}
+              <Center>
+                <NavigationUser />
+              </Center>
             </>
           ) : null}
         </Box>

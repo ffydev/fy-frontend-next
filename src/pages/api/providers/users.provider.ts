@@ -33,6 +33,7 @@ export interface IUpdateUserWithIPlan {
   lastName?: string
   password?: string
   userTypeId?: string
+  isRegistered?: boolean
   deletedAt?: string | null
 }
 
@@ -96,7 +97,7 @@ export async function updateUser(
     const response = await api.patch<IUserInterface>(`/users/${id}`, user, {
       headers: { Authorization: `Bearer ${token}` },
     })
-
+    console.log(response.data)
     return response.data
   } catch (error) {
     console.error('Failed to create user', error)

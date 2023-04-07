@@ -38,6 +38,16 @@ export default function AnamnesisCreate() {
   const { user } = useAuth()
 
   const { register, handleSubmit } = useForm<IFormInput>()
+
+  function stringifyData(data: Record<string, unknown>) {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => [
+        key,
+        JSON.stringify(value).replace(/"/g, ''),
+      ]),
+    )
+  }
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
       const token = getUserToken()
@@ -48,26 +58,25 @@ export default function AnamnesisCreate() {
         return
       }
 
+      const anamnesiData = stringifyData({
+        gender: data.gender,
+        age: data.age,
+        height: data.height,
+        weight: data.weight,
+        mealPlanAtHome: data.mealPlanAtHome,
+        foodPreferences: data.foodPreferences,
+        mealTimes: data.mealTimes,
+        last24hFoodIntake: data.last24hFoodIntake,
+        allergies: data.allergies,
+        physicalActivities: data.physicalActivities,
+        jointPainDiscomfort: data.jointPainDiscomfort,
+        comorbidities: data.comorbidities,
+        budgetForDietSupplementation: data.budgetForDietSupplementation,
+        supplementsPharmaceuticalsUsed: data.supplementsPharmaceuticalsUsed,
+      })
+
       await createAnamnesi(token, {
-        gender: JSON.stringify(data.gender),
-        age: JSON.stringify(data.age),
-        height: JSON.stringify(data.height),
-        weight: JSON.stringify(data.weight),
-        mealPlanAtHome: JSON.stringify(data.mealPlanAtHome),
-        foodPreferences: JSON.stringify(data.foodPreferences),
-        mealTimes: JSON.stringify(data.mealTimes),
-        last24hFoodIntake: JSON.stringify(data.last24hFoodIntake),
-        allergies: JSON.stringify(data.allergies),
-        physicalActivities: JSON.stringify(data.physicalActivities),
-        jointPainDiscomfort: JSON.stringify(data.jointPainDiscomfort),
-        comorbidities: JSON.stringify(data.comorbidities),
-        budgetForDietSupplementation: JSON.stringify(
-          data.budgetForDietSupplementation,
-        ),
-        supplementsPharmaceuticalsUsed: JSON.stringify(
-          data.supplementsPharmaceuticalsUsed,
-        ),
-        imagePaths: JSON.stringify(data.imagePaths),
+        ...anamnesiData,
         userId: user!.id,
       })
     } catch (error) {

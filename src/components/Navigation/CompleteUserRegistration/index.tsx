@@ -1,5 +1,8 @@
 import { useAuth } from '@/hooks/ContextAuth'
-import { getUserToken } from '@/pages/api/providers/auth.provider'
+import {
+  findCurrentUser,
+  getUserToken,
+} from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {
   Box,
@@ -16,6 +19,7 @@ import { Plus } from '@phosphor-icons/react'
 import { updateUser } from '@/pages/api/providers/users.provider'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useCallback } from 'react'
 
 interface IFormInput {
   firstName: string
@@ -38,7 +42,27 @@ const createUserFormSchema = z
 
 export default function CompleteUserRegistration() {
   const router = useRouter()
-  const { user } = useAuth()
+  const { user, setUser } = useAuth()
+
+  const fetchCurrentUserData = useCallback(
+    async (token: string) => {
+      try {
+        const currentUserData = await findCurrentUser(token)
+
+        if (!currentUserData) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        setUser(currentUserData)
+      } catch (error) {
+        console.error(error)
+        router.push('/login')
+      }
+    },
+    [router, setUser],
+  )
 
   const {
     register,
@@ -53,16 +77,26 @@ export default function CompleteUserRegistration() {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
         router.push('/login')
         return
       }
 
-      await updateUser(token, user!.id, {
-        firstName: JSON.stringify(data.firstName),
-        lastName: JSON.stringify(data.lastName),
-        password: JSON.stringify(data.password),
-      })
+      const userData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        password: data.password,
+        isRegistered: true,
+      }
+
+      const cleanedData = Object.fromEntries(
+        Object.entries(userData).map(([key, value]) => [
+          key,
+          typeof value === 'string' ? value.trim() : value,
+        ]),
+      )
+
+      await updateUser(token, user!.id, cleanedData)
+      await fetchCurrentUserData(token)
     } catch (error) {
       console.error(error)
     }

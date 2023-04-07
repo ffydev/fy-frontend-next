@@ -1,9 +1,7 @@
-import { useRouter } from 'next/router'
 import { useAuth } from '@/hooks/ContextAuth'
 import CompleteUserRegistration from './CompleteUserRegistration'
 
 export default function NavigationUser() {
-  const router = useRouter()
   const { user } = useAuth()
   return (
     <>
