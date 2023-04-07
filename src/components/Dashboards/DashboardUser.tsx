@@ -22,13 +22,14 @@ import {
   Text,
   useDisclosure,
   VStack,
+  Center,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
-import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
+import NavigationUser from '../Navigation/NavigationUser'
 
 interface LinkItemProps {
   name: string
@@ -96,7 +97,11 @@ export default function DashboardUser() {
           {anyComponent ? (
             <>
               {!user?.isRegistered ? (
-                <AnamnesisCreate />
+                <>
+                  <Center minH={'40vh'}>
+                    <NavigationUser />
+                  </Center>
+                </>
               ) : (
                 <h1>Hello Component</h1>
               )}
