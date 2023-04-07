@@ -1,5 +1,6 @@
 import { api } from '../apis/api'
-export interface ILoginResponse {
+
+export interface IUser {
   id: string
   firstName: string
   lastName: string
@@ -18,7 +19,7 @@ export async function signIn(username: string, password: string) {
     if (response.data) {
       localStorage.setItem('fyToken', response.data.access_token)
 
-      return response.data as ILoginResponse
+      return response.data as IUser
     }
     return null
   } catch (error) {
@@ -26,11 +27,9 @@ export async function signIn(username: string, password: string) {
   }
 }
 
-export async function findCurrentUser(
-  token: string,
-): Promise<ILoginResponse | null> {
+export async function findCurrentUser(token: string): Promise<IUser | null> {
   try {
-    const response = await api.get<ILoginResponse>('/users/profile', {
+    const response = await api.get<IUser>('/users/profile', {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data

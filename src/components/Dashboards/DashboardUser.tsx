@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks/ContextAuth'
-import { ILoginResponse } from '@/pages/api/providers/auth.provider'
+import { IUser } from '@/pages/api/providers/auth.provider'
 import {
   Avatar,
   Box,
@@ -203,7 +203,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 }
 interface MobileProps extends FlexProps {
   onOpen: () => void
-  user?: ILoginResponse
+  user?: IUser
   signOut: () => void
 }
 const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
