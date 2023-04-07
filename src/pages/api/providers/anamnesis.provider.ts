@@ -3,9 +3,9 @@ import { api } from '../apis/api'
 interface IAnamnesis {
   id?: string
   gender?: 'feminino' | 'masculino' | 'outro' | string | undefined
-  age?: string
-  height?: string
-  weight?: string
+  age?: number
+  height?: number
+  weight?: number
   mealPlanAtHome?: string
   foodPreferences?: string
   mealTimes?: string

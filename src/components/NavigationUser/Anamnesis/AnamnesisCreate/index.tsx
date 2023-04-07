@@ -19,9 +19,27 @@ import { z } from 'zod'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
-  age: z.string().nonempty({ message: 'Informe sua idade' }),
-  height: z.string().nonempty({ message: 'Informe sua altura' }),
-  weight: z.string().nonempty({ message: 'Informe seu peso' }),
+  age: z
+    .string()
+    .nonempty({ message: 'Idade é obrigatória' })
+    .refine((value) => !isNaN(Number(value)), {
+      message: 'Idade deve ser um número válido',
+    })
+    .transform((value) => Number(value)),
+  height: z
+    .string()
+    .nonempty({ message: 'Altura é obrigatória' })
+    .refine((value) => !isNaN(Number(value)), {
+      message: 'Altura deve ser um número válido',
+    })
+    .transform((value) => Number(value)),
+  weight: z
+    .string()
+    .nonempty({ message: 'Peso é obrigatório' })
+    .refine((value) => !isNaN(Number(value)), {
+      message: 'Peso deve ser um número válido',
+    })
+    .transform((value) => Number(value)),
   mealPlanAtHome: z.string().optional(),
   foodPreferences: z.string().optional(),
   mealTimes: z.string().optional(),
