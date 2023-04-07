@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useAuth } from '@/hooks/ContextAuth'
+import CompleteUserRegistration from './CompleteUserRegistration'
 
 export default function NavigationUser() {
   const router = useRouter()
@@ -8,7 +9,7 @@ export default function NavigationUser() {
     <>
       {!user?.isRegistered ? (
         <>
-          <h1>Atualizar usuário</h1>
+          <CompleteUserRegistration />
         </>
       ) : (
         <>
