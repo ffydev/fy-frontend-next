@@ -25,10 +25,10 @@ interface IAnamnesis {
 
 export async function createAnamnesis(
   token: string,
-  anamnesi: IAnamnesis,
+  anamnesis: IAnamnesis,
 ): Promise<IAnamnesis> {
   try {
-    const response = await api.post<IAnamnesis>('/anamnesis', anamnesi, {
+    const response = await api.post<IAnamnesis>('/anamnesis', anamnesis, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
