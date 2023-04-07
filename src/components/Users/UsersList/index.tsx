@@ -1,6 +1,6 @@
 import HandleButton from '@/components/Buttons/HandleButton'
 import PlanList from '@/components/PlansList'
-import { ContextDashboard } from '@/hooks/ContextDashboard'
+import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
@@ -49,7 +49,7 @@ export function UsersList({
     handleWithShowWorkouts,
     isShowingFeedbacks,
     handleWithShowFeedbacks,
-  } = useContext(ContextDashboard)
+  } = useContext(ContextDashboardAdmin)
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()

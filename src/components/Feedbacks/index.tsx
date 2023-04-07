@@ -1,4 +1,4 @@
-import { ContextDashboard } from '@/hooks/ContextDashboard'
+import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { answerFeedback } from '@/pages/api/providers/doctor.feedbacks'
 import {
@@ -21,7 +21,7 @@ import HandleButton from '../Buttons/HandleButton'
 
 export default function Feedbacks() {
   const router = useRouter()
-  const { userId } = useContext(ContextDashboard)
+  const { userId } = useContext(ContextDashboardAdmin)
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
   const [answer, setAnswer] = useState<string>('')
 

@@ -11,7 +11,7 @@ export interface ContextData {
   handleWithShowFeedbacks(isShowingFeedbacks: boolean): void
 }
 
-export const ContextDashboard = createContext<ContextData>({
+export const ContextDashboardAdmin = createContext<ContextData>({
   userId: '',
   isShowingUsers: true,
   isShowingWorkouts: false,
@@ -22,13 +22,13 @@ export const ContextDashboard = createContext<ContextData>({
   handleWithShowFeedbacks: () => {},
 })
 
-type ContextDashboardProviderProps = {
+type ContextDashboardAdminProviderProps = {
   children: React.ReactNode
 }
 
-export default function ContextDashboardProvider({
+export default function ContextDashboardAdminProvider({
   children,
-}: ContextDashboardProviderProps) {
+}: ContextDashboardAdminProviderProps) {
   const [userId, setuserId] = useState<string>('')
   const [isShowingUsers, setIsShowingUsers] = useState<boolean>(true)
   const [isShowingWorkouts, setIsShowingWorkouts] = useState<boolean>(false)
@@ -51,7 +51,7 @@ export default function ContextDashboardProvider({
   }
 
   return (
-    <ContextDashboard.Provider
+    <ContextDashboardAdmin.Provider
       value={{
         userId,
         isShowingUsers,
@@ -64,6 +64,6 @@ export default function ContextDashboardProvider({
       }}
     >
       {children}
-    </ContextDashboard.Provider>
+    </ContextDashboardAdmin.Provider>
   )
 }

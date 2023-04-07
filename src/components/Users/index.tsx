@@ -1,4 +1,4 @@
-import { ContextDashboard } from '@/hooks/ContextDashboard'
+import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlansTypes,
@@ -30,7 +30,7 @@ export default function Users() {
     handleWithShowUsers,
     handleWithShowWorkouts,
     handleWithShowFeedbacks,
-  } = useContext(ContextDashboard)
+  } = useContext(ContextDashboardAdmin)
 
   const fetchUsersData = useCallback(async () => {
     try {

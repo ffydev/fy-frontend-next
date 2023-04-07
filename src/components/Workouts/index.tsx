@@ -1,4 +1,4 @@
-import { ContextDashboard } from '@/hooks/ContextDashboard'
+import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   deleteWorkout,
@@ -21,7 +21,7 @@ import { WorkoutsLists } from './WorkoutsList'
 
 export function Workouts() {
   const router = useRouter()
-  const { userId } = useContext(ContextDashboard)
+  const { userId } = useContext(ContextDashboardAdmin)
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
