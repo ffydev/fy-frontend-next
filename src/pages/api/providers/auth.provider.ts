@@ -4,6 +4,7 @@ export interface ILoginResponse {
   firstName: string
   lastName: string
   email: string
+  isRegistered: boolean
   access_token?: string
   userType: {
     name: string
