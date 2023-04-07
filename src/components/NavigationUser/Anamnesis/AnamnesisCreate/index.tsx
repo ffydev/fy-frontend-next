@@ -9,6 +9,7 @@ import {
   Grid,
   Input,
   Select,
+  Text,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -17,10 +18,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 const createAnamnesisFormSchema = z.object({
-  gender: z.string().optional(),
-  age: z.string().optional(),
-  height: z.string().optional(),
-  weight: z.string().optional(),
+  gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
+  age: z.string().nonempty({ message: 'Informe sua idade' }),
+  height: z.string().nonempty({ message: 'Informe sua altura' }),
+  weight: z.string().nonempty({ message: 'Informe seu peso' }),
   mealPlanAtHome: z.string().optional(),
   foodPreferences: z.string().optional(),
   mealTimes: z.string().optional(),
@@ -104,6 +105,7 @@ export default function AnamnesisCreate() {
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>
                 <option value="outro">Prefiro não dizer</option>
+                {errors.gender && <Text>{errors.gender.message}</Text>}
               </Select>
             </FormControl>
 
@@ -114,6 +116,7 @@ export default function AnamnesisCreate() {
                 placeholder="Digite sua idade"
                 isRequired
               />
+              {errors.age && <Text>{errors.age.message}</Text>}
             </FormControl>
 
             <FormControl gridColumn="span 1">
@@ -123,6 +126,7 @@ export default function AnamnesisCreate() {
                 placeholder="Digite sua altura em cm"
                 isRequired
               />
+              {errors.height && <Text>{errors.height.message}</Text>}
             </FormControl>
 
             <FormControl gridColumn="span 1">
@@ -132,6 +136,7 @@ export default function AnamnesisCreate() {
                 placeholder="Digite seu peso em kg"
                 isRequired
               />
+              {errors.weight && <Text>{errors.weight.message}</Text>}
             </FormControl>
 
             <FormControl gridColumn="span 1">
