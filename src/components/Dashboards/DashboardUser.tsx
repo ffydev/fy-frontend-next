@@ -29,22 +29,22 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
-import NavigationUser from '../Navigation/NavigationUser'
+import NavigationUser from '../NavigationUser/NavigationUser'
 
 interface LinkItemProps {
   name: string
   icon: IconType
-  anyComponent?: boolean
+  dashboardHome?: boolean
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Início', icon: FiHome, anyComponent: true },
+  { name: 'Início', icon: FiHome, dashboardHome: true },
 ]
 
 export default function DashboardUser() {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [anyComponent, setAnyComponent] = useState<boolean>(true)
+  const [dashboardHome, setDashboardHome] = useState<boolean>(true)
   const { user, signOut } = useAuth()
 
   useEffect(() => {
@@ -57,8 +57,8 @@ export default function DashboardUser() {
     }
   }, [router, user])
 
-  const handleWithShowAnyComponent = () => {
-    setAnyComponent(true)
+  const handleWithShowDashboardHome = () => {
+    setDashboardHome(true)
   }
 
   return (
@@ -72,7 +72,7 @@ export default function DashboardUser() {
       >
         <SidebarContent
           onClose={() => onClose}
-          handleWithShowAnyComponent={handleWithShowAnyComponent}
+          handleWithShowDashboardHome={handleWithShowDashboardHome}
           display={{ base: 'none', md: 'block' }}
         />
         <Drawer
@@ -87,14 +87,14 @@ export default function DashboardUser() {
           <DrawerContent>
             <SidebarContent
               onClose={onClose}
-              handleWithShowAnyComponent={handleWithShowAnyComponent}
+              handleWithShowDashboardHome={handleWithShowDashboardHome}
             />
           </DrawerContent>
         </Drawer>
         {/* mobilenav */}
         <MobileNav onOpen={onOpen} user={user} signOut={signOut} />
         <Box>
-          {anyComponent ? (
+          {dashboardHome ? (
             <>
               <Center>
                 <NavigationUser />
@@ -109,12 +109,12 @@ export default function DashboardUser() {
 
 interface SidebarProps extends BoxProps {
   onClose: () => void
-  handleWithShowAnyComponent: () => void
+  handleWithShowDashboardHome: () => void
 }
 
 const SidebarContent = ({
   onClose,
-  handleWithShowAnyComponent,
+  handleWithShowDashboardHome,
   ...rest
 }: SidebarProps) => {
   return (
@@ -144,7 +144,7 @@ const SidebarContent = ({
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon}>
           <>
-            {link.anyComponent ? (
+            {link.dashboardHome ? (
               <Button
                 variant="ghost"
                 _active={{
@@ -154,7 +154,7 @@ const SidebarContent = ({
                 _focus={{
                   bgColor: 'blackAlpha.900',
                 }}
-                onClick={() => handleWithShowAnyComponent()}
+                onClick={() => handleWithShowDashboardHome()}
               >
                 {link.name}
               </Button>
