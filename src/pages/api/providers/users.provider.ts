@@ -26,7 +26,7 @@ export interface ICreateUserWithIPlan {
     create: IPlan
   }
 }
-export interface IUpdateUserWithIPlan {
+export interface IUpdateUser {
   id?: string
   email?: string
   firstName?: string
@@ -34,6 +34,7 @@ export interface IUpdateUserWithIPlan {
   password?: string
   userTypeId?: string
   isRegistered?: boolean
+  hasAnamnesis?: boolean
   deletedAt?: string | null
 }
 
@@ -91,7 +92,7 @@ export async function deleteUser(token: string, id: string): Promise<void> {
 export async function updateUser(
   token: string,
   id: string,
-  user: IUpdateUserWithIPlan,
+  user: IUpdateUser,
 ): Promise<IUserInterface> {
   try {
     const response = await api.patch<IUserInterface>(`/users/${id}`, user, {

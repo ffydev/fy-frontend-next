@@ -16,6 +16,7 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { updateUser } from '@/pages/api/providers/users.provider'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
@@ -95,6 +96,8 @@ export default function AnamnesisCreate() {
         supplementsPharmaceuticalsUsed: data.supplementsPharmaceuticalsUsed,
         userId: user!.id,
       })
+
+      await updateUser(token, user!.id, { hasAnamnesis: true })
     } catch (error) {
       console.error(error)
     }
