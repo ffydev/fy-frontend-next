@@ -13,42 +13,43 @@ import {
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus } from '@phosphor-icons/react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-interface IFormInput {
-  gender: 'feminino' | 'masculino' | 'outro' | undefined
-  dateOfBirth?: string
-  age?: string
-  height?: string
-  weight?: string
-  mealPlanAtHome?: string
-  foodPreferences?: string
-  mealTimes?: string
-  lastDayFoodIntake?: string
-  allergies?: string
-  physicalActivities?: string
-  jointPainDiscomfort?: boolean
-  comorbidities?: string
-  budgetForDietSupplementation?: string
-  supplementsPharmaceuticalsUsed?: string
-  imagePaths?: string
-}
+const createAnamnesisFormSchema = z.object({
+  gender: z.string().optional(),
+  age: z.string().optional(),
+  height: z.string().optional(),
+  weight: z.string().optional(),
+  mealPlanAtHome: z.string().optional(),
+  foodPreferences: z.string().optional(),
+  mealTimes: z.string().optional(),
+  lastDayFoodIntake: z.string().optional(),
+  allergies: z.string().optional(),
+  physicalActivities: z.string().optional(),
+  jointPainDiscomfort: z.string().optional(),
+  comorbidities: z.string().optional(),
+  budgetForDietSupplementation: z.string().optional(),
+  supplementsPharmaceuticalsUsed: z.string().optional(),
+})
+
+type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
 
 export default function AnamnesisCreate() {
   const router = useRouter()
   const { user } = useAuth()
 
-  const { register, handleSubmit } = useForm<IFormInput>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<createAnamnesisFormSchemaType>({
+    resolver: zodResolver(createAnamnesisFormSchema),
+  })
 
-  function stringifyData(data: Record<string, unknown>) {
-    return Object.fromEntries(
-      Object.entries(data).map(([key, value]) => [
-        key,
-        JSON.stringify(value).replace(/"/g, ''),
-      ]),
-    )
-  }
-
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<createAnamnesisFormSchemaType> = async (
+    data,
+  ) => {
     try {
       const token = getUserToken()
 
@@ -58,7 +59,7 @@ export default function AnamnesisCreate() {
         return
       }
 
-      const anamnesisData = stringifyData({
+      await createAnamnesis(token, {
         gender: data.gender,
         age: data.age,
         height: data.height,
@@ -73,10 +74,6 @@ export default function AnamnesisCreate() {
         comorbidities: data.comorbidities,
         budgetForDietSupplementation: data.budgetForDietSupplementation,
         supplementsPharmaceuticalsUsed: data.supplementsPharmaceuticalsUsed,
-      })
-
-      await createAnamnesis(token, {
-        ...anamnesisData,
         userId: user!.id,
       })
     } catch (error) {
