@@ -5,6 +5,7 @@ import { useState } from 'react'
 import HandleButton from '../Buttons/HandleButton'
 import AnamnesisCreate from './Anamnesis/AnamnesisCreate'
 import CompleteUserRegistration from './CompleteUserRegistration'
+import Dashboard from './Dashboard'
 
 export default function NavigationUser() {
   const { user } = useAuth()
@@ -21,7 +22,7 @@ export default function NavigationUser() {
           <>
             <Box minH={'100vh'}>
               {user.hasAnamnesis ? (
-                <h1>Painel com dashboard workouts e etc</h1>
+                <Dashboard />
               ) : (
                 <>
                   <Flex
