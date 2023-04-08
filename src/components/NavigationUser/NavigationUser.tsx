@@ -24,39 +24,31 @@ export default function NavigationUser() {
                 <h1>Painel com dashboard workouts e etc</h1>
               ) : (
                 <>
-                  {!showAnamnesis ? (
-                    <>
-                      <Flex
-                        align={'left'}
-                        alignSelf={'left'}
-                        position={'relative'}
-                        mt={3}
-                        ml={3}
-                      >
+                  <Flex
+                    align={'left'}
+                    alignSelf={'left'}
+                    position={'relative'}
+                    mt={3}
+                    ml={3}
+                  >
+                    {!showAnamnesis ? (
+                      <>
                         <HandleButton
                           text={'Preencher Anamnese'}
                           leftIcon={<Plus size={28} weight="bold" />}
                           onClick={() => setShowAnamnesis(true)}
                         />
-                      </Flex>
-                    </>
-                  ) : (
-                    <>
-                      <Flex
-                        align={'left'}
-                        alignSelf={'left'}
-                        position={'relative'}
-                        mt={3}
-                        ml={3}
-                      >
+                      </>
+                    ) : (
+                      <>
                         <HandleButton
                           text={'Voltar'}
                           leftIcon={<ArrowArcLeft size={28} weight="bold" />}
                           onClick={() => setShowAnamnesis(false)}
                         />
-                      </Flex>
-                    </>
-                  )}
+                      </>
+                    )}
+                  </Flex>
                 </>
               )}
               {showAnamnesis ? <AnamnesisCreate /> : null}
