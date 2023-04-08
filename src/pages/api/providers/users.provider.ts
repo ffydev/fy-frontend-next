@@ -10,7 +10,7 @@ export interface IUserInterface {
   email: string
   userTypeId: string
   access_token?: string
-  plan: IPlan[]
+  plan: IPlan
   workout: IWorkout[]
   userType: IUserType
   isRegistered: boolean

@@ -57,7 +57,6 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
         </Box>
 
         <Box
-          key={plan.id}
           p={3}
           width="100%"
           rounded={'lg'}
