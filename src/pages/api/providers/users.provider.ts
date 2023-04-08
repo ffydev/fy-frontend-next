@@ -65,7 +65,7 @@ export async function findUsers(
 ): Promise<IUserInterface[]> {
   try {
     const response = await api.get<IUserInterface[]>(
-      `/users?userTypeId=${query.userTypeId}&searchName=${query.search}&isDeleted=${query.isDeleted}`,
+      `/users?userTypeId=${query.userTypeId}&search=${query.search}&isDeleted=${query.isDeleted}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
