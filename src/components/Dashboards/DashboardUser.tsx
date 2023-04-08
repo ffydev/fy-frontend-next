@@ -22,7 +22,6 @@ import {
   Text,
   useDisclosure,
   VStack,
-  Center,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -96,9 +95,9 @@ export default function DashboardUser() {
         <Box>
           {dashboardHome ? (
             <>
-              <Center>
+              <Box>
                 <NavigationUser />
-              </Center>
+              </Box>
             </>
           ) : null}
         </Box>
