@@ -1,4 +1,4 @@
-import Users from '@/components/Users'
+import Users from '@/components/NavigationAdmin'
 import { useAuth } from '@/hooks/ContextAuth'
 import { IUser } from '@/pages/api/providers/auth.provider'
 import {

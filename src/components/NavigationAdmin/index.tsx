@@ -15,7 +15,7 @@ import { Workouts } from '../Workouts'
 import UsersHeader from './UsersHeader'
 import { UsersList } from './UsersList'
 
-export default function Users() {
+export default function NavigationAdmin() {
   const router = useRouter()
   const [users, setUsers] = useState<IUserInterface[]>([])
   const [userTypeId, setUserTypeId] = useState<string>('')
