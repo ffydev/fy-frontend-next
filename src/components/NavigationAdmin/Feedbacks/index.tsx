@@ -1,3 +1,4 @@
+import HandleButton from '@/components/Buttons/HandleButton'
 import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { answerFeedback } from '@/pages/api/providers/doctor.feedbacks'
@@ -17,7 +18,6 @@ import {
 import { PaperPlaneTilt } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useContext, useEffect, useState } from 'react'
-import HandleButton from '../Buttons/HandleButton'
 
 export default function Feedbacks() {
   const router = useRouter()

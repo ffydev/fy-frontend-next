@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { SelectUpdate } from '../Select/SelectUpdate'
+import { SelectUpdate } from '../../Select/SelectUpdate'
 
 interface PlanListProps {
   plan: IPlan
