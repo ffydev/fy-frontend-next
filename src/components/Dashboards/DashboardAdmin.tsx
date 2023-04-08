@@ -1,4 +1,3 @@
-import Users from '@/components/NavigationAdmin'
 import { useAuth } from '@/hooks/ContextAuth'
 import { IUser } from '@/pages/api/providers/auth.provider'
 import {
@@ -29,6 +28,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
+import NavigationAdmin from '../NavigationAdmin/NavigationAdmin'
 
 interface LinkItemProps {
   name: string
@@ -92,7 +92,7 @@ export default function DashboardAdmin() {
         </Drawer>
         {/* mobilenav */}
         <MobileNav onOpen={onOpen} user={user} signOut={signOut} />
-        <Box>{userComponent ? <Users /> : null}</Box>
+        <Box>{userComponent ? <NavigationAdmin /> : null}</Box>
       </Box>
     </>
   )
