@@ -74,6 +74,7 @@ export function UsersList({
       }
 
       await updateUser(token, userId, {
+        email: email !== '' ? email : undefined,
         firstName: firstName !== '' ? firstName : undefined,
         lastName: lastName !== '' ? lastName : undefined,
         deletedAt: deletedAt !== '' ? deletedAt : undefined,
