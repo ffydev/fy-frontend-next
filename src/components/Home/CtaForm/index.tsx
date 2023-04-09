@@ -1,5 +1,5 @@
 import { Button, Center, Link, Stack } from '@chakra-ui/react'
-import { ArrowRight } from '@phosphor-icons/react'
+import { ArrowCircleRight } from '@phosphor-icons/react'
 
 export default function CtaForm() {
   return (
@@ -9,12 +9,14 @@ export default function CtaForm() {
           <Button
             as={Link}
             variant={'solid'}
-            bgColor={'blackAlpha.900'}
             size={'lg'}
+            rightIcon={<ArrowCircleRight size={24} weight="fill" />}
             rounded="full"
-            rightIcon={<ArrowRight size={24} weight="fill" />}
+            shadow={'dark-lg'}
+            style={{ textDecoration: 'none' }}
+            bgGradient="linear(to-r, blackAlpha.800, blackAlpha.200)"
             _hover={{
-              textDecoration: 'none',
+              bgGradient: 'linear(to-r, blackAlpha.700, blackAlpha.300)',
               transform: 'scale(1.1)',
               transition: '0.5s',
             }}
