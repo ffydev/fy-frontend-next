@@ -7,7 +7,6 @@ import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus } from '@phosphor-icons/react'
 
-
 interface WorkoutsHeaderProps {
   userId: string
   fetchWorkoutsNames: () => void

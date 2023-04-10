@@ -1,5 +1,4 @@
 import HandleButton from '@/components/Buttons/HandleButton'
-import ExercisesList from '@/components/ExercisesList'
 import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
@@ -16,6 +15,7 @@ import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
+import ExercisesList from '../../ExercisesList'
 
 interface WorkoutsProps {
   workouts: IWorkout[]

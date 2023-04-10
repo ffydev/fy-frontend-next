@@ -4,6 +4,7 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import { IUserType } from '@/pages/api/providers/users-types.provider'
 import { createUser } from '@/pages/api/providers/users.provider'
+import { useRouter } from 'next/router'
 import {
   Button,
   FormControl,
@@ -19,7 +20,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
-import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 
 interface CreateUserProps {
@@ -63,13 +63,11 @@ export default function UserCreate({
         password,
         userTypeId,
         plan: {
-          create: [
-            {
-              initDate,
-              endDate,
-              planTypeId,
-            },
-          ],
+          create: {
+            initDate,
+            endDate,
+            planTypeId,
+          },
         },
       })
       fetchUsersData()

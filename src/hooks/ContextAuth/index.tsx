@@ -1,11 +1,11 @@
 import { api } from '@/pages/api/apis/api'
-import { ILoginResponse } from '@/pages/api/providers/auth.provider'
+import { IUser } from '@/pages/api/providers/auth.provider'
 import { createContext, useContext, useState, ReactNode } from 'react'
 import { useRouter } from 'next/router'
 
 type AuthContextData = {
-  user: ILoginResponse | undefined
-  setUser: (user: ILoginResponse) => void
+  user: IUser | undefined
+  setUser: (user: IUser) => void
   signIn: (username: string, password: string) => void
   signOut: () => void
   setError: (error: string) => void
@@ -19,7 +19,7 @@ type AuthProviderProps = {
 const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<ILoginResponse | undefined>(undefined)
+  const [user, setUser] = useState<IUser | undefined>(undefined)
   const [error, setError] = useState('')
   const router = useRouter()
 

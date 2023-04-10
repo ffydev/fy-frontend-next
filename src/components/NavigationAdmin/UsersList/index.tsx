@@ -1,5 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
-import PlanList from '@/components/PlansList'
+import PlanList from '@/components/NavigationAdmin/PlansList'
 import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
@@ -74,6 +74,7 @@ export function UsersList({
       }
 
       await updateUser(token, userId, {
+        email: email !== '' ? email : undefined,
         firstName: firstName !== '' ? firstName : undefined,
         lastName: lastName !== '' ? lastName : undefined,
         deletedAt: deletedAt !== '' ? deletedAt : undefined,
@@ -221,8 +222,8 @@ export function UsersList({
               )}
 
               <Box>
-                {user.plan && user.plan.length > 0 && (
-                  <PlanList plans={user.plan} planTypes={planTypes} />
+                {user.plan && (
+                  <PlanList plan={user.plan} planTypes={planTypes} />
                 )}
               </Box>
             </Box>

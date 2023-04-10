@@ -10,12 +10,12 @@ import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import HandleButton from '../Buttons/HandleButton'
-import Feedbacks from '../Feedbacks'
-import { Workouts } from '../Workouts'
+import { Workouts } from './Workouts'
 import UsersHeader from './UsersHeader'
 import { UsersList } from './UsersList'
+import Feedbacks from './Feedbacks'
 
-export default function Users() {
+export default function NavigationAdmin() {
   const router = useRouter()
   const [users, setUsers] = useState<IUserInterface[]>([])
   const [userTypeId, setUserTypeId] = useState<string>('')

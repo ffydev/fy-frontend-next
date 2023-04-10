@@ -10,7 +10,7 @@ export interface IUserInterface {
   email: string
   userTypeId: string
   access_token?: string
-  plan: IPlan[]
+  plan: IPlan
   workout: IWorkout[]
   userType: IUserType
   isRegistered: boolean
@@ -23,16 +23,18 @@ export interface ICreateUserWithIPlan {
   password: string
   userTypeId: string
   plan: {
-    create: IPlan[]
+    create: IPlan
   }
 }
-export interface IUpdateUserWithIPlan {
+export interface IUpdateUser {
   id?: string
   email?: string
   firstName?: string
   lastName?: string
   password?: string
   userTypeId?: string
+  isRegistered?: boolean
+  hasAnamnesis?: boolean
   deletedAt?: string | null
 }
 
@@ -63,7 +65,7 @@ export async function findUsers(
 ): Promise<IUserInterface[]> {
   try {
     const response = await api.get<IUserInterface[]>(
-      `/users?userTypeId=${query.userTypeId}&searchName=${query.search}&isDeleted=${query.isDeleted}`,
+      `/users?userTypeId=${query.userTypeId}&search=${query.search}&isDeleted=${query.isDeleted}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
@@ -90,7 +92,7 @@ export async function deleteUser(token: string, id: string): Promise<void> {
 export async function updateUser(
   token: string,
   id: string,
-  user: IUpdateUserWithIPlan,
+  user: IUpdateUser,
 ): Promise<IUserInterface> {
   try {
     const response = await api.patch<IUserInterface>(`/users/${id}`, user, {

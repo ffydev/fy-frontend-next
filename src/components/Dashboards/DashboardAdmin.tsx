@@ -1,6 +1,5 @@
-import Users from '@/components/Users'
 import { useAuth } from '@/hooks/ContextAuth'
-import { ILoginResponse } from '@/pages/api/providers/auth.provider'
+import { IUser } from '@/pages/api/providers/auth.provider'
 import {
   Avatar,
   Box,
@@ -29,21 +28,22 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
+import NavigationAdmin from '../NavigationAdmin/NavigationAdmin'
 
 interface LinkItemProps {
   name: string
   icon: IconType
-  userComponent?: boolean
+  dashboardHome?: boolean
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Início', icon: FiHome, userComponent: true },
+  { name: 'Início', icon: FiHome, dashboardHome: true },
 ]
 
 export default function DashboardAdmin() {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [userComponent, setUserComponent] = useState<boolean>(true)
+  const [dashboardHome, setDashboardHome] = useState<boolean>(true)
   const { user, signOut } = useAuth()
 
   useEffect(() => {
@@ -56,8 +56,8 @@ export default function DashboardAdmin() {
     }
   }, [router, user])
 
-  const handleWithShowUsers = () => {
-    setUserComponent(true)
+  const handleWithShowDashboardHome = () => {
+    setDashboardHome(true)
   }
 
   return (
@@ -71,7 +71,7 @@ export default function DashboardAdmin() {
       >
         <SidebarContent
           onClose={() => onClose}
-          handleWithShowUsers={handleWithShowUsers}
+          handleWithShowDashboardHome={handleWithShowDashboardHome}
           display={{ base: 'none', md: 'block' }}
         />
         <Drawer
@@ -86,13 +86,13 @@ export default function DashboardAdmin() {
           <DrawerContent>
             <SidebarContent
               onClose={onClose}
-              handleWithShowUsers={handleWithShowUsers}
+              handleWithShowDashboardHome={handleWithShowDashboardHome}
             />
           </DrawerContent>
         </Drawer>
         {/* mobilenav */}
         <MobileNav onOpen={onOpen} user={user} signOut={signOut} />
-        <Box>{userComponent ? <Users /> : null}</Box>
+        <Box>{dashboardHome ? <NavigationAdmin /> : null}</Box>
       </Box>
     </>
   )
@@ -100,12 +100,12 @@ export default function DashboardAdmin() {
 
 interface SidebarProps extends BoxProps {
   onClose: () => void
-  handleWithShowUsers: () => void
+  handleWithShowDashboardHome: () => void
 }
 
 const SidebarContent = ({
   onClose,
-  handleWithShowUsers,
+  handleWithShowDashboardHome,
   ...rest
 }: SidebarProps) => {
   return (
@@ -135,7 +135,7 @@ const SidebarContent = ({
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon}>
           <>
-            {link.userComponent ? (
+            {link.dashboardHome ? (
               <Button
                 variant="ghost"
                 _active={{
@@ -145,7 +145,7 @@ const SidebarContent = ({
                 _focus={{
                   bgColor: 'blackAlpha.900',
                 }}
-                onClick={() => handleWithShowUsers()}
+                onClick={() => handleWithShowDashboardHome()}
               >
                 {link.name}
               </Button>
@@ -197,7 +197,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 }
 interface MobileProps extends FlexProps {
   onOpen: () => void
-  user?: ILoginResponse
+  user?: IUser
   signOut: () => void
 }
 const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {

@@ -1,3 +1,4 @@
+import { SelectUpdate } from '@/components/Select/SelectUpdate'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IExerciseName } from '@/pages/api/providers/exercises-names.provider'
 import { IExerciseType } from '@/pages/api/providers/exercises-types.provider'
@@ -20,7 +21,6 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { SelectUpdate } from '../Select/SelectUpdate'
 
 interface WorkoutsProps {
   exercises?: IExercise[]
