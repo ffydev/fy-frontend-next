@@ -10,7 +10,6 @@ import Dashboard from './Dashboard'
 export default function NavigationUser() {
   const { user } = useAuth()
   const [showAnamnesis, setShowAnamnesis] = useState(false)
-
   return (
     <>
       <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
