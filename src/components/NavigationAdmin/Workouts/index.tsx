@@ -14,14 +14,14 @@ import {
   Tabs,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import WorkoutsHeader from './WorkoutsHeader'
 import { WorkoutsLists } from './WorkoutsList'
-import { useAuth } from '@/hooks/ContextAuth'
+import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 
 export function Workouts() {
   const router = useRouter()
-  const { user } = useAuth()
+  const { userId } = useContext(ContextDashboardAdmin)
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
@@ -36,10 +36,7 @@ export function Workouts() {
         return
       }
 
-      const response = await findWorkoutsNamesByUserId(
-        token,
-        user?.id as string,
-      )
+      const response = await findWorkoutsNamesByUserId(token, userId as string)
 
       if (response && response.length > 0 && selectedWorkoutId === '') {
         setSelectedWorkoutId(response?.[0].id!)
@@ -51,7 +48,7 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, user?.id])
+  }, [router, userId])
 
   const fetchUserWorkouts = async () => {
     try {
@@ -65,7 +62,7 @@ export function Workouts() {
       const response = await findWorkoutsByUserId(
         token,
         selectedWorkoutId as string,
-        user?.id as string,
+        userId as string,
       )
 
       setWorkouts(response)
@@ -115,7 +112,7 @@ export function Workouts() {
     <>
       <Container maxW="7xl" p={{ base: 3, md: 1 }}>
         <WorkoutsHeader
-          userId={user?.id!}
+          userId={userId}
           fetchWorkoutsNames={fetchWorkoutsNames}
         />
         <Stack maxW={'auto'}>
