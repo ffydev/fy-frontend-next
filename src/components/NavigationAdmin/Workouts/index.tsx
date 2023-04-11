@@ -1,4 +1,3 @@
-import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   deleteWorkout,
@@ -15,13 +14,14 @@ import {
   Tabs,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import WorkoutsHeader from './WorkoutsHeader'
 import { WorkoutsLists } from './WorkoutsList'
+import { useAuth } from '@/hooks/ContextAuth'
 
 export function Workouts() {
   const router = useRouter()
-  const { userId } = useContext(ContextDashboardAdmin)
+  const { user } = useAuth()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
@@ -36,7 +36,10 @@ export function Workouts() {
         return
       }
 
-      const response = await findWorkoutsNamesByUserId(token, userId as string)
+      const response = await findWorkoutsNamesByUserId(
+        token,
+        user?.id as string,
+      )
 
       if (response && response.length > 0 && selectedWorkoutId === '') {
         setSelectedWorkoutId(response?.[0].id!)
@@ -48,7 +51,7 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, userId])
+  }, [router, user?.id])
 
   const fetchUserWorkouts = async () => {
     try {
@@ -62,7 +65,7 @@ export function Workouts() {
       const response = await findWorkoutsByUserId(
         token,
         selectedWorkoutId as string,
-        userId as string,
+        user?.id as string,
       )
 
       setWorkouts(response)
@@ -112,7 +115,7 @@ export function Workouts() {
     <>
       <Container maxW="7xl" p={{ base: 3, md: 1 }}>
         <WorkoutsHeader
-          userId={userId}
+          userId={user?.id!}
           fetchWorkoutsNames={fetchWorkoutsNames}
         />
         <Stack maxW={'auto'}>
