@@ -8,6 +8,7 @@ import { Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@/hooks/ContextAuth'
+import { WorkoutsList } from './WorkoutsList'
 
 export function Workouts() {
   const router = useRouter()
@@ -94,7 +95,7 @@ export function Workouts() {
                 </Tab>
               ))}
             </TabList>
-            <h1>list workouts</h1>
+            <WorkoutsList workouts={workouts} />
           </Tabs>
         </Stack>
       </Container>
