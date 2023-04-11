@@ -64,10 +64,10 @@ export default function DashboardAdmin() {
     <>
       <Box
         minH="100vh"
-        style={{
-          background:
-            'linear-gradient(180deg, #161616 0%, #754923 50%, #0c0c0c 100%)',
-        }}
+        bgGradient={[
+          'linear(to-tr, black 30.17%, orange.900 70.87%)',
+          'linear(to-bl, black 30.17%, orange.900 99.87%)',
+        ]}
       >
         <SidebarContent
           onClose={() => onClose}
@@ -111,10 +111,10 @@ const SidebarContent = ({
   return (
     <Box
       transition="3s ease"
-      style={{
-        background:
-          'linear-gradient(180deg, #161616 0%, #754923 50%, #0c0c0c 100%)',
-      }}
+      bgGradient={[
+        'linear(to-tr, black 30.17%, orange.900 70.87%)',
+        'linear(to-bl, black 30.17%, orange.900 99.87%)',
+      ]}
       borderRight="1px"
       borderRightColor={'whiteAlpha.100'}
       w={{ base: 'full', md: 60 }}
