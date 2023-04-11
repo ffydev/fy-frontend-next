@@ -1,12 +1,19 @@
 import { ContextDashboardUser } from '@/hooks/ContextDashboardUser'
-import { Avatar, Button, Center, Flex } from '@chakra-ui/react'
+import { Avatar, Button, Center, Flex, Stack } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import { Workouts } from '../Workouts'
+import HandleButton from '@/components/Buttons/HandleButton'
+import { ArrowArcLeft } from '@phosphor-icons/react'
 
 export default function Dashboard() {
   const { isShowingWorkouts, handleWithShowWorkouts } =
     useContext(ContextDashboardUser)
   const [isShowingDashboard, setIsShowingDashboard] = useState<boolean>(true)
+
+  const handleWithDashboard = () => {
+    handleWithShowWorkouts(false)
+    setIsShowingDashboard(true)
+  }
 
   const handleWithWorkouts = () => {
     handleWithShowWorkouts(true)
@@ -38,7 +45,25 @@ export default function Dashboard() {
         </Center>
       )}
 
-      {isShowingWorkouts && <Workouts />}
+      {isShowingWorkouts && (
+        <>
+          <Stack
+            direction={'column'}
+            align={'start'}
+            alignSelf={'center'}
+            position={'relative'}
+            mt={3}
+            ml={3}
+          >
+            <HandleButton
+              text={'Voltar'}
+              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              onClick={() => handleWithDashboard()}
+            />
+          </Stack>
+          <Workouts />
+        </>
+      )}
     </>
   )
 }
