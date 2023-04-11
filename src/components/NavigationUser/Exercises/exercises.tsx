@@ -73,6 +73,9 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
           boxShadow={'lg'}
         >
           <Stack direction={'column'} spacing={6} w={'full'}>
+            <Text>{exercise.exerciseType?.name}</Text>
+            <Text>{exercise.exerciseNames?.name}</Text>
+
             <chakra.h1 fontSize="lg" lineHeight={6}>
               Séries:
               <Text>{exercise.sets}</Text>
