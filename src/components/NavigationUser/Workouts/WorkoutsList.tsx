@@ -23,13 +23,8 @@ export function WorkoutsList({ workouts }: WorkoutsProps) {
           backdropFilter="blur(5px)"
           minWidth="250px"
         >
-          <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-            <SimpleGrid
-              columns={{ base: 1, md: 3 }}
-              spacing={5}
-              mb={4}
-              w={'full'}
-            >
+          <Stack direction={['column', 'row']} w={'full'}>
+            <SimpleGrid columns={{ base: 1, md: 5 }} spacing={5} w={'full'}>
               {workout.exercises && workout.exercises.length > 0 && (
                 <ExercisesList exercises={workout.exercises} />
               )}

@@ -127,7 +127,10 @@ export default function Dashboard() {
               onClick={() => handleWithDashboard()}
             />
           </Stack>
-          <Workouts />
+
+          <Center>
+            <Workouts />
+          </Center>
         </>
       )}
 
@@ -147,7 +150,9 @@ export default function Dashboard() {
               onClick={() => handleWithDashboard()}
             />
           </Stack>
-          <AnamnesisCreate />
+          <Center>
+            <AnamnesisCreate />
+          </Center>
         </>
       ) : null}
     </>

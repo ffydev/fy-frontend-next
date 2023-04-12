@@ -72,7 +72,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <Stack direction={'column'} spacing={6} w={'full'}>
+          <Stack direction={'column'} spacing={5} w={'full'}>
             <Text>{exercise.exerciseType?.name}</Text>
             <Text>{exercise.exerciseNames?.name}</Text>
 
