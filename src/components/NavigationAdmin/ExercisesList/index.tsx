@@ -156,7 +156,7 @@ export default function ExercisesList({
                 <EditableInput
                   value={sets}
                   onChange={(event) => setSets(event.target.value)}
-                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
                 />
               </Editable>
             </chakra.h1>
@@ -168,7 +168,7 @@ export default function ExercisesList({
                 <EditableInput
                   value={reps}
                   onChange={(event) => setReps(event.target.value)}
-                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
                 />
               </Editable>
             </chakra.h1>
@@ -180,7 +180,7 @@ export default function ExercisesList({
                 <EditableInput
                   value={weight}
                   onChange={(event) => setWeight(event.target.value)}
-                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
                 />
               </Editable>
             </chakra.h1>
@@ -194,7 +194,7 @@ export default function ExercisesList({
                 <EditableInput
                   value={rir}
                   onChange={(event) => setRir(event.target.value)}
-                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
                 />
               </Editable>
             </chakra.h1>
@@ -210,7 +210,7 @@ export default function ExercisesList({
                 <EditableInput
                   value={describe}
                   onChange={(event) => setDescribe(event.target.value)}
-                  onBlur={() => handleUpdateExercise(exercise.id!)}
+                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
                 />
               </Editable>
             </chakra.h1>
