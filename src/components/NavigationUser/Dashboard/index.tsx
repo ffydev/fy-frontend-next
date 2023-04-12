@@ -57,20 +57,29 @@ export default function Dashboard() {
   return (
     <>
       {isShowingDashboard && (
-        <Center py={6}>
-          <Flex justify={'center'} mt={3}>
+        <Center py={[4, 6, 8]}>
+          <Flex
+            flexWrap={['wrap', 'nowrap']}
+            justifyContent={['center', 'space-between']}
+            alignItems={['center', 'flex-start']}
+            mt={3}
+          >
             <Box
               m={3}
-              w="300px"
-              h="300px"
-              bgImage={
-                'url(https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)'
-              }
+              flex={['1 0 100%', '0 0 auto']}
+              maxWidth={['100%', '300px']}
+              maxHeight={['350px', 'none']}
+              height={['350px', 'none']}
+              bgImage={{
+                base: `url(https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)`,
+                md: `url(https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)`,
+              }}
               bgPosition="center"
               bgRepeat="no-repeat"
               bgSize="cover"
               borderRadius="md"
               p={4}
+              mb={6}
               _hover={{ cursor: 'pointer' }}
               onClick={() => handleWithWorkouts()}
             >
@@ -79,16 +88,20 @@ export default function Dashboard() {
 
             <Box
               m={3}
-              w="300px"
-              h="300px"
-              bgImage={
-                'url(https://plus.unsplash.com/premium_photo-1661483120409-accf4c0ebd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1954&q=80)'
-              }
+              flex={['1 0 100%', '0 0 auto']}
+              maxWidth={['100%', '300px']}
+              maxHeight={['350px', 'none']}
+              height={['350px', 'none']}
+              bgImage={{
+                base: `url(https://plus.unsplash.com/premium_photo-1661483120409-accf4c0ebd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1954&q=80)`,
+                md: `url(https://plus.unsplash.com/premium_photo-1661483120409-accf4c0ebd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1954&q=80)`,
+              }}
               bgPosition="center"
               bgRepeat="no-repeat"
               bgSize="cover"
               borderRadius="md"
               p={4}
+              mb={6}
               _hover={{ cursor: 'pointer' }}
               onClick={() => handleWithAnamnesis()}
             >
