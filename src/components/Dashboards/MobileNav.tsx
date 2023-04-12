@@ -101,11 +101,7 @@ export default function MobileNav({
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
-                >
-                  <Text fontSize="xs" color="whiteAlpha.900">
-                    {user?.isRegistered && <>Olá, {user?.firstName}</>}
-                  </Text>
-                </VStack>
+                ></VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
                 </Box>
