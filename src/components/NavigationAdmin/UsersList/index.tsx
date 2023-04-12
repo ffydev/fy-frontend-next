@@ -1,6 +1,6 @@
 import HandleButton from '@/components/Buttons/HandleButton'
 import PlanList from '@/components/NavigationAdmin/PlansList'
-import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
+import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react'
 import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 interface UsersListProps {
   fetchUsersData: () => void
@@ -39,14 +39,14 @@ export function UsersList({
   const [email, setEmail] = useState<string>('')
   const [deletedAt, setDeletedAt] = useState<string | null>(null)
   const {
-    changeUserId,
+    setuserId,
     isShowingUsers,
-    handleWithShowUsers,
+    setIsShowingUsers,
     isShowingWorkouts,
-    handleWithShowWorkouts,
+    setIsShowingWorkouts,
     isShowingFeedbacks,
-    handleWithShowFeedbacks,
-  } = useContext(ContextDashboardAdmin)
+    setIsShowingFeedbacks,
+  } = useAdminProvider()
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
@@ -85,15 +85,15 @@ export function UsersList({
   }
 
   const handleWithShowUserWorkouts = (userId: string) => {
-    changeUserId(userId)
-    handleWithShowUsers(!isShowingUsers)
-    handleWithShowWorkouts(!isShowingWorkouts)
+    setuserId(userId)
+    setIsShowingUsers(!isShowingUsers)
+    setIsShowingWorkouts(!isShowingWorkouts)
   }
 
   const handleWithShowUserFeedbacks = (userId: string) => {
-    changeUserId(userId)
-    handleWithShowUsers(!isShowingUsers)
-    handleWithShowFeedbacks(!isShowingFeedbacks)
+    setuserId(userId)
+    setIsShowingUsers(!isShowingUsers)
+    setIsShowingFeedbacks(!isShowingFeedbacks)
   }
 
   const handleWithActiveUser = async (userId: string) => {

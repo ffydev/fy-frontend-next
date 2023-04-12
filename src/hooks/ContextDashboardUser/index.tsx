@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 export interface ContextData {
   isShowingWorkouts: boolean
@@ -36,4 +36,9 @@ export default function ContextDashboardUserProvider({
       {children}
     </ContextDashboardUser.Provider>
   )
+}
+
+export function useUserProvider() {
+  const context = useContext(ContextDashboardUser)
+  return context
 }

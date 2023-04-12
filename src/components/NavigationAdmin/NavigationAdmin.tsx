@@ -1,4 +1,4 @@
-import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
+import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlansTypes,
@@ -8,7 +8,7 @@ import { findUsers, IUserInterface } from '@/pages/api/providers/users.provider'
 import { Box, Container, Stack } from '@chakra-ui/react'
 import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import HandleButton from '../Buttons/HandleButton'
 import { Workouts } from './Workouts'
 import UsersHeader from './UsersHeader'
@@ -26,11 +26,11 @@ export default function NavigationAdmin() {
     isShowingUsers,
     isShowingWorkouts,
     isShowingFeedbacks,
-    changeUserId,
-    handleWithShowUsers,
-    handleWithShowWorkouts,
-    handleWithShowFeedbacks,
-  } = useContext(ContextDashboardAdmin)
+    setuserId,
+    setIsShowingUsers,
+    setIsShowingWorkouts,
+    setIsShowingFeedbacks,
+  } = useAdminProvider()
 
   const fetchUsersData = useCallback(async () => {
     try {
@@ -78,15 +78,15 @@ export default function NavigationAdmin() {
   }, [fetchUsersData, fetchPlanTypeData])
 
   const handleWithHideWorkouts = () => {
-    handleWithShowWorkouts(!isShowingWorkouts)
-    handleWithShowUsers(!isShowingUsers)
-    changeUserId('')
+    setIsShowingWorkouts(!isShowingWorkouts)
+    setIsShowingUsers(!isShowingUsers)
+    setuserId('')
   }
 
   const handleWithHideFeedbacks = () => {
-    handleWithShowFeedbacks(!isShowingFeedbacks)
-    handleWithShowUsers(!isShowingUsers)
-    changeUserId('')
+    setIsShowingFeedbacks(!isShowingFeedbacks)
+    setIsShowingUsers(!isShowingUsers)
+    setuserId('')
   }
 
   return (

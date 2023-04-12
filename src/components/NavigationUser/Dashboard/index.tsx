@@ -1,4 +1,4 @@
-import { useProvider } from '@/hooks/ContextDashboardUser'
+import { useUserProvider } from '@/hooks/ContextDashboardUser'
 import { Box, Center, Flex, Stack, Stat, StatLabel } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Workouts } from '../Workouts'
@@ -12,7 +12,7 @@ export default function Dashboard() {
     isShowAnamnesis,
     setIsShowingWorkouts,
     setIsShowAnamnesis,
-  } = useProvider()
+  } = useUserProvider()
   const [isShowingDashboard, setIsShowingDashboard] = useState<boolean>(true)
 
   console.log(isShowingWorkouts)

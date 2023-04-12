@@ -1,14 +1,14 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 export interface ContextData {
   userId: string
   isShowingUsers: boolean
   isShowingWorkouts: boolean
   isShowingFeedbacks: boolean
-  changeUserId(newValue: string): void
-  handleWithShowUsers(isShowingUsers: boolean): void
-  handleWithShowWorkouts(isShowingWorkouts: boolean): void
-  handleWithShowFeedbacks(isShowingFeedbacks: boolean): void
+  setuserId(newValue: string): void
+  setIsShowingUsers(isShowingUsers: boolean): void
+  setIsShowingWorkouts(isShowingWorkouts: boolean): void
+  setIsShowingFeedbacks(isShowingFeedbacks: boolean): void
 }
 
 export const ContextDashboardAdmin = createContext<ContextData>({
@@ -16,10 +16,10 @@ export const ContextDashboardAdmin = createContext<ContextData>({
   isShowingUsers: true,
   isShowingWorkouts: false,
   isShowingFeedbacks: false,
-  changeUserId: () => {},
-  handleWithShowUsers: () => {},
-  handleWithShowWorkouts: () => {},
-  handleWithShowFeedbacks: () => {},
+  setuserId: () => {},
+  setIsShowingUsers: () => {},
+  setIsShowingWorkouts: () => {},
+  setIsShowingFeedbacks: () => {},
 })
 
 type ContextDashboardAdminProviderProps = {
@@ -34,22 +34,6 @@ export default function ContextDashboardAdminProvider({
   const [isShowingWorkouts, setIsShowingWorkouts] = useState<boolean>(false)
   const [isShowingFeedbacks, setIsShowingFeedbacks] = useState<boolean>(false)
 
-  const changeUserId = (newValue: string) => {
-    setuserId(newValue)
-  }
-
-  const handleWithShowUsers = (isShowingUsers: boolean) => {
-    setIsShowingUsers(isShowingUsers)
-  }
-
-  const handleWithShowWorkouts = (isShowingWorkouts: boolean) => {
-    setIsShowingWorkouts(isShowingWorkouts)
-  }
-
-  const handleWithShowFeedbacks = (isShowingFeedbacks: boolean) => {
-    setIsShowingFeedbacks(isShowingFeedbacks)
-  }
-
   return (
     <ContextDashboardAdmin.Provider
       value={{
@@ -57,13 +41,18 @@ export default function ContextDashboardAdminProvider({
         isShowingUsers,
         isShowingWorkouts,
         isShowingFeedbacks,
-        changeUserId,
-        handleWithShowUsers,
-        handleWithShowWorkouts,
-        handleWithShowFeedbacks,
+        setuserId,
+        setIsShowingUsers,
+        setIsShowingWorkouts,
+        setIsShowingFeedbacks,
       }}
     >
       {children}
     </ContextDashboardAdmin.Provider>
   )
+}
+
+export function useAdminProvider() {
+  const context = useContext(ContextDashboardAdmin)
+  return context
 }
