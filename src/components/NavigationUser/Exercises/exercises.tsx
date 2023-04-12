@@ -75,9 +75,14 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <Stack direction={'column'} spacing={5} w={'full'}>
+          <Stack
+            direction={'column'}
+            spacing={5}
+            w={'full'}
+            textColor={'whiteAlpha.800'}
+          >
             <chakra.h1
-              fontWeight={'bold'}
+              fontWeight={'medium'}
               fontSize="md"
               lineHeight={6}
               textTransform={'uppercase'}
@@ -85,7 +90,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               {exercise.exerciseType?.name}
             </chakra.h1>
             <chakra.h1
-              fontWeight={'bold'}
+              fontWeight={'medium'}
               fontSize="md"
               lineHeight={6}
               textTransform={'uppercase'}
@@ -94,7 +99,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             </chakra.h1>
 
             <chakra.h1
-              fontWeight={'bold'}
+              fontWeight={'medium'}
               fontSize="md"
               lineHeight={6}
               textTransform={'uppercase'}
@@ -104,7 +109,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             </chakra.h1>
 
             <chakra.h1
-              fontWeight={'bold'}
+              fontWeight={'medium'}
               fontSize="md"
               lineHeight={6}
               textTransform={'uppercase'}
@@ -114,7 +119,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             </chakra.h1>
 
             <chakra.h1
-              fontWeight={'bold'}
+              fontWeight={'medium'}
               fontSize="md"
               lineHeight={6}
               textTransform={'uppercase'}
@@ -137,7 +142,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             </chakra.h1>
 
             <chakra.h1
-              fontWeight={'bold'}
+              fontWeight={'medium'}
               fontSize="md"
               lineHeight={6}
               textTransform={'uppercase'}
@@ -147,7 +152,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             </chakra.h1>
 
             <chakra.h1
-              fontWeight={'bold'}
+              fontWeight={'medium'}
               fontSize="sm"
               lineHeight={6}
               textTransform={'uppercase'}
