@@ -12,11 +12,9 @@ import {
   Box,
   Button,
   CloseButton,
-  Editable,
-  EditableInput,
-  EditablePreview,
   Flex,
   FormLabel,
+  Input,
   SimpleGrid,
   Spacer,
   Stack,
@@ -157,49 +155,30 @@ export function UsersList({
                 </Button>
               </Flex>
 
-              <Editable defaultValue={user.email}>
-                <EditablePreview />
-                <EditableInput
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  onBlur={() => handleUpdateUser(user.id!)}
-                />
-              </Editable>
+              <Input
+                mt={2}
+                defaultValue={user.email}
+                onChange={(event) => setEmail(event.target.value)}
+                onBlur={() => handleUpdateUser(user.id!)}
+              />
 
-              <Flex justifyContent={'initial'}>
-                <Editable
-                  mr={2}
-                  defaultValue={
-                    user.firstName === '' || user.firstName === null
-                      ? 'Aguardando registro'
-                      : user.firstName
-                  }
-                >
-                  <EditablePreview />
-                  <EditableInput
-                    value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}
-                    onBlur={() => handleUpdateUser(user.id!)}
-                  />
-                </Editable>
+              <Input
+                placeholder="Primeiro Nome"
+                mt={2}
+                defaultValue={user.firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+                onBlur={() => handleUpdateUser(user.id!)}
+              />
 
-                <Editable
-                  defaultValue={
-                    user.lastName === '' || user.lastName === null
-                      ? 'Aguardando registro'
-                      : user.lastName
-                  }
-                >
-                  <EditablePreview />
-                  <EditableInput
-                    value={lastName}
-                    onChange={(event) => setLastName(event.target.value)}
-                    onBlur={() => handleUpdateUser(user.id!)}
-                  />
-                </Editable>
-              </Flex>
+              <Input
+                placeholder="Último Nome"
+                mt={2}
+                defaultValue={user.lastName}
+                onChange={(event) => setLastName(event.target.value)}
+                onBlur={() => handleUpdateUser(user.id!)}
+              />
 
-              <FormLabel>
+              <FormLabel mt={3}>
                 Status: {user.isRegistered ? 'Registrado' : 'Não registrado'}
               </FormLabel>
 
