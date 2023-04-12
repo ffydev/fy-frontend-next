@@ -203,11 +203,7 @@ export function UsersList({
                 </Flex>
               )}
 
-              <Box>
-                {user.plan && (
-                  <PlanList plan={user.plan} planTypes={planTypes} />
-                )}
-              </Box>
+              {user.plan && <PlanList plan={user.plan} planTypes={planTypes} />}
             </Box>
           ))}
         </SimpleGrid>
