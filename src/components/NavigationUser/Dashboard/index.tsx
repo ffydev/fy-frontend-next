@@ -1,6 +1,6 @@
-import { ContextDashboardUser } from '@/hooks/ContextDashboardUser'
+import { useProvider } from '@/hooks/ContextDashboardUser'
 import { Box, Center, Flex, Stack, Stat, StatLabel } from '@chakra-ui/react'
-import { useContext, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { ArrowArcLeft } from '@phosphor-icons/react'
@@ -12,8 +12,10 @@ export default function Dashboard() {
     isShowAnamnesis,
     setIsShowingWorkouts,
     setIsShowAnamnesis,
-  } = useContext(ContextDashboardUser)
+  } = useProvider()
   const [isShowingDashboard, setIsShowingDashboard] = useState<boolean>(true)
+
+  console.log(isShowingWorkouts)
 
   const handleWithDashboard = () => {
     setIsShowingWorkouts(false)
@@ -53,6 +55,13 @@ export default function Dashboard() {
       </Stat>
     )
   }
+
+  useEffect(() => {
+    return () => {
+      setIsShowingWorkouts(false)
+      setIsShowAnamnesis(false)
+    }
+  }, [setIsShowingWorkouts, setIsShowAnamnesis])
 
   return (
     <>
