@@ -10,9 +10,11 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
+  Flex,
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { Pen } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -24,6 +26,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
   const router = useRouter()
   const [exercisesState, setExercisesState] = useState<IExercise[]>([])
   const [weight, setWeight] = useState<string | undefined>('')
+  const [isHovering, setIsHovering] = useState(false)
 
   const handleUpdateExercise = async (id: string) => {
     const token = getUserToken()
@@ -73,22 +76,57 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
           boxShadow={'lg'}
         >
           <Stack direction={'column'} spacing={5} w={'full'}>
-            <Text>{exercise.exerciseType?.name}</Text>
-            <Text>{exercise.exerciseNames?.name}</Text>
+            <chakra.h1
+              fontWeight={'bold'}
+              fontSize="md"
+              lineHeight={6}
+              textTransform={'uppercase'}
+            >
+              {exercise.exerciseType?.name}
+            </chakra.h1>
+            <chakra.h1
+              fontWeight={'bold'}
+              fontSize="md"
+              lineHeight={6}
+              textTransform={'uppercase'}
+            >
+              {exercise.exerciseNames?.name}
+            </chakra.h1>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
-              Séries:
+            <chakra.h1
+              fontWeight={'bold'}
+              fontSize="md"
+              lineHeight={6}
+              textTransform={'uppercase'}
+            >
+              SÉRIES:
               <Text>{exercise.sets}</Text>
             </chakra.h1>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
+            <chakra.h1
+              fontWeight={'bold'}
+              fontSize="md"
+              lineHeight={6}
+              textTransform={'uppercase'}
+            >
               Repetições:
               <Text>{exercise.reps}</Text>
             </chakra.h1>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
-              Carga:
-              <Editable defaultValue={`${exercise.weight}`}>
+            <chakra.h1
+              fontWeight={'bold'}
+              fontSize="md"
+              lineHeight={6}
+              textTransform={'uppercase'}
+            >
+              <Flex>
+                Carga: <Pen size={20} />
+              </Flex>
+              <Editable
+                border={'1px'}
+                borderRadius={'md'}
+                defaultValue={`${exercise.weight}`}
+              >
                 <EditablePreview />
                 <EditableInput
                   value={weight}
@@ -98,14 +136,31 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               </Editable>
             </chakra.h1>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
+            <chakra.h1
+              fontWeight={'bold'}
+              fontSize="md"
+              lineHeight={6}
+              textTransform={'uppercase'}
+            >
               Repetições em reserva:
               <Text>{exercise.rir}</Text>
             </chakra.h1>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
+            <chakra.h1
+              fontWeight={'bold'}
+              fontSize="sm"
+              lineHeight={6}
+              textTransform={'uppercase'}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
               Descrição:
-              <Text>{exercise.describe}</Text>
+              <Text
+                fontWeight={'thin'}
+                visibility={isHovering ? 'visible' : 'hidden'}
+              >
+                {exercise.describe}
+              </Text>
             </chakra.h1>
           </Stack>
         </Box>
