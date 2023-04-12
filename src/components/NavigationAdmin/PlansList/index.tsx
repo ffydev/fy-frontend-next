@@ -63,11 +63,9 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <Center>
-            <Tag mb={3} size={'md'} colorScheme={'gray'} variant={'subtle'}>
-              PLANO
-            </Tag>
-          </Center>
+          <Tag mb={3} size={'md'} colorScheme={'gray'} variant={'subtle'}>
+            PLANO
+          </Tag>
 
           <Flex justify={'space-between'}>
             <Editable
