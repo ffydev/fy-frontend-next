@@ -1,5 +1,5 @@
 import { ContextDashboardUser } from '@/hooks/ContextDashboardUser'
-import { Avatar, Button, Center, Flex, Stack } from '@chakra-ui/react'
+import { Box, Center, Flex, Stack, Stat, StatLabel } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -31,44 +31,69 @@ export default function Dashboard() {
     setIsShowingDashboard(false)
   }
 
+  interface StatsCardProps {
+    title: string
+  }
+  function StatsCard(props: StatsCardProps) {
+    const { title } = props
+    return (
+      <Stat
+        px={{ base: 4, md: 8 }}
+        textAlign={'center'}
+        alignContent={'center'}
+      >
+        <StatLabel
+          background={'blackAlpha.500'}
+          fontWeight={'extrabold'}
+          fontSize={'3xl'}
+          textTransform={'uppercase'}
+        >
+          {title}
+        </StatLabel>
+      </Stat>
+    )
+  }
+
   return (
     <>
       {isShowingDashboard && (
         <Center py={6}>
           <Flex justify={'center'} mt={3}>
-            <Button
-              background={'none'}
-              _hover={{}}
-              _active={{}}
+            <Box
+              m={3}
+              w="300px"
+              h="300px"
+              bgImage={
+                'url(https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)'
+              }
+              bgPosition="center"
+              bgRepeat="no-repeat"
+              bgSize="cover"
+              borderRadius="md"
+              p={4}
+              _hover={{ cursor: 'pointer' }}
               onClick={() => handleWithWorkouts()}
             >
-              <Avatar
-                size={'xl'}
-                src={
-                  'https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
-                }
-                css={{
-                  border: '2px solid white',
-                }}
-              />
-            </Button>
+              <StatsCard title={'WORKOUTS'} />
+            </Box>
 
-            <Button
-              background={'none'}
-              _hover={{}}
-              _active={{}}
+            <Box
+              m={3}
+              w="300px"
+              h="300px"
+              bgImage={
+                'url(https://plus.unsplash.com/premium_photo-1661483120409-accf4c0ebd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1954&q=80)'
+              }
+              bgPosition="center"
+              bgRepeat="no-repeat"
+              bgSize="cover"
+              borderRadius="md"
+              p={4}
+              _hover={{ cursor: 'pointer' }}
               onClick={() => handleWithAnamnesis()}
             >
-              <Avatar
-                size={'xl'}
-                src={
-                  'https://plus.unsplash.com/premium_photo-1661483120409-accf4c0ebd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1954&q=80'
-                }
-                css={{
-                  border: '2px solid white',
-                }}
-              />
-            </Button>
+              <StatsCard title={'ANAMNESE'} />
+            </Box>
           </Flex>
         </Center>
       )}
