@@ -182,13 +182,13 @@ export function UsersList({
 
               {user.deletedAt && (
                 <Flex>
-                  <FormLabel>{`Deletado em ${new Date(
+                  <FormLabel>{`Data de exclusão: ${new Date(
                     user.deletedAt!,
                   ).toLocaleDateString()}`}</FormLabel>
 
                   <CardButton
                     title={'Ativar'}
-                    background={'purple.400'}
+                    background={'whiteAlpha.400'}
                     size={'xs'}
                     onClick={() => handleWithActiveUser(user.id)}
                     value={user.id}

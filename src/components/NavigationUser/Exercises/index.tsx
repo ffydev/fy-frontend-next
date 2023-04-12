@@ -4,7 +4,7 @@ import {
   IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
-import { Box, chakra, Flex, Input, Stack, Text } from '@chakra-ui/react'
+import { Box, Center, chakra, Flex, Input, Stack, Text } from '@chakra-ui/react'
 import { Eye, Pen } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -72,14 +72,21 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             w={'full'}
             textColor={'whiteAlpha.800'}
           >
-            <chakra.h1
-              fontWeight={'medium'}
-              fontSize="md"
-              lineHeight={6}
-              textTransform={'uppercase'}
-            >
-              {exercise.exerciseType?.name}
-            </chakra.h1>
+            <Center>
+              <chakra.h1
+                textColor={'whiteAlpha.800'}
+                bgColor={'purple.400'}
+                borderRadius={3}
+                px={2}
+                fontWeight={'medium'}
+                fontSize="sm"
+                lineHeight={6}
+                textTransform={'uppercase'}
+              >
+                {exercise.exerciseType?.name}
+              </chakra.h1>
+            </Center>
+
             <chakra.h1
               fontWeight={'medium'}
               fontSize="md"
@@ -89,34 +96,19 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               {exercise.exerciseNames?.name}
             </chakra.h1>
 
-            <chakra.h1
-              fontWeight={'medium'}
-              fontSize="md"
-              lineHeight={6}
-              textTransform={'uppercase'}
-            >
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               SÉRIES:
               <Text>{exercise.sets}</Text>
             </chakra.h1>
 
-            <chakra.h1
-              fontWeight={'medium'}
-              fontSize="md"
-              lineHeight={6}
-              textTransform={'uppercase'}
-            >
-              Repetições:
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
+              REPETIÇÕES:
               <Text>{exercise.reps}</Text>
             </chakra.h1>
 
-            <chakra.h1
-              fontWeight={'medium'}
-              fontSize="md"
-              lineHeight={6}
-              textTransform={'uppercase'}
-            >
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               <Flex>
-                Carga: <Pen size={20} />
+                CARGA: <Pen size={20} />
               </Flex>
               <Input
                 defaultValue={exercise.weight}
@@ -137,7 +129,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
 
             <chakra.h1
               fontWeight={'medium'}
-              fontSize="sm"
+              fontSize="md"
               lineHeight={6}
               textTransform={'uppercase'}
               onMouseEnter={() => setIsHovering(true)}
@@ -148,7 +140,11 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 {exercise.describe && (
                   <>
                     {!isHovering ? (
-                      <Eye size={25} />
+                      <>
+                        <Center>
+                          <Eye size={23} />
+                        </Center>
+                      </>
                     ) : (
                       <>
                         <Text
