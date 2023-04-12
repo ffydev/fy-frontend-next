@@ -43,7 +43,7 @@ export default function Dashboard() {
         alignContent={'center'}
       >
         <StatLabel
-          background={'blackAlpha.500'}
+          background={'blackAlpha.800'}
           fontWeight={'extrabold'}
           fontSize={'3xl'}
           textTransform={'uppercase'}
