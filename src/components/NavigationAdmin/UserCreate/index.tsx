@@ -95,6 +95,10 @@ export default function UserCreate({
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
+          bgGradient={[
+            'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+            'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
+          ]}
           border={'1px'}
           borderColor={'whiteAlpha.200'}
           backdropFilter={'auto'}
