@@ -4,16 +4,7 @@ import {
   IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
-import {
-  Box,
-  chakra,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Flex,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { Box, chakra, Flex, Input, Stack, Text } from '@chakra-ui/react'
 import { Pen } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -127,18 +118,11 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               <Flex>
                 Carga: <Pen size={20} />
               </Flex>
-              <Editable
-                border={'1px'}
-                borderRadius={'md'}
-                defaultValue={`${exercise.weight}`}
-              >
-                <EditablePreview />
-                <EditableInput
-                  value={weight}
-                  onChange={(event) => setWeight(event.target.value)}
-                  onBlur={() => handleUpdateExercise(exercise.id!)}
-                />
-              </Editable>
+              <Input
+                defaultValue={exercise.weight}
+                onChange={(event) => setWeight(event.target.value)}
+                onBlur={() => handleUpdateExercise(exercise.id!)}
+              />
             </chakra.h1>
 
             <chakra.h1

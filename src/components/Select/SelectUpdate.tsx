@@ -23,12 +23,12 @@ export function SelectUpdate({
     <>
       <FormControl mt={2}>
         <FormLabel>
-          <Tag size={'md'} colorScheme={'gray'}>
+          <Tag size={'md'} bgGradient={'gray'}>
             {tag}
           </Tag>
         </FormLabel>
         <Select
-          bg={'whiteAlpha.200'}
+          bg={'whiteAlpha.100'}
           color={'white'}
           size={'md'}
           rounded={'md'}

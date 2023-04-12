@@ -61,7 +61,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <Tag mb={3} size={'md'} colorScheme={'gray'} variant={'subtle'}>
+          <Tag mb={3} size={'md'} bgGradient={'gray'} variant={'subtle'}>
             PLANO
           </Tag>
 

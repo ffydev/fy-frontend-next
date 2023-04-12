@@ -141,7 +141,7 @@ export function UsersList({
               <Flex justifyContent={'initial'}>
                 <Button
                   mr={2}
-                  colorScheme={'orange'}
+                  bgGradient={'gray'}
                   size="xs"
                   onClick={() => handleWithShowUserWorkouts(user.id)}
                 >
@@ -149,7 +149,7 @@ export function UsersList({
                 </Button>
 
                 <Button
-                  colorScheme={'orange'}
+                  bgGradient={'gray'}
                   size="xs"
                   onClick={() => handleWithShowUserFeedbacks(user.id)}
                 >

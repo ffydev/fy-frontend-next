@@ -65,8 +65,8 @@ export default function DashboardAdmin() {
       <Box
         minH="100vh"
         bgGradient={[
-          'linear(to-tr, black 30.17%, orange.900 70.87%)',
-          'linear(to-bl, black 30.17%, orange.900 99.87%)',
+          'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+          'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
         ]}
       >
         <SidebarContent
@@ -112,8 +112,8 @@ const SidebarContent = ({
     <Box
       transition="3s ease"
       bgGradient={[
-        'linear(to-tr, black 30.17%, orange.900 70.87%)',
-        'linear(to-bl, black 30.17%, orange.900 99.87%)',
+        'linear(to-tr, gray.900 27.17%, gray.900 85.87%)',
+        'linear(to-b, gray.900 27.17%, gray.900 85.87%)',
       ]}
       borderRight="1px"
       borderRightColor={'whiteAlpha.100'}
