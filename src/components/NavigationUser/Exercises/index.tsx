@@ -75,7 +75,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             <Center>
               <chakra.h1
                 textColor={'whiteAlpha.800'}
-                bgColor={'purple.400'}
+                bgColor={'purple.700'}
                 borderRadius={3}
                 px={2}
                 fontWeight={'medium'}
