@@ -7,9 +7,6 @@ import {
   Drawer,
   DrawerContent,
   Flex,
-  FlexProps,
-  Icon,
-  Link,
   useDisclosure,
 } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -19,6 +16,7 @@ import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import NavigationUser from '../NavigationUser/NavigationUser'
 import MobileNav from './MobileNav'
+import NavItem from './NavItem'
 
 interface LinkItemProps {
   name: string
@@ -152,44 +150,5 @@ const SidebarContent = ({
         </NavItem>
       ))}
     </Box>
-  )
-}
-
-interface NavItemProps extends FlexProps {
-  icon: IconType
-  children: any
-}
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
-  return (
-    <Link
-      href="#"
-      style={{ textDecoration: 'none' }}
-      _focus={{ boxShadow: 'none' }}
-    >
-      <Flex
-        align="center"
-        p="4"
-        mx="4"
-        borderRadius="lg"
-        role="group"
-        cursor="pointer"
-        _focus={{
-          bgColor: 'blackAlpha.900',
-        }}
-        {...rest}
-      >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: 'white',
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    </Link>
   )
 }
