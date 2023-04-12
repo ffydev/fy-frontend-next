@@ -1,4 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
+import { CardButton } from '@/components/Buttons/UserCardButton'
 import PlanList from '@/components/NavigationAdmin/PlansList'
 import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
@@ -10,7 +11,6 @@ import {
 } from '@/pages/api/providers/users.provider'
 import {
   Box,
-  Button,
   CloseButton,
   Flex,
   FormLabel,
@@ -137,22 +137,22 @@ export function UsersList({
               </Flex>
 
               <Flex justifyContent={'initial'}>
-                <Button
+                <CardButton
+                  title={'Workouts'}
                   mr={2}
                   background={'purple.700'}
-                  size="xs"
+                  size={'xs'}
                   onClick={() => handleWithShowUserWorkouts(user.id)}
-                >
-                  Workouts
-                </Button>
+                  value={user.id}
+                />
 
-                <Button
+                <CardButton
+                  title={'Feedbacks'}
                   background={'purple.700'}
-                  size="xs"
+                  size={'xs'}
                   onClick={() => handleWithShowUserFeedbacks(user.id)}
-                >
-                  Feedbacks
-                </Button>
+                  value={user.id}
+                />
               </Flex>
 
               <Input
