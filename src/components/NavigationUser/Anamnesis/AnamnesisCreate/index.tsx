@@ -21,27 +21,27 @@ import { updateUser } from '@/pages/api/providers/users.provider'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
-  age: z
-    .string()
-    .nonempty({ message: 'Idade é obrigatória' })
-    .refine((value) => !isNaN(Number(value)), {
-      message: 'Idade deve ser um número válido',
+  age: z.coerce
+    .number({
+      required_error: 'Campo obrigatório',
+      invalid_type_error: 'Idade deve ser um número válido',
     })
-    .transform((value) => Number(value)),
-  height: z
-    .string()
-    .nonempty({ message: 'Altura é obrigatória' })
-    .refine((value) => !isNaN(Number(value)), {
-      message: 'Altura deve ser um número válido',
+    .min(1, { message: 'Idade deve ser maior que 0' })
+    .max(130, { message: 'Idade deve ser menor que 130' }),
+  height: z.coerce
+    .number({
+      required_error: 'Campo obrigatório',
+      invalid_type_error: 'Altura deve ser um número válido',
     })
-    .transform((value) => Number(value)),
-  weight: z
-    .string()
-    .nonempty({ message: 'Peso é obrigatório' })
-    .refine((value) => !isNaN(Number(value)), {
-      message: 'Peso deve ser um número válido',
+    .min(1, { message: 'Altura deve ser maior que 0' })
+    .max(3.0, { message: 'Altura deve ser menor que 3 metros' }),
+  weight: z.coerce
+    .number({
+      required_error: 'Campo obrigatório',
+      invalid_type_error: 'Peso deve ser um número válido',
     })
-    .transform((value) => Number(value)),
+    .min(1, { message: 'Peso deve ser maior que 0' })
+    .max(300, { message: 'Peso deve ser menor 300' }),
   mealPlanAtHome: z.string().optional(),
   foodPreferences: z.string().optional(),
   mealTimes: z.string().optional(),
