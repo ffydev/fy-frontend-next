@@ -2,7 +2,7 @@ import { Avatar, Box, Flex, chakra, Stack } from '@chakra-ui/react'
 
 export default function AboutSpecialist() {
   const textHeading = {
-    heading1: 'André Senna',
+    heading1: 'André Sena',
     heading2:
       'Se você segue sem uma direção ou sem saber o que analisar para identificar seu progresso, tenha a certeza de que você vai se sentir perdido.',
     heading3:

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   Box,
   Flex,
@@ -9,14 +8,14 @@ import {
   Text,
   Button,
   Link,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 import {
   NotePencil,
   HandHeart,
   Barbell,
   ArrowFatRight,
-} from '@phosphor-icons/react';
-import { RevealWrapper } from 'next-reveal';
+} from '@phosphor-icons/react'
+import { RevealWrapper } from 'next-reveal'
 
 export default function CardProgression() {
   const garantiaText = {
@@ -29,10 +28,10 @@ export default function CardProgression() {
     heading3: 'Performance',
     text3:
       'Você pode acompanhar métricas importantes e compará-las com as que você já tem, permitindo que você mantenha sua a eficiência e a produtividade do dia a dia.',
-  };
+  }
   return (
     <>
-      <Stack direction='column' alignItems='center' pt={20}>
+      <Stack direction="column" alignItems="center" pt={20}>
         <Box>
           <Flex
             justifyContent={{ base: 'center', md: 'center' }}
@@ -41,10 +40,10 @@ export default function CardProgression() {
             <SimpleGrid columns={{ base: 2, md: 3 }} spacing={6}>
               <RevealWrapper
                 rotate={{ x: 12, y: 40, z: 0 }}
-                origin='left'
-                delay={100}
+                origin="left"
+                delay={350}
                 duration={500}
-                distance='500px'
+                distance="500px"
                 reset={true}
                 viewOffset={{ top: 25, right: 0, bottom: 10, left: 5 }}
               >
@@ -55,11 +54,10 @@ export default function CardProgression() {
                   boxShadow={'lg'}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter='blur(10px)'
+                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
-                  rounded='2xl'
-                  h={'420'}
+                  rounded="2xl"
                   _hover={{
                     bgColor: 'blackAlpha.600',
                     transition: '0.5s ease-in-out',
@@ -86,30 +84,38 @@ export default function CardProgression() {
                   </Box>
                   <Stack
                     pt={3}
-                    marginInline='auto'
+                    marginInline="auto"
                     spacing={{ base: 8, md: 0 }}
                     direction={{ base: 'column', md: 'row' }}
                   >
-                    <Button 
-                    as={Link} 
-                    href={'#'}
-                    rounded="full"
-                    shadow={'dark-lg'}
-                    style={{ textDecoration: 'none' }}
-                    bgGradient="linear(to-r, blackAlpha.800, blackAlpha.200)" 
-                    size='sm' 
-                    rightIcon={<ArrowFatRight size={16} weight='fill' />}>
-                    Saiba mais
+                    <Button
+                      as={Link}
+                      href={'#'}
+                      rounded="full"
+                      shadow={'dark-lg'}
+                      style={{ textDecoration: 'none' }}
+                      size="sm"
+                      rightIcon={<ArrowFatRight size={16} weight="fill" />}
+                      bgGradient="linear(to-r, blackAlpha.800, blackAlpha.900)"
+                      _hover={{
+                        bgGradient:
+                          'linear(to-r, blackAlpha.700, blackAlpha.800)',
+                        border: '1px',
+                        transform: 'scale(1.1)',
+                        transition: '0.5s',
+                      }}
+                    >
+                      Saiba mais
                     </Button>
                   </Stack>
                 </VStack>
               </RevealWrapper>
               <RevealWrapper
                 rotate={{ x: 12, y: 40, z: 0 }}
-                origin='left'
-                delay={200}
+                origin="left"
+                delay={400}
                 duration={500}
-                distance='500px'
+                distance="500px"
                 reset={true}
                 viewOffset={{ top: 25, right: 0, bottom: 10, left: 5 }}
               >
@@ -120,11 +126,10 @@ export default function CardProgression() {
                   boxShadow={'lg'}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter='blur(10px)'
+                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
-                  rounded='2xl'
-                  h={'420'}
+                  rounded="2xl"
                   _hover={{
                     bgColor: 'blackAlpha.600',
                     transition: '0.5s ease-in-out',
@@ -151,30 +156,38 @@ export default function CardProgression() {
                   </Box>
                   <Stack
                     pt={3}
-                    marginInline='auto'
+                    marginInline="auto"
                     spacing={{ base: 8, md: 0 }}
                     direction={{ base: 'column', md: 'row' }}
                   >
-                    <Button 
-                    as={Link} 
-                    href={'#'}
-                    rounded="full"
-                    shadow={'dark-lg'}
-                    style={{ textDecoration: 'none' }}
-                    bgGradient="linear(to-r, blackAlpha.800, blackAlpha.200)" 
-                    size='sm' 
-                    rightIcon={<ArrowFatRight size={16} weight='fill' />}>
-                    Saiba mais
+                    <Button
+                      as={Link}
+                      href={'#'}
+                      rounded="full"
+                      shadow={'dark-lg'}
+                      style={{ textDecoration: 'none' }}
+                      size="sm"
+                      rightIcon={<ArrowFatRight size={16} weight="fill" />}
+                      bgGradient="linear(to-r, blackAlpha.800, blackAlpha.900)"
+                      _hover={{
+                        bgGradient:
+                          'linear(to-r, blackAlpha.700, blackAlpha.800)',
+                        border: '1px',
+                        transform: 'scale(1.1)',
+                        transition: '0.5s',
+                      }}
+                    >
+                      Saiba mais
                     </Button>
                   </Stack>
                 </VStack>
               </RevealWrapper>
               <RevealWrapper
                 rotate={{ x: 12, y: 40, z: 0 }}
-                origin='left'
-                delay={300}
+                origin="left"
+                delay={450}
                 duration={500}
-                distance='500px'
+                distance="500px"
                 reset={true}
                 viewOffset={{ top: 25, right: 0, bottom: 10, left: 5 }}
               >
@@ -185,11 +198,10 @@ export default function CardProgression() {
                   boxShadow={'lg'}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter='blur(10px)'
+                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
-                  rounded='2xl'
-                  h={'420'}
+                  rounded="2xl"
                   _hover={{
                     bgColor: 'blackAlpha.600',
                     transition: '0.5s ease-in-out',
@@ -216,20 +228,28 @@ export default function CardProgression() {
                   </Box>
                   <Stack
                     pt={3}
-                    marginInline='auto'
+                    marginInline="auto"
                     spacing={{ base: 8, md: 0 }}
                     direction={{ base: 'column', md: 'row' }}
                   >
-                      <Button 
-                    as={Link} 
-                    href={'#'}
-                    rounded="full"
-                    shadow={'dark-lg'}
-                    style={{ textDecoration: 'none' }}
-                    bgGradient="linear(to-r, blackAlpha.800, blackAlpha.200)" 
-                    size='sm' 
-                    rightIcon={<ArrowFatRight size={16} weight='fill' />}>
-                    Saiba mais
+                    <Button
+                      as={Link}
+                      href={'#'}
+                      rounded="full"
+                      shadow={'dark-lg'}
+                      style={{ textDecoration: 'none' }}
+                      size="sm"
+                      rightIcon={<ArrowFatRight size={16} weight="fill" />}
+                      bgGradient="linear(to-r, blackAlpha.800, blackAlpha.900)"
+                      _hover={{
+                        bgGradient:
+                          'linear(to-r, blackAlpha.700, blackAlpha.800)',
+                        border: '1px',
+                        transform: 'scale(1.1)',
+                        transition: '0.5s',
+                      }}
+                    >
+                      Saiba mais
                     </Button>
                   </Stack>
                 </VStack>
@@ -239,5 +259,5 @@ export default function CardProgression() {
         </Box>
       </Stack>
     </>
-  );
+  )
 }
