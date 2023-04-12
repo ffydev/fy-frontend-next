@@ -3,13 +3,13 @@ import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import { IPlan, updatePlan } from '@/pages/api/providers/plans.provider'
 import {
   Box,
-  chakra,
+  Center,
   Editable,
   EditableInput,
   EditablePreview,
+  Flex,
   SimpleGrid,
   Tag,
-  Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -51,11 +51,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
 
   return (
     <>
-      <SimpleGrid columns={1} mt={10} mb={4}>
-        <Box mb={4}>
-          <Text>Acompanhamento</Text>
-        </Box>
-
+      <SimpleGrid columns={1} mt={2}>
         <Box
           p={3}
           width="100%"
@@ -65,11 +61,17 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <chakra.h1 fontSize="lg" lineHeight={6} mt={2}>
-            <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
+          <Center>
+            <Tag mb={3} size={'md'} colorScheme={'gray'} variant={'subtle'}>
+              PLANO
+            </Tag>
+          </Center>
+          <Flex justify={'space-between'}>
+            <Tag size={'md'} colorScheme={'gray'} variant={'subtle'}>
               Início:
             </Tag>
             <Editable
+              mr={5}
               defaultValue={new Date(plan.initDate!).toLocaleDateString()}
             >
               <EditablePreview />
@@ -80,10 +82,8 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
                 onBlur={() => handleUpdatePlan(plan.id!)}
               />
             </Editable>
-          </chakra.h1>
 
-          <chakra.h1 fontSize="lg" lineHeight={6} mt={2}>
-            <Tag size={'md'} colorScheme={'orange'} variant={'subtle'}>
+            <Tag size={'md'} colorScheme={'gray'} variant={'subtle'}>
               Fim:
             </Tag>
             <Editable
@@ -97,10 +97,10 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
                 onBlur={() => handleUpdatePlan(plan.id!)}
               />
             </Editable>
-          </chakra.h1>
+          </Flex>
 
           <SelectUpdate
-            tag={'Tipo de Plano'}
+            tag={'TIPO DE PLANO'}
             value={planTypeId!}
             id={plan.id!}
             setValue={setPlanTypeId}

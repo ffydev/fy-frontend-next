@@ -166,39 +166,42 @@ export function UsersList({
                 />
               </Editable>
 
-              <Editable
-                defaultValue={
-                  user.firstName === '' || user.firstName === null
-                    ? 'Aguardando registro'
-                    : user.firstName
-                }
-              >
-                <EditablePreview />
-                <EditableInput
-                  value={firstName}
-                  onChange={(event) => setFirstName(event.target.value)}
-                  onBlur={() => handleUpdateUser(user.id!)}
-                />
-              </Editable>
+              <Flex justifyContent={'initial'}>
+                <Editable
+                  mr={2}
+                  defaultValue={
+                    user.firstName === '' || user.firstName === null
+                      ? 'Aguardando registro'
+                      : user.firstName
+                  }
+                >
+                  <EditablePreview />
+                  <EditableInput
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                    onBlur={() => handleUpdateUser(user.id!)}
+                  />
+                </Editable>
 
-              <Editable
-                defaultValue={
-                  user.lastName === '' || user.lastName === null
-                    ? 'Aguardando registro'
-                    : user.lastName
-                }
-              >
-                <EditablePreview />
-                <EditableInput
-                  value={lastName}
-                  onChange={(event) => setLastName(event.target.value)}
-                  onBlur={() => handleUpdateUser(user.id!)}
-                />
+                <Editable
+                  defaultValue={
+                    user.lastName === '' || user.lastName === null
+                      ? 'Aguardando registro'
+                      : user.lastName
+                  }
+                >
+                  <EditablePreview />
+                  <EditableInput
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
+                    onBlur={() => handleUpdateUser(user.id!)}
+                  />
+                </Editable>
+              </Flex>
 
-                <FormLabel>
-                  Status: {user.isRegistered ? 'Registrado' : 'Não registrado'}
-                </FormLabel>
-              </Editable>
+              <FormLabel>
+                Status: {user.isRegistered ? 'Registrado' : 'Não registrado'}
+              </FormLabel>
 
               {user.deletedAt && (
                 <Flex>

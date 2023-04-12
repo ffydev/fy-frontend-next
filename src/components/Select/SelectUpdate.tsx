@@ -21,9 +21,9 @@ export function SelectUpdate({
 }: SelectUpdateComponentComponentProps) {
   return (
     <>
-      <FormControl mt={2} isRequired>
+      <FormControl mt={2}>
         <FormLabel>
-          <Tag size={'md'} colorScheme={'orange'}>
+          <Tag size={'md'} colorScheme={'gray'}>
             {tag}
           </Tag>
         </FormLabel>
