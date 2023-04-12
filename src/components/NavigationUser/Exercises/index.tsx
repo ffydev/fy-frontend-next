@@ -5,7 +5,7 @@ import {
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
 import { Box, chakra, Flex, Input, Stack, Text } from '@chakra-ui/react'
-import { Pen } from '@phosphor-icons/react'
+import { Eye, Pen } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -143,13 +143,25 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
-              Descrição:
-              <Text
-                fontWeight={'thin'}
-                visibility={isHovering ? 'visible' : 'hidden'}
-              >
-                {exercise.describe}
-              </Text>
+              Descrição:{' '}
+              <Box minH={30}>
+                {exercise.describe && (
+                  <>
+                    {!isHovering ? (
+                      <Eye size={25} />
+                    ) : (
+                      <>
+                        <Text
+                          fontWeight={'thin'}
+                          visibility={isHovering ? 'visible' : 'hidden'}
+                        >
+                          {exercise.describe}
+                        </Text>
+                      </>
+                    )}
+                  </>
+                )}
+              </Box>
             </chakra.h1>
           </Stack>
         </Box>
