@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks/ContextAuth'
-import { Box } from '@chakra-ui/react'
+import { Box, Center } from '@chakra-ui/react'
 import CompleteUserRegistration from './CompleteUserRegistration'
 import Dashboard from './Dashboard'
 
@@ -11,7 +11,11 @@ export default function NavigationUser() {
       <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
         {!user?.isRegistered ? (
           <>
-            <CompleteUserRegistration />
+            <Center py={[4, 6, 8]}>
+              <Box minH={'100vh'}>
+                <CompleteUserRegistration />
+              </Box>
+            </Center>
           </>
         ) : (
           <>

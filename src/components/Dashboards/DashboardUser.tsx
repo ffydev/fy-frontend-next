@@ -237,7 +237,7 @@ const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
         fontWeight="bold"
         ml={5}
       >
-        Olá, {user?.firstName}
+        {user?.isRegistered && <>Olá, {user?.firstName}</>}
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
@@ -263,7 +263,7 @@ const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
                   ml="2"
                 >
                   <Text fontSize="xs" color="whiteAlpha.900">
-                    {user?.firstName}
+                    {user?.isRegistered && <>Olá, {user?.firstName}</>}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
