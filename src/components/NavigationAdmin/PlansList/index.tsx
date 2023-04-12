@@ -8,8 +8,10 @@ import {
   EditableInput,
   EditablePreview,
   Flex,
+  FormLabel,
   SimpleGrid,
   Tag,
+  Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -66,36 +68,42 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
               PLANO
             </Tag>
           </Center>
+
           <Flex justify={'space-between'}>
-            <Tag size={'md'} colorScheme={'gray'} variant={'subtle'}>
-              INÍCIO:
-            </Tag>
             <Editable
-              mr={5}
               defaultValue={new Date(plan.initDate!).toLocaleDateString()}
             >
-              <EditablePreview />
-              <EditableInput
-                type="date"
-                value={initDate}
-                onChange={(event) => setInitDate(event.target.value)}
-                onBlur={() => handleUpdatePlan(plan.id!)}
-              />
+              <Flex>
+                <Text mt={1} mr={1}>
+                  INÍCIO:
+                </Text>
+
+                <EditablePreview />
+                <EditableInput
+                  type="date"
+                  value={initDate}
+                  onChange={(event) => setInitDate(event.target.value)}
+                  onBlur={() => handleUpdatePlan(plan.id!)}
+                />
+              </Flex>
             </Editable>
 
-            <Tag size={'md'} colorScheme={'gray'} variant={'subtle'}>
-              FIM:
-            </Tag>
             <Editable
               defaultValue={new Date(plan.endDate!).toLocaleDateString()}
             >
-              <EditablePreview />
-              <EditableInput
-                type="date"
-                value={endDate}
-                onChange={(event) => setEndDate(event.target.value)}
-                onBlur={() => handleUpdatePlan(plan.id!)}
-              />
+              <Flex>
+                <Text mt={1} mr={1}>
+                  FINAL:
+                </Text>
+
+                <EditablePreview />
+                <EditableInput
+                  type="date"
+                  value={endDate}
+                  onChange={(event) => setEndDate(event.target.value)}
+                  onBlur={() => handleUpdatePlan(plan.id!)}
+                />
+              </Flex>
             </Editable>
           </Flex>
 
