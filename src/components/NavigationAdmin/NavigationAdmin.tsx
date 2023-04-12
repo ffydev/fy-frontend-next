@@ -32,6 +32,8 @@ export default function NavigationAdmin() {
     setIsShowingFeedbacks,
   } = useAdminProvider()
 
+  console.log('isShowingUsers', isShowingUsers)
+
   const fetchUsersData = useCallback(async () => {
     try {
       const token = getUserToken()
@@ -88,6 +90,14 @@ export default function NavigationAdmin() {
     setIsShowingUsers(!isShowingUsers)
     setuserId('')
   }
+
+  useEffect(() => {
+    return () => {
+      setIsShowingUsers(true)
+      setIsShowingWorkouts(false)
+      setIsShowingFeedbacks(false)
+    }
+  }, [setIsShowingWorkouts, setIsShowingFeedbacks, setIsShowingUsers])
 
   return (
     <>
