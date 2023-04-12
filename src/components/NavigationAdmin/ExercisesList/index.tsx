@@ -186,10 +186,10 @@ export default function ExercisesList({
             </FormLabel>
 
             <FormLabel>
-              Repetições em reserva
+              REPETIÇÕES EM RESERVA
               <Input
                 mb={2}
-                placeholder="Repetições em reserva"
+                placeholder="REPETIÇÕES EM RESERVA"
                 defaultValue={exercise.rir}
                 onChange={(event) => setRir(event.target.value)}
                 onMouseLeave={() => handleUpdateExercise(exercise.id!)}
@@ -197,9 +197,9 @@ export default function ExercisesList({
             </FormLabel>
 
             <FormLabel>
-              Descrição
+              DESCRIÇÃO
               <Input
-                placeholder="Descrição"
+                placeholder="DESCRIÇÃO"
                 defaultValue={exercise.describe}
                 onChange={(event) => setDescribe(event.target.value)}
                 onMouseLeave={() => handleUpdateExercise(exercise.id!)}
