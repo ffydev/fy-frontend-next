@@ -120,7 +120,12 @@ export default function ExercisesList({
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <Stack direction={'column'} spacing={6} w={'full'}>
+          <Stack
+            direction={'column'}
+            spacing={5}
+            w={'full'}
+            textColor={'whiteAlpha.800'}
+          >
             <Flex minW="auto">
               <Spacer />{' '}
               <CloseButton

@@ -1,6 +1,6 @@
 import { IWorkout } from '@/pages/api/providers/workouts.provider'
 import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
-import ExercisesList from '../Exercises/exercises'
+import ExercisesList from '../Exercises/'
 
 interface WorkoutsProps {
   workouts: IWorkout[]
@@ -24,7 +24,7 @@ export function WorkoutsList({ workouts }: WorkoutsProps) {
           minWidth="250px"
         >
           <Stack direction={['column', 'row']} w={'full'}>
-            <SimpleGrid columns={{ base: 1, md: 5 }} spacing={5} w={'full'}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} w={'full'}>
               {workout.exercises && workout.exercises.length > 0 && (
                 <ExercisesList exercises={workout.exercises} />
               )}

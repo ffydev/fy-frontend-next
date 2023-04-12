@@ -81,7 +81,7 @@ export function Workouts() {
 
   return (
     <>
-      <Container maxW="7xl" p={{ base: 3, md: 1 }} m={3}>
+      <Container maxW="7xl" p={{ base: 3, md: 1 }}>
         <Stack maxW={'auto'}>
           <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
             <TabList>
