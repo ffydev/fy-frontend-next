@@ -62,7 +62,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           boxShadow={'lg'}
         >
           <Tag mb={3} size={'md'} bgGradient={'gray'} variant={'subtle'}>
-            PLANO
+            Plano
           </Tag>
 
           <Flex justify={'space-between'}>
@@ -71,7 +71,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
             >
               <Flex>
                 <Text mt={1} mr={1}>
-                  INÍCIO:
+                  Início:
                 </Text>
 
                 <EditablePreview />
@@ -89,7 +89,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
             >
               <Flex>
                 <Text mt={1} mr={1}>
-                  FINAL:
+                  Final:
                 </Text>
 
                 <EditablePreview />
@@ -104,7 +104,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           </Flex>
 
           <SelectUpdate
-            tag={'TIPO DE PLANO'}
+            tag={'Tipo de Plano'}
             value={planTypeId!}
             id={plan.id!}
             setValue={setPlanTypeId}
