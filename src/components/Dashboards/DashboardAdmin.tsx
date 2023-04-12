@@ -1,7 +1,5 @@
 import { useAuth } from '@/hooks/ContextAuth'
-import { IUser } from '@/pages/api/providers/auth.provider'
 import {
-  Avatar,
   Box,
   BoxProps,
   Button,
@@ -10,25 +8,17 @@ import {
   DrawerContent,
   Flex,
   FlexProps,
-  HStack,
   Icon,
-  IconButton,
   Link,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-  Text,
   useDisclosure,
-  VStack,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
-import { FiBell, FiChevronDown, FiHome, FiMenu } from 'react-icons/fi'
+import { FiHome } from 'react-icons/fi'
 import NavigationAdmin from '../NavigationAdmin/NavigationAdmin'
+import MobileNav from './MobileNav'
 
 interface LinkItemProps {
   name: string
@@ -193,134 +183,5 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Link>
-  )
-}
-interface MobileProps extends FlexProps {
-  onOpen: () => void
-  user?: IUser
-  signOut: () => void
-}
-const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
-  const [nameInitial, setNameInitial] = useState<string>('')
-
-  function getingFirstNameInitials(name: string) {
-    if (name !== '' && name !== undefined && name !== null) {
-      const nameSplited = name.split(' ')
-      const firstName = nameSplited[0]
-
-      return setNameInitial(`${firstName[0]}}`)
-    }
-  }
-
-  useEffect(() => {
-    getingFirstNameInitials(user!.firstName)
-  })
-
-  return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 4 }}
-      height="20"
-      alignItems="center"
-      bgColor={'blackAlpha.50'}
-      backdropBlur={'1rem'}
-      backdropFilter={'auto'}
-      borderBottomWidth="1px"
-      borderBottomColor={'whiteAlpha.100'}
-      justifyContent={'space-between'}
-      {...rest}
-    >
-      <IconButton
-        display={{ base: 'flex', md: 'none' }}
-        onClick={onOpen}
-        variant="outline"
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
-
-      <Text
-        fontSize={['sm', 'lg']}
-        fontFamily="monospace"
-        fontWeight="bold"
-        ml={5}
-      >
-        Olá, {user?.firstName}
-      </Text>
-
-      <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
-        <Flex alignItems={'center'}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: 'none' }}
-            >
-              <HStack>
-                <Avatar
-                  size={'md'}
-                  src={''}
-                  name={nameInitial}
-                  bg={'purple.400'}
-                />
-                <VStack
-                  display={{ base: 'none', md: 'flex' }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="xs" color="whiteAlpha.900">
-                    {user?.firstName}
-                  </Text>
-                </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              border={'1px'}
-              borderColor={'whiteAlpha.200'}
-              bgColor={'whiteAlpha.100'}
-              backdropFilter="auto"
-              backdropBlur="1rem"
-              boxShadow={'lg'}
-            >
-              <MenuItem
-                _hover={{
-                  bgColor: 'blackAlpha.400',
-                  rounded: 'lg',
-                }}
-              >
-                Perfil
-              </MenuItem>
-              <MenuItem
-                _hover={{
-                  bgColor: 'blackAlpha.400',
-                  rounded: 'lg',
-                }}
-              >
-                Configuração
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem
-                onClick={() => signOut()}
-                _hover={{
-                  bgColor: 'blackAlpha.400',
-                  rounded: 'lg',
-                }}
-              >
-                Sair
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-      </HStack>
-    </Flex>
   )
 }
