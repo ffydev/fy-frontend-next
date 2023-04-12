@@ -274,7 +274,7 @@ const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
                   size={'md'}
                   src={''}
                   name={nameInitial}
-                  bg={'orange.400'}
+                  bg={'purple.400'}
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
