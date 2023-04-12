@@ -10,24 +10,24 @@ export default function Dashboard() {
   const {
     isShowingWorkouts,
     isShowAnamnesis,
-    handleWithShowWorkouts,
-    handleWithShowAnamnesis,
+    setIsShowingWorkouts,
+    setIsShowAnamnesis,
   } = useContext(ContextDashboardUser)
   const [isShowingDashboard, setIsShowingDashboard] = useState<boolean>(true)
 
   const handleWithDashboard = () => {
-    handleWithShowWorkouts(false)
-    handleWithShowAnamnesis(false)
+    setIsShowingWorkouts(false)
+    setIsShowAnamnesis(false)
     setIsShowingDashboard(true)
   }
 
   const handleWithWorkouts = () => {
-    handleWithShowWorkouts(true)
+    setIsShowingWorkouts(true)
     setIsShowingDashboard(false)
   }
 
   const handleWithAnamnesis = () => {
-    handleWithShowAnamnesis(true)
+    setIsShowAnamnesis(true)
     setIsShowingDashboard(false)
   }
 

@@ -3,15 +3,15 @@ import React, { createContext, useState } from 'react'
 export interface ContextData {
   isShowingWorkouts: boolean
   isShowAnamnesis: boolean
-  handleWithShowWorkouts(isShowingWorkouts: boolean): void
-  handleWithShowAnamnesis(isShowAnamnesis: boolean): void
+  setIsShowingWorkouts(isShowingWorkouts: boolean): void
+  setIsShowAnamnesis(isShowAnamnesis: boolean): void
 }
 
 export const ContextDashboardUser = createContext<ContextData>({
   isShowingWorkouts: false,
   isShowAnamnesis: false,
-  handleWithShowWorkouts: () => {},
-  handleWithShowAnamnesis: () => {},
+  setIsShowingWorkouts: () => {},
+  setIsShowAnamnesis: () => {},
 })
 
 type ContextDashboardUserProviderProps = {
@@ -24,21 +24,13 @@ export default function ContextDashboardUserProvider({
   const [isShowingWorkouts, setIsShowingWorkouts] = useState<boolean>(false)
   const [isShowAnamnesis, setIsShowAnamnesis] = useState<boolean>(false)
 
-  const handleWithShowWorkouts = (isShowingWorkouts: boolean) => {
-    setIsShowingWorkouts(isShowingWorkouts)
-  }
-
-  const handleWithShowAnamnesis = (isShowAnamnesis: boolean) => {
-    setIsShowAnamnesis(isShowAnamnesis)
-  }
-
   return (
     <ContextDashboardUser.Provider
       value={{
         isShowingWorkouts,
         isShowAnamnesis,
-        handleWithShowWorkouts,
-        handleWithShowAnamnesis,
+        setIsShowingWorkouts,
+        setIsShowAnamnesis,
       }}
     >
       {children}
