@@ -32,8 +32,6 @@ export default function NavigationAdmin() {
     setIsShowingFeedbacks,
   } = useAdminProvider()
 
-  console.log('isShowingUsers', isShowingUsers)
-
   const fetchUsersData = useCallback(async () => {
     try {
       const token = getUserToken()
