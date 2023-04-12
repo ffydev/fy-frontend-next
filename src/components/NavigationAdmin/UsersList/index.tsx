@@ -1,4 +1,3 @@
-import HandleButton from '@/components/Buttons/HandleButton'
 import { CardButton } from '@/components/Buttons/UserCardButton'
 import PlanList from '@/components/NavigationAdmin/PlansList'
 import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
@@ -19,7 +18,6 @@ import {
   Spacer,
   Stack,
 } from '@chakra-ui/react'
-import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
@@ -188,17 +186,12 @@ export function UsersList({
                     user.deletedAt!,
                   ).toLocaleDateString()}`}</FormLabel>
 
-                  <HandleButton
-                    text="Ativar"
-                    color={'whiteAlpga.900'}
-                    _hover={{
-                      bg: 'whiteAlpha.700',
-                      transition: '0.4s',
-                    }}
-                    leftIcon={
-                      <ArrowArcLeft size={20} color="#DD6B20" weight="fill" />
-                    }
+                  <CardButton
+                    title={'Ativar'}
+                    background={'purple.400'}
+                    size={'xs'}
                     onClick={() => handleWithActiveUser(user.id)}
+                    value={user.id}
                   />
                 </Flex>
               )}
