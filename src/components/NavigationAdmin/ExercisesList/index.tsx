@@ -10,12 +10,10 @@ import {
 } from '@/pages/api/providers/exercises.provider'
 import {
   Box,
-  chakra,
   CloseButton,
-  Editable,
-  EditableInput,
-  EditablePreview,
   Flex,
+  FormLabel,
+  Input,
   Spacer,
   Stack,
 } from '@chakra-ui/react'
@@ -122,7 +120,7 @@ export default function ExercisesList({
         >
           <Stack
             direction={'column'}
-            spacing={5}
+            spacing={1}
             w={'full'}
             textColor={'whiteAlpha.800'}
           >
@@ -154,71 +152,59 @@ export default function ExercisesList({
               valuesMap={exerciseNames}
             />
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
-              Séries:
-              <Editable defaultValue={`${exercise.sets}`}>
-                <EditablePreview />
-                <EditableInput
-                  value={sets}
-                  onChange={(event) => setSets(event.target.value)}
-                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
-                />
-              </Editable>
-            </chakra.h1>
+            <FormLabel>
+              SÉRIES
+              <Input
+                mb={2}
+                placeholder="Séries"
+                defaultValue={exercise.sets}
+                onChange={(event) => setSets(event.target.value)}
+                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+              />
+            </FormLabel>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
-              Repetições:
-              <Editable defaultValue={`${exercise.reps}`}>
-                <EditablePreview />
-                <EditableInput
-                  value={reps}
-                  onChange={(event) => setReps(event.target.value)}
-                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
-                />
-              </Editable>
-            </chakra.h1>
+            <FormLabel>
+              REPETIÇÕES
+              <Input
+                mb={2}
+                placeholder="Repetições"
+                defaultValue={exercise.reps}
+                onChange={(event) => setReps(event.target.value)}
+                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+              />
+            </FormLabel>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
-              Carga:
-              <Editable defaultValue={`${exercise.weight}`}>
-                <EditablePreview />
-                <EditableInput
-                  value={weight}
-                  onChange={(event) => setWeight(event.target.value)}
-                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
-                />
-              </Editable>
-            </chakra.h1>
+            <FormLabel>
+              CARGA
+              <Input
+                mb={2}
+                placeholder="Carga"
+                defaultValue={exercise.weight}
+                onChange={(event) => setWeight(event.target.value)}
+                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+              />
+            </FormLabel>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
-              Repetições em reserva:
-              <Editable
-                defaultValue={exercise.rir ? exercise.rir : 'falha/falha/falha'}
-              >
-                <EditablePreview />
-                <EditableInput
-                  value={rir}
-                  onChange={(event) => setRir(event.target.value)}
-                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
-                />
-              </Editable>
-            </chakra.h1>
+            <FormLabel>
+              Repetições em reserva
+              <Input
+                mb={2}
+                placeholder="Repetições em reserva"
+                defaultValue={exercise.rir}
+                onChange={(event) => setRir(event.target.value)}
+                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+              />
+            </FormLabel>
 
-            <chakra.h1 fontSize="lg" lineHeight={6}>
-              Descrição:
-              <Editable
-                defaultValue={
-                  exercise.describe ? exercise.describe : 'Sem descrição'
-                }
-              >
-                <EditablePreview />
-                <EditableInput
-                  value={describe}
-                  onChange={(event) => setDescribe(event.target.value)}
-                  onMouseLeave={() => handleUpdateExercise(exercise.id!)}
-                />
-              </Editable>
-            </chakra.h1>
+            <FormLabel>
+              Descrição
+              <Input
+                placeholder="Descrição"
+                defaultValue={exercise.describe}
+                onChange={(event) => setDescribe(event.target.value)}
+                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+              />
+            </FormLabel>
           </Stack>
         </Box>
       ))}

@@ -28,6 +28,7 @@ export function SelectUpdate({
           </Tag>
         </FormLabel>
         <Select
+          mb={2}
           bg={'whiteAlpha.100'}
           color={'white'}
           size={'md'}
