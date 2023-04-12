@@ -68,7 +68,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           </Center>
           <Flex justify={'space-between'}>
             <Tag size={'md'} colorScheme={'gray'} variant={'subtle'}>
-              Início:
+              INÍCIO:
             </Tag>
             <Editable
               mr={5}
@@ -84,7 +84,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
             </Editable>
 
             <Tag size={'md'} colorScheme={'gray'} variant={'subtle'}>
-              Fim:
+              FIM:
             </Tag>
             <Editable
               defaultValue={new Date(plan.endDate!).toLocaleDateString()}
