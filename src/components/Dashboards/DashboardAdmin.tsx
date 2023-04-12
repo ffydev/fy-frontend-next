@@ -201,6 +201,21 @@ interface MobileProps extends FlexProps {
   signOut: () => void
 }
 const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
+  const [nameInitial, setNameInitial] = useState<string>('')
+
+  function getingFirstNameInitials(name: string) {
+    if (name !== '' && name !== undefined && name !== null) {
+      const nameSplited = name.split(' ')
+      const firstName = nameSplited[0]
+
+      return setNameInitial(`${firstName[0]}}`)
+    }
+  }
+
+  useEffect(() => {
+    getingFirstNameInitials(user!.firstName)
+  })
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -247,14 +262,21 @@ const MobileNav = ({ onOpen, user, signOut, ...rest }: MobileProps) => {
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
-                <Avatar size={'md'} src={''} name={'Admin'} bg={'orange.400'} />
+                <Avatar
+                  size={'md'}
+                  src={''}
+                  name={nameInitial}
+                  bg={'orange.400'}
+                />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">{user?.firstName}</Text>
+                  <Text fontSize="xs" color="whiteAlpha.900">
+                    {user?.firstName}
+                  </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
