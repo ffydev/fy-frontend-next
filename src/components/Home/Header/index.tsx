@@ -7,6 +7,7 @@ import ScrollDown from '../ScrollDown'
 import CardProgression from '../CardProgression'
 import Footer from '../Footer'
 import { RevealWrapper } from 'next-reveal'
+import { StudentDepoiment } from '../StudentDepoiment'
 
 export function Header() {
   return (
@@ -113,6 +114,7 @@ export function Header() {
               <ScrollDown />
               <CardProgression />
               <Progression />
+              <StudentDepoiment />
               <AboutSpecialist />
             </Box>
           </Container>
