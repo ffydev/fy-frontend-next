@@ -153,7 +153,7 @@ export default function ExercisesList({
             />
 
             <FormLabel>
-              SÉRIES
+              Séries
               <Input
                 mb={2}
                 placeholder="Séries"
@@ -164,7 +164,7 @@ export default function ExercisesList({
             </FormLabel>
 
             <FormLabel>
-              REPETIÇÕES
+              Repetições
               <Input
                 mb={2}
                 placeholder="Repetições"
@@ -175,7 +175,7 @@ export default function ExercisesList({
             </FormLabel>
 
             <FormLabel>
-              CARGA
+              Carga
               <Input
                 mb={2}
                 placeholder="Carga"
@@ -186,10 +186,10 @@ export default function ExercisesList({
             </FormLabel>
 
             <FormLabel>
-              REPETIÇÕES EM RESERVA
+              Repetições em reserva
               <Input
                 mb={2}
-                placeholder="REPETIÇÕES EM RESERVA"
+                placeholder="Repetições em reserva"
                 defaultValue={exercise.rir}
                 onChange={(event) => setRir(event.target.value)}
                 onMouseLeave={() => handleUpdateExercise(exercise.id!)}
@@ -197,9 +197,9 @@ export default function ExercisesList({
             </FormLabel>
 
             <FormLabel>
-              DESCRIÇÃO
+              Descrição
               <Input
-                placeholder="DESCRIÇÃO"
+                placeholder="Descrição"
                 defaultValue={exercise.describe}
                 onChange={(event) => setDescribe(event.target.value)}
                 onMouseLeave={() => handleUpdateExercise(exercise.id!)}

@@ -81,18 +81,12 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 fontWeight={'medium'}
                 fontSize="sm"
                 lineHeight={6}
-                textTransform={'uppercase'}
               >
                 {exercise.exerciseType?.name}
               </chakra.h1>
             </Center>
 
-            <chakra.h1
-              fontWeight={'medium'}
-              fontSize="md"
-              lineHeight={6}
-              textTransform={'uppercase'}
-            >
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               {exercise.exerciseNames?.name}
             </chakra.h1>
 
@@ -102,13 +96,13 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             </chakra.h1>
 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              REPETIÇÕES:
+              Repetições:
               <Text>{exercise.reps}</Text>
             </chakra.h1>
 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               <Flex>
-                CARGA: <Pen size={20} />
+                Carga: <Pen size={20} />
               </Flex>
               <Input
                 defaultValue={exercise.weight}
@@ -117,12 +111,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               />
             </chakra.h1>
 
-            <chakra.h1
-              fontWeight={'medium'}
-              fontSize="md"
-              lineHeight={6}
-              textTransform={'uppercase'}
-            >
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Repetições em reserva:
               <Text>{exercise.rir}</Text>
             </chakra.h1>
@@ -131,7 +120,6 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               fontWeight={'medium'}
               fontSize="md"
               lineHeight={6}
-              textTransform={'uppercase'}
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
