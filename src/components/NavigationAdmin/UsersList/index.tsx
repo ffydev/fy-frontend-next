@@ -108,8 +108,7 @@ export function UsersList({
     <>
       <Box
         mt={3}
-        p={2}
-        width="100%"
+        p={4}
         rounded={'lg'}
         border={'1px'}
         bgColor={'whiteAlpha.50'}
