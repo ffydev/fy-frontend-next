@@ -82,7 +82,7 @@ export default function UserCreate({
         router.push('/login')
         return
       }
-      console.log(data.userTypeId, data.planTypeId)
+
       await createUser(token, {
         email: data.email,
         password: data.password,
