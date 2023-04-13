@@ -43,7 +43,11 @@ const createUserFormSchema = z
           .map((word) => word[0].toUpperCase() + word.slice(1))
           .join(' '),
       ),
-    password: z.string().nonempty({ message: 'Campo obrigatório' }),
+    password: z
+      .string()
+      .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
+      .max(200, { message: 'A senha deve ter no máximo 200 caracteres' })
+      .nonempty({ message: 'Campo obrigatório' }),
     confirmPassword: z.string().nonempty({ message: 'Campo obrigatório' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
