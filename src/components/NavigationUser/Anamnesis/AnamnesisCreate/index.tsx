@@ -246,9 +246,6 @@ export default function AnamnesisCreate() {
             <Box mt={3}>
               <HandleButton
                 text="Enviar"
-                color={'blackAlpha.900'}
-                bgColor={'white'}
-                _hover={{ bgColor: 'orange.400', transform: '0.3s' }}
                 leftIcon={<Plus size={30} color="black" weight="fill" />}
                 w={'full'}
                 type={'submit'}

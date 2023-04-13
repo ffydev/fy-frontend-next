@@ -3,8 +3,6 @@ import { Button } from '@chakra-ui/react'
 interface ButtonProps {
   text?: string
   color?: string
-  bgColor?: string
-  _hover?: any
   leftIcon?: any
   w?: string
   onClick?: () => void
@@ -13,9 +11,6 @@ interface ButtonProps {
 
 export default function HandleButton({
   text,
-  color,
-  bgColor,
-  _hover,
   leftIcon,
   w,
   onClick,
@@ -24,11 +19,14 @@ export default function HandleButton({
   return (
     <>
       <Button
-        color={color}
+        bgGradient={'linear(to-r, purple.600, purple.700)'}
+        textColor={'white'}
         mr={3}
         onClick={onClick}
-        bgColor={bgColor}
-        _hover={_hover}
+        _hover={{
+          bg: 'whiteAlpha.800',
+          transition: '0.8s',
+        }}
         w={w}
         leftIcon={leftIcon}
         type={type}

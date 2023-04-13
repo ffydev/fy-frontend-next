@@ -109,14 +109,8 @@ export default function WorkoutsHeader({
               <Stack>
                 <HandleButton
                   text="Cadastrar Workout"
-                  color={'blackAlpha.900'}
-                  bgColor={'whiteAlpha.900'}
-                  _hover={{
-                    bg: 'whiteAlpha.700',
-                    transition: '0.4s',
-                  }}
-                  type="submit"
                   leftIcon={<Plus weight="bold" />}
+                  type="submit"
                 />
               </Stack>
             </FormControl>

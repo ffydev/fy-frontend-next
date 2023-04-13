@@ -133,12 +133,6 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
             >
               <HandleButton
                 text="Adicionar Exercício"
-                color={'blackAlpha.900'}
-                bgColor={'whiteAlpha.900'}
-                _hover={{
-                  bg: 'whiteAlpha.700',
-                  transition: '0.4s',
-                }}
                 leftIcon={<Plus weight="bold" />}
                 onClick={() =>
                   handleCreateExercise(
