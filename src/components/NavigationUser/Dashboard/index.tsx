@@ -15,8 +15,6 @@ export default function Dashboard() {
   } = useUserProvider()
   const [isShowingDashboard, setIsShowingDashboard] = useState<boolean>(true)
 
-  console.log(isShowingWorkouts)
-
   const handleWithDashboard = () => {
     setIsShowingWorkouts(false)
     setIsShowAnamnesis(false)
@@ -61,8 +59,10 @@ export default function Dashboard() {
       setIsShowingWorkouts(false)
       setIsShowAnamnesis(false)
     }
-  }, [setIsShowingWorkouts, setIsShowAnamnesis])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+  console.log('teste')
   return (
     <>
       {isShowingDashboard && (
