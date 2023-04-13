@@ -10,7 +10,10 @@ import {
   IExerciseType,
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
-import { findWorkoutsByUserId, IWorkout } from '@/pages/api/providers/workouts.provider'
+import {
+  findWorkoutsByUserId,
+  IWorkout,
+} from '@/pages/api/providers/workouts.provider'
 import { Box, CloseButton, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
@@ -55,20 +58,19 @@ export function WorkoutsLists({
           workoutId,
           exerciseNameId,
           exerciseTypeId,
-        })    
-        
+        })
+
         const workoutUpdated = await findWorkoutsByUserId(
           token,
           workoutId as string,
           userId as string,
         )
         setWorkouts(workoutUpdated)
-
       } catch (error) {
         console.error(error)
-      } 
+      }
     },
-    [router],
+    [router, setWorkouts, userId],
   )
 
   const fetchExercisesTypesData = useCallback(async () => {
