@@ -229,16 +229,15 @@ export default function UserCreate({
 
             <ModalFooter>
               <HandleButton
-                text="Criar"
+                text="Cadastrar Usuário"
                 color={'blackAlpha.900'}
                 bgColor={'whiteAlpha.900'}
                 _hover={{
-                  bg: 'whiteAlpha.600',
+                  bg: 'whiteAlpha.700',
                   transition: '0.4s',
                 }}
-                leftIcon={<Plus size={30} color="black" weight="fill" />}
-                w={'full'}
-                type={'submit'}
+                type="submit"
+                leftIcon={<Plus weight="bold" />}
               />
               <HandleButton text={'Cancelar'} onClick={onClose} />
             </ModalFooter>

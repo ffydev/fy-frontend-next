@@ -1,11 +1,20 @@
-import { Box, Flex, FormControl, Heading, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  FormControl,
+  Heading,
+  Select,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
-import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
-import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus } from '@phosphor-icons/react'
+import { z } from 'zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 interface WorkoutsHeaderProps {
   userId: string
@@ -39,36 +48,47 @@ const workoutTypes = [
   },
 ]
 
+const createUserFormSchema = z.object({
+  workoutType: z.string().nonempty({ message: 'Selecione o workout' }),
+})
+
+type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
+
 export default function WorkoutsHeader({
   userId,
   fetchWorkoutsNames,
 }: WorkoutsHeaderProps) {
   const router = useRouter()
-  const [workoutType, setWorkoutType] = useState<string>('')
 
-  const handleCreateWorkout = useCallback(
-    async (userId: string) => {
-      try {
-        const token = getUserToken()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<createUserFormSchemaType>({
+    resolver: zodResolver(createUserFormSchema),
+  })
 
-        if (!token) {
-          // Implementar mensagem personalizada
-          router.push('/login')
-          return
-        }
+  const onSubmit: SubmitHandler<createUserFormSchemaType> = async (data) => {
+    try {
+      const token = getUserToken()
 
-        await createWorkout(token, {
-          userId,
-          workoutType,
-        })
-      } catch (error) {
-        console.error(error)
-      } finally {
-        fetchWorkoutsNames()
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
       }
-    },
-    [fetchWorkoutsNames, router, workoutType],
-  )
+
+      await createWorkout(token, {
+        userId,
+        workoutType: data.workoutType,
+      })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      fetchWorkoutsNames()
+    }
+  }
+
   return (
     <>
       <Box>
@@ -83,31 +103,54 @@ export default function WorkoutsHeader({
         </Heading>
       </Box>
       <Stack direction={['column', 'row']} spacing={3} w={'100%'} mb={4}>
-        <Flex>
-          <FormControl width={'100%'}>
-            <Stack>
-              <HandleButton
-                text="Adicionar Workout"
-                color={'blackAlpha.900'}
-                bgColor={'whiteAlpha.900'}
-                _hover={{
-                  bg: 'whiteAlpha.700',
-                  transition: '0.4s',
-                }}
-                leftIcon={<Plus weight="bold" />}
-                onClick={() => handleCreateWorkout(userId!)}
-              />
-            </Stack>
-          </FormControl>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Flex>
+            <FormControl width={'100%'}>
+              <Stack>
+                <HandleButton
+                  text="Cadastrar Workout"
+                  color={'blackAlpha.900'}
+                  bgColor={'whiteAlpha.900'}
+                  _hover={{
+                    bg: 'whiteAlpha.700',
+                    transition: '0.4s',
+                  }}
+                  type="submit"
+                  leftIcon={<Plus weight="bold" />}
+                />
+              </Stack>
+            </FormControl>
 
-          <SelectSettingValue
-            tag={'Tipo de workout'}
-            value={workoutType}
-            setValue={setWorkoutType}
-            mapValues={workoutTypes}
-            borderColor={'whiteAlpha.900'}
-          />
-        </Flex>
+            <FormControl>
+              <Select
+                bgGradient={[
+                  'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+                  'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
+                ]}
+                defaultValue="" // Adicionar o atributo defaultValue
+                {...register('workoutType')}
+              >
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  disabled
+                  value=""
+                >
+                  Tipo de Workout
+                </option>
+                {workoutTypes.map((workoutType: any) => (
+                  <option
+                    style={{ backgroundColor: '#322659' }}
+                    key={workoutType.id}
+                    value={workoutType.id}
+                  >
+                    {workoutType.name}
+                  </option>
+                ))}
+              </Select>
+              {errors.workoutType && <Text>{errors.workoutType.message}</Text>}
+            </FormControl>
+          </Flex>
+        </form>
       </Stack>
     </>
   )
