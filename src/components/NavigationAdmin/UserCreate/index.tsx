@@ -217,6 +217,7 @@ export default function UserCreate({
 
             <ModalFooter>
               <HandleButton
+                mr={3}
                 text="Cadastrar Usuário"
                 leftIcon={<Plus weight="bold" />}
                 type="submit"
