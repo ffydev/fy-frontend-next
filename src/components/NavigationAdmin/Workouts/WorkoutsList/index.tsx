@@ -129,10 +129,18 @@ export function WorkoutsLists({
           backdropFilter="blur(5px)"
           minWidth="250px"
         >
+          <Flex justifyContent={'end'} mb={3}>
+            {' '}
+            <CloseButton
+              onClick={() => handleWithDeleteWorkout(workout.id!)}
+              size="sm"
+            />{' '}
+          </Flex>
+
           <Stack direction={['column', 'row']} spacing={6} w={'full'}>
             <SimpleGrid
-              columns={{ base: 1, md: 4 }}
-              spacing={4}
+              columns={{ base: 1, md: 3 }}
+              spacing={3}
               mb={4}
               w={'full'}
             >
@@ -161,13 +169,6 @@ export function WorkoutsLists({
                 mapValues={exerciseNames}
                 borderColor={'whiteAlpha.900'}
               />
-
-              <Flex justifySelf={'end'}>
-                <CloseButton
-                  onClick={() => handleWithDeleteWorkout(workout.id!)}
-                  size="sm"
-                />
-              </Flex>
 
               {workout.exercises && workout.exercises.length > 0 && (
                 <ExercisesList
