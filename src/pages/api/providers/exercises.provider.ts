@@ -45,6 +45,27 @@ export async function updateExercise(
   }
 }
 
+export async function updateExerciseByUser(
+  token: string,
+  id: string,
+  exercise: IExercise,
+): Promise<IExercise> {
+  try {
+    const response = await api.patch<IExercise>(
+      `/exercises/exercise-by-user/${id}`,
+      exercise,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to create user', error)
+    throw error
+  }
+}
+
 export async function createExercise(
   token: string,
   exercise: IExercise,

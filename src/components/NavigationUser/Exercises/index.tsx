@@ -2,7 +2,7 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findExerciseById,
   IExercise,
-  updateExercise,
+  updateExerciseByUser,
 } from '@/pages/api/providers/exercises.provider'
 import { Box, Center, chakra, Flex, Input, Stack, Text } from '@chakra-ui/react'
 import { Eye, Pen } from '@phosphor-icons/react'
@@ -29,7 +29,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
     }
 
     try {
-      await updateExercise(token, id, {
+      await updateExerciseByUser(token, id, {
         weight: weight ? +weight : undefined,
       })
 
