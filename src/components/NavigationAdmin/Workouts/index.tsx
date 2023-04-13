@@ -13,11 +13,11 @@ import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 
 export function Workouts() {
   const router = useRouter()
-  const { userId, isFetchingWorkoutsNames, isFetchingWorkouts } = useAdminProvider()
+  const { userId, isFetchingWorkoutsNames } = useAdminProvider()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
-  
+
   const fetchWorkoutsNames = useCallback(async () => {
     try {
       const token = getUserToken()
@@ -63,13 +63,11 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-
   }, [router, userId, selectedWorkoutId])
 
   useEffect(() => {
     fetchUserWorkouts()
-  }, [isFetchingWorkouts, selectedWorkoutId])
-
+  }, [selectedWorkoutId])
 
   const handleWithDeleteWorkout = async (id: string) => {
     const token = getUserToken()
