@@ -105,3 +105,24 @@ export async function updateUser(
     throw error
   }
 }
+
+export async function updateUserByUser(
+  token: string,
+  id: string,
+  user: IUpdateUser,
+): Promise<IUserInterface> {
+  try {
+    const response = await api.patch<IUserInterface>(
+      `/users/update-by-user/${id}`,
+      user,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to create user', error)
+    throw error
+  }
+}
