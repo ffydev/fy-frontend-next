@@ -5,20 +5,19 @@ import {
   findWorkoutsNamesByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
+import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useContext, useEffect, useState } from 'react'
-import WorkoutsHeader from './WorkoutsHeader'
+import { useCallback, useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
-import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
+import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 
 export function Workouts() {
   const router = useRouter()
-  const { userId } = useContext(ContextDashboardAdmin)
+  const { userId, isFetchingWorkoutsNames, isFetchingWorkouts } = useAdminProvider()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
-  const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
-
+  const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
+  
   const fetchWorkoutsNames = useCallback(async () => {
     try {
       const token = getUserToken()
@@ -31,17 +30,17 @@ export function Workouts() {
 
       const response = await findWorkoutsNamesByUserId(token, userId as string)
 
-      if (response && response.length > 0 && selectedWorkoutId === '') {
-        setSelectedWorkoutId(response?.[0].id!)
-      }
-
       setWorkoutsNames(response)
     } catch (error) {
       console.error(error)
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, userId, selectedWorkoutId])
+  }, [router, userId, isFetchingWorkoutsNames])
+
+  useEffect(() => {
+    fetchWorkoutsNames()
+  }, [isFetchingWorkoutsNames])
 
   const fetchUserWorkouts = useCallback(async () => {
     try {
@@ -64,19 +63,13 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, selectedWorkoutId, userId])
 
-  const handleWithSettingWorkoutId = (workoutId: string) => {
-    setSelectedWorkoutId(workoutId)
-  }
-
-  useEffect(() => {
-    fetchWorkoutsNames()
-  }, [fetchWorkoutsNames])
+  }, [router, userId, selectedWorkoutId])
 
   useEffect(() => {
     fetchUserWorkouts()
-  }, [selectedWorkoutId, fetchWorkoutsNames, fetchUserWorkouts])
+  }, [isFetchingWorkouts, selectedWorkoutId])
+
 
   const handleWithDeleteWorkout = async (id: string) => {
     const token = getUserToken()
@@ -91,7 +84,6 @@ export function Workouts() {
       await deleteWorkout(token, id)
       const updatedWorkouts = updatingWorkoutsState(workoutsNames, id)
       setWorkoutsNames(updatedWorkouts)
-      setSelectedWorkoutId(workoutsNames?.[0].id!)
     } catch (error) {
       console.error(error)
     }
@@ -103,32 +95,24 @@ export function Workouts() {
 
   return (
     <>
-      <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-        <Stack maxW={'auto'}>
-          <WorkoutsHeader
-            userId={userId}
-            fetchWorkoutsNames={fetchWorkoutsNames}
-          />
-          <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
-            <TabList>
-              {workoutsNames?.map((workout: IWorkout) => (
-                <Tab
-                  key={workout.id}
-                  onClick={() => handleWithSettingWorkoutId(workout.id!)}
-                  mb={4}
-                >
-                  Workout: {workout.workoutType}
-                </Tab>
-              ))}
-            </TabList>
-            <WorkoutsLists
-              workouts={workouts}
-              fetchUserWorkouts={fetchUserWorkouts}
-              handleWithDeleteWorkout={handleWithDeleteWorkout}
-            />
-          </Tabs>
-        </Stack>
-      </Container>
+      <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
+        <TabList>
+          {workoutsNames?.map((workout: IWorkout) => (
+            <Tab
+              key={workout.id}
+              onClick={() => setSelectedWorkoutId(workout.id!)}
+              mb={4}
+            >
+              Workout: {workout.workoutType}
+            </Tab>
+          ))}
+        </TabList>
+        <WorkoutsLists
+          setWorkouts={setWorkouts}
+          workouts={workouts}
+          handleWithDeleteWorkout={handleWithDeleteWorkout}
+        />
+      </Tabs>
     </>
   )
 }

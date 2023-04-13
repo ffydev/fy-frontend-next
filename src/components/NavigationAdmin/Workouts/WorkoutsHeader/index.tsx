@@ -15,10 +15,10 @@ import { Plus } from '@phosphor-icons/react'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 
 interface WorkoutsHeaderProps {
   userId: string
-  fetchWorkoutsNames: () => void
 }
 
 const workoutTypes = [
@@ -54,11 +54,9 @@ const createUserFormSchema = z.object({
 
 type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 
-export default function WorkoutsHeader({
-  userId,
-  fetchWorkoutsNames,
-}: WorkoutsHeaderProps) {
+export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
   const router = useRouter()
+  const { isFetchingWorkoutsNames ,setIsFetchingWorkoutsNames } = useAdminProvider()
 
   const {
     register,
@@ -85,7 +83,7 @@ export default function WorkoutsHeader({
     } catch (error) {
       console.error(error)
     } finally {
-      fetchWorkoutsNames()
+      setIsFetchingWorkoutsNames(!isFetchingWorkoutsNames)
     }
   }
 

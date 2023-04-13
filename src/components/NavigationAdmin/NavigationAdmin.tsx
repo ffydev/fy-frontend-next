@@ -14,6 +14,7 @@ import { Workouts } from './Workouts'
 import UsersHeader from './UsersHeader'
 import { UsersList } from './UsersList'
 import Feedbacks from './Feedbacks'
+import WorkoutsHeader from './Workouts/WorkoutsHeader'
 
 export default function NavigationAdmin() {
   const router = useRouter()
@@ -23,6 +24,7 @@ export default function NavigationAdmin() {
   const [isDeleted, setIsDeleted] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
   const {
+    userId,
     isShowingUsers,
     isShowingWorkouts,
     isShowingFeedbacks,
@@ -139,8 +141,12 @@ export default function NavigationAdmin() {
                 onClick={handleWithHideWorkouts}
               />
             </Stack>
-
-            <Workouts />
+            <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+              <Stack maxW={'auto'}>
+                <WorkoutsHeader userId={userId} />
+                <Workouts />
+              </Stack>
+            </Container>
           </Box>
         </>
       )}

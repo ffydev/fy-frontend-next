@@ -5,10 +5,14 @@ export interface ContextData {
   isShowingUsers: boolean
   isShowingWorkouts: boolean
   isShowingFeedbacks: boolean
+  isFetchingWorkoutsNames: boolean
+  isFetchingWorkouts: boolean
   setuserId(newValue: string): void
   setIsShowingUsers(isShowingUsers: boolean): void
   setIsShowingWorkouts(isShowingWorkouts: boolean): void
   setIsShowingFeedbacks(isShowingFeedbacks: boolean): void
+  setIsFetchingWorkoutsNames(isFetchingWorkoutsNames: boolean): void
+  setIsFetchingWorkouts(isFetchingWorkouts: boolean): void
 }
 
 export const ContextDashboardAdmin = createContext<ContextData>({
@@ -16,10 +20,14 @@ export const ContextDashboardAdmin = createContext<ContextData>({
   isShowingUsers: true,
   isShowingWorkouts: false,
   isShowingFeedbacks: false,
+  isFetchingWorkoutsNames: false,
+  isFetchingWorkouts: false,
   setuserId: () => {},
   setIsShowingUsers: () => {},
   setIsShowingWorkouts: () => {},
   setIsShowingFeedbacks: () => {},
+  setIsFetchingWorkoutsNames: () => {},
+  setIsFetchingWorkouts: () => {},
 })
 
 type ContextDashboardAdminProviderProps = {
@@ -33,6 +41,8 @@ export default function ContextDashboardAdminProvider({
   const [isShowingUsers, setIsShowingUsers] = useState<boolean>(true)
   const [isShowingWorkouts, setIsShowingWorkouts] = useState<boolean>(false)
   const [isShowingFeedbacks, setIsShowingFeedbacks] = useState<boolean>(false)
+  const [isFetchingWorkoutsNames, setIsFetchingWorkoutsNames] = useState<boolean>(false)
+  const [isFetchingWorkouts, setIsFetchingWorkouts] = useState<boolean>(false)
 
   return (
     <ContextDashboardAdmin.Provider
@@ -41,10 +51,14 @@ export default function ContextDashboardAdminProvider({
         isShowingUsers,
         isShowingWorkouts,
         isShowingFeedbacks,
+        isFetchingWorkoutsNames,
+        isFetchingWorkouts,
         setuserId,
         setIsShowingUsers,
         setIsShowingWorkouts,
         setIsShowingFeedbacks,
+        setIsFetchingWorkoutsNames,
+        setIsFetchingWorkouts
       }}
     >
       {children}

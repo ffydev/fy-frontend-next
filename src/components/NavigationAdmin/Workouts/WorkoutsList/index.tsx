@@ -10,25 +10,27 @@ import {
   IExerciseType,
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
-import { IWorkout } from '@/pages/api/providers/workouts.provider'
+import { findWorkoutsByUserId, IWorkout } from '@/pages/api/providers/workouts.provider'
 import { Box, CloseButton, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import ExercisesList from '../../ExercisesList'
+import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 
 interface WorkoutsProps {
+  setWorkouts: (workouts: IWorkout[]) => void
   workouts: IWorkout[]
-  fetchUserWorkouts: () => void
   handleWithDeleteWorkout: (workoutId: string) => void
 }
 
 export function WorkoutsLists({
   workouts,
-  fetchUserWorkouts,
   handleWithDeleteWorkout,
+  setWorkouts,
 }: WorkoutsProps) {
   const router = useRouter()
+  const { userId } = useAdminProvider()
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseType[]>([])
@@ -53,14 +55,20 @@ export function WorkoutsLists({
           workoutId,
           exerciseNameId,
           exerciseTypeId,
-        })
+        })    
+        
+        const workoutUpdated = await findWorkoutsByUserId(
+          token,
+          workoutId as string,
+          userId as string,
+        )
+        setWorkouts(workoutUpdated)
+
       } catch (error) {
         console.error(error)
-      } finally {
-        fetchUserWorkouts()
-      }
+      } 
     },
-    [router, fetchUserWorkouts],
+    [router],
   )
 
   const fetchExercisesTypesData = useCallback(async () => {
@@ -106,7 +114,7 @@ export function WorkoutsLists({
   useEffect(() => {
     fetchExercisesTypesData()
     fetchExercisesNamesData()
-  }, [])
+  }, [fetchExercisesNamesData, fetchExercisesTypesData])
 
   return (
     <>
