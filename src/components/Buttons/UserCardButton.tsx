@@ -5,7 +5,7 @@ interface CardButtonProps {
   mr?: number
   background: string
   size: string
-  onClick: (value: string) => void
+  onClick: () => void
   value: string
 }
 
@@ -27,7 +27,7 @@ export function CardButton({
           transition: '0.8s',
         }}
         size={size}
-        onClick={() => onClick(value)}
+        onClick={() => onClick()}
       >
         {title}
       </Button>

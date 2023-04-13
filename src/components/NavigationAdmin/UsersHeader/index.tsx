@@ -13,7 +13,6 @@ import UserCreate from '../UserCreate'
 interface UsersHeaderProps {
   fetchUsersData: () => void
   planTypes: IPlanType[]
-  userTypeId: string
   search: string
   setUserTypeId: (event: string) => void
   setSearch: (event: string) => void
@@ -23,7 +22,6 @@ interface UsersHeaderProps {
 export default function UsersHeader({
   fetchUsersData,
   planTypes,
-  userTypeId,
   search,
   setUserTypeId,
   setSearch,

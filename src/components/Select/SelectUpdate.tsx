@@ -44,7 +44,7 @@ export function SelectUpdate({
               value={valueMap.id}
               onClick={() => setValue(valueMap.id)}
             >
-              <div style={{ backgroundColor: '#4A5568' }}>{valueMap.name}</div>
+              {valueMap.name}
             </option>
           ))}
         </Select>

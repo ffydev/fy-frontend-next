@@ -35,7 +35,7 @@ export default function SelectSettingValue({
               key={mapValue.id}
               value={mapValue.id}
             >
-              {mapValue.name}
+              <>{mapValue.name}</>
             </option>
           ))}
         </Select>

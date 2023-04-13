@@ -100,25 +100,26 @@ export default function NavigationAdmin() {
   return (
     <>
       {isShowingUsers && (
-        <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
-          <Container maxW="7xl" p={{ base: 5, md: 10 }}>
-            <UsersHeader
-              fetchUsersData={fetchUsersData}
-              planTypes={planTypes}
-              userTypeId={userTypeId}
-              search={search}
-              setUserTypeId={setUserTypeId}
-              setSearch={setSearch}
-              setIsDeleted={setIsDeleted}
-            />
+        <>
+          <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
+            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+              <UsersHeader
+                fetchUsersData={fetchUsersData}
+                planTypes={planTypes}
+                search={search}
+                setUserTypeId={setUserTypeId}
+                setSearch={setSearch}
+                setIsDeleted={setIsDeleted}
+              />
 
-            <UsersList
-              fetchUsersData={fetchUsersData}
-              users={users}
-              planTypes={planTypes}
-            />
-          </Container>
-        </Box>
+              <UsersList
+                fetchUsersData={fetchUsersData}
+                users={users}
+                planTypes={planTypes}
+              />
+            </Container>
+          </Box>
+        </>
       )}
 
       {isShowingWorkouts && (

@@ -5,14 +5,7 @@ import {
   findWorkoutsNamesByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import {
-  CloseButton,
-  Container,
-  Stack,
-  Tab,
-  TabList,
-  Tabs,
-} from '@chakra-ui/react'
+import { Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import WorkoutsHeader from './WorkoutsHeader'
@@ -125,17 +118,18 @@ export function Workouts() {
                   mb={4}
                 >
                   Workout: {workout.workoutType}
-                  <CloseButton
-                    onClick={() => handleWithDeleteWorkout(workout.id!)}
-                    size="sm"
-                  />
                 </Tab>
               ))}
             </TabList>
-            <WorkoutsLists
-              workouts={workouts}
-              fetchUserWorkouts={fetchUserWorkouts}
-            />
+            {workoutsNames?.length > 0 && (
+              <>
+                <WorkoutsLists
+                  workouts={workouts}
+                  fetchUserWorkouts={fetchUserWorkouts}
+                  handleWithDeleteWorkout={handleWithDeleteWorkout}
+                />
+              </>
+            )}
           </Tabs>
         </Stack>
       </Container>

@@ -80,7 +80,13 @@ export default function DashboardAdmin() {
         </Drawer>
         {/* mobilenav */}
         <MobileNav onOpen={onOpen} user={user} signOut={signOut} />
-        <Box>{dashboardHome ? <NavigationAdmin /> : null}</Box>
+        <Box>
+          {dashboardHome ? (
+            <>
+              <NavigationAdmin />
+            </>
+          ) : null}
+        </Box>
       </Box>
     </>
   )

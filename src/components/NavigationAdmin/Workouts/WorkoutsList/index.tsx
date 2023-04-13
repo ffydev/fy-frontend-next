@@ -11,7 +11,7 @@ import {
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
 import { IWorkout } from '@/pages/api/providers/workouts.provider'
-import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Box, CloseButton, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
@@ -20,9 +20,14 @@ import ExercisesList from '../../ExercisesList'
 interface WorkoutsProps {
   workouts: IWorkout[]
   fetchUserWorkouts: () => void
+  handleWithDeleteWorkout: (workoutId: string) => void
 }
 
-export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
+export function WorkoutsLists({
+  workouts,
+  fetchUserWorkouts,
+  handleWithDeleteWorkout,
+}: WorkoutsProps) {
   const router = useRouter()
   const [workoutsState, setWorkoutsState] = useState<IWorkout[]>([])
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
@@ -126,8 +131,8 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
         >
           <Stack direction={['column', 'row']} spacing={6} w={'full'}>
             <SimpleGrid
-              columns={{ base: 1, md: 3 }}
-              spacing={5}
+              columns={{ base: 1, md: 4 }}
+              spacing={4}
               mb={4}
               w={'full'}
             >
@@ -156,6 +161,13 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
                 mapValues={exerciseNames}
                 borderColor={'whiteAlpha.900'}
               />
+
+              <Flex justifySelf={'end'}>
+                <CloseButton
+                  onClick={() => handleWithDeleteWorkout(workout.id!)}
+                  size="sm"
+                />
+              </Flex>
 
               {workout.exercises && workout.exercises.length > 0 && (
                 <ExercisesList
