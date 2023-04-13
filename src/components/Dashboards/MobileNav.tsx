@@ -110,7 +110,6 @@ export default function MobileNav({
             <MenuList
               border={'1px'}
               borderColor={'whiteAlpha.200'}
-              bgColor={'whiteAlpha.100'}
               backdropFilter="auto"
               backdropBlur="1rem"
               boxShadow={'lg'}
