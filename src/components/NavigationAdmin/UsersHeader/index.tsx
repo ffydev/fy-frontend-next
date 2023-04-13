@@ -79,6 +79,7 @@ export default function UsersHeader({
 
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
           <Input
+            bgGradient={'linear(to-r, gray.800, gray.900)'}
             border={'1px'}
             borderColor={'whiteAlpha.900'}
             variant={'outline'}

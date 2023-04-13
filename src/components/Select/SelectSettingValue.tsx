@@ -17,10 +17,7 @@ export default function SelectSettingValue({
     <>
       <FormControl isRequired>
         <Select
-          bgGradient={[
-            'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
-            'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
-          ]}
+          bgGradient={'transparent'}
           size={'md'}
           border={'1px'}
           borderColor={borderColor}

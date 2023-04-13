@@ -123,10 +123,7 @@ export default function WorkoutsHeader({
 
             <FormControl>
               <Select
-                bgGradient={[
-                  'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
-                  'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
-                ]}
+                bgGradient={'transparent'}
                 defaultValue="" // Adicionar o atributo defaultValue
                 {...register('workoutType')}
               >
