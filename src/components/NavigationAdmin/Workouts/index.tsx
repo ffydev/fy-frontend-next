@@ -66,8 +66,13 @@ export function Workouts() {
   }, [router, userId, selectedWorkoutId])
 
   useEffect(() => {
-    fetchUserWorkouts()
-  }, [selectedWorkoutId, fetchUserWorkouts])
+    if (workoutsNames.length > 0) {
+      if (!selectedWorkoutId) {
+        setSelectedWorkoutId(workoutsNames[0]?.id as string)
+      }
+      fetchUserWorkouts()
+    }
+  }, [fetchUserWorkouts, selectedWorkoutId, workoutsNames])
 
   const handleWithDeleteWorkout = async (id: string) => {
     const token = getUserToken()
