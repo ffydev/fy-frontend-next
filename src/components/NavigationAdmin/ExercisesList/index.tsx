@@ -180,6 +180,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               Descrição
               <Input
                 placeholder="Descrição"
+                defaultValue={exercise.describe}
                 onChange={(event) => setDescribe(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               />
