@@ -36,11 +36,11 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, userId, isFetchingWorkoutsNames])
+  }, [router, userId])
 
   useEffect(() => {
     fetchWorkoutsNames()
-  }, [isFetchingWorkoutsNames])
+  }, [isFetchingWorkoutsNames, fetchWorkoutsNames])
 
   const fetchUserWorkouts = useCallback(async () => {
     try {
@@ -67,7 +67,7 @@ export function Workouts() {
 
   useEffect(() => {
     fetchUserWorkouts()
-  }, [selectedWorkoutId])
+  }, [selectedWorkoutId, fetchUserWorkouts])
 
   const handleWithDeleteWorkout = async (id: string) => {
     const token = getUserToken()
