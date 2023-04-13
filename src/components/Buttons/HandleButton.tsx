@@ -5,6 +5,7 @@ interface ButtonProps {
   color?: string
   leftIcon?: any
   w?: string
+  mr?: number
   onClick?: () => void
   type?: 'submit' | 'button'
 }
@@ -13,6 +14,7 @@ export default function HandleButton({
   text,
   leftIcon,
   w,
+  mr,
   onClick,
   type,
 }: ButtonProps) {
@@ -21,7 +23,7 @@ export default function HandleButton({
       <Button
         bgGradient={'linear(to-r, purple.600, purple.700)'}
         textColor={'white'}
-        mr={3}
+        mr={mr}
         onClick={onClick}
         _hover={{
           bg: 'whiteAlpha.800',

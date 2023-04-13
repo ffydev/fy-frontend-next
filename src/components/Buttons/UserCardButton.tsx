@@ -22,6 +22,10 @@ export function CardButton({
       <Button
         mr={mr}
         background={background}
+        _hover={{
+          bg: 'whiteAlpha.800',
+          transition: '0.8s',
+        }}
         size={size}
         onClick={() => onClick(value)}
       >

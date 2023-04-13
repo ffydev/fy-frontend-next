@@ -91,7 +91,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
             </chakra.h1>
 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              SÉRIES:
+              Séries:
               <Text>{exercise.sets}</Text>
             </chakra.h1>
 
