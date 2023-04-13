@@ -70,7 +70,6 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log('teste')
   return (
     <>
       {isShowingDashboard && (
