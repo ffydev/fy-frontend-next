@@ -49,6 +49,11 @@ export function Workouts() {
         router.push('/login')
         return
       }
+
+      if (!selectedWorkoutId) {
+        setSelectedWorkoutId(workoutsNames[0]?.id as string)
+      }
+
       const response = await findWorkoutsByUserId(
         token,
         selectedWorkoutId as string,
@@ -61,15 +66,20 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, selectedWorkoutId, user?.id])
+  }, [router, selectedWorkoutId, user?.id, workoutsNames])
 
   useEffect(() => {
     fetchWorkoutsNames()
   }, [fetchWorkoutsNames])
 
   useEffect(() => {
-    fetchUserWorkouts()
-  }, [fetchUserWorkouts])
+    if (workoutsNames.length > 0) {
+      if (!selectedWorkoutId) {
+        setSelectedWorkoutId(workoutsNames[0]?.id as string)
+      }
+      fetchUserWorkouts()
+    }
+  }, [fetchUserWorkouts, selectedWorkoutId, workoutsNames])
 
   return (
     <>
