@@ -151,7 +151,6 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
 
               <SelectSettingValue
                 tag={'Grupo Muscular'}
-                value={exerciseTypeId}
                 setValue={setExerciseTypeId}
                 mapValues={exerciseTypes}
                 borderColor={'whiteAlpha.900'}
@@ -159,7 +158,6 @@ export function WorkoutsLists({ workouts, fetchUserWorkouts }: WorkoutsProps) {
 
               <SelectSettingValue
                 tag={'Nome do Exercício'}
-                value={exerciseNameId}
                 setValue={setExerciseNameId}
                 mapValues={exerciseNames}
                 borderColor={'whiteAlpha.900'}

@@ -71,8 +71,7 @@ export default function UsersHeader({
         </FormControl>
 
         <SelectSettingValue
-          tag={'Tipo de usuário'}
-          value={userTypeId}
+          tag={'Buscar por tipo de usuário'}
           setValue={setUserTypeId}
           mapValues={usersTypes}
           borderColor={'whiteAlpha.900'}

@@ -2,7 +2,6 @@ import { FormControl, Select } from '@chakra-ui/react'
 
 interface SelectSettingValueProps {
   tag: string
-  value: string
   setValue: (event: string) => void
   mapValues: any
   borderColor?: string
@@ -10,7 +9,6 @@ interface SelectSettingValueProps {
 
 export default function SelectSettingValue({
   tag,
-  value,
   setValue,
   mapValues,
   borderColor,
@@ -31,11 +29,9 @@ export default function SelectSettingValue({
           defaultValue=""
           isRequired
         >
-          <option
-            style={{ backgroundColor: '#322659' }}
-            disabled
-            value=""
-          ></option>
+          <option style={{ backgroundColor: '#322659' }} value="">
+            {tag}
+          </option>
           {mapValues.map((mapValue: any) => (
             <option
               style={{ backgroundColor: '#322659' }}
