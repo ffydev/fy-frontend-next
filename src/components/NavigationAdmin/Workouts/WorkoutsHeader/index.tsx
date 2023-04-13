@@ -56,7 +56,8 @@ type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 
 export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
   const router = useRouter()
-  const { isFetchingWorkoutsNames ,setIsFetchingWorkoutsNames } = useAdminProvider()
+  const { isFetchingWorkoutsNames, setIsFetchingWorkoutsNames } =
+    useAdminProvider()
 
   const {
     register,

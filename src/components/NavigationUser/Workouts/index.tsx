@@ -4,7 +4,7 @@ import {
   findWorkoutsNamesByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Container, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
+import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@/hooks/ContextAuth'
@@ -32,17 +32,13 @@ export function Workouts() {
         user?.id as string,
       )
 
-      if (response && response.length > 0 && selectedWorkoutId === '') {
-        setSelectedWorkoutId(response?.[0].id!)
-      }
-
       setWorkoutsNames(response)
     } catch (error) {
       console.error(error)
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, user?.id, selectedWorkoutId])
+  }, [router, user?.id])
 
   const fetchUserWorkouts = useCallback(async () => {
     try {
@@ -67,38 +63,30 @@ export function Workouts() {
     }
   }, [router, selectedWorkoutId, user?.id])
 
-  const handleWithSettingWorkoutId = (workoutId: string) => {
-    setSelectedWorkoutId(workoutId)
-  }
-
   useEffect(() => {
     fetchWorkoutsNames()
   }, [fetchWorkoutsNames])
 
   useEffect(() => {
     fetchUserWorkouts()
-  }, [selectedWorkoutId, fetchWorkoutsNames, fetchUserWorkouts])
+  }, [fetchUserWorkouts])
 
   return (
     <>
-      <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-        <Stack maxW={'auto'}>
-          <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
-            <TabList>
-              {workoutsNames?.map((workout: IWorkout) => (
-                <Tab
-                  key={workout.id}
-                  onClick={() => handleWithSettingWorkoutId(workout.id!)}
-                  mb={4}
-                >
-                  Workout: {workout.workoutType}
-                </Tab>
-              ))}
-            </TabList>
-            <WorkoutsList workouts={workouts} />
-          </Tabs>
-        </Stack>
-      </Container>
+      <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
+        <TabList>
+          {workoutsNames?.map((workout: IWorkout) => (
+            <Tab
+              key={workout.id}
+              onClick={() => setSelectedWorkoutId(workout.id!)}
+              mb={4}
+            >
+              Workout: {workout.workoutType}
+            </Tab>
+          ))}
+        </TabList>
+        <WorkoutsList workouts={workouts} />
+      </Tabs>
     </>
   )
 }
