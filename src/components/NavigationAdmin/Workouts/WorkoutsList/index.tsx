@@ -29,7 +29,6 @@ export function WorkoutsLists({
   handleWithDeleteWorkout,
 }: WorkoutsProps) {
   const router = useRouter()
-  const [workoutsState, setWorkoutsState] = useState<IWorkout[]>([])
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseType[]>([])
@@ -105,17 +104,13 @@ export function WorkoutsLists({
   }, [router])
 
   useEffect(() => {
-    setWorkoutsState(workouts)
-  }, [workouts])
-
-  useEffect(() => {
     fetchExercisesTypesData()
     fetchExercisesNamesData()
-  }, [fetchExercisesTypesData, fetchExercisesNamesData])
+  }, [])
 
   return (
     <>
-      {workoutsState?.map((workout: IWorkout) => (
+      {workouts?.map((workout: IWorkout) => (
         <Box
           key={workout.id}
           p={4}
@@ -171,11 +166,7 @@ export function WorkoutsLists({
               />
 
               {workout.exercises && workout.exercises.length > 0 && (
-                <ExercisesList
-                  exercises={workout.exercises}
-                  exerciseNames={exerciseNames}
-                  exerciseTypes={exerciseTypes}
-                />
+                <ExercisesList exercises={workout.exercises} />
               )}
             </SimpleGrid>
           </Stack>

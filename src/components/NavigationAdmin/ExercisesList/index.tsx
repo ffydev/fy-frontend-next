@@ -1,7 +1,4 @@
-import { SelectUpdate } from '@/components/Select/SelectUpdate'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { IExerciseName } from '@/pages/api/providers/exercises-names.provider'
-import { IExerciseType } from '@/pages/api/providers/exercises-types.provider'
 import {
   deleteExercise,
   findExerciseById,
@@ -10,9 +7,10 @@ import {
 } from '@/pages/api/providers/exercises.provider'
 import {
   Box,
+  Center,
+  chakra,
   CloseButton,
   Flex,
-  FormLabel,
   Input,
   Spacer,
   Stack,
@@ -22,19 +20,11 @@ import { useEffect, useState } from 'react'
 
 interface WorkoutsProps {
   exercises?: IExercise[]
-  exerciseNames?: IExerciseName[]
-  exerciseTypes?: IExerciseType[]
 }
 
-export default function ExercisesList({
-  exercises,
-  exerciseNames,
-  exerciseTypes,
-}: WorkoutsProps) {
+export default function ExercisesList({ exercises }: WorkoutsProps) {
   const router = useRouter()
   const [exercisesState, setExercisesState] = useState<IExercise[]>([])
-  const [exerciseNameId, setExerciseNameId] = useState<string | undefined>()
-  const [exerciseTypeId, setExerciseTypeId] = useState<string | undefined>()
   const [sets, setSets] = useState<string | undefined>('')
   const [reps, setReps] = useState<string | undefined>('')
   const [weight, setWeight] = useState<string | undefined>('')
@@ -57,8 +47,6 @@ export default function ExercisesList({
         weight: weight ? +weight : undefined,
         rir: rir !== '' ? rir : undefined,
         describe: describe !== '' ? describe : undefined,
-        exerciseNameId: exerciseNameId !== '' ? exerciseNameId : undefined,
-        exerciseTypeId: exerciseTypeId !== '' ? exerciseTypeId : undefined,
       })
 
       const exerciseUpdated = await findExerciseById(token, id)
@@ -67,14 +55,12 @@ export default function ExercisesList({
       setReps(undefined)
       setWeight(undefined)
       setRir(undefined)
-      setDescribe(undefined)
-      setExerciseNameId(undefined)
-      setExerciseTypeId(undefined)
 
       setExercisesState((prevExercisesState) => {
         const updatedExercisesState = prevExercisesState.map((exercise) =>
           exercise.id === id ? exerciseUpdated : exercise,
         )
+
         return updatedExercisesState
       })
     } catch (error) {
@@ -118,93 +104,86 @@ export default function ExercisesList({
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
+          <Flex minW="auto">
+            <Spacer />
+            <CloseButton
+              onClick={() => handleWithDeleteExercise(exercise.id!)}
+              size="sm"
+            />
+          </Flex>
+
           <Stack
             direction={'column'}
-            spacing={1}
+            spacing={5}
             w={'full'}
             textColor={'whiteAlpha.800'}
           >
-            <Flex minW="auto">
-              <Spacer />{' '}
-              <CloseButton
-                onClick={() => handleWithDeleteExercise(exercise.id!)}
-                size="sm"
-              />
-            </Flex>
+            <Center>
+              <chakra.h1
+                textColor={'whiteAlpha.800'}
+                bgColor={'purple.700'}
+                borderRadius={3}
+                px={2}
+                fontWeight={'medium'}
+                fontSize="sm"
+                lineHeight={6}
+              >
+                {exercise.exerciseType?.name}
+              </chakra.h1>
+            </Center>
 
-            <SelectUpdate
-              tag={'Grupo Muscular'}
-              value={exercise.exerciseType?.id!}
-              id={exercise.id!}
-              setValue={setExerciseTypeId}
-              onBlurAction={() => handleUpdateExercise(exercise.id!)}
-              defaultName={exercise.exerciseType?.name!}
-              valuesMap={exerciseTypes}
-            />
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
+              {exercise.exerciseNames?.name}
+            </chakra.h1>
 
-            <SelectUpdate
-              tag={'Nome'}
-              value={exercise.exerciseNames?.id!}
-              id={exercise.id!}
-              setValue={setExerciseNameId}
-              onBlurAction={() => handleUpdateExercise(exercise.id!)}
-              defaultName={exercise.exerciseNames?.name!}
-              valuesMap={exerciseNames}
-            />
-
-            <FormLabel>
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Séries
               <Input
-                mb={2}
                 placeholder="Séries"
                 defaultValue={exercise.sets}
                 onChange={(event) => setSets(event.target.value)}
-                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+                onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </FormLabel>
+            </chakra.h1>
 
-            <FormLabel>
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Repetições
               <Input
-                mb={2}
                 placeholder="Repetições"
                 defaultValue={exercise.reps}
                 onChange={(event) => setReps(event.target.value)}
-                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+                onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </FormLabel>
+            </chakra.h1>
 
-            <FormLabel>
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Carga
               <Input
-                mb={2}
                 placeholder="Carga"
                 defaultValue={exercise.weight}
                 onChange={(event) => setWeight(event.target.value)}
-                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+                onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </FormLabel>
+            </chakra.h1>
 
-            <FormLabel>
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Repetições em reserva
               <Input
-                mb={2}
                 placeholder="Repetições em reserva"
                 defaultValue={exercise.rir}
                 onChange={(event) => setRir(event.target.value)}
-                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+                onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </FormLabel>
+            </chakra.h1>
 
-            <FormLabel>
+            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Descrição
               <Input
                 placeholder="Descrição"
-                defaultValue={exercise.describe}
                 onChange={(event) => setDescribe(event.target.value)}
-                onMouseLeave={() => handleUpdateExercise(exercise.id!)}
+                onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </FormLabel>
+            </chakra.h1>
           </Stack>
         </Box>
       ))}

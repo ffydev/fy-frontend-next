@@ -104,11 +104,11 @@ export function Workouts() {
   return (
     <>
       <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-        <WorkoutsHeader
-          userId={userId}
-          fetchWorkoutsNames={fetchWorkoutsNames}
-        />
         <Stack maxW={'auto'}>
+          <WorkoutsHeader
+            userId={userId}
+            fetchWorkoutsNames={fetchWorkoutsNames}
+          />
           <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
             <TabList>
               {workoutsNames?.map((workout: IWorkout) => (
@@ -121,15 +121,11 @@ export function Workouts() {
                 </Tab>
               ))}
             </TabList>
-            {workoutsNames?.length > 0 && (
-              <>
-                <WorkoutsLists
-                  workouts={workouts}
-                  fetchUserWorkouts={fetchUserWorkouts}
-                  handleWithDeleteWorkout={handleWithDeleteWorkout}
-                />
-              </>
-            )}
+            <WorkoutsLists
+              workouts={workouts}
+              fetchUserWorkouts={fetchUserWorkouts}
+              handleWithDeleteWorkout={handleWithDeleteWorkout}
+            />
           </Tabs>
         </Stack>
       </Container>
