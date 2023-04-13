@@ -1,5 +1,13 @@
 import { useUserProvider } from '@/hooks/ContextDashboardUser'
-import { Box, Center, Flex, Stack, Stat, StatLabel } from '@chakra-ui/react'
+import {
+  Box,
+  Center,
+  Container,
+  Flex,
+  Stack,
+  Stat,
+  StatLabel,
+} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -137,9 +145,11 @@ export default function Dashboard() {
             />
           </Stack>
 
-          <Center>
-            <Workouts />
-          </Center>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+            <Stack maxW={'auto'}>
+              <Workouts />
+            </Stack>
+          </Container>
         </>
       )}
 
