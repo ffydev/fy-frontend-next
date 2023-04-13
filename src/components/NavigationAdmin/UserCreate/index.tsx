@@ -36,8 +36,8 @@ const createUserFormSchema = z.object({
     .string()
     .email({ message: 'Email inválido' })
     .nonempty({ message: 'Campo obrigatório' }),
-  planTypeId: z.string().nonempty({ message: 'Selecione um plano válido' }),
-  userTypeId: z.string().nonempty({ message: 'Selecione um plano válido' }),
+  planTypeId: z.string().nonempty({ message: 'Selecione um plano' }),
+  userTypeId: z.string().nonempty({ message: 'Selecione um usuário' }),
   password: z
     .string()
     .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
@@ -82,7 +82,7 @@ export default function UserCreate({
         router.push('/login')
         return
       }
-
+      console.log(data.userTypeId, data.planTypeId)
       await createUser(token, {
         email: data.email,
         password: data.password,
@@ -160,6 +160,7 @@ export default function UserCreate({
                     <option
                       style={{ backgroundColor: '#322659' }}
                       key={planType.id}
+                      value={planType.id}
                     >
                       {planType.name}
                     </option>
@@ -206,10 +207,11 @@ export default function UserCreate({
                   >
                     Tipo de Usuário
                   </option>
-                  {usersTypes.map((userType: IPlanType) => (
+                  {usersTypes.map((userType: IUserType) => (
                     <option
                       style={{ backgroundColor: '#322659' }}
                       key={userType.id}
+                      value={userType.id}
                     >
                       {userType.name}
                     </option>
