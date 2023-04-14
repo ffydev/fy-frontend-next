@@ -14,7 +14,7 @@ export function Header() {
     <>
       <Box
         bgGradient={
-          'radial(circle, rgba(163,73,12,1) 0%, rgba(98,52,19,1) 33%, rgba(70,47,37,1) 71%)'
+          'radial(circle, rgba(97,36,182,1) 0%, rgba(57,35,98,1) 33%, rgba(47,37,70,1) 71%)'
         }
       >
         <Stack pos="relative" w="100%">

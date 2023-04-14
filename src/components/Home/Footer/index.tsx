@@ -14,7 +14,7 @@ const accounts = [
   {
     url: '#',
     label: 'Instagram',
-    type: 'orange',
+    type: 'purple',
     icon: <InstagramLogo size={24} />,
   },
 ]
@@ -40,7 +40,7 @@ export default function Footer() {
               aria-label={sc.label}
               colorScheme={sc.type}
               icon={sc.icon}
-              rounded="2xl"
+              rounded="full"
               isExternal
             />
           ))}

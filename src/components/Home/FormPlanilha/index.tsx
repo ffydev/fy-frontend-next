@@ -30,9 +30,9 @@ export default function FormPlanilha() {
               right="-7px"
               bottom="-7px"
               left="-7px"
-              bgGradient="linear(to-l, orange.400, orange.500)"
+              bgGradient="linear(to-l, rgba(97,36,182,0.4) 0%, rgba(57,35,98,0.4) 33%, rgba(47,37,70,0.4) 71%)"
               transform="rotate(-2deg)"
-              boxShadow={'base'}
+              boxShadow={'lg'}
               backdropBlur={'1rem'}
               backdropFilter="blur(20px)"
               border={'1px'}
@@ -44,7 +44,7 @@ export default function FormPlanilha() {
               pos="relative"
               spacing={8}
               p={6}
-              boxShadow={'base'}
+              boxShadow={'2xl'}
               bgColor={'whiteAlpha.200'}
               backdropFilter="auto"
               backdropBlur="1rem"
@@ -56,30 +56,28 @@ export default function FormPlanilha() {
                 <FormLabel>Seu Nome</FormLabel>
                 <Input
                   type="text"
-                  placeholder="Seu nome completo"
+                  placeholder="Digite seu nome"
                   rounded="md"
                   size={'lg'}
-                  variant={'filled'}
-                  color={'blackAlpha.600'}
-                  _placeholder={{ opacity: 0.3, color: 'inherit' }}
-                  focusBorderColor={'whiteAlpha.700'}
-                  border={'1px'}
-                  borderColor={'whiteAlpha.400'}
+                  variant={'flushed'}
+                  color={'whiteAlpha.600'}
+                  _placeholder={{ opacity: 0.8, color: 'inherit' }}
+                  focusBorderColor={'purple.300'}
+                  borderColor={'purple.100'}
                 />
               </FormControl>
               <FormControl id="email">
                 <FormLabel>Seu E-mail</FormLabel>
                 <Input
                   type="email"
-                  placeholder="Seu melhor e-mail"
+                  placeholder="Digite seu melhor e-mail"
                   rounded="md"
                   size={'lg'}
-                  variant={'filled'}
-                  color={'blackAlpha.600'}
-                  _placeholder={{ opacity: 0.3, color: 'inherit' }}
-                  focusBorderColor={'whiteAlpha.700'}
-                  border={'1px'}
-                  borderColor={'whiteAlpha.400'}
+                  variant={'flushed'}
+                  color={'whiteAlpha.600'}
+                  _placeholder={{ opacity: 0.8, color: 'inherit' }}
+                  focusBorderColor={'purple.300'}
+                  borderColor={'purple.100'}
                 />
               </FormControl>
               <CtaForm />

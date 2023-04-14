@@ -72,12 +72,16 @@ export default function CardProgression() {
                         mt={3}
                         as={'h1'}
                         fontSize={'2xl'}
-                        color={'orange.300'}
                         textAlign={'left'}
                       >
                         {garantiaText.heading1}
                       </Heading>
-                      <Text mt={3} as={'h2'} textAlign={'left'}>
+                      <Text
+                        mt={3}
+                        as={'h2'}
+                        textAlign={'left'}
+                        color={'purple.200'}
+                      >
                         {garantiaText.text1}
                       </Text>
                     </Box>
@@ -92,15 +96,13 @@ export default function CardProgression() {
                       as={Link}
                       href={'#'}
                       rounded="full"
-                      shadow={'dark-lg'}
-                      style={{ textDecoration: 'none' }}
                       size="sm"
                       rightIcon={<ArrowFatRight size={16} weight="fill" />}
-                      bgGradient="linear(to-r, blackAlpha.800, blackAlpha.900)"
+                      shadow={'dark-lg'}
+                      style={{ textDecoration: 'none' }}
+                      bgGradient={'linear(to-r, purple.400, purple.500)'}
                       _hover={{
-                        bgGradient:
-                          'linear(to-r, blackAlpha.700, blackAlpha.800)',
-                        border: '1px',
+                        bgGradient: 'linear(to-r, purple.500, purple.600)',
                         transform: 'scale(1.1)',
                         transition: '0.5s',
                       }}
@@ -144,12 +146,16 @@ export default function CardProgression() {
                         mt={3}
                         as={'h1'}
                         fontSize={'2xl'}
-                        color={'orange.300'}
                         textAlign={'left'}
                       >
                         {garantiaText.heading2}
                       </Heading>
-                      <Text mt={3} as={'h2'} textAlign={'left'}>
+                      <Text
+                        mt={3}
+                        as={'h2'}
+                        textAlign={'left'}
+                        color={'purple.200'}
+                      >
                         {garantiaText.text2}
                       </Text>
                     </Box>
@@ -164,15 +170,13 @@ export default function CardProgression() {
                       as={Link}
                       href={'#'}
                       rounded="full"
-                      shadow={'dark-lg'}
-                      style={{ textDecoration: 'none' }}
                       size="sm"
                       rightIcon={<ArrowFatRight size={16} weight="fill" />}
-                      bgGradient="linear(to-r, blackAlpha.800, blackAlpha.900)"
+                      shadow={'dark-lg'}
+                      style={{ textDecoration: 'none' }}
+                      bgGradient={'linear(to-r, purple.400, purple.500)'}
                       _hover={{
-                        bgGradient:
-                          'linear(to-r, blackAlpha.700, blackAlpha.800)',
-                        border: '1px',
+                        bgGradient: 'linear(to-r, purple.500, purple.600)',
                         transform: 'scale(1.1)',
                         transition: '0.5s',
                       }}
@@ -216,12 +220,16 @@ export default function CardProgression() {
                         mt={3}
                         as={'h1'}
                         fontSize={'2xl'}
-                        color={'orange.300'}
                         textAlign={'left'}
                       >
                         {garantiaText.heading3}
                       </Heading>
-                      <Text mt={3} as={'h2'} textAlign={'left'}>
+                      <Text
+                        mt={3}
+                        as={'h2'}
+                        textAlign={'left'}
+                        color={'purple.200'}
+                      >
                         {garantiaText.text3}
                       </Text>
                     </Box>
@@ -236,15 +244,13 @@ export default function CardProgression() {
                       as={Link}
                       href={'#'}
                       rounded="full"
-                      shadow={'dark-lg'}
-                      style={{ textDecoration: 'none' }}
                       size="sm"
                       rightIcon={<ArrowFatRight size={16} weight="fill" />}
-                      bgGradient="linear(to-r, blackAlpha.800, blackAlpha.900)"
+                      shadow={'dark-lg'}
+                      style={{ textDecoration: 'none' }}
+                      bgGradient={'linear(to-r, purple.400, purple.500)'}
                       _hover={{
-                        bgGradient:
-                          'linear(to-r, blackAlpha.700, blackAlpha.800)',
-                        border: '1px',
+                        bgGradient: 'linear(to-r, purple.500, purple.600)',
                         transform: 'scale(1.1)',
                         transition: '0.5s',
                       }}
