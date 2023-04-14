@@ -14,8 +14,8 @@ import {
   findWorkoutsByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Box, CloseButton, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
-import { Plus } from '@phosphor-icons/react'
+import { Box, Button, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Plus, X } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import ExercisesList from '../../ExercisesList'
@@ -120,68 +120,58 @@ export function WorkoutsLists({
 
   return (
     <>
-      {workouts?.map((workout: IWorkout) => (
-        <Box
-          key={workout.id}
-          p={4}
-          width="100%"
-          rounded={'lg'}
-          border={'1px'}
-          bgColor={'whiteAlpha.50'}
-          borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
-          backdropBlur={'1rem'}
-          backdropFilter="blur(5px)"
-          minWidth="250px"
-        >
-          <Flex justifyContent={'end'} mb={3}>
-            {' '}
-            <CloseButton
-              onClick={() => handleWithDeleteWorkout(workout.id!)}
-              size="sm"
-            />{' '}
-          </Flex>
+      <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+        {workouts?.map((workout: IWorkout) => (
+          <Box key={workout.id} p={4} width="100%">
+            <Flex justifyContent={'end'} mb={3}>
+              <Button
+                variant={'outline'}
+                leftIcon={<X weight="bold" />}
+                onClick={() => handleWithDeleteWorkout(workout.id!)}
+              >
+                Excluir Workout
+              </Button>
+            </Flex>
 
-          <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-            <SimpleGrid
-              columns={{ base: 1, md: 3 }}
-              spacing={3}
-              mb={4}
-              w={'full'}
-            >
-              <HandleButton
-                text="Adicionar Exercício"
-                leftIcon={<Plus weight="bold" />}
-                onClick={() =>
-                  handleCreateExercise(
-                    workout.id!,
-                    exerciseNameId,
-                    exerciseTypeId,
-                  )
-                }
-              />
+            <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+              <SimpleGrid
+                columns={{ base: 1, md: 3 }}
+                spacing={3}
+                mb={4}
+                w={'full'}
+              >
+                <HandleButton
+                  text="Adicionar Exercício"
+                  leftIcon={<Plus weight="bold" />}
+                  onClick={() =>
+                    handleCreateExercise(
+                      workout.id!,
+                      exerciseNameId,
+                      exerciseTypeId,
+                    )
+                  }
+                />
 
-              <SelectSettingValue
-                tag={'Grupo Muscular'}
-                setValue={setExerciseTypeId}
-                mapValues={exerciseTypes}
-                borderColor={'whiteAlpha.900'}
-              />
+                <SelectSettingValue
+                  tag={'Grupo Muscular'}
+                  setValue={setExerciseTypeId}
+                  mapValues={exerciseTypes}
+                />
 
-              <SelectSettingValue
-                tag={'Nome do Exercício'}
-                setValue={setExerciseNameId}
-                mapValues={exerciseNames}
-                borderColor={'whiteAlpha.900'}
-              />
+                <SelectSettingValue
+                  tag={'Nome do Exercício'}
+                  setValue={setExerciseNameId}
+                  mapValues={exerciseNames}
+                />
 
-              {workout.exercises && workout.exercises.length > 0 && (
-                <ExercisesList exercises={workout.exercises} />
-              )}
-            </SimpleGrid>
-          </Stack>
-        </Box>
-      ))}
+                {workout.exercises && workout.exercises.length > 0 && (
+                  <ExercisesList exercises={workout.exercises} />
+                )}
+              </SimpleGrid>
+            </Stack>
+          </Box>
+        ))}
+      </Stack>
     </>
   )
 }

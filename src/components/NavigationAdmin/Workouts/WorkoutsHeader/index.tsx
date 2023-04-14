@@ -1,5 +1,4 @@
 import {
-  Box,
   Flex,
   FormControl,
   Heading,
@@ -90,34 +89,28 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
 
   return (
     <>
-      <Box>
-        <Heading
-          as={'h3'}
-          size={'lg'}
-          mb={'4'}
-          fontWeight={'medium'}
-          textAlign={['center', 'left']}
-        >
-          Workouts
-        </Heading>
-      </Box>
-      <Stack direction={['column', 'row']} spacing={3} w={'100%'} mb={4}>
+      <Heading as="h3" size="lg" pb="6" fontWeight="medium" textAlign="left">
+        Workouts
+      </Heading>
+      <Stack direction={['column', 'row']} spacing={6} w={'full'}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex>
             <FormControl width={'100%'}>
-              <Stack>
-                <HandleButton
-                  mr={3}
-                  text="Cadastrar Workout"
-                  leftIcon={<Plus weight="bold" />}
-                  type="submit"
-                />
-              </Stack>
+              <HandleButton
+                mr={3}
+                text="Cadastrar Workout"
+                leftIcon={<Plus weight="bold" />}
+                type="submit"
+              />
             </FormControl>
-
-            <FormControl>
+            <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
               <Select
-                bgGradient={'transparent'}
+                bgGradient={'linear(to-r, gray.800, gray.900)'}
+                variant={'filled'}
+                rounded={'lg'}
+                boxShadow={'lg'}
+                focusBorderColor={'purple.400'}
+                size={'md'}
                 defaultValue="" // Adicionar o atributo defaultValue
                 {...register('workoutType')}
               >

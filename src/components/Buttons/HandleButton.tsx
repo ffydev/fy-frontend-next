@@ -3,6 +3,7 @@ import { Button } from '@chakra-ui/react'
 interface ButtonProps {
   text?: string
   color?: string
+  variant?: any
   leftIcon?: any
   w?: string
   mr?: number
@@ -13,6 +14,7 @@ interface ButtonProps {
 export default function HandleButton({
   text,
   leftIcon,
+  variant,
   w,
   mr,
   onClick,
@@ -24,9 +26,10 @@ export default function HandleButton({
         bgGradient={'linear(to-r, purple.600, purple.700)'}
         textColor={'white'}
         mr={mr}
+        variant={variant}
         onClick={onClick}
         _hover={{
-          bg: 'whiteAlpha.800',
+          bgGradient: 'linear(to-r, purple.500, purple.600)',
           transition: '0.8s',
         }}
         w={w}

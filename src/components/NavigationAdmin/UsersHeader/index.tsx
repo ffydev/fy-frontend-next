@@ -5,7 +5,14 @@ import {
   findUsersTypes,
   IUserType,
 } from '@/pages/api/providers/users-types.provider'
-import { Checkbox, FormControl, Heading, Input, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Checkbox,
+  FormControl,
+  Heading,
+  Input,
+  Stack,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import UserCreate from '../UserCreate'
@@ -56,7 +63,7 @@ export default function UsersHeader({
 
   return (
     <>
-      <Heading as="h3" size="lg" mb="4" fontWeight="medium" textAlign="left">
+      <Heading as="h3" size="lg" pb="6" fontWeight="medium" textAlign="left">
         Usuários
       </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
@@ -72,29 +79,41 @@ export default function UsersHeader({
           tag={'Buscar por tipo de usuário'}
           setValue={setUserTypeId}
           mapValues={usersTypes}
-          borderColor={'whiteAlpha.900'}
         />
 
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
           <Input
             bgGradient={'linear(to-r, gray.800, gray.900)'}
-            border={'1px'}
-            borderColor={'whiteAlpha.900'}
-            variant={'outline'}
+            variant={'filled'}
+            rounded={'lg'}
+            boxShadow={'lg'}
+            focusBorderColor={'purple.400'}
+            _placeholder={{ opacity: 1, color: 'whiteAlpha.900' }}
             placeholder="Pesquisar"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
         </FormControl>
         <FormControl>
-          <Checkbox
-            value={'1'}
-            onChange={(event) =>
-              setIsDeleted(event.target.checked ? event.target.value : '')
-            }
-          >
-            Buscar Deletados
-          </Checkbox>
+          <Stack spacing={5} direction="row">
+            <Box
+              bgGradient={'linear(to-r, gray.800, gray.900)'}
+              rounded={'lg'}
+              boxShadow={'lg'}
+              p={'2'}
+              w={'full'}
+            >
+              <Checkbox
+                colorScheme="purple"
+                value={'1'}
+                onChange={(event) =>
+                  setIsDeleted(event.target.checked ? event.target.value : '')
+                }
+              >
+                Buscar Deletados
+              </Checkbox>
+            </Box>
+          </Stack>
         </FormControl>
       </Stack>
     </>

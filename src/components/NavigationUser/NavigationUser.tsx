@@ -8,7 +8,7 @@ export default function NavigationUser() {
 
   return (
     <>
-      <Box ml={{ base: 0, md: 60 }} m={4} minH={'100vh'}>
+      <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
         {!user?.isRegistered ? (
           <>
             <Center py={[4, 6, 8]}>

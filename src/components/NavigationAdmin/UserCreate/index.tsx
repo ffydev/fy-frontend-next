@@ -18,6 +18,7 @@ import {
   useDisclosure,
   Text,
   Select,
+  Button,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRef } from 'react'
@@ -222,7 +223,9 @@ export default function UserCreate({
                 leftIcon={<Plus weight="bold" />}
                 type="submit"
               />
-              <HandleButton text={'Cancelar'} onClick={onClose} />
+              <Button variant={'outline'} onClick={onClose}>
+                Cancelar
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>

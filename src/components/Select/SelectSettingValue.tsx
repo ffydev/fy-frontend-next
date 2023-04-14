@@ -4,24 +4,23 @@ interface SelectSettingValueProps {
   tag: string
   setValue: (event: string) => void
   mapValues: any
-  borderColor?: string
 }
 
 export default function SelectSettingValue({
   tag,
   setValue,
   mapValues,
-  borderColor,
 }: SelectSettingValueProps) {
   return (
     <>
       <FormControl isRequired>
         <Select
-          bgGradient={'transparent'}
+          bgGradient={'linear(to-r, gray.800, gray.900)'}
+          variant={'filled'}
+          rounded={'lg'}
+          boxShadow={'lg'}
+          focusBorderColor={'purple.400'}
           size={'md'}
-          border={'1px'}
-          borderColor={borderColor}
-          variant={'outline'}
           onChange={(event) => setValue(event.target.value)}
           defaultValue=""
           isRequired
