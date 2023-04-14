@@ -94,10 +94,6 @@ export function StudentDepoiment() {
                   backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
-                  _hover={{
-                    bgColor: 'blackAlpha.600',
-                    transition: '0.5s ease-in-out',
-                  }}
                   borderTopLeftRadius="lg"
                   borderTopRightRadius="lg"
                 >
@@ -113,10 +109,6 @@ export function StudentDepoiment() {
                   backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
-                  _hover={{
-                    bgColor: 'blackAlpha.600',
-                    transition: '0.5s ease-in-out',
-                  }}
                   borderBottomLeftRadius="lg"
                   borderBottomRightRadius="lg"
                 >
@@ -160,10 +152,6 @@ export function StudentDepoiment() {
                 backdropFilter="blur(10px)"
                 border={'1px'}
                 borderColor={'whiteAlpha.200'}
-                _hover={{
-                  bgColor: 'blackAlpha.600',
-                  transition: '0.5s ease-in-out',
-                }}
                 borderTopLeftRadius="lg"
                 borderTopRightRadius="lg"
               >
@@ -179,10 +167,6 @@ export function StudentDepoiment() {
                 backdropFilter="blur(10px)"
                 border={'1px'}
                 borderColor={'whiteAlpha.200'}
-                _hover={{
-                  bgColor: 'blackAlpha.600',
-                  transition: '0.5s ease-in-out',
-                }}
                 borderBottomLeftRadius="lg"
                 borderBottomRightRadius="lg"
               >

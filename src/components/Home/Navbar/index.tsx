@@ -38,12 +38,12 @@ export default function Navbar() {
                   <Heading
                     as="h1"
                     fontSize={{ base: '2xl', sm: '4xl' }}
-                    bgGradient="linear(to-r, whiteAlpha.900, orange.400)"
-                    bgClip="text"
+                    textShadow={'dark-lg'}
                     _focus={{ boxShadow: 'none', outline: 'none' }}
                     _hover={{
                       textDecoration: 'none',
-                      color: 'whiteAlpha.900',
+                      color: 'purple.400',
+                      transiiton: '0.3s',
                     }}
                   >
                     André Sena

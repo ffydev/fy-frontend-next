@@ -1,11 +1,4 @@
-import {
-  Stack,
-  HStack,
-  Link,
-  IconButton,
-  LinkProps,
-  Text,
-} from '@chakra-ui/react'
+import { Stack, HStack, Link, LinkProps, Text, Button } from '@chakra-ui/react'
 import { InstagramLogo } from '@phosphor-icons/react'
 
 const links = ['Termos de Uso', 'Política de Privacidade']
@@ -15,7 +8,7 @@ const accounts = [
     url: '#',
     label: 'Instagram',
     type: 'purple',
-    icon: <InstagramLogo size={24} />,
+    leftIcon: <InstagramLogo size={24} />,
   },
 ]
 
@@ -33,17 +26,20 @@ export default function Footer() {
       >
         <Stack mb={4}>
           {accounts.map((sc, index) => (
-            <IconButton
+            <Button
               key={index}
               as={Link}
               href={sc.url}
               aria-label={sc.label}
               colorScheme={sc.type}
-              icon={sc.icon}
+              leftIcon={sc.leftIcon}
               rounded="full"
-              isExternal
-            />
+              style={{ textDecoration: 'none' }}
+            >
+              Conheça @andremsena
+            </Button>
           ))}
+          <Text></Text>
         </Stack>
         {/* Desktop Screen */}
         <HStack

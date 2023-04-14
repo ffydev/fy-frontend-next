@@ -8,7 +8,6 @@ export default function AboutSpecialist() {
     heading3:
       'Largue o treino intuitivo, sem direção, e saia de casa sabendo o que irá fazer, volte para casa sabendo o que foi feito e apure semanalmente se você tem evoluído. Seu esforço só vale a pena se este for aplicado na direção certa.',
     heading4: 'Bons treinos e conte comigo!',
-    heading5: '@andremsena',
   }
   return (
     <>
@@ -49,13 +48,6 @@ export default function AboutSpecialist() {
                 lineHeight={1.4}
               >
                 {textHeading.heading4}
-              </chakra.h2>
-              <chakra.h2
-                color="whiteAlpha.500"
-                fontSize={['lg', 'xl']}
-                lineHeight={1.2}
-              >
-                {textHeading.heading5}
               </chakra.h2>
             </Stack>
           </Box>
