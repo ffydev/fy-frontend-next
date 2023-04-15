@@ -4,7 +4,7 @@ import {
   findWorkoutsNamesByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
+import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@/hooks/ContextAuth'
@@ -83,22 +83,20 @@ export function Workouts() {
 
   return (
     <>
-      <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-        <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
-          <TabList>
-            {workoutsNames?.map((workout: IWorkout) => (
-              <Tab
-                key={workout.id}
-                onClick={() => setSelectedWorkoutId(workout.id!)}
-                mb={4}
-              >
-                Workout: {workout.workoutType}
-              </Tab>
-            ))}
-          </TabList>
-          <WorkoutsList workouts={workouts} />
-        </Tabs>
-      </Stack>
+      <Tabs size="lg" isLazy variant="enclosed" colorScheme={'whiteAlpha'}>
+        <TabList>
+          {workoutsNames?.map((workout: IWorkout) => (
+            <Tab
+              key={workout.id}
+              onClick={() => setSelectedWorkoutId(workout.id!)}
+              mb={4}
+            >
+              {workout.workoutType}
+            </Tab>
+          ))}
+        </TabList>
+        <WorkoutsList workouts={workouts} />
+      </Tabs>
     </>
   )
 }

@@ -98,7 +98,7 @@ export function Workouts() {
 
   return (
     <>
-      <Tabs variant="soft-rounded" colorScheme={'whiteAlpha'}>
+      <Tabs size="lg" isLazy variant="enclosed" colorScheme={'whiteAlpha'}>
         <TabList>
           {workoutsNames?.map((workout: IWorkout) => (
             <Tab
@@ -106,7 +106,7 @@ export function Workouts() {
               onClick={() => setSelectedWorkoutId(workout.id!)}
               mb={4}
             >
-              Workout: {workout.workoutType}
+              {workout.workoutType}
             </Tab>
           ))}
         </TabList>
