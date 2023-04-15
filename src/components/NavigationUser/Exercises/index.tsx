@@ -82,7 +82,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 fontSize="sm"
                 lineHeight={6}
               >
-                {exercise.exerciseType?.name}
+                {exercise.exerciseNames?.exerciseType?.name}
               </chakra.h1>
             </Center>
 
