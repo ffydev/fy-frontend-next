@@ -9,6 +9,7 @@ export interface IPlan {
   planTypeId?: string
   planType?: IPlanType
   userId?: string
+  planDuration?: number
 }
 
 export async function updatePlan(

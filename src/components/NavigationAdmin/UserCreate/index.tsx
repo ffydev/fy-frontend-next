@@ -48,10 +48,10 @@ const createUserFormSchema = z.object({
     required_error: 'Campo obrigatório',
     invalid_type_error: 'Data Inválida (YYYY-MM-DD)',
   }),
-  endDate: z.string({
-    required_error: 'Campo obrigatório',
-    invalid_type_error: 'Data Inválida (YYYY-MM-DD)',
-  }),
+  planDuration: z.coerce
+    .number()
+    .min(1, { message: 'Insira no mínimo 1 mês' })
+    .max(24, { message: 'Insira no máximo 24 meses' }),
 })
 
 type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
@@ -91,7 +91,7 @@ export default function UserCreate({
         plan: {
           create: {
             initDate: data.initDate,
-            endDate: data.endDate,
+            planDuration: data.planDuration,
             planTypeId: data.planTypeId,
           },
         },
@@ -173,14 +173,16 @@ export default function UserCreate({
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Data Final: </FormLabel>
+                <FormLabel>Duração em meses: </FormLabel>
                 <Input
-                  type="date"
-                  {...register('endDate')}
-                  placeholder="Data Final"
+                  type="number"
+                  {...register('planDuration')}
+                  placeholder="Duração em meses"
                   isRequired
                 />
-                {errors.endDate && <Text>{errors.endDate.message}</Text>}
+                {errors.planDuration && (
+                  <Text>{errors.planDuration.message}</Text>
+                )}
               </FormControl>
 
               <FormControl mt={4}>
