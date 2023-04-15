@@ -3,15 +3,15 @@ import {
   Box,
   Center,
   Container,
-  Flex,
+  Heading,
+  SimpleGrid,
   Stack,
-  Stat,
-  StatLabel,
+  VStack,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { ArrowArcLeft } from '@phosphor-icons/react'
+import { ArrowArcLeft, Barbell, Receipt } from '@phosphor-icons/react'
 import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 
 export default function Dashboard() {
@@ -39,43 +39,6 @@ export default function Dashboard() {
     setIsShowingDashboard(false)
   }
 
-  interface StatsCardProps {
-    title: string
-    subtitle: string
-  }
-  function StatsCard(props: StatsCardProps) {
-    const { title, subtitle } = props
-    return (
-      <Stat
-        px={{ base: 4, md: 8 }}
-        textAlign={'center'}
-        alignContent={'center'}
-        boxShadow={'lg'}
-        bgColor={'blackAlpha.500'}
-        backdropBlur={'1rem'}
-        backdropFilter="blur(10px)"
-        border={'1px'}
-        borderColor={'whiteAlpha.200'}
-        rounded={'lg'}
-      >
-        <StatLabel
-          fontWeight={'medium'}
-          fontSize={'3xl'}
-          textTransform={'capitalize'}
-        >
-          {title}
-        </StatLabel>
-        <StatLabel
-          fontWeight={'normal'}
-          fontSize={'2xl'}
-          textTransform={'capitalize'}
-        >
-          {subtitle}
-        </StatLabel>
-      </Stat>
-    )
-  }
-
   useEffect(() => {
     return () => {
       setIsShowingWorkouts(false)
@@ -87,61 +50,78 @@ export default function Dashboard() {
   return (
     <>
       {isShowingDashboard && (
-        <Container maxW={'7xl'}>
-          <Center py={[4, 6, 8]}>
-            <Flex
-              flexWrap={['wrap', 'nowrap']}
-              justifyContent={['center', 'space-between']}
-              alignItems={['center', 'flex-start']}
-              mt={3}
+        <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+          <Container maxW={'7xl'}>
+            <SimpleGrid
+              columns={{ base: 1, md: 2 }}
+              spacing={5}
+              mb={4}
+              w={'full'}
             >
-              <Stack spacing={6} direction={['column', 'row']}>
-                <Box
-                  maxWidth={['100%', '350px']}
-                  maxHeight={['350px', 'none']}
-                  height={['350px', 'none']}
-                  bgImage={{
-                    base: `url(https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)`,
-                    md: `url(https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)`,
-                  }}
-                  bgPosition="center"
-                  bgRepeat="no-repeat"
-                  bgSize="cover"
-                  borderRadius="md"
-                  p={4}
-                  mb={6}
-                  _hover={{ cursor: 'pointer' }}
-                  onClick={() => handleWithWorkouts()}
-                >
-                  <StatsCard title={'Workouts'} subtitle={'Treinos'} />
-                </Box>
+              <Box
+                p={4}
+                bgColor={'whiteAlpha.100'}
+                rounded={'lg'}
+                border={'1px'}
+                borderColor={'whiteAlpha.200'}
+                backdropBlur={'1rem'}
+                backdropFilter="blur(15px)"
+                boxShadow={'lg'}
+                _hover={{ cursor: 'pointer' }}
+                onClick={() => handleWithWorkouts()}
+              >
+                <VStack spacing={5}>
+                  <Box
+                    boxShadow="xl"
+                    _hover={{ boxShadow: 'lg' }}
+                    borderRadius="full"
+                    color={'purple.300'}
+                  >
+                    <Barbell size={96} weight="fill" />
+                  </Box>
+                  <Heading
+                    fontWeight={'medium'}
+                    fontSize={'3xl'}
+                    textTransform={'capitalize'}
+                  >
+                    Workouts | Treinos
+                  </Heading>
+                </VStack>
+              </Box>
 
-                <Box
-                  maxWidth={['100%', '350px']}
-                  maxHeight={['350px', 'none']}
-                  height={['350px', 'none']}
-                  bgImage={{
-                    base: `url(https://plus.unsplash.com/premium_photo-1661483120409-accf4c0ebd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1954&q=80)`,
-                    md: `url(https://plus.unsplash.com/premium_photo-1661483120409-accf4c0ebd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1954&q=80)`,
-                  }}
-                  bgPosition="center"
-                  bgRepeat="no-repeat"
-                  bgSize="cover"
-                  borderRadius="md"
-                  p={4}
-                  mb={6}
-                  _hover={{ cursor: 'pointer' }}
-                  onClick={() => handleWithAnamnesis()}
-                >
-                  <StatsCard
-                    title={'Anamnese'}
-                    subtitle={'Entrevista Médica'}
-                  />
-                </Box>
-              </Stack>
-            </Flex>
-          </Center>
-        </Container>
+              <Box
+                p={4}
+                bgColor={'whiteAlpha.100'}
+                rounded={'lg'}
+                border={'1px'}
+                borderColor={'whiteAlpha.200'}
+                backdropBlur={'1rem'}
+                backdropFilter="blur(15px)"
+                boxShadow={'lg'}
+                _hover={{ cursor: 'pointer' }}
+                onClick={() => handleWithAnamnesis()}
+              >
+                <VStack spacing={5}>
+                  <Box
+                    boxShadow="xl"
+                    _hover={{ boxShadow: 'lg' }}
+                    borderRadius="full"
+                    color={'purple.300'}
+                  >
+                    <Receipt size={96} weight="fill" />
+                  </Box>
+                  <Heading
+                    fontWeight={'medium'}
+                    fontSize={'3xl'}
+                    textTransform={'capitalize'}
+                  >
+                    Anamnese | Entrevista Médica
+                  </Heading>
+                </VStack>
+              </Box>
+            </SimpleGrid>
+          </Container>
+        </Stack>
       )}
 
       {isShowingWorkouts && (

@@ -117,12 +117,13 @@ export default function CompleteUserRegistration() {
       <Box
         mt={3}
         mb={4}
-        sx={{
-          border: '1px solid',
-          borderColor: 'grey.400',
-          borderRadius: '8px',
-          p: 3,
-        }}
+        bgColor={'whiteAlpha.100'}
+        rounded={'lg'}
+        border={'1px'}
+        borderColor={'whiteAlpha.200'}
+        backdropBlur={'1rem'}
+        backdropFilter="blur(15px)"
+        boxShadow={'lg'}
       >
         <Heading m={3}>Complete Seu Cadastro</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -170,7 +171,7 @@ export default function CompleteUserRegistration() {
           <Box mt={3}>
             <HandleButton
               text="Enviar"
-              leftIcon={<Plus size={30} color="black" weight="fill" />}
+              leftIcon={<Plus size={30} weight="fill" />}
               w={'full'}
               type={'submit'}
             />

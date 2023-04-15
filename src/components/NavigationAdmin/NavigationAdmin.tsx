@@ -133,7 +133,7 @@ export default function NavigationAdmin() {
                 align={'start'}
                 alignSelf={'center'}
                 position={'relative'}
-                mt={3}
+                mb={6}
               >
                 <HandleButton
                   text={'Voltar'}

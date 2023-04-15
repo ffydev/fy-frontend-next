@@ -90,10 +90,10 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
   return (
     <>
       <Heading as="h3" size="lg" pb="6" fontWeight="medium" textAlign="left">
-        Workouts
+        Workouts | Treinos
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+        <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={6}>
           <FormControl width={'100%'}>
             <Stack>
               <HandleButton
@@ -129,19 +129,18 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
             </Select>
             {errors.workoutType && <Text>{errors.workoutType.message}</Text>}
           </FormControl>
-          <FormControl width={'100%'}>
-            <Stack>
-              <Button
-                bgGradient={'linear(to-r, gray.800, gray.900)'}
-                rounded={'lg'}
-                boxShadow={'lg'}
-                leftIcon={<X weight="bold" />}
-                // onClick={() => handleWithDeleteWorkout(workout.id!)}
-              >
-                Excluir Workout
-              </Button>
-            </Stack>
-          </FormControl>
+
+          <Stack>
+            <Button
+              bgGradient={'linear(to-r, gray.800, gray.900)'}
+              rounded={'lg'}
+              boxShadow={'lg'}
+              leftIcon={<X weight="bold" />}
+              // onClick={() => handleWithDeleteWorkout(workout.id!)}
+            >
+              Excluir Workout
+            </Button>
+          </Stack>
         </Stack>
       </form>
     </>

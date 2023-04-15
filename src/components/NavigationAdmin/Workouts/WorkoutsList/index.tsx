@@ -118,59 +118,52 @@ export function WorkoutsLists({
 
   return (
     <>
-      <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-        {workouts?.map((workout: IWorkout) => (
-          <Box key={workout.id} p={4} width="100%">
-            <Flex justifyContent={'end'} mb={3}>
-              <Button
-                variant={'outline'}
-                leftIcon={<X weight="bold" />}
-                onClick={() => handleWithDeleteWorkout(workout.id!)}
-              >
-                Excluir Workout
-              </Button>
-            </Flex>
-
-            <Stack
-              direction={['column', 'row']}
-              spacing={10}
-              w={'full'}
-              mt={10}
+      {workouts?.map((workout: IWorkout) => (
+        <Box key={workout.id} p={4} width="100%">
+          <Flex justifyContent={'end'}>
+            <Button
+              variant={'outline'}
+              leftIcon={<X weight="bold" />}
+              onClick={() => handleWithDeleteWorkout(workout.id!)}
             >
-              <SimpleGrid
-                columns={{ base: 1, md: 3 }}
-                spacing={3}
-                mb={4}
-                w={'full'}
-              >
-                <HandleButton
-                  text="Adicionar Exercício"
-                  leftIcon={<Plus weight="bold" />}
-                  onClick={() =>
-                    handleCreateExercise(workout.id!, exerciseNameId)
-                  }
-                />
+              Excluir Workout
+            </Button>
+          </Flex>
 
-                <SelectSettingValue
-                  tag={'Grupo Muscular'}
-                  setValue={setExerciseTypeId}
-                  mapValues={exerciseTypes}
-                />
+          <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+            <SimpleGrid
+              columns={{ base: 1, md: 3 }}
+              spacing={5}
+              mb={4}
+              w={'full'}
+            >
+              <HandleButton
+                text="Adicionar Exercício"
+                leftIcon={<Plus weight="bold" />}
+                onClick={() =>
+                  handleCreateExercise(workout.id!, exerciseNameId)
+                }
+              />
 
-                <SelectSettingValue
-                  tag={'Nome do Exercício'}
-                  setValue={setExerciseNameId}
-                  mapValues={exerciseNames}
-                />
+              <SelectSettingValue
+                tag={'Grupo Muscular'}
+                setValue={setExerciseTypeId}
+                mapValues={exerciseTypes}
+              />
 
-                {workout.exercises && workout.exercises.length > 0 && (
-                  <ExercisesList exercises={workout.exercises} />
-                )}
-              </SimpleGrid>
-            </Stack>
-          </Box>
-        ))}
-      </Stack>
+              <SelectSettingValue
+                tag={'Nome do Exercício'}
+                setValue={setExerciseNameId}
+                mapValues={exerciseNames}
+              />
+
+              {workout.exercises && workout.exercises.length > 0 && (
+                <ExercisesList exercises={workout.exercises} />
+              )}
+            </SimpleGrid>
+          </Stack>
+        </Box>
+      ))}
     </>
   )
 }

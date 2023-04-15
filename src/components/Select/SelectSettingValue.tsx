@@ -13,7 +13,7 @@ export default function SelectSettingValue({
 }: SelectSettingValueProps) {
   return (
     <>
-      <FormControl width={'100%'} mb={{ base: '4', lg: '0' }} isRequired>
+      <FormControl width={'100%'} isRequired>
         <Select
           bgGradient={'linear(to-r, gray.800, gray.900)'}
           variant={'filled'}

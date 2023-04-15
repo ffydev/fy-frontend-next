@@ -4,17 +4,20 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {
   Box,
+  Button,
   Container,
   FormControl,
   FormLabel,
   Grid,
+  HStack,
   Input,
   Select,
+  Stack,
   Text,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus } from '@phosphor-icons/react'
+import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { updateUser } from '@/pages/api/providers/users.provider'
@@ -110,12 +113,14 @@ export default function AnamnesisCreate() {
         <Box
           mt={3}
           mb={4}
-          sx={{
-            border: '1px solid',
-            borderColor: 'grey.400',
-            borderRadius: '8px',
-            p: 3,
-          }}
+          p={8}
+          bgColor={'whiteAlpha.100'}
+          rounded={'lg'}
+          border={'1px'}
+          borderColor={'whiteAlpha.200'}
+          backdropBlur={'1rem'}
+          backdropFilter="blur(15px)"
+          boxShadow={'lg'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid templateColumns="repeat(2, 1fr)" gap={6}>
@@ -243,14 +248,24 @@ export default function AnamnesisCreate() {
               </FormControl>
             </Grid>
 
-            <Box mt={3}>
-              <HandleButton
-                text="Enviar"
-                leftIcon={<Plus size={30} color="black" weight="fill" />}
-                w={'full'}
-                type={'submit'}
-              />
-            </Box>
+            <Stack mt={6} mb={4}>
+              <HStack>
+                <HandleButton
+                  text="Enviar"
+                  leftIcon={<Plus size={30} weight="fill" />}
+                  w={'full'}
+                  type={'submit'}
+                />
+                <Button
+                  variant={'outline'}
+                  w={'full'}
+                  leftIcon={<X size={30} weight="fill" />}
+                  type="reset"
+                >
+                  Cancelar
+                </Button>
+              </HStack>
+            </Stack>
           </form>
         </Box>
       </Container>

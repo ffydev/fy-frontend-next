@@ -98,7 +98,7 @@ export function Workouts() {
 
   return (
     <>
-      <Tabs size="lg" isLazy variant="enclosed" colorScheme={'whiteAlpha'}>
+      <Tabs size="md" variant="enclosed" colorScheme={'purple'} isLazy>
         <TabList>
           {workoutsNames?.map((workout: IWorkout) => (
             <Tab
