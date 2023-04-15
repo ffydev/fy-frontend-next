@@ -34,17 +34,13 @@ export function WorkoutsLists({
 }: WorkoutsProps) {
   const router = useRouter()
   const { userId } = useAdminProvider()
-  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseType[]>([])
   const [exerciseNames, setExerciseNames] = useState<IExerciseName[]>([])
+  const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
 
   const handleCreateExercise = useCallback(
-    async (
-      workoutId: string,
-      exerciseNameId: string,
-      exerciseTypeId: string,
-    ) => {
+    async (workoutId: string, exerciseNameId: string) => {
       try {
         const token = getUserToken()
 
@@ -57,7 +53,6 @@ export function WorkoutsLists({
         await createExercise(token, {
           workoutId,
           exerciseNameId,
-          exerciseTypeId,
         })
 
         const workoutUpdated = await findWorkoutsByUserId(
@@ -88,10 +83,14 @@ export function WorkoutsLists({
       setExerciseTypes(response)
     } catch (error) {
       console.error(error)
-      // Implementar mensagem personalizada
+      // Implementar mensagem personalizadaexerciseNames
       router.push('/login')
     }
-  }, [router])
+  }, [router, setExerciseTypes])
+
+  useEffect(() => {
+    fetchExercisesTypesData()
+  }, [fetchExercisesTypesData])
 
   const fetchExercisesNamesData = useCallback(async () => {
     try {
@@ -103,7 +102,7 @@ export function WorkoutsLists({
         return
       }
 
-      const response = await findExercisesNames(token)
+      const response = await findExercisesNames(token, exerciseTypeId)
 
       setExerciseNames(response)
     } catch (error) {
@@ -111,12 +110,11 @@ export function WorkoutsLists({
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router])
+  }, [exerciseTypeId, router, setExerciseNames])
 
   useEffect(() => {
-    fetchExercisesTypesData()
     fetchExercisesNamesData()
-  }, [fetchExercisesNamesData, fetchExercisesTypesData])
+  }, [exerciseTypeId, fetchExercisesNamesData])
 
   return (
     <>
@@ -144,11 +142,7 @@ export function WorkoutsLists({
                   text="Adicionar Exercício"
                   leftIcon={<Plus weight="bold" />}
                   onClick={() =>
-                    handleCreateExercise(
-                      workout.id!,
-                      exerciseNameId,
-                      exerciseTypeId,
-                    )
+                    handleCreateExercise(workout.id!, exerciseNameId)
                   }
                 />
 

@@ -1,4 +1,3 @@
-import { IExerciseType } from './exercises-types.provider'
 import { IExerciseName } from '@/pages/api/providers/exercises-names.provider'
 import { api } from '../apis/api'
 
@@ -11,9 +10,7 @@ export interface IExercise {
   rir?: string
   workoutId?: string
   exerciseNameId?: string
-  exerciseTypeId?: string
   exerciseNames?: IExerciseName
-  exerciseType?: IExerciseType
 }
 
 export async function deleteExercise(token: string, id: string): Promise<void> {
