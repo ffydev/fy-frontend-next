@@ -12,10 +12,13 @@ import {
   Input,
   Heading,
   Text,
+  Stack,
+  HStack,
+  Button,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus } from '@phosphor-icons/react'
+import { Plus, X } from '@phosphor-icons/react'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -117,6 +120,7 @@ export default function CompleteUserRegistration() {
       <Box
         mt={3}
         mb={4}
+        p={4}
         bgColor={'whiteAlpha.100'}
         rounded={'lg'}
         border={'1px'}
@@ -125,9 +129,9 @@ export default function CompleteUserRegistration() {
         backdropFilter="blur(15px)"
         boxShadow={'lg'}
       >
-        <Heading m={3}>Complete Seu Cadastro</Heading>
+        <Heading>Complete seu cadastro</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+          <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>
             <FormControl gridColumn="span 1">
               <FormLabel>Primeiro Nome</FormLabel>
               <Input {...register('firstName')} placeholder="Primeiro Nome" />
@@ -149,7 +153,7 @@ export default function CompleteUserRegistration() {
               <Input
                 type={'password'}
                 {...register('password')}
-                placeholder="senha"
+                placeholder="Senha"
                 isRequired
               />
               {errors.password && <Text>{errors.password.message}</Text>}
@@ -160,7 +164,7 @@ export default function CompleteUserRegistration() {
               <Input
                 type={'password'}
                 {...register('confirmPassword')}
-                placeholder="confirmar senha"
+                placeholder="Confirmar senha"
               />
               {errors.confirmPassword && (
                 <Text>{errors.confirmPassword.message}</Text>
@@ -168,14 +172,24 @@ export default function CompleteUserRegistration() {
             </FormControl>
           </Grid>
 
-          <Box mt={3}>
-            <HandleButton
-              text="Enviar"
-              leftIcon={<Plus size={30} weight="fill" />}
-              w={'full'}
-              type={'submit'}
-            />
-          </Box>
+          <Stack mt={6} mb={4}>
+            <HStack>
+              <HandleButton
+                text="Enviar"
+                leftIcon={<Plus size={30} weight="fill" />}
+                w={'full'}
+                type={'submit'}
+              />
+              <Button
+                variant={'outline'}
+                w={'full'}
+                leftIcon={<X size={30} weight="fill" />}
+                type="reset"
+              >
+                Cancelar
+              </Button>
+            </HStack>
+          </Stack>
         </form>
       </Box>
     </>
