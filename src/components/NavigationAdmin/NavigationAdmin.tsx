@@ -127,25 +127,26 @@ export default function NavigationAdmin() {
       {isShowingWorkouts && (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Stack
-              direction={'column'}
-              align={'start'}
-              alignSelf={'center'}
-              position={'relative'}
-              mt={3}
-              ml={3}
-            >
-              <HandleButton
-                text={'Voltar'}
-                leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-                onClick={handleWithHideWorkouts}
-              />
-            </Stack>
-            <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-              <Stack maxW={'auto'}>
-                <WorkoutsHeader userId={userId} />
-                <Workouts />
+            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+              <Stack
+                direction={'column'}
+                align={'start'}
+                alignSelf={'center'}
+                position={'relative'}
+                mt={3}
+              >
+                <HandleButton
+                  text={'Voltar'}
+                  leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+                  onClick={handleWithHideWorkouts}
+                />
               </Stack>
+              <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+                <Stack maxW={'auto'}>
+                  <WorkoutsHeader userId={userId} />
+                  <Workouts />
+                </Stack>
+              </Container>
             </Container>
           </Box>
         </>
@@ -154,22 +155,24 @@ export default function NavigationAdmin() {
       {isShowingFeedbacks && (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Stack
-              direction={'column'}
-              align={'start'}
-              alignSelf={'center'}
-              position={'relative'}
-              mt={3}
-              ml={3}
-            >
-              <HandleButton
-                text={'Voltar'}
-                leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-                onClick={handleWithHideFeedbacks}
-              />
-            </Stack>
             <Container maxW="7xl" p={{ base: 5, md: 10 }}>
-              <Feedbacks />
+              <Stack
+                direction={'column'}
+                align={'start'}
+                alignSelf={'center'}
+                position={'relative'}
+                mt={3}
+                ml={3}
+              >
+                <HandleButton
+                  text={'Voltar'}
+                  leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+                  onClick={handleWithHideFeedbacks}
+                />
+              </Stack>
+              <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+                <Feedbacks />
+              </Container>
             </Container>
           </Box>
         </>

@@ -131,7 +131,12 @@ export function WorkoutsLists({
               </Button>
             </Flex>
 
-            <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+            <Stack
+              direction={['column', 'row']}
+              spacing={10}
+              w={'full'}
+              mt={10}
+            >
               <SimpleGrid
                 columns={{ base: 1, md: 3 }}
                 spacing={3}

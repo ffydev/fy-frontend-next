@@ -94,6 +94,7 @@ export default function UsersHeader({
             onChange={(event) => setSearch(event.target.value)}
           />
         </FormControl>
+
         <FormControl>
           <Stack spacing={5} direction="row">
             <Box
