@@ -20,6 +20,7 @@ export default function CtaForm() {
               transform: 'scale(1.1)',
               transition: '0.5s',
             }}
+            href="#"
           >
             Quero minha planilha
           </Button>

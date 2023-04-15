@@ -16,8 +16,8 @@ export default function Progression() {
       <Stack align={'center'} p={10} pt={20}>
         <RevealWrapper
           rotate={{ x: 12, y: 40, z: 0 }}
-          origin="left"
-          delay={500}
+          origin="top"
+          delay={700}
           duration={500}
           distance="500px"
           reset={true}
@@ -35,8 +35,8 @@ export default function Progression() {
       </Stack>
       <RevealWrapper
         rotate={{ x: 12, y: 40, z: 0 }}
-        origin="left"
-        delay={550}
+        origin="top"
+        delay={750}
         duration={500}
         distance="500px"
         reset={true}
@@ -69,7 +69,7 @@ export default function Progression() {
                       as={CheckFat}
                       weight={'fill'}
                       size={24}
-                      color="orange.400"
+                      color="purple.300"
                     />
                     <chakra.h2
                       color="whiteAlpha.800"

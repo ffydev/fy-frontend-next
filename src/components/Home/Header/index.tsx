@@ -69,8 +69,8 @@ export function Header() {
                     >
                       <RevealWrapper
                         rotate={{ x: 12, y: 40, z: 0 }}
-                        origin="left"
-                        delay={150}
+                        origin="top"
+                        delay={200}
                         duration={500}
                         distance="500px"
                         reset={true}
@@ -88,8 +88,8 @@ export function Header() {
                       </RevealWrapper>
                       <RevealWrapper
                         rotate={{ x: 12, y: 40, z: 0 }}
-                        origin="left"
-                        delay={200}
+                        origin="top"
+                        delay={300}
                         duration={500}
                         distance="500px"
                         reset={true}

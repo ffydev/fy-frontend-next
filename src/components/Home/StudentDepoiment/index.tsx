@@ -7,9 +7,10 @@ import {
   Icon,
   SimpleGrid,
   Stack,
-  chakra,
+  VStack,
+  Heading,
 } from '@chakra-ui/react'
-import { Quotes, Star } from '@phosphor-icons/react'
+import { Plus, Quotes, Star } from '@phosphor-icons/react'
 
 interface TestimonialAttributes {
   username: string
@@ -53,29 +54,44 @@ export function StudentDepoiment() {
         textAlign="center"
       >
         <Flex flex={1}>
-          <chakra.h1
-            textAlign={'left'}
-            fontSize={['2xl', '4xl']}
-            fontWeight="bold"
-            color={'whiteAlpha.900'}
-          >
-            Veja alguns dos nossos alunos
-            <HStack spacing={3}>
-              <Flex alignItems="center" justify="start">
-                <Star color="#EACA4E" weight="fill" />
-                <Star color="#EACA4E" weight="fill" />
-                <Star color="#EACA4E" weight="fill" />
-                <Star color="#EACA4E" weight="fill" />
-                <Star color="#e2e8f0" weight="fill" />
-              </Flex>
-              <Text fontWeight="bold" fontSize="lg">
-                4.5
-              </Text>
-            </HStack>
-            <Text fontWeight="bold" fontSize="md">
-              500 avaliações
-            </Text>
-          </chakra.h1>
+          <Stack>
+            <VStack spacing={2} align={'start'}>
+              {['500'].map((text, index) => (
+                <HStack spacing={2} key={index}>
+                  <Heading
+                    textAlign={'left'}
+                    fontSize={['4xl', '6xl']}
+                    fontWeight="bold"
+                    color={'whiteAlpha.900'}
+                  >
+                    {text}
+                  </Heading>
+                  <Plus color="#8059D4" weight="bold" size={56} />
+                </HStack>
+              ))}
+              <HStack fontSize={['4xl', '6xl']} fontWeight="bold">
+                <Star color="#8059D4" weight="fill" />
+                <Star color="#8059D4" weight="fill" />
+                <Star color="#8059D4" weight="fill" />
+                <Star color="#8059D4" weight="fill" />
+                <Star color="#8059D4" weight="fill" />
+              </HStack>
+              <HStack>
+                {['Veja alguns dos nossos alunos'].map((text, index) => (
+                  <HStack spacing={2} key={index}>
+                    <Heading
+                      textAlign={'left'}
+                      fontSize={['lg', '3xl']}
+                      fontWeight="bold"
+                      color={'whiteAlpha.900'}
+                    >
+                      {text}
+                    </Heading>
+                  </HStack>
+                ))}
+              </HStack>
+            </VStack>
+          </Stack>
         </Flex>
         <Flex flex={1}>
           <SimpleGrid
@@ -104,7 +120,7 @@ export function StudentDepoiment() {
                   alignItems="center"
                   p={5}
                   boxShadow={'lg'}
-                  bgColor={'whiteAlpha.200'}
+                  bgColor={'rgba(97,36,182,0.3)'}
                   backdropBlur={'1rem'}
                   backdropFilter="blur(10px)"
                   border={'1px'}
@@ -162,7 +178,7 @@ export function StudentDepoiment() {
                 alignItems="center"
                 p={5}
                 boxShadow={'lg'}
-                bgColor={'whiteAlpha.200'}
+                bgColor={'rgba(97,36,182,0.3)'}
                 backdropBlur={'1rem'}
                 backdropFilter="blur(10px)"
                 border={'1px'}

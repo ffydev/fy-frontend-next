@@ -16,8 +16,8 @@ export default function FormPlanilha() {
       <Stack spacing={4} maxW={{ base: '20rem', sm: '25rem' }} margin="0 auto">
         <RevealWrapper
           rotate={{ x: 12, y: 40, z: 0 }}
-          origin="left"
-          delay={300}
+          origin="top"
+          delay={750}
           duration={500}
           distance="500px"
           reset={true}
@@ -31,10 +31,9 @@ export default function FormPlanilha() {
               bottom="-7px"
               left="-7px"
               bgGradient="linear(to-l, rgba(97,36,182,0.4) 0%, rgba(57,35,98,0.4) 33%, rgba(47,37,70,0.4) 71%)"
-              transform="rotate(-2deg)"
+              transform="rotate(-10deg)"
               boxShadow={'lg'}
               backdropBlur={'1rem'}
-              backdropFilter="blur(20px)"
               border={'1px'}
               borderColor={'whiteAlpha.200'}
               rounded="2xl"

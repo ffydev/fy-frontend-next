@@ -37,15 +37,14 @@ export default function CardProgression() {
             justifyContent={{ base: 'center', md: 'center' }}
             direction={{ base: 'column-reverse', md: 'column' }}
           >
-            <SimpleGrid columns={{ base: 2, md: 3 }} spacing={6}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
               <RevealWrapper
                 rotate={{ x: 12, y: 40, z: 0 }}
-                origin="left"
-                delay={350}
+                origin="bottom"
+                delay={500}
                 duration={500}
                 distance="500px"
                 reset={true}
-                viewOffset={{ top: 25, right: 0, bottom: 10, left: 5 }}
               >
                 <VStack
                   align={'left'}
@@ -64,7 +63,7 @@ export default function CardProgression() {
                   }}
                 >
                   <Box>
-                    <NotePencil size={'4em'} weight={'fill'} />
+                    <NotePencil size={'4em'} weight={'fill'} color="#8059D4" />
                   </Box>
                   <Box>
                     <Box>
@@ -114,8 +113,8 @@ export default function CardProgression() {
               </RevealWrapper>
               <RevealWrapper
                 rotate={{ x: 12, y: 40, z: 0 }}
-                origin="left"
-                delay={400}
+                origin="bottom"
+                delay={550}
                 duration={500}
                 distance="500px"
                 reset={true}
@@ -138,7 +137,7 @@ export default function CardProgression() {
                   }}
                 >
                   <Box>
-                    <HandHeart size={'4em'} weight={'fill'} />
+                    <HandHeart size={'4em'} weight={'fill'} color="#8059D4" />
                   </Box>
                   <Box>
                     <Box>
@@ -188,8 +187,8 @@ export default function CardProgression() {
               </RevealWrapper>
               <RevealWrapper
                 rotate={{ x: 12, y: 40, z: 0 }}
-                origin="left"
-                delay={450}
+                origin="bottom"
+                delay={600}
                 duration={500}
                 distance="500px"
                 reset={true}
@@ -212,7 +211,7 @@ export default function CardProgression() {
                   }}
                 >
                   <Box>
-                    <Barbell size={'4em'} weight={'fill'} />
+                    <Barbell size={'4em'} weight={'fill'} color="#8059D4" />
                   </Box>
                   <Box>
                     <Box>
