@@ -7,6 +7,7 @@ import {
   SimpleGrid,
   Stack,
   VStack,
+  chakra,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Workouts } from '../Workouts'
@@ -83,8 +84,18 @@ export default function Dashboard() {
                     fontWeight={'medium'}
                     fontSize={'3xl'}
                     textTransform={'capitalize'}
+                    textAlign={'center'}
                   >
-                    Workouts | Treinos
+                    Workouts{' '}
+                    <chakra.span
+                      fontWeight={'medium'}
+                      fontSize={['lg', '2xl']}
+                      textTransform={'capitalize'}
+                      textAlign={'center'}
+                      color={'whiteAlpha.600'}
+                    >
+                      Treinos
+                    </chakra.span>
                   </Heading>
                 </VStack>
               </Box>
@@ -114,8 +125,18 @@ export default function Dashboard() {
                     fontWeight={'medium'}
                     fontSize={'3xl'}
                     textTransform={'capitalize'}
+                    textAlign={'center'}
                   >
-                    Anamnese | Entrevista Médica
+                    Anamnese{' '}
+                    <chakra.span
+                      fontWeight={'medium'}
+                      fontSize={['lg', '2xl']}
+                      textTransform={'capitalize'}
+                      textAlign={'center'}
+                      color={'whiteAlpha.600'}
+                    >
+                      Entrevista Médica
+                    </chakra.span>
                   </Heading>
                 </VStack>
               </Box>
