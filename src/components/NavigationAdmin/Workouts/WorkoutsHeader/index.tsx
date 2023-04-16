@@ -50,11 +50,11 @@ const workoutTypes = [
   },
 ]
 
-const createUserFormSchema = z.object({
+const createWorkoutFormSchema = z.object({
   workoutType: z.string().nonempty({ message: 'Selecione o workout' }),
 })
 
-type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
+type createWorkoutFormSchemaType = z.infer<typeof createWorkoutFormSchema>
 
 export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
   const router = useRouter()
@@ -68,11 +68,11 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<createUserFormSchemaType>({
-    resolver: zodResolver(createUserFormSchema),
+  } = useForm<createWorkoutFormSchemaType>({
+    resolver: zodResolver(createWorkoutFormSchema),
   })
 
-  const onSubmit: SubmitHandler<createUserFormSchemaType> = async (data) => {
+  const onSubmit: SubmitHandler<createWorkoutFormSchemaType> = async (data) => {
     try {
       const token = getUserToken()
 
