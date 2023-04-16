@@ -1,6 +1,5 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
-  deleteWorkout,
   findWorkoutsByUserId,
   findWorkoutsNamesByUserId,
   IWorkout,
@@ -13,10 +12,14 @@ import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 
 export function Workouts() {
   const router = useRouter()
-  const { userId, isFetchingWorkoutsNames } = useAdminProvider()
+  const {
+    userId,
+    isFetchingWorkoutsNames,
+    selectedWorkoutId,
+    setSelectedWorkoutId,
+  } = useAdminProvider()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
-  const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
 
   const fetchWorkoutsNames = useCallback(async () => {
     try {
@@ -72,29 +75,12 @@ export function Workouts() {
       }
       fetchUserWorkouts()
     }
-  }, [fetchUserWorkouts, selectedWorkoutId, workoutsNames])
-
-  const handleWithDeleteWorkout = async (id: string) => {
-    const token = getUserToken()
-
-    if (!token) {
-      // Implementar mensagem personalizada
-      router.push('/login')
-      return
-    }
-
-    try {
-      await deleteWorkout(token, id)
-      const updatedWorkouts = updatingWorkoutsState(workoutsNames, id)
-      setWorkoutsNames(updatedWorkouts)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const updatingWorkoutsState = (workouts: IWorkout[], id: string) => {
-    return workouts.filter((workout: IWorkout) => workout.id !== id)
-  }
+  }, [
+    fetchUserWorkouts,
+    selectedWorkoutId,
+    workoutsNames,
+    setSelectedWorkoutId,
+  ])
 
   return (
     <>
@@ -110,11 +96,7 @@ export function Workouts() {
             </Tab>
           ))}
         </TabList>
-        <WorkoutsLists
-          setWorkouts={setWorkouts}
-          workouts={workouts}
-          handleWithDeleteWorkout={handleWithDeleteWorkout}
-        />
+        <WorkoutsLists setWorkouts={setWorkouts} workouts={workouts} />
       </Tabs>
     </>
   )

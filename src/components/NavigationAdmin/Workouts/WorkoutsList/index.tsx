@@ -14,8 +14,8 @@ import {
   findWorkoutsByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Box, Button, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
-import { Plus, X } from '@phosphor-icons/react'
+import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import ExercisesList from '../../ExercisesList'
@@ -24,14 +24,9 @@ import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 interface WorkoutsProps {
   setWorkouts: (workouts: IWorkout[]) => void
   workouts: IWorkout[]
-  handleWithDeleteWorkout: (workoutId: string) => void
 }
 
-export function WorkoutsLists({
-  workouts,
-  handleWithDeleteWorkout,
-  setWorkouts,
-}: WorkoutsProps) {
+export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
   const router = useRouter()
   const { userId } = useAdminProvider()
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
@@ -120,16 +115,6 @@ export function WorkoutsLists({
     <>
       {workouts?.map((workout: IWorkout) => (
         <Box key={workout.id} p={4} width="100%">
-          <Flex justifyContent={'end'}>
-            <Button
-              variant={'outline'}
-              leftIcon={<X weight="bold" />}
-              onClick={() => handleWithDeleteWorkout(workout.id!)}
-            >
-              Excluir Workout
-            </Button>
-          </Flex>
-
           <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
             <SimpleGrid
               columns={{ base: 1, md: 3 }}

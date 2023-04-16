@@ -7,7 +7,10 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { createWorkout } from '@/pages/api/providers/workouts.provider'
+import {
+  createWorkout,
+  deleteWorkout,
+} from '@/pages/api/providers/workouts.provider'
 import { useRouter } from 'next/router'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus, X } from '@phosphor-icons/react'
@@ -55,8 +58,11 @@ type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 
 export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
   const router = useRouter()
-  const { isFetchingWorkoutsNames, setIsFetchingWorkoutsNames } =
-    useAdminProvider()
+  const {
+    isFetchingWorkoutsNames,
+    setIsFetchingWorkoutsNames,
+    selectedWorkoutId,
+  } = useAdminProvider()
 
   const {
     register,
@@ -80,6 +86,24 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
         userId,
         workoutType: data.workoutType,
       })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsFetchingWorkoutsNames(!isFetchingWorkoutsNames)
+    }
+  }
+
+  const handleWithDeleteWorkout = async (id: string) => {
+    const token = getUserToken()
+
+    if (!token) {
+      // Implementar mensagem personalizada
+      router.push('/login')
+      return
+    }
+
+    try {
+      await deleteWorkout(token, id)
     } catch (error) {
       console.error(error)
     } finally {
@@ -136,7 +160,7 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
               rounded={'lg'}
               boxShadow={'lg'}
               leftIcon={<X weight="bold" />}
-              // onClick={() => handleWithDeleteWorkout(workout.id!)}
+              onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
             >
               Excluir Workout
             </Button>

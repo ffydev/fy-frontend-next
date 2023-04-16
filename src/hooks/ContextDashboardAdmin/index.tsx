@@ -2,11 +2,13 @@ import React, { createContext, useContext, useState } from 'react'
 
 export interface ContextData {
   userId: string
+  selectedWorkoutId: string
   isShowingUsers: boolean
   isShowingWorkouts: boolean
   isShowingFeedbacks: boolean
   isFetchingWorkoutsNames: boolean
   setuserId(newValue: string): void
+  setSelectedWorkoutId(newValue: string): void
   setIsShowingUsers(isShowingUsers: boolean): void
   setIsShowingWorkouts(isShowingWorkouts: boolean): void
   setIsShowingFeedbacks(isShowingFeedbacks: boolean): void
@@ -15,11 +17,13 @@ export interface ContextData {
 
 export const ContextDashboardAdmin = createContext<ContextData>({
   userId: '',
+  selectedWorkoutId: '',
   isShowingUsers: true,
   isShowingWorkouts: false,
   isShowingFeedbacks: false,
   isFetchingWorkoutsNames: false,
   setuserId: () => {},
+  setSelectedWorkoutId: () => {},
   setIsShowingUsers: () => {},
   setIsShowingWorkouts: () => {},
   setIsShowingFeedbacks: () => {},
@@ -34,6 +38,7 @@ export default function ContextDashboardAdminProvider({
   children,
 }: ContextDashboardAdminProviderProps) {
   const [userId, setuserId] = useState<string>('')
+  const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [isShowingUsers, setIsShowingUsers] = useState<boolean>(true)
   const [isShowingWorkouts, setIsShowingWorkouts] = useState<boolean>(false)
   const [isShowingFeedbacks, setIsShowingFeedbacks] = useState<boolean>(false)
@@ -44,11 +49,13 @@ export default function ContextDashboardAdminProvider({
     <ContextDashboardAdmin.Provider
       value={{
         userId,
+        selectedWorkoutId,
         isShowingUsers,
         isShowingWorkouts,
         isShowingFeedbacks,
         isFetchingWorkoutsNames,
         setuserId,
+        setSelectedWorkoutId,
         setIsShowingUsers,
         setIsShowingWorkouts,
         setIsShowingFeedbacks,
