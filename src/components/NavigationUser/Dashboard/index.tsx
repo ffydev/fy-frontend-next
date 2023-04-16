@@ -92,7 +92,7 @@ export default function Dashboard() {
                       fontSize={['lg', '2xl']}
                       textTransform={'capitalize'}
                       textAlign={'center'}
-                      color={'whiteAlpha.600'}
+                      color={'purple.300'}
                     >
                       Treinos
                     </chakra.span>
@@ -133,7 +133,7 @@ export default function Dashboard() {
                       fontSize={['lg', '2xl']}
                       textTransform={'capitalize'}
                       textAlign={'center'}
-                      color={'whiteAlpha.600'}
+                      color={'purple.300'}
                     >
                       Entrevista Médica
                     </chakra.span>
