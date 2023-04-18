@@ -12,7 +12,13 @@ import {
 import { useEffect } from 'react'
 import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { ArrowArcLeft, Barbell, Receipt } from '@phosphor-icons/react'
+import {
+  ArrowArcLeft,
+  Barbell,
+  Receipt,
+  UserList,
+  WechatLogo,
+} from '@phosphor-icons/react'
 import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 import CreatingFeedback from '../Feedbacks/CreateFeedback'
 import ListFeedbacks from '../Feedbacks/ListFeedbacks'
@@ -142,7 +148,7 @@ export default function Dashboard() {
                     borderRadius="full"
                     color={'purple.300'}
                   >
-                    <Receipt size={96} weight="fill" />
+                    <WechatLogo size={96} weight="fill" />
                   </Box>
                   <Heading
                     fontWeight={'medium'}
@@ -183,7 +189,7 @@ export default function Dashboard() {
                     borderRadius="full"
                     color={'purple.300'}
                   >
-                    <Receipt size={96} weight="fill" />
+                    <UserList size={96} weight="fill" />
                   </Box>
                   <Heading
                     fontWeight={'medium'}
