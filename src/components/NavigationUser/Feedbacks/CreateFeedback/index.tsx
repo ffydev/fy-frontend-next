@@ -55,7 +55,8 @@ type createFeedbackFormSchemaType = z.infer<typeof createFeedbackFormSchema>
 export default function CreatingFeedback() {
   const router = useRouter()
   const { user } = useAuth()
-  const { setIsShowingDashboard, setIsShowingFeedbacks } = useUserProvider()
+  const { setIsShowingDashboard, setIsShowingCreateFeedbacks } =
+    useUserProvider()
 
   const {
     register,
@@ -87,13 +88,13 @@ export default function CreatingFeedback() {
     } catch (error) {
       console.error(error)
     } finally {
-      setIsShowingFeedbacks(false)
+      setIsShowingCreateFeedbacks(false)
       setIsShowingDashboard(true)
     }
   }
 
   const handleWithCancelCreatingFeedback = () => {
-    setIsShowingFeedbacks(false)
+    setIsShowingCreateFeedbacks(false)
     setIsShowingDashboard(true)
   }
 
