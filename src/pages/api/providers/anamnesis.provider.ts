@@ -18,9 +18,9 @@ export interface IAnamnesis {
   supplementsPharmaceuticalsUsed?: string
   imagePaths?: string
   userId: string
-  createdAt?: Date
-  updatedAt?: Date
-  deletedAt?: Date
+  createdAt?: string
+  updatedAt?: string
+  deletedAt?: string
 }
 
 export async function createAnamnesis(

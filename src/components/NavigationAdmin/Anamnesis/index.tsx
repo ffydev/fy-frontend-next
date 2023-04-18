@@ -51,6 +51,10 @@ export default function ListAnamnesis() {
           minWidth="250px"
         >
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Data: {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Idade: {anamnesis.age}
           </chakra.h1>
 
