@@ -14,13 +14,16 @@ import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { ArrowArcLeft, Barbell, Receipt } from '@phosphor-icons/react'
 import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
+import CreatingFeedback from '../Feedbacks'
 
 export default function Dashboard() {
   const {
     isShowingWorkouts,
     isShowAnamnesis,
+    isShowingFeedbacks,
     setIsShowingWorkouts,
     setIsShowAnamnesis,
+    setIsShowingFeedbacks,
   } = useUserProvider()
   const [isShowingDashboard, setIsShowingDashboard] = useState<boolean>(true)
 
@@ -28,6 +31,7 @@ export default function Dashboard() {
     setIsShowingWorkouts(false)
     setIsShowAnamnesis(false)
     setIsShowingDashboard(true)
+    setIsShowingFeedbacks(false)
   }
 
   const handleWithWorkouts = () => {
@@ -40,10 +44,16 @@ export default function Dashboard() {
     setIsShowingDashboard(false)
   }
 
+  const handleWithFeedbacks = () => {
+    setIsShowingFeedbacks(true)
+    setIsShowingDashboard(false)
+  }
+
   useEffect(() => {
     return () => {
       setIsShowingWorkouts(false)
       setIsShowAnamnesis(false)
+      setIsShowingFeedbacks(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -95,6 +105,47 @@ export default function Dashboard() {
                       color={'purple.300'}
                     >
                       Treinos
+                    </chakra.span>
+                  </Heading>
+                </VStack>
+              </Box>
+
+              <Box
+                p={4}
+                bgColor={'whiteAlpha.100'}
+                rounded={'lg'}
+                border={'1px'}
+                borderColor={'whiteAlpha.200'}
+                backdropBlur={'1rem'}
+                backdropFilter="blur(15px)"
+                boxShadow={'lg'}
+                _hover={{ cursor: 'pointer' }}
+                onClick={() => handleWithFeedbacks()}
+              >
+                <VStack spacing={5}>
+                  <Box
+                    boxShadow="xl"
+                    _hover={{ boxShadow: 'lg' }}
+                    borderRadius="full"
+                    color={'purple.300'}
+                  >
+                    <Receipt size={96} weight="fill" />
+                  </Box>
+                  <Heading
+                    fontWeight={'medium'}
+                    fontSize={'3xl'}
+                    textTransform={'capitalize'}
+                    textAlign={'center'}
+                  >
+                    Feedbacks{' '}
+                    <chakra.span
+                      fontWeight={'medium'}
+                      fontSize={['lg', '2xl']}
+                      textTransform={'capitalize'}
+                      textAlign={'center'}
+                      color={'purple.300'}
+                    >
+                      Criar Feedback
                     </chakra.span>
                   </Heading>
                 </VStack>
@@ -169,6 +220,28 @@ export default function Dashboard() {
           </Container>
         </>
       )}
+
+      {isShowingFeedbacks ? (
+        <>
+          <Stack
+            direction={'column'}
+            align={'start'}
+            alignSelf={'center'}
+            position={'relative'}
+            mt={3}
+            ml={3}
+          >
+            <HandleButton
+              text={'Voltar'}
+              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              onClick={() => handleWithDashboard()}
+            />
+          </Stack>
+          <Center>
+            <CreatingFeedback />
+          </Center>
+        </>
+      ) : null}
 
       {isShowAnamnesis ? (
         <>
