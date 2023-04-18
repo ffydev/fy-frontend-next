@@ -1,6 +1,6 @@
 import { api } from '../apis/api'
 
-interface IAnamnesis {
+export interface IAnamnesis {
   id?: string
   gender?: 'feminino' | 'masculino' | 'outro' | string | undefined
   age?: number
@@ -31,6 +31,25 @@ export async function createAnamnesis(
     const response = await api.post<IAnamnesis>('/anamnesis', anamnesis, {
       headers: { Authorization: `Bearer ${token}` },
     })
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to create user', error)
+    throw error
+  }
+}
+
+export async function findUserAnamnesis(
+  token: string,
+  userId: string,
+): Promise<IAnamnesis[]> {
+  try {
+    const response = await api.get<IAnamnesis[]>(
+      `/anamnesis/by-user${userId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {

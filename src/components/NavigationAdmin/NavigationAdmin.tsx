@@ -15,6 +15,7 @@ import UsersHeader from './UsersHeader'
 import { UsersList } from './UsersList'
 import Feedbacks from './Feedbacks'
 import WorkoutsHeader from './Workouts/WorkoutsHeader'
+import ListAnamnesis from './Anamnesis'
 
 export default function NavigationAdmin() {
   const router = useRouter()
@@ -180,7 +181,7 @@ export default function NavigationAdmin() {
               </Stack>
               <Container maxW="7xl" p={{ base: 5, md: 10 }}>
                 <>
-                  <h1>Anamnesis</h1>
+                  <ListAnamnesis />
                 </>
               </Container>
             </Container>
