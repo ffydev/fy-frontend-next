@@ -184,15 +184,6 @@ export function UsersList({
                 >
                   Anamnese
                 </Button>
-
-                <Button
-                  background={'purple.700'}
-                  size={'xs'}
-                  onClick={() => handleWithActiveUserAnamnesis(user.id)}
-                  value={user.id}
-                >
-                  Ativar Anamnese
-                </Button>
               </Flex>
 
               <Input
@@ -218,9 +209,20 @@ export function UsersList({
                 onBlur={() => handleUpdateUser(user.id!)}
               />
 
-              <FormLabel mt={3}>
-                Status: {user.isRegistered ? 'Registrado' : 'Não registrado'}
-              </FormLabel>
+              <Flex mt={3}>
+                <FormLabel>
+                  Status: {user.isRegistered ? 'Registrado' : 'Não registrado'}
+                </FormLabel>
+
+                <Button
+                  background={'purple.700'}
+                  size={'xs'}
+                  onClick={() => handleWithActiveUserAnamnesis(user.id)}
+                  value={user.id}
+                >
+                  Ativar Anamnese
+                </Button>
+              </Flex>
 
               {user.deletedAt && (
                 <Flex>
