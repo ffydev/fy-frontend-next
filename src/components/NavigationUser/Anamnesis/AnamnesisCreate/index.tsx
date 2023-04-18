@@ -23,7 +23,7 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { updateUser } from '@/pages/api/providers/users.provider'
+import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import { useCallback } from 'react'
 import { useUserProvider } from '@/hooks/ContextDashboardUser'
 
@@ -127,7 +127,7 @@ export default function AnamnesisCreate() {
         userId: user!.id,
       })
 
-      await updateUser(token, user!.id, { hasAnamnesis: true })
+      await updateUserByUser(token, user!.id, { hasAnamnesis: true })
       await fetchCurrentUserData(token)
     } catch (error) {
       console.error(error)
