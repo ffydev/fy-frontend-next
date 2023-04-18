@@ -6,7 +6,6 @@ import {
   FormControl,
   FormLabel,
   Grid,
-  Heading,
   Text,
   Stack,
   HStack,
@@ -93,6 +92,11 @@ export default function CreatingFeedback() {
     }
   }
 
+  const handleWithCancelCreatingFeedback = () => {
+    setIsShowingFeedbacks(false)
+    setIsShowingDashboard(true)
+  }
+
   return (
     <>
       <Container maxW="7xl" p={{ base: 3, md: 1 }} m={3}>
@@ -108,7 +112,6 @@ export default function CreatingFeedback() {
           backdropFilter="blur(15px)"
           boxShadow={'lg'}
         >
-          <Heading>Criar Feedback</Heading>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl gridColumn="span 1" mt={3} w={'-webkit-fit-content'}>
               <FormLabel>Peso</FormLabel>
@@ -154,6 +157,7 @@ export default function CreatingFeedback() {
                   w={'full'}
                   leftIcon={<X weight="bold" />}
                   type="reset"
+                  onClick={handleWithCancelCreatingFeedback}
                 >
                   Cancelar
                 </Button>
