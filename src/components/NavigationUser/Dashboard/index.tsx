@@ -272,7 +272,7 @@ export default function Dashboard() {
         </>
       )}
 
-      {isShowingFeedbacks ? (
+      {isShowingFeedbacks && (
         <>
           <Stack
             direction={'column'}
@@ -285,14 +285,17 @@ export default function Dashboard() {
             <HandleButton
               text={'Voltar'}
               leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={() => handleWithDashboard()}
+              onClick={handleWithDashboard}
             />
           </Stack>
-          <Center>
-            <ListFeedbacks />
-          </Center>
+
+          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+            <Stack maxW={'auto'}>
+              <ListFeedbacks />
+            </Stack>
+          </Container>
         </>
-      ) : null}
+      )}
 
       {isShowingCreateFeedbacks ? (
         <>

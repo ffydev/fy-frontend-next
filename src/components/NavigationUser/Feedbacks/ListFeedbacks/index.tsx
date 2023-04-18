@@ -41,14 +41,14 @@ export default function ListFeedbacks() {
         <Box
           key={feedback.id}
           p={4}
-          backdropBlur={'1rem'}
-          backdropFilter="blur(5px)"
           rounded={'lg'}
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
-          m={4}
+          backdropBlur={'1rem'}
+          backdropFilter="blur(5px)"
+          minWidth="250px"
         >
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Dieta: {feedback.diet}
