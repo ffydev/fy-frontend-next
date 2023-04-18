@@ -131,6 +131,9 @@ export default function AnamnesisCreate() {
       await fetchCurrentUserData(token)
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsShowingDashboard(true)
+      setIsShowAnamnesis(false)
     }
   }
 
