@@ -73,10 +73,16 @@ export default function ListFeedbacks() {
           {feedback.isAnswered ? (
             <>
               <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-                Status: Respondido
+                Feedback: {feedback.answer}
               </chakra.h1>
             </>
-          ) : null}
+          ) : (
+            <>
+              <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+                Status: Não respondido
+              </chakra.h1>
+            </>
+          )}
         </Box>
       ))}
     </>
