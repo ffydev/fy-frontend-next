@@ -1,6 +1,9 @@
 import { useAuth } from '@/hooks/ContextAuth'
 import { createAnamnesis } from '@/pages/api/providers/anamnesis.provider'
-import { getUserToken } from '@/pages/api/providers/auth.provider'
+import {
+  findCurrentUser,
+  getUserToken,
+} from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {
   Box,
@@ -21,6 +24,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { updateUser } from '@/pages/api/providers/users.provider'
+import { useCallback } from 'react'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
@@ -61,7 +65,7 @@ type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
 
 export default function AnamnesisCreate() {
   const router = useRouter()
-  const { user } = useAuth()
+  const { user, setUser } = useAuth()
 
   const {
     register,
@@ -70,6 +74,26 @@ export default function AnamnesisCreate() {
   } = useForm<createAnamnesisFormSchemaType>({
     resolver: zodResolver(createAnamnesisFormSchema),
   })
+
+  const fetchCurrentUserData = useCallback(
+    async (token: string) => {
+      try {
+        const currentUserData = await findCurrentUser(token)
+
+        if (!currentUserData) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        setUser(currentUserData)
+      } catch (error) {
+        console.error(error)
+        router.push('/login')
+      }
+    },
+    [router, setUser],
+  )
 
   const onSubmit: SubmitHandler<createAnamnesisFormSchemaType> = async (
     data,
@@ -102,6 +126,7 @@ export default function AnamnesisCreate() {
       })
 
       await updateUser(token, user!.id, { hasAnamnesis: true })
+      await fetchCurrentUserData(token)
     } catch (error) {
       console.error(error)
     }
