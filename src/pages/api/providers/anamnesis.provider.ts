@@ -50,7 +50,7 @@ export async function findUserAnamnesis(
         headers: { Authorization: `Bearer ${token}` },
       },
     )
-    console.log(response)
+
     return response.data
   } catch (error) {
     console.error('Failed to create user', error)
