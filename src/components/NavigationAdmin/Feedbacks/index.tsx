@@ -6,16 +6,8 @@ import {
   findUserFeedbacks,
   IUserFeedback,
 } from '@/pages/api/providers/user-feedbacks.provider'
-import {
-  Box,
-  chakra,
-  CloseButton,
-  Flex,
-  FormControl,
-  Spacer,
-  Textarea,
-} from '@chakra-ui/react'
-import { PaperPlaneTilt } from '@phosphor-icons/react'
+import { Box, chakra, Flex, FormControl, Textarea } from '@chakra-ui/react'
+import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useContext, useEffect, useState } from 'react'
 
@@ -47,7 +39,7 @@ export default function Feedbacks() {
     fetchFeedbacksData()
   }, [fetchFeedbacksData])
 
-  const handleWithAswerFeedback = useCallback(async () => {
+  const handleWithAswerFeedback = async () => {
     try {
       const token = getUserToken()
 
@@ -67,7 +59,7 @@ export default function Feedbacks() {
       fetchFeedbacksData()
       setAnswer('')
     }
-  }, [router, userId])
+  }
 
   return (
     <>
@@ -82,51 +74,38 @@ export default function Feedbacks() {
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
+          m={4}
         >
-          <Flex minWidth="max-content">
-            <Spacer /> <CloseButton size="sm" />
-          </Flex>
-
-          <chakra.h1 fontSize="lg" lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Dieta: {feedback.diet}
           </chakra.h1>
 
-          <chakra.h1 fontSize="lg" lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Treinos: {feedback.workouts}
           </chakra.h1>
 
-          <chakra.h1 fontSize="lg" lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Fadiga: {feedback.fatigue}
           </chakra.h1>
 
-          <chakra.h1 fontSize="lg" lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Peso: {feedback.weight}
           </chakra.h1>
 
-          <chakra.h1 fontSize="lg" lineHeight={6}>
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Outros: {feedback.others}
           </chakra.h1>
 
           <FormControl mt={4}>
             <Textarea
               placeholder="Responda aqui"
-              value={answer}
               onChange={(event) => setAnswer(event.target.value)}
             />
             <Flex justifyContent={'center'} w={'full'} mt={3}>
               <HandleButton
-                text="Responder"
-                color={'blackAlpha.900'}
-                bgColor={'whiteAlpha.900'}
-                _hover={{
-                  bg: 'whiteAlpha.700',
-                  transition: '0.4s',
-                }}
-                leftIcon={
-                  <PaperPlaneTilt size={30} color="#DD6B20" weight="fill" />
-                }
-                w={'37%'}
-                onClick={() => handleWithAswerFeedback()}
+                text={'Responder'}
+                leftIcon={<Plus size={28} weight="bold" />}
+                onClick={handleWithAswerFeedback}
               />
             </Flex>
           </FormControl>
