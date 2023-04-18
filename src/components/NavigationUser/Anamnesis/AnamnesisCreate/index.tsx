@@ -252,14 +252,14 @@ export default function AnamnesisCreate() {
               <HStack>
                 <HandleButton
                   text="Enviar"
-                  leftIcon={<Plus size={30} weight="fill" />}
+                  leftIcon={<Plus weight="bold" />}
                   w={'full'}
                   type={'submit'}
                 />
                 <Button
                   variant={'outline'}
                   w={'full'}
-                  leftIcon={<X size={30} weight="fill" />}
+                  leftIcon={<X weight="bold" />}
                   type="reset"
                 >
                   Cancelar
