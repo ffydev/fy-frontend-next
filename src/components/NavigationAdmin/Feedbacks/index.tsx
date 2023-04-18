@@ -82,6 +82,10 @@ export default function Feedbacks() {
           m={4}
         >
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Data: {new Date(feedback.createdAt!).toLocaleDateString('pt-BR')}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Dieta: {feedback.diet}
           </chakra.h1>
 
