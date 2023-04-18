@@ -64,6 +64,7 @@ export default function Dashboard() {
       setIsShowingWorkouts(false)
       setIsShowAnamnesis(false)
       setIsShowingCreateFeedbacks(false)
+      setIsShowingFeedbacks(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
