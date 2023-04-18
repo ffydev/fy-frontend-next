@@ -16,8 +16,10 @@ import { ArrowArcLeft, Barbell, Receipt } from '@phosphor-icons/react'
 import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 import CreatingFeedback from '../Feedbacks/CreateFeedback'
 import ListFeedbacks from '../Feedbacks/ListFeedbacks'
+import { useAuth } from '@/hooks/ContextAuth'
 
 export default function Dashboard() {
+  const { user } = useAuth()
   const {
     isShowingDashboard,
     isShowingWorkouts,
@@ -203,46 +205,48 @@ export default function Dashboard() {
                 </VStack>
               </Box>
 
-              <Box
-                p={4}
-                bgColor={'whiteAlpha.100'}
-                rounded={'lg'}
-                border={'1px'}
-                borderColor={'whiteAlpha.200'}
-                backdropBlur={'1rem'}
-                backdropFilter="blur(15px)"
-                boxShadow={'lg'}
-                _hover={{ cursor: 'pointer' }}
-                onClick={() => handleWithAnamnesis()}
-              >
-                <VStack spacing={5}>
-                  <Box
-                    boxShadow="xl"
-                    _hover={{ boxShadow: 'lg' }}
-                    borderRadius="full"
-                    color={'purple.300'}
-                  >
-                    <Receipt size={96} weight="fill" />
-                  </Box>
-                  <Heading
-                    fontWeight={'medium'}
-                    fontSize={'3xl'}
-                    textTransform={'capitalize'}
-                    textAlign={'center'}
-                  >
-                    Anamnese{' '}
-                    <chakra.span
-                      fontWeight={'medium'}
-                      fontSize={['lg', '2xl']}
-                      textTransform={'capitalize'}
-                      textAlign={'center'}
+              {!user?.hasAnamnesis && (
+                <Box
+                  p={4}
+                  bgColor={'whiteAlpha.100'}
+                  rounded={'lg'}
+                  border={'1px'}
+                  borderColor={'whiteAlpha.200'}
+                  backdropBlur={'1rem'}
+                  backdropFilter="blur(15px)"
+                  boxShadow={'lg'}
+                  _hover={{ cursor: 'pointer' }}
+                  onClick={() => handleWithAnamnesis()}
+                >
+                  <VStack spacing={5}>
+                    <Box
+                      boxShadow="xl"
+                      _hover={{ boxShadow: 'lg' }}
+                      borderRadius="full"
                       color={'purple.300'}
                     >
-                      Entrevista Médica
-                    </chakra.span>
-                  </Heading>
-                </VStack>
-              </Box>
+                      <Receipt size={96} weight="fill" />
+                    </Box>
+                    <Heading
+                      fontWeight={'medium'}
+                      fontSize={'3xl'}
+                      textTransform={'capitalize'}
+                      textAlign={'center'}
+                    >
+                      Anamnese{' '}
+                      <chakra.span
+                        fontWeight={'medium'}
+                        fontSize={['lg', '2xl']}
+                        textTransform={'capitalize'}
+                        textAlign={'center'}
+                        color={'purple.300'}
+                      >
+                        Entrevista Médica
+                      </chakra.span>
+                    </Heading>
+                  </VStack>
+                </Box>
+              )}
             </SimpleGrid>
           </Container>
         </Stack>
