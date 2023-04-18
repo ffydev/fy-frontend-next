@@ -13,7 +13,9 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 
 export default function Feedbacks() {
   const router = useRouter()
-  const { userId } = useContext(ContextDashboardAdmin)
+  const { userId, setIsShowingFeedbacks, setIsShowingUsers } = useContext(
+    ContextDashboardAdmin,
+  )
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
   const [answer, setAnswer] = useState<string>('')
 
@@ -56,8 +58,8 @@ export default function Feedbacks() {
     } catch (error) {
       console.error(error)
     } finally {
-      fetchFeedbacksData()
-      setAnswer('')
+      setIsShowingFeedbacks(false)
+      setIsShowingUsers(true)
     }
   }
 
