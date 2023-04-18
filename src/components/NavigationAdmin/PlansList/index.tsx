@@ -67,7 +67,9 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
 
           <Flex justify={'space-between'} direction={['column', 'row']}>
             <Editable
-              defaultValue={new Date(plan.initDate!).toLocaleDateString()}
+              defaultValue={new Date(plan.initDate!).toLocaleDateString(
+                'pt-BR',
+              )}
             >
               <Flex>
                 <Text mt={1} mr={1} fontWeight={'bold'}>
@@ -84,7 +86,7 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
             </Editable>
 
             <Editable
-              defaultValue={new Date(plan.endDate!).toLocaleDateString()}
+              defaultValue={new Date(plan.endDate!).toLocaleDateString('pt-BR')}
             >
               <Flex>
                 <Text mt={1} mr={1} fontWeight={'bold'}>
