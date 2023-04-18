@@ -36,6 +36,7 @@ export function UsersList({
   const [lastName, setLastName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [deletedAt, setDeletedAt] = useState<string | null>(null)
+
   const {
     setuserId,
     isShowingUsers,
@@ -209,43 +210,48 @@ export function UsersList({
                 onBlur={() => handleUpdateUser(user.id!)}
               />
 
-              <Flex mt={3}>
-                <FormLabel>
-                  Status: {user.isRegistered ? 'Registrado' : 'Não registrado'}
-                </FormLabel>
+              {user?.userType.name === 'user' && (
+                <>
+                  <Flex mt={3}>
+                    <FormLabel>
+                      Status:{' '}
+                      {user.isRegistered ? 'Registrado' : 'Não registrado'}
+                    </FormLabel>
 
-                <Button
-                  background={'purple.700'}
-                  size={'xs'}
-                  onClick={() => handleWithActiveUserAnamnesis(user.id)}
-                  value={user.id}
-                >
-                  Ativar Anamnese
-                </Button>
-              </Flex>
+                    <Button
+                      background={'purple.700'}
+                      size={'xs'}
+                      onClick={() => handleWithActiveUserAnamnesis(user.id)}
+                      value={user.id}
+                    >
+                      Ativar Anamnese
+                    </Button>
+                  </Flex>
 
-              {user.deletedAt && (
-                <Flex>
-                  <FormLabel>{`Data de exclusão: ${new Date(
-                    user.deletedAt!,
-                  ).toLocaleDateString()}`}</FormLabel>
+                  {user.deletedAt && (
+                    <Flex>
+                      <FormLabel>{`Data de exclusão: ${new Date(
+                        user.deletedAt!,
+                      ).toLocaleDateString()}`}</FormLabel>
 
-                  <Button
-                    title={'Ativar'}
-                    background={'whiteAlpha.400'}
-                    size={'xs'}
-                    onClick={() => handleWithActiveUser(user.id)}
-                    value={user.id}
-                  >
-                    Ativar
-                  </Button>
-                </Flex>
+                      <Button
+                        title={'Ativar'}
+                        background={'whiteAlpha.400'}
+                        size={'xs'}
+                        onClick={() => handleWithActiveUser(user.id)}
+                        value={user.id}
+                      >
+                        Ativar
+                      </Button>
+                    </Flex>
+                  )}
+                  <>
+                    {user.plan && (
+                      <PlanList plan={user.plan} planTypes={planTypes} />
+                    )}
+                  </>
+                </>
               )}
-              <>
-                {user.plan && (
-                  <PlanList plan={user.plan} planTypes={planTypes} />
-                )}
-              </>
             </Box>
           ))}
         </SimpleGrid>
