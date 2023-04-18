@@ -84,6 +84,24 @@ export function UsersList({
     }
   }
 
+  const handleWithActiveUserAnamnesis = async (userId: string) => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      await updateUser(token, userId, {
+        hasAnamnesis: false,
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleWithShowUserWorkouts = (userId: string) => {
     setuserId(userId)
     setIsShowingUsers(!isShowingUsers)
@@ -138,7 +156,6 @@ export function UsersList({
 
               <Flex justifyContent={'initial'}>
                 <Button
-                  title={'Workouts'}
                   mr={2}
                   background={'purple.700'}
                   size={'xs'}
@@ -149,7 +166,6 @@ export function UsersList({
                 </Button>
 
                 <Button
-                  title={'Feedbacks'}
                   mr={2}
                   background={'purple.700'}
                   size={'xs'}
@@ -160,13 +176,22 @@ export function UsersList({
                 </Button>
 
                 <Button
-                  title={'Anamnese'}
+                  mr={2}
                   background={'purple.700'}
                   size={'xs'}
                   onClick={() => handleWithShowAnamnesis(user.id)}
                   value={user.id}
                 >
                   Anamnese
+                </Button>
+
+                <Button
+                  background={'purple.700'}
+                  size={'xs'}
+                  onClick={() => handleWithActiveUserAnamnesis(user.id)}
+                  value={user.id}
+                >
+                  Ativar Anamnese
                 </Button>
               </Flex>
 
