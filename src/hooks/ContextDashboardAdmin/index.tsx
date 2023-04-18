@@ -6,12 +6,14 @@ export interface ContextData {
   isShowingUsers: boolean
   isShowingWorkouts: boolean
   isShowingFeedbacks: boolean
+  isShowingAnamnesis: boolean
   isFetchingWorkoutsNames: boolean
   setuserId(newValue: string): void
   setSelectedWorkoutId(newValue: string): void
   setIsShowingUsers(isShowingUsers: boolean): void
   setIsShowingWorkouts(isShowingWorkouts: boolean): void
   setIsShowingFeedbacks(isShowingFeedbacks: boolean): void
+  setIsShowingAnamnesis(isShowingAnamnesis: boolean): void
   setIsFetchingWorkoutsNames(isFetchingWorkoutsNames: boolean): void
 }
 
@@ -21,12 +23,14 @@ export const ContextDashboardAdmin = createContext<ContextData>({
   isShowingUsers: true,
   isShowingWorkouts: false,
   isShowingFeedbacks: false,
+  isShowingAnamnesis: false,
   isFetchingWorkoutsNames: false,
   setuserId: () => {},
   setSelectedWorkoutId: () => {},
   setIsShowingUsers: () => {},
   setIsShowingWorkouts: () => {},
   setIsShowingFeedbacks: () => {},
+  setIsShowingAnamnesis: () => {},
   setIsFetchingWorkoutsNames: () => {},
 })
 
@@ -42,6 +46,7 @@ export default function ContextDashboardAdminProvider({
   const [isShowingUsers, setIsShowingUsers] = useState<boolean>(true)
   const [isShowingWorkouts, setIsShowingWorkouts] = useState<boolean>(false)
   const [isShowingFeedbacks, setIsShowingFeedbacks] = useState<boolean>(false)
+  const [isShowingAnamnesis, setIsShowingAnamnesis] = useState<boolean>(false)
   const [isFetchingWorkoutsNames, setIsFetchingWorkoutsNames] =
     useState<boolean>(false)
 
@@ -53,12 +58,14 @@ export default function ContextDashboardAdminProvider({
         isShowingUsers,
         isShowingWorkouts,
         isShowingFeedbacks,
+        isShowingAnamnesis,
         isFetchingWorkoutsNames,
         setuserId,
         setSelectedWorkoutId,
         setIsShowingUsers,
         setIsShowingWorkouts,
         setIsShowingFeedbacks,
+        setIsShowingAnamnesis,
         setIsFetchingWorkoutsNames,
       }}
     >

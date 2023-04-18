@@ -39,11 +39,13 @@ export function UsersList({
   const {
     setuserId,
     isShowingUsers,
+    isShowingAnamnesis,
     setIsShowingUsers,
     isShowingWorkouts,
     setIsShowingWorkouts,
     isShowingFeedbacks,
     setIsShowingFeedbacks,
+    setIsShowingAnamnesis,
   } = useAdminProvider()
 
   const handleWithDeleteUser = (id: string) => {
@@ -94,6 +96,12 @@ export function UsersList({
     setIsShowingFeedbacks(!isShowingFeedbacks)
   }
 
+  const handleWithShowAnamnesis = (userId: string) => {
+    setuserId(userId)
+    setIsShowingUsers(!isShowingUsers)
+    setIsShowingAnamnesis(!isShowingAnamnesis)
+  }
+
   const handleWithActiveUser = async (userId: string) => {
     try {
       setDeletedAt('Ativar')
@@ -142,12 +150,23 @@ export function UsersList({
 
                 <Button
                   title={'Feedbacks'}
+                  mr={2}
                   background={'purple.700'}
                   size={'xs'}
                   onClick={() => handleWithShowUserFeedbacks(user.id)}
                   value={user.id}
                 >
                   Feedbacks
+                </Button>
+
+                <Button
+                  title={'Anamnese'}
+                  background={'purple.700'}
+                  size={'xs'}
+                  onClick={() => handleWithShowAnamnesis(user.id)}
+                  value={user.id}
+                >
+                  Anamnese
                 </Button>
               </Flex>
 

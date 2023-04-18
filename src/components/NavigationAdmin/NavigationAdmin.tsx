@@ -27,11 +27,13 @@ export default function NavigationAdmin() {
     userId,
     isShowingUsers,
     isShowingWorkouts,
+    isShowingAnamnesis,
     isShowingFeedbacks,
     setuserId,
     setIsShowingUsers,
     setIsShowingWorkouts,
     setIsShowingFeedbacks,
+    setIsShowingAnamnesis,
   } = useAdminProvider()
 
   const fetchUsersData = useCallback(async () => {
@@ -91,6 +93,12 @@ export default function NavigationAdmin() {
     setuserId('')
   }
 
+  const handleWithHideAnamnesis = () => {
+    setIsShowingAnamnesis(!isShowingAnamnesis)
+    setIsShowingUsers(!isShowingUsers)
+    setuserId('')
+  }
+
   useEffect(() => {
     return () => {
       setIsShowingUsers(true)
@@ -146,6 +154,34 @@ export default function NavigationAdmin() {
                   <WorkoutsHeader userId={userId} />
                   <Workouts />
                 </Stack>
+              </Container>
+            </Container>
+          </Box>
+        </>
+      )}
+
+      {isShowingAnamnesis && (
+        <>
+          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+              <Stack
+                direction={'column'}
+                align={'start'}
+                alignSelf={'center'}
+                position={'relative'}
+                mt={3}
+                ml={3}
+              >
+                <HandleButton
+                  text={'Voltar'}
+                  leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+                  onClick={handleWithHideAnamnesis}
+                />
+              </Stack>
+              <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+                <>
+                  <h1>Anamnesis</h1>
+                </>
               </Container>
             </Container>
           </Box>
