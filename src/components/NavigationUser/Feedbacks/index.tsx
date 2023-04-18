@@ -13,6 +13,7 @@ import {
   Button,
   Textarea,
   Input,
+  Container,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -20,6 +21,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
+import { useUserProvider } from '@/hooks/ContextDashboardUser'
 
 const createFeedbackFormSchema = z.object({
   diet: z
@@ -54,6 +56,7 @@ type createFeedbackFormSchemaType = z.infer<typeof createFeedbackFormSchema>
 export default function CreatingFeedback() {
   const router = useRouter()
   const { user } = useAuth()
+  const { setIsShowingDashboard, setIsShowingFeedbacks } = useUserProvider()
 
   const {
     register,
@@ -62,8 +65,6 @@ export default function CreatingFeedback() {
   } = useForm<createFeedbackFormSchemaType>({
     resolver: zodResolver(createFeedbackFormSchema),
   })
-
-  console.log(errors)
 
   const onSubmit: SubmitHandler<createFeedbackFormSchemaType> = async (
     data,
@@ -86,89 +87,81 @@ export default function CreatingFeedback() {
       })
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsShowingFeedbacks(false)
+      setIsShowingDashboard(true)
     }
   }
 
   return (
     <>
-      <Box
-        mt={3}
-        mb={4}
-        p={4}
-        bgColor={'whiteAlpha.100'}
-        rounded={'lg'}
-        border={'1px'}
-        borderColor={'whiteAlpha.200'}
-        backdropBlur={'1rem'}
-        backdropFilter="blur(15px)"
-        boxShadow={'lg'}
-      >
-        <Heading>Criar Feedback</Heading>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>
-            <FormControl gridColumn="span 1">
-              <FormLabel>Dieta</FormLabel>
-              <Textarea {...register('diet')} placeholder="Dieta" />
-              {errors.diet && <Text>{errors.diet.message}</Text>}
-            </FormControl>
-
-            <FormControl gridColumn="span 1">
-              <FormLabel>Treinos</FormLabel>
-              <Textarea
-                {...register('workouts')}
-                placeholder="Treinos"
-                isRequired
-              />
-              {errors.workouts && <Text>{errors.workouts.message}</Text>}
-            </FormControl>
-
-            <FormControl gridColumn="span 1">
+      <Container maxW="7xl" p={{ base: 3, md: 1 }} m={3}>
+        <Box
+          mt={3}
+          mb={4}
+          p={4}
+          bgColor={'whiteAlpha.100'}
+          rounded={'lg'}
+          border={'1px'}
+          borderColor={'whiteAlpha.200'}
+          backdropBlur={'1rem'}
+          backdropFilter="blur(15px)"
+          boxShadow={'lg'}
+        >
+          <Heading>Criar Feedback</Heading>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormControl gridColumn="span 1" mt={3} w={'-webkit-fit-content'}>
               <FormLabel>Peso</FormLabel>
               <Input {...register('weight')} placeholder="Peso" isRequired />
               {errors.weight && <Text>{errors.weight.message}</Text>}
             </FormControl>
+            <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={3}>
+              <FormControl gridColumn="span 1">
+                <FormLabel>Dieta</FormLabel>
+                <Textarea {...register('diet')} placeholder="Dieta" />
+                {errors.diet && <Text>{errors.diet.message}</Text>}
+              </FormControl>
 
-            <FormControl gridColumn="span 1">
-              <FormLabel>Fadiga</FormLabel>
-              <Textarea
-                {...register('fatigue')}
-                placeholder="Fadiga"
-                isRequired
-              />
-              {errors.fatigue && <Text>{errors.fatigue.message}</Text>}
-            </FormControl>
+              <FormControl gridColumn="span 1">
+                <FormLabel>Treinos</FormLabel>
+                <Textarea {...register('workouts')} placeholder="Treinos" />
+                {errors.workouts && <Text>{errors.workouts.message}</Text>}
+              </FormControl>
 
-            <FormControl gridColumn="span 1">
-              <FormLabel>Outros</FormLabel>
-              <Textarea
-                {...register('others')}
-                placeholder="Outros"
-                isRequired
-              />
-              {errors.others && <Text>{errors.others.message}</Text>}
-            </FormControl>
-          </Grid>
+              <FormControl gridColumn="span 1">
+                <FormLabel>Fadiga</FormLabel>
+                <Textarea {...register('fatigue')} placeholder="Fadiga" />
+                {errors.fatigue && <Text>{errors.fatigue.message}</Text>}
+              </FormControl>
 
-          <Stack mt={6} mb={4}>
-            <HStack>
-              <HandleButton
-                text="Criar Feedback"
-                leftIcon={<Plus weight="bold" />}
-                w={'full'}
-                type={'submit'}
-              />
-              <Button
-                variant={'outline'}
-                w={'full'}
-                leftIcon={<X weight="bold" />}
-                type="reset"
-              >
-                Cancelar
-              </Button>
-            </HStack>
-          </Stack>
-        </form>
-      </Box>
+              <FormControl gridColumn="span 1">
+                <FormLabel>Outros</FormLabel>
+                <Textarea {...register('others')} placeholder="Outros" />
+                {errors.others && <Text>{errors.others.message}</Text>}
+              </FormControl>
+            </Grid>
+
+            <Stack mt={6} mb={4}>
+              <HStack>
+                <HandleButton
+                  text="Criar Feedback"
+                  leftIcon={<Plus weight="bold" />}
+                  w={'full'}
+                  type={'submit'}
+                />
+                <Button
+                  variant={'outline'}
+                  w={'full'}
+                  leftIcon={<X weight="bold" />}
+                  type="reset"
+                >
+                  Cancelar
+                </Button>
+              </HStack>
+            </Stack>
+          </form>
+        </Box>
+      </Container>
     </>
   )
 }

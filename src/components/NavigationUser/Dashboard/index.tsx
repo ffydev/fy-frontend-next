@@ -9,7 +9,7 @@ import {
   VStack,
   chakra,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { ArrowArcLeft, Barbell, Receipt } from '@phosphor-icons/react'
@@ -18,14 +18,15 @@ import CreatingFeedback from '../Feedbacks'
 
 export default function Dashboard() {
   const {
+    isShowingDashboard,
     isShowingWorkouts,
     isShowAnamnesis,
     isShowingFeedbacks,
     setIsShowingWorkouts,
     setIsShowAnamnesis,
     setIsShowingFeedbacks,
+    setIsShowingDashboard,
   } = useUserProvider()
-  const [isShowingDashboard, setIsShowingDashboard] = useState<boolean>(true)
 
   const handleWithDashboard = () => {
     setIsShowingWorkouts(false)
