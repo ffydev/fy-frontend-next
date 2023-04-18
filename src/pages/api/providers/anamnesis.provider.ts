@@ -45,12 +45,12 @@ export async function findUserAnamnesis(
 ): Promise<IAnamnesis[]> {
   try {
     const response = await api.get<IAnamnesis[]>(
-      `/anamnesis/by-user${userId}`,
+      `/anamnesis/by-user?userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
     )
-
+    console.log(response)
     return response.data
   } catch (error) {
     console.error('Failed to create user', error)
