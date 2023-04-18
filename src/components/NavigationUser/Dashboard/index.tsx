@@ -14,7 +14,7 @@ import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { ArrowArcLeft, Barbell, Receipt } from '@phosphor-icons/react'
 import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
-import CreatingFeedback from '../Feedbacks'
+import CreatingFeedback from '../Feedbacks/CreateFeedback'
 
 export default function Dashboard() {
   const {
