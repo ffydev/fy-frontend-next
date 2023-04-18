@@ -67,7 +67,38 @@ export default function ListAnamnesis() {
           </chakra.h1>
 
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Alergias: {anamnesis.allergies}
+            Plano alimentar em casa : {anamnesis.mealPlanAtHome}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Preferências alimentares : {anamnesis.foodPreferences}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Alimentação nas últimas 24 horas : {anamnesis.lastDayFoodIntake}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Atividades físicas : {anamnesis.physicalActivities}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Dor ou desconforto nas articulações :{' '}
+            {anamnesis.jointPainDiscomfort}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Comorbidades : {anamnesis.comorbidities}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Orçamento para suplementação alimentar :{' '}
+            {anamnesis.budgetForDietSupplementation}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Suplementos/Fármacos utilizados :{' '}
+            {anamnesis.supplementsPharmaceuticalsUsed}
           </chakra.h1>
         </Box>
       ))}

@@ -180,9 +180,7 @@ export default function NavigationAdmin() {
                 />
               </Stack>
               <Container maxW="7xl" p={{ base: 5, md: 10 }}>
-                <>
-                  <ListAnamnesis />
-                </>
+                <ListAnamnesis />
               </Container>
             </Container>
           </Box>
