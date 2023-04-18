@@ -131,6 +131,8 @@ export function UsersList({
     }
   }
 
+  console.log(users)
+
   return (
     <>
       <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
@@ -214,18 +216,21 @@ export function UsersList({
                 <>
                   <Flex mt={3}>
                     <FormLabel>
-                      Status:{' '}
-                      {user.isRegistered ? 'Registrado' : 'Não registrado'}
+                      {user.isRegistered
+                        ? 'Registro Completo'
+                        : 'Registro Incompleto'}
                     </FormLabel>
 
-                    <Button
-                      background={'purple.700'}
-                      size={'xs'}
-                      onClick={() => handleWithActiveUserAnamnesis(user.id)}
-                      value={user.id}
-                    >
-                      Ativar Anamnese
-                    </Button>
+                    {!user.hasAnamnesis ? null : (
+                      <Button
+                        background={'purple.700'}
+                        size={'xs'}
+                        onClick={() => handleWithActiveUserAnamnesis(user.id)}
+                        value={user.id}
+                      >
+                        Ativar Anamnese
+                      </Button>
+                    )}
                   </Flex>
 
                   {user.deletedAt && (

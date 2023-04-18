@@ -14,6 +14,7 @@ export interface IUserInterface {
   workout: IWorkout[]
   userType: IUserType
   isRegistered: boolean
+  hasAnamnesis: boolean
   deletedAt?: string
 }
 export interface ICreateUserWithIPlan {
