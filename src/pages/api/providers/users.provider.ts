@@ -43,6 +43,8 @@ export interface IUserFilter {
   userTypeId?: string
   search?: string
   isDeleted?: string // '1' or undefined
+  skip: number
+  take: number
 }
 
 interface usersDataInterface {
@@ -58,6 +60,7 @@ export async function createUser(
     const response = await api.post<IUserInterface>('/users', user, {
       headers: { Authorization: `Bearer ${token}` },
     })
+    console.log(response.data)
     return response.data
   } catch (error) {
     console.error('Failed to create user', error)
@@ -71,7 +74,7 @@ export async function findUsers(
 ): Promise<usersDataInterface> {
   try {
     const response = await api.get<usersDataInterface>(
-      `/users?userTypeId=${query.userTypeId}&search=${query.search}&isDeleted=${query.isDeleted}`,
+      `/users?userTypeId=${query.userTypeId}&search=${query.search}&isDeleted=${query.isDeleted}&skip=${query.skip}&take=${query.take}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },

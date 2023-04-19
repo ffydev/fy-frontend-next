@@ -8,11 +8,14 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IUserInterface, findUsers } from '@/pages/api/providers/users.provider'
 import { useRouter } from 'next/router'
 import { UsersList } from './UsersList'
+import Pagination from '@/components/Pagination'
 
 export default function Users() {
   const router = useRouter()
   const [users, setUsers] = useState<IUserInterface[]>([])
   const [usersCount, setUsersCount] = useState<number>(0)
+  const [skip, setSkip] = useState<number>(0)
+  const [take, setTake] = useState<number>(10)
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [search, setSearch] = useState<string>('')
   const [isDeleted, setIsDeleted] = useState<string>('')
@@ -31,6 +34,8 @@ export default function Users() {
         userTypeId,
         search,
         isDeleted,
+        skip,
+        take,
       })
 
       setUsers(response.usersData)
@@ -39,7 +44,7 @@ export default function Users() {
       console.error(error)
       router.push('/login')
     }
-  }, [router, userTypeId, search, isDeleted])
+  }, [router, userTypeId, search, isDeleted, skip, take])
 
   const fetchPlanTypeData = useCallback(async () => {
     try {
@@ -62,8 +67,11 @@ export default function Users() {
 
   useEffect(() => {
     fetchUsersData()
+  }, [fetchUsersData])
+
+  useEffect(() => {
     fetchPlanTypeData()
-  }, [fetchUsersData, fetchPlanTypeData])
+  }, [fetchPlanTypeData])
 
   return (
     <>
@@ -76,6 +84,8 @@ export default function Users() {
         setIsDeleted={setIsDeleted}
         usersCount={usersCount}
       />
+
+      <Pagination />
 
       <UsersList
         fetchUsersData={fetchUsersData}
