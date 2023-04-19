@@ -25,7 +25,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import { useCallback } from 'react'
-import { useUserProvider } from '@/hooks/ContextDashboardUser'
+import { useUserNavigationStore } from '@/hooks/UserNavigationStore/user.navigation.store'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
@@ -67,7 +67,8 @@ type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
 export default function AnamnesisCreate() {
   const router = useRouter()
   const { user, setUser } = useAuth()
-  const { setIsShowingDashboard, setIsShowAnamnesis } = useUserProvider()
+  const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
+    useUserNavigationStore()
 
   const {
     register,
@@ -132,14 +133,14 @@ export default function AnamnesisCreate() {
     } catch (error) {
       console.error(error)
     } finally {
-      setIsShowingDashboard(true)
-      setIsShowAnamnesis(false)
+      setIsShowingDashboard()
+      setIsShowingCreateAnamnesis()
     }
   }
 
   const handleWithCancelCreatingAnamnesis = () => {
-    setIsShowingDashboard(true)
-    setIsShowAnamnesis(false)
+    setIsShowingDashboard()
+    setIsShowingCreateAnamnesis()
   }
 
   return (

@@ -20,7 +20,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
-import { useUserProvider } from '@/hooks/ContextDashboardUser'
+import { useUserNavigationStore } from '@/hooks/UserNavigationStore/user.navigation.store'
 
 const createFeedbackFormSchema = z.object({
   diet: z
@@ -56,7 +56,7 @@ export default function CreatingFeedback() {
   const router = useRouter()
   const { user } = useAuth()
   const { setIsShowingDashboard, setIsShowingCreateFeedbacks } =
-    useUserProvider()
+    useUserNavigationStore()
 
   const {
     register,
@@ -88,14 +88,14 @@ export default function CreatingFeedback() {
     } catch (error) {
       console.error(error)
     } finally {
-      setIsShowingCreateFeedbacks(false)
-      setIsShowingDashboard(true)
+      setIsShowingCreateFeedbacks()
+      setIsShowingDashboard()
     }
   }
 
   const handleWithCancelCreatingFeedback = () => {
-    setIsShowingCreateFeedbacks(false)
-    setIsShowingDashboard(true)
+    setIsShowingCreateFeedbacks()
+    setIsShowingDashboard()
   }
 
   return (

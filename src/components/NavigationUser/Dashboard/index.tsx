@@ -1,4 +1,3 @@
-import { useUserProvider } from '@/hooks/ContextDashboardUser'
 import {
   Box,
   Center,
@@ -23,56 +22,47 @@ import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 import CreatingFeedback from '../Feedbacks/CreateFeedback'
 import ListFeedbacks from '../Feedbacks/ListFeedbacks'
 import { useAuth } from '@/hooks/ContextAuth'
+import { useUserNavigationStore } from '@/hooks/UserNavigationStore/user.navigation.store'
 
 export default function Dashboard() {
   const { user } = useAuth()
   const {
     isShowingDashboard,
     isShowingWorkouts,
-    isShowAnamnesis,
+    isShowingCreateAnamnesis,
     isShowingFeedbacks,
     isShowingCreateFeedbacks,
     setIsShowingWorkouts,
-    setIsShowAnamnesis,
+    setIsShowingCreateAnamnesis,
     setIsShowingFeedbacks,
     setIsShowingCreateFeedbacks,
     setIsShowingDashboard,
-  } = useUserProvider()
-
-  const handleWithDashboard = () => {
-    setIsShowingWorkouts(false)
-    setIsShowAnamnesis(false)
-    setIsShowingDashboard(true)
-    setIsShowingCreateFeedbacks(false)
-    setIsShowingFeedbacks(false)
-  }
+    reset,
+  } = useUserNavigationStore()
 
   const handleWithWorkouts = () => {
-    setIsShowingWorkouts(true)
-    setIsShowingDashboard(false)
+    setIsShowingWorkouts()
+    setIsShowingDashboard()
   }
 
-  const handleWithAnamnesis = () => {
-    setIsShowAnamnesis(true)
-    setIsShowingDashboard(false)
+  const handleWithCreateAnamnesis = () => {
+    setIsShowingCreateAnamnesis()
+    setIsShowingDashboard()
   }
 
   const handleWithShowFeedbacks = () => {
-    setIsShowingFeedbacks(true)
-    setIsShowingDashboard(false)
+    setIsShowingFeedbacks()
+    setIsShowingDashboard()
   }
 
   const handleWithCreateFeedbacks = () => {
-    setIsShowingCreateFeedbacks(true)
-    setIsShowingDashboard(false)
+    setIsShowingCreateFeedbacks()
+    setIsShowingDashboard()
   }
 
   useEffect(() => {
     return () => {
-      setIsShowingWorkouts(false)
-      setIsShowAnamnesis(false)
-      setIsShowingCreateFeedbacks(false)
-      setIsShowingFeedbacks(false)
+      reset()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -222,7 +212,7 @@ export default function Dashboard() {
                   backdropFilter="blur(15px)"
                   boxShadow={'lg'}
                   _hover={{ cursor: 'pointer' }}
-                  onClick={() => handleWithAnamnesis()}
+                  onClick={() => handleWithCreateAnamnesis()}
                 >
                   <VStack spacing={5}>
                     <Box
@@ -271,7 +261,7 @@ export default function Dashboard() {
             <HandleButton
               text={'Voltar'}
               leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={() => handleWithDashboard()}
+              onClick={() => handleWithWorkouts()}
             />
           </Stack>
 
@@ -296,7 +286,7 @@ export default function Dashboard() {
             <HandleButton
               text={'Voltar'}
               leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={handleWithDashboard}
+              onClick={handleWithShowFeedbacks}
             />
           </Stack>
 
@@ -321,7 +311,7 @@ export default function Dashboard() {
             <HandleButton
               text={'Voltar'}
               leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={() => handleWithDashboard()}
+              onClick={() => handleWithCreateFeedbacks()}
             />
           </Stack>
           <Center>
@@ -330,7 +320,7 @@ export default function Dashboard() {
         </>
       ) : null}
 
-      {isShowAnamnesis ? (
+      {isShowingCreateAnamnesis ? (
         <>
           <Stack
             direction={'column'}
@@ -343,7 +333,7 @@ export default function Dashboard() {
             <HandleButton
               text={'Voltar'}
               leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={() => handleWithDashboard()}
+              onClick={() => handleWithCreateAnamnesis()}
             />
           </Stack>
           <Center>
