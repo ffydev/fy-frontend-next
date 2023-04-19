@@ -19,7 +19,7 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import ExercisesList from '../../ExercisesList'
-import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
+import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
 
 interface WorkoutsProps {
   setWorkouts: (workouts: IWorkout[]) => void
@@ -28,11 +28,11 @@ interface WorkoutsProps {
 
 export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
   const router = useRouter()
-  const { userId } = useAdminProvider()
   const [exerciseNameId, setExerciseNameId] = useState<string>('')
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseType[]>([])
   const [exerciseNames, setExerciseNames] = useState<IExerciseName[]>([])
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
+  const { selectedUserId } = useAdminNavigationStore()
 
   const handleCreateExercise = useCallback(
     async (workoutId: string, exerciseNameId: string) => {
@@ -53,14 +53,14 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         const workoutUpdated = await findWorkoutsByUserId(
           token,
           workoutId as string,
-          userId as string,
+          selectedUserId as string,
         )
         setWorkouts(workoutUpdated)
       } catch (error) {
         console.error(error)
       }
     },
-    [router, setWorkouts, userId],
+    [router, setWorkouts, selectedUserId],
   )
 
   const fetchExercisesTypesData = useCallback(async () => {

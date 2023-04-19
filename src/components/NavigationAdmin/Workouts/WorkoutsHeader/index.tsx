@@ -17,11 +17,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
-
-interface WorkoutsHeaderProps {
-  userId: string
-}
+import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
 
 const workoutTypes = [
   {
@@ -56,13 +52,11 @@ const createWorkoutFormSchema = z.object({
 
 type createWorkoutFormSchemaType = z.infer<typeof createWorkoutFormSchema>
 
-export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
+export default function WorkoutsHeader() {
   const router = useRouter()
-  const {
-    isFetchingWorkoutsNames,
-    setIsFetchingWorkoutsNames,
-    selectedWorkoutId,
-  } = useAdminProvider()
+
+  const { selectedUserId, selectedWorkoutId, setIsFetchingWorkoutsNames } =
+    useAdminNavigationStore()
 
   const {
     register,
@@ -83,13 +77,13 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
       }
 
       await createWorkout(token, {
-        userId,
+        userId: selectedUserId,
         workoutType: data.workoutType,
       })
     } catch (error) {
       console.error(error)
     } finally {
-      setIsFetchingWorkoutsNames(!isFetchingWorkoutsNames)
+      setIsFetchingWorkoutsNames()
     }
   }
 
@@ -107,14 +101,14 @@ export default function WorkoutsHeader({ userId }: WorkoutsHeaderProps) {
     } catch (error) {
       console.error(error)
     } finally {
-      setIsFetchingWorkoutsNames(!isFetchingWorkoutsNames)
+      setIsFetchingWorkoutsNames()
     }
   }
 
   return (
     <>
       <Heading as="h3" size="lg" pb="6" fontWeight="medium" textAlign="left">
-        Workouts | Treinos
+        Workouts
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={6}>

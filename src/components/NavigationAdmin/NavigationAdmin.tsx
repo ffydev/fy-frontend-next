@@ -1,4 +1,3 @@
-import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   findPlansTypes,
@@ -16,6 +15,7 @@ import { UsersList } from './UsersList'
 import Feedbacks from './Feedbacks'
 import WorkoutsHeader from './Workouts/WorkoutsHeader'
 import ListAnamnesis from './Anamnesis'
+import { useAdminNavigationStore } from '../store/admin.navigation.store'
 
 export default function NavigationAdmin() {
   const router = useRouter()
@@ -24,18 +24,19 @@ export default function NavigationAdmin() {
   const [search, setSearch] = useState<string>('')
   const [isDeleted, setIsDeleted] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
+
   const {
-    userId,
     isShowingUsers,
     isShowingWorkouts,
     isShowingAnamnesis,
     isShowingFeedbacks,
-    setuserId,
     setIsShowingUsers,
     setIsShowingWorkouts,
-    setIsShowingFeedbacks,
     setIsShowingAnamnesis,
-  } = useAdminProvider()
+    setIsShowingFeedbacks,
+    setSelectedUserId,
+    reset,
+  } = useAdminNavigationStore()
 
   const fetchUsersData = useCallback(async () => {
     try {
@@ -83,30 +84,28 @@ export default function NavigationAdmin() {
   }, [fetchUsersData, fetchPlanTypeData])
 
   const handleWithHideWorkouts = () => {
-    setIsShowingWorkouts(!isShowingWorkouts)
-    setIsShowingUsers(!isShowingUsers)
-    setuserId('')
+    setIsShowingWorkouts()
+    setIsShowingUsers()
+    setSelectedUserId('')
   }
 
   const handleWithHideFeedbacks = () => {
-    setIsShowingFeedbacks(!isShowingFeedbacks)
-    setIsShowingUsers(!isShowingUsers)
-    setuserId('')
+    setIsShowingFeedbacks()
+    setIsShowingUsers()
+    setSelectedUserId('')
   }
 
   const handleWithHideAnamnesis = () => {
-    setIsShowingAnamnesis(!isShowingAnamnesis)
-    setIsShowingUsers(!isShowingUsers)
-    setuserId('')
+    setIsShowingAnamnesis()
+    setIsShowingUsers()
+    setSelectedUserId('')
   }
 
   useEffect(() => {
     return () => {
-      setIsShowingUsers(true)
-      setIsShowingWorkouts(false)
-      setIsShowingFeedbacks(false)
+      reset()
     }
-  }, [setIsShowingWorkouts, setIsShowingFeedbacks, setIsShowingUsers])
+  }, [reset])
 
   return (
     <>
@@ -152,7 +151,7 @@ export default function NavigationAdmin() {
               </Stack>
               <Container maxW="7xl" p={{ base: 3, md: 1 }}>
                 <Stack maxW={'auto'}>
-                  <WorkoutsHeader userId={userId} />
+                  <WorkoutsHeader />
                   <Workouts />
                 </Stack>
               </Container>

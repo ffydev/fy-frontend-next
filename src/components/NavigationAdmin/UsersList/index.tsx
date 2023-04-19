@@ -1,5 +1,5 @@
 import PlanList from '@/components/NavigationAdmin/PlansList'
-import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
+import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
@@ -36,18 +36,13 @@ export function UsersList({
   const [lastName, setLastName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [deletedAt, setDeletedAt] = useState<string | null>(null)
-
   const {
-    setuserId,
-    isShowingUsers,
-    isShowingAnamnesis,
     setIsShowingUsers,
-    isShowingWorkouts,
     setIsShowingWorkouts,
-    isShowingFeedbacks,
-    setIsShowingFeedbacks,
     setIsShowingAnamnesis,
-  } = useAdminProvider()
+    setIsShowingFeedbacks,
+    setSelectedUserId,
+  } = useAdminNavigationStore()
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
@@ -104,21 +99,21 @@ export function UsersList({
   }
 
   const handleWithShowUserWorkouts = (userId: string) => {
-    setuserId(userId)
-    setIsShowingUsers(!isShowingUsers)
-    setIsShowingWorkouts(!isShowingWorkouts)
+    setSelectedUserId(userId)
+    setIsShowingUsers()
+    setIsShowingWorkouts()
   }
 
   const handleWithShowUserFeedbacks = (userId: string) => {
-    setuserId(userId)
-    setIsShowingUsers(!isShowingUsers)
-    setIsShowingFeedbacks(!isShowingFeedbacks)
+    setSelectedUserId(userId)
+    setIsShowingUsers()
+    setIsShowingFeedbacks()
   }
 
   const handleWithShowAnamnesis = (userId: string) => {
-    setuserId(userId)
-    setIsShowingUsers(!isShowingUsers)
-    setIsShowingAnamnesis(!isShowingAnamnesis)
+    setSelectedUserId(userId)
+    setIsShowingUsers()
+    setIsShowingAnamnesis()
   }
 
   const handleWithActiveUser = async (userId: string) => {
@@ -130,8 +125,6 @@ export function UsersList({
       await handleUpdateUser(userId)
     }
   }
-
-  console.log(users)
 
   return (
     <>

@@ -1,5 +1,4 @@
 import { AuthProvider } from '@/hooks/ContextAuth'
-import ContextDashboardAdminProvider from '@/hooks/ContextDashboardAdmin'
 import ContextDashboardUserProvider from '@/hooks/ContextDashboardUser'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
@@ -16,11 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <AuthProvider>
-        <ContextDashboardAdminProvider>
-          <ContextDashboardUserProvider>
-            <Component {...pageProps} />
-          </ContextDashboardUserProvider>
-        </ContextDashboardAdminProvider>
+        <ContextDashboardUserProvider>
+          <Component {...pageProps} />
+        </ContextDashboardUserProvider>
       </AuthProvider>
     </ChakraProvider>
   )

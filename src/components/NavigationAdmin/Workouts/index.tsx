@@ -8,16 +8,16 @@ import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
-import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
+import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
 
 export function Workouts() {
   const router = useRouter()
   const {
-    userId,
-    isFetchingWorkoutsNames,
+    selectedUserId,
     selectedWorkoutId,
     setSelectedWorkoutId,
-  } = useAdminProvider()
+    isFetchingWorkoutsNames,
+  } = useAdminNavigationStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
 
@@ -31,7 +31,10 @@ export function Workouts() {
         return
       }
 
-      const response = await findWorkoutsNamesByUserId(token, userId as string)
+      const response = await findWorkoutsNamesByUserId(
+        token,
+        selectedUserId as string,
+      )
 
       setWorkoutsNames(response)
     } catch (error) {
@@ -39,7 +42,7 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, userId])
+  }, [router, selectedUserId])
 
   useEffect(() => {
     fetchWorkoutsNames()
@@ -57,7 +60,7 @@ export function Workouts() {
       const response = await findWorkoutsByUserId(
         token,
         selectedWorkoutId as string,
-        userId as string,
+        selectedUserId as string,
       )
 
       setWorkouts(response)
@@ -66,7 +69,7 @@ export function Workouts() {
       // Implementar mensagem personalizada
       router.push('/login')
     }
-  }, [router, userId, selectedWorkoutId])
+  }, [router, selectedUserId, selectedWorkoutId])
 
   useEffect(() => {
     if (workoutsNames.length > 0) {

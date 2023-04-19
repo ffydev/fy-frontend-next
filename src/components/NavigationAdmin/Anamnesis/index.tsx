@@ -6,12 +6,12 @@ import {
   findUserAnamnesis,
 } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useAdminProvider } from '@/hooks/ContextDashboardAdmin'
+import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
 
 export default function ListAnamnesis() {
   const router = useRouter()
   const [anamnesis, setAnamnesis] = useState<IAnamnesis[]>()
-  const { userId } = useAdminProvider()
+  const { selectedUserId } = useAdminNavigationStore()
 
   const fetchAnamnesisData = useCallback(async () => {
     try {
@@ -23,13 +23,13 @@ export default function ListAnamnesis() {
         return
       }
 
-      const response = await findUserAnamnesis(token, userId)
+      const response = await findUserAnamnesis(token, selectedUserId)
 
       setAnamnesis(response)
     } catch (error) {
       console.error(error)
     }
-  }, [router, userId])
+  }, [router, selectedUserId])
 
   useEffect(() => {
     fetchAnamnesisData()
