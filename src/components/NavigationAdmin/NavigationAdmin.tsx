@@ -15,7 +15,7 @@ import { UsersList } from './UsersList'
 import Feedbacks from './Feedbacks'
 import WorkoutsHeader from './Workouts/WorkoutsHeader'
 import ListAnamnesis from './Anamnesis'
-import { useAdminNavigationStore } from '../store/admin.navigation.store'
+import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
 
 export default function NavigationAdmin() {
   const router = useRouter()

@@ -1,6 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
 import { useAuth } from '@/hooks/ContextAuth'
-import { ContextDashboardAdmin } from '@/hooks/ContextDashboardAdmin'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   answerFeedback,
@@ -10,14 +9,14 @@ import {
 import { Box, chakra, Flex, FormControl, Textarea } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
 
 export default function Feedbacks() {
   const router = useRouter()
   const { user } = useAuth()
-  const { userId, setIsShowingFeedbacks, setIsShowingUsers } = useContext(
-    ContextDashboardAdmin,
-  )
+  const { selectedUserId, setIsShowingFeedbacks, setIsShowingUsers } =
+    useAdminNavigationStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
   const [answer, setAnswer] = useState<string>('')
 
@@ -31,13 +30,13 @@ export default function Feedbacks() {
         return
       }
 
-      const response = await findUserFeedbacks(token, userId)
+      const response = await findUserFeedbacks(token, selectedUserId)
 
       setFeedbacks(response)
     } catch (error) {
       console.error(error)
     }
-  }, [router, userId])
+  }, [router, selectedUserId])
 
   useEffect(() => {
     fetchFeedbacksData()
@@ -61,8 +60,8 @@ export default function Feedbacks() {
     } catch (error) {
       console.error(error)
     } finally {
-      setIsShowingFeedbacks(false)
-      setIsShowingUsers(true)
+      setIsShowingFeedbacks()
+      setIsShowingUsers()
     }
   }
 

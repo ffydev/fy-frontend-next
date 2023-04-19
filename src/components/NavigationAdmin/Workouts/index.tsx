@@ -8,7 +8,7 @@ import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
-import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
+import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
 
 export function Workouts() {
   const router = useRouter()

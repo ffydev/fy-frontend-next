@@ -1,5 +1,5 @@
 import PlanList from '@/components/NavigationAdmin/PlansList'
-import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
+import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {

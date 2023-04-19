@@ -6,7 +6,7 @@ import {
   findUserAnamnesis,
 } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useAdminNavigationStore } from '@/components/store/admin.navigation.store'
+import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
 
 export default function ListAnamnesis() {
   const router = useRouter()
