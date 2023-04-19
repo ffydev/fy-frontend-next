@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import UserCreate from '../UserCreate'
+import UserCreate from '../../UserCreate'
 
 interface UsersHeaderProps {
   fetchUsersData: () => void

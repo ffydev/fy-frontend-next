@@ -1,4 +1,4 @@
-import UsersHeader from '../UsersHeader'
+import UsersHeader from './UsersHeader'
 import { useCallback, useEffect, useState } from 'react'
 import {
   IPlanType,
@@ -7,7 +7,7 @@ import {
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IUserInterface, findUsers } from '@/pages/api/providers/users.provider'
 import { useRouter } from 'next/router'
-import { UsersList } from '../UsersList'
+import { UsersList } from './UsersList'
 
 export default function Users() {
   const router = useRouter()
