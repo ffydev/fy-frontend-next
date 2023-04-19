@@ -12,6 +12,7 @@ import { UsersList } from './UsersList'
 export default function Users() {
   const router = useRouter()
   const [users, setUsers] = useState<IUserInterface[]>([])
+  const [usersCount, setUsersCount] = useState<number>(0)
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [search, setSearch] = useState<string>('')
   const [isDeleted, setIsDeleted] = useState<string>('')
@@ -32,7 +33,8 @@ export default function Users() {
         isDeleted,
       })
 
-      setUsers(response)
+      setUsers(response.usersData)
+      setUsersCount(response.usersCount)
     } catch (error) {
       console.error(error)
       router.push('/login')
@@ -72,6 +74,7 @@ export default function Users() {
         setUserTypeId={setUserTypeId}
         setSearch={setSearch}
         setIsDeleted={setIsDeleted}
+        usersCount={usersCount}
       />
 
       <UsersList

@@ -45,6 +45,11 @@ export interface IUserFilter {
   isDeleted?: string // '1' or undefined
 }
 
+interface usersDataInterface {
+  usersData: IUserInterface[]
+  usersCount: number
+}
+
 export async function createUser(
   token: string,
   user: ICreateUserWithIPlan,
@@ -63,9 +68,9 @@ export async function createUser(
 export async function findUsers(
   token: string,
   query: IUserFilter,
-): Promise<IUserInterface[]> {
+): Promise<usersDataInterface> {
   try {
-    const response = await api.get<IUserInterface[]>(
+    const response = await api.get<usersDataInterface>(
       `/users?userTypeId=${query.userTypeId}&search=${query.search}&isDeleted=${query.isDeleted}`,
       {
         headers: { Authorization: `Bearer ${token}` },

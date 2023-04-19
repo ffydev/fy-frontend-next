@@ -24,6 +24,7 @@ interface UsersHeaderProps {
   setUserTypeId: (event: string) => void
   setSearch: (event: string) => void
   setIsDeleted: (event: string) => void
+  usersCount: number
 }
 
 export default function UsersHeader({
@@ -33,6 +34,7 @@ export default function UsersHeader({
   setUserTypeId,
   setSearch,
   setIsDeleted,
+  usersCount,
 }: UsersHeaderProps) {
   const router = useRouter()
   const [usersTypes, setUsersTypes] = useState<IUserType[]>([])
@@ -64,7 +66,7 @@ export default function UsersHeader({
   return (
     <>
       <Heading as="h3" size="lg" pb="6" fontWeight="medium" textAlign="left">
-        Usuários
+        Usuários {usersCount > 0 && `(${usersCount})`}
       </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
         <FormControl width={'100%'}>
