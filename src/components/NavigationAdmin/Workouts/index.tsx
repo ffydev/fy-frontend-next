@@ -6,7 +6,7 @@ import {
 } from '@/pages/api/providers/workouts.provider'
 import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
 import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
 
@@ -44,41 +44,41 @@ export function Workouts() {
     fetchWorkoutsNames()
   }, [isFetchingWorkoutsNames, router, selectedUserId])
 
-  const fetchUserWorkouts = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-      const response = await findWorkoutsByUserId(
-        token,
-        selectedWorkoutId as string,
-        selectedUserId as string,
-      )
-
-      setWorkouts(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router, selectedUserId, selectedWorkoutId])
-
   useEffect(() => {
     if (workoutsNames.length > 0) {
       if (!selectedWorkoutId) {
         setSelectedWorkoutId(workoutsNames[0]?.id as string)
       }
+      const fetchUserWorkouts = async () => {
+        try {
+          const token = getUserToken()
+
+          if (!token) {
+            // Implementar mensagem personalizada
+            router.push('/login')
+            return
+          }
+          const response = await findWorkoutsByUserId(
+            token,
+            selectedWorkoutId as string,
+            selectedUserId as string,
+          )
+
+          setWorkouts(response)
+        } catch (error) {
+          console.error(error)
+          // Implementar mensagem personalizada
+          router.push('/login')
+        }
+      }
       fetchUserWorkouts()
     }
   }, [
-    fetchUserWorkouts,
     selectedWorkoutId,
     workoutsNames,
     setSelectedWorkoutId,
+    router,
+    selectedUserId,
   ])
 
   return (
