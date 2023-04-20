@@ -1,4 +1,5 @@
 import { Box, Button, Flex } from '@chakra-ui/react'
+import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 
 interface PaginationProps {
   hasPreviousPage: boolean
@@ -17,23 +18,53 @@ export default function Pagination({
 }: PaginationProps) {
   return (
     <>
-      <Box mt={3} w={'full'}>
+      <Box mt={3}>
         <Flex justifyContent={'center'}>
-          <Button
-            transition={'all 0.1s ease-in-out'}
-            isDisabled={!hasPreviousPage}
-            onClick={() => handlePreviousPage()}
-          >
-            Página Anterior
-          </Button>
+          <Box mr={3}>
+            {hasPreviousPage ? (
+              <Button
+                backgroundColor={'gray.700'}
+                _hover={{
+                  bgGradient: 'linear(to-r, purple.500, purple.600)',
+                  transition: '0.8s',
+                }}
+                onClick={() => handlePreviousPage()}
+              >
+                <ArrowLeft size={28} />
+              </Button>
+            ) : (
+              <Button
+                variant={'outline'}
+                backgroundColor={'gray.900'}
+                style={{ pointerEvents: 'none' }}
+              >
+                <ArrowLeft size={28} />
+              </Button>
+            )}
+          </Box>
 
-          <Button
-            transition={'all 0.2s ease-in-out'}
-            isDisabled={!hasNextPage || isButtonDisabled}
-            onClick={() => handleNextPage()}
-          >
-            Próxima Página
-          </Button>
+          <Box>
+            {hasNextPage ? (
+              <Button
+                onClick={() => handleNextPage()}
+                backgroundColor={'gray.700'}
+                _hover={{
+                  bgGradient: 'linear(to-r, purple.500, purple.600)',
+                  transition: '0.8s',
+                }}
+              >
+                <ArrowRight size={28} />
+              </Button>
+            ) : (
+              <Button
+                variant={'outline'}
+                backgroundColor={'gray.900'}
+                style={{ pointerEvents: 'none' }}
+              >
+                <ArrowRight size={28} />
+              </Button>
+            )}
+          </Box>
         </Flex>
       </Box>
     </>

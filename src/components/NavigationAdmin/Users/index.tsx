@@ -15,7 +15,7 @@ export default function Users() {
   const [users, setUsers] = useState<IUserInterface[]>([])
   const [usersCount, setUsersCount] = useState<number>(0)
   const [skip, setSkip] = useState<number>(0)
-  const take = 8
+  const take = 9
   const [hasPreviousPage, setHasPreviousPage] = useState<boolean>(false)
   const [hasNextPage, setHasNextPage] = useState<boolean>(false)
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
@@ -84,7 +84,7 @@ export default function Users() {
     if (!isButtonDisabled) {
       setIsButtonDisabled(true)
 
-      setSkip(skip - 8)
+      setSkip(skip - 9)
     }
   }
 
@@ -92,7 +92,7 @@ export default function Users() {
     if (!isButtonDisabled) {
       setIsButtonDisabled(true)
 
-      setSkip(skip + 8)
+      setSkip(skip + 9)
     }
   }
 
