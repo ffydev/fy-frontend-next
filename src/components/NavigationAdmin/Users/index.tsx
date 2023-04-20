@@ -15,7 +15,10 @@ export default function Users() {
   const [users, setUsers] = useState<IUserInterface[]>([])
   const [usersCount, setUsersCount] = useState<number>(0)
   const [skip, setSkip] = useState<number>(0)
-  const [take, setTake] = useState<number>(10)
+  const take = 8
+  const [hasPreviousPage, setHasPreviousPage] = useState<boolean>(false)
+  const [hasNextPage, setHasNextPage] = useState<boolean>(false)
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
   const [userTypeId, setUserTypeId] = useState<string>('')
   const [search, setSearch] = useState<string>('')
   const [isDeleted, setIsDeleted] = useState<string>('')
@@ -40,9 +43,13 @@ export default function Users() {
 
       setUsers(response.usersData)
       setUsersCount(response.usersCount)
+      setHasPreviousPage(response.hasPreviousPage)
+      setHasNextPage(response.hasNextPage)
     } catch (error) {
       console.error(error)
       router.push('/login')
+    } finally {
+      setIsButtonDisabled(false)
     }
   }, [router, userTypeId, search, isDeleted, skip, take])
 
@@ -73,6 +80,22 @@ export default function Users() {
     fetchPlanTypeData()
   }, [fetchPlanTypeData])
 
+  const handleWithPreviousPage = () => {
+    if (!isButtonDisabled) {
+      setIsButtonDisabled(true)
+
+      setSkip(skip - 8)
+    }
+  }
+
+  const handleWithNextPage = () => {
+    if (!isButtonDisabled) {
+      setIsButtonDisabled(true)
+
+      setSkip(skip + 8)
+    }
+  }
+
   return (
     <>
       <UsersHeader
@@ -85,7 +108,13 @@ export default function Users() {
         usersCount={usersCount}
       />
 
-      <Pagination />
+      <Pagination
+        hasPreviousPage={hasPreviousPage}
+        hasNextPage={hasNextPage}
+        handlePreviousPage={handleWithPreviousPage}
+        handleNextPage={handleWithNextPage}
+        isButtonDisabled={isButtonDisabled}
+      />
 
       <UsersList
         fetchUsersData={fetchUsersData}

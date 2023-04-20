@@ -50,6 +50,8 @@ export interface IUserFilter {
 interface usersDataInterface {
   usersData: IUserInterface[]
   usersCount: number
+  hasPreviousPage: boolean
+  hasNextPage: boolean
 }
 
 export async function createUser(
