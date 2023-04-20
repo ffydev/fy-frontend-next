@@ -22,7 +22,7 @@ import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 import CreatingFeedback from '../Feedbacks/CreateFeedback'
 import ListFeedbacks from '../Feedbacks/ListFeedbacks'
 import { useAuth } from '@/hooks/ContextAuth'
-import { useUserNavigationStore } from '@/hooks/UserNavigationStore/user.navigation.store'
+import { useUserNavigationStore } from '@/hooks/UserStore/Navigation/'
 
 export default function Dashboard() {
   const { user } = useAuth()
