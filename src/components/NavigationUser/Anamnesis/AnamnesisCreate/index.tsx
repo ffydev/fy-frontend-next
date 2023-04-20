@@ -24,7 +24,6 @@ import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
-import { useCallback } from 'react'
 import { useUserNavigationStore } from '@/hooks/UserNavigationStore/user.navigation.store'
 
 const createAnamnesisFormSchema = z.object({
@@ -78,25 +77,22 @@ export default function AnamnesisCreate() {
     resolver: zodResolver(createAnamnesisFormSchema),
   })
 
-  const fetchCurrentUserData = useCallback(
-    async (token: string) => {
-      try {
-        const currentUserData = await findCurrentUser(token)
+  const fetchCurrentUserData = async (token: string) => {
+    try {
+      const currentUserData = await findCurrentUser(token)
 
-        if (!currentUserData) {
-          // Implementar mensagem personalizada
-          router.push('/login')
-          return
-        }
-
-        setUser(currentUserData)
-      } catch (error) {
-        console.error(error)
+      if (!currentUserData) {
+        // Implementar mensagem personalizada
         router.push('/login')
+        return
       }
-    },
-    [router, setUser],
-  )
+
+      setUser(currentUserData)
+    } catch (error) {
+      console.error(error)
+      router.push('/login')
+    }
+  }
 
   const onSubmit: SubmitHandler<createAnamnesisFormSchemaType> = async (
     data,
