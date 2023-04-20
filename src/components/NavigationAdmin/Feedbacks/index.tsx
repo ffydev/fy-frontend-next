@@ -11,12 +11,13 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
 
 export default function Feedbacks() {
   const router = useRouter()
   const { user } = useAuth()
-  const { selectedUserId, setIsShowingFeedbacks, setIsShowingUsers } =
-    useAdminNavigationStore()
+  const { setIsShowingFeedbacks, setIsShowingUsers } = useAdminNavigationStore()
+  const { selectedUserId } = useAdminIsFetchingStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
   const [answer, setAnswer] = useState<string>('')
 

@@ -8,45 +8,41 @@ import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
 
 export function Workouts() {
   const router = useRouter()
-  const {
-    selectedUserId,
-    selectedWorkoutId,
-    setSelectedWorkoutId,
-    isFetchingWorkoutsNames,
-  } = useAdminNavigationStore()
+  const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId } =
+    useAdminIsFetchingStore()
+  const { isFetchingWorkoutsNames } = useAdminIsFetchingStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
 
-  const fetchWorkoutsNames = useCallback(async () => {
-    try {
-      const token = getUserToken()
+  useEffect(() => {
+    const fetchWorkoutsNames = async () => {
+      try {
+        const token = getUserToken()
 
-      if (!token) {
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        const response = await findWorkoutsNamesByUserId(
+          token,
+          selectedUserId as string,
+        )
+
+        setWorkoutsNames(response)
+      } catch (error) {
+        console.error(error)
         // Implementar mensagem personalizada
         router.push('/login')
-        return
       }
-
-      const response = await findWorkoutsNamesByUserId(
-        token,
-        selectedUserId as string,
-      )
-
-      setWorkoutsNames(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
     }
-  }, [router, selectedUserId])
-
-  useEffect(() => {
     fetchWorkoutsNames()
-  }, [isFetchingWorkoutsNames, fetchWorkoutsNames])
+  }, [isFetchingWorkoutsNames, router, selectedUserId])
 
   const fetchUserWorkouts = useCallback(async () => {
     try {

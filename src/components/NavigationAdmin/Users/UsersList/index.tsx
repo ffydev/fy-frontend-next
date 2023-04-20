@@ -37,10 +37,8 @@ export function UsersList({ users, planTypes }: UsersListProps) {
     setIsShowingWorkouts,
     setIsShowingAnamnesis,
     setIsShowingFeedbacks,
-    setSelectedUserId,
   } = useAdminNavigationStore()
-
-  const { setIsFetchingUsers } = useAdminIsFetchingStore()
+  const { setIsFetchingUsers, setSelectedUserId } = useAdminIsFetchingStore()
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()

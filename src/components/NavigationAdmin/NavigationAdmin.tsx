@@ -8,6 +8,7 @@ import WorkoutsHeader from './Workouts/WorkoutsHeader'
 import ListAnamnesis from './Anamnesis'
 import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
 import Users from './Users'
+import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
 
 export default function NavigationAdmin() {
   const {
@@ -19,9 +20,9 @@ export default function NavigationAdmin() {
     setIsShowingWorkouts,
     setIsShowingAnamnesis,
     setIsShowingFeedbacks,
-    setSelectedUserId,
     reset,
   } = useAdminNavigationStore()
+  const { setSelectedUserId } = useAdminIsFetchingStore()
 
   const handleWithHideWorkouts = () => {
     setIsShowingWorkouts()

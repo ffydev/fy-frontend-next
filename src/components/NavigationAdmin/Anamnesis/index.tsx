@@ -6,12 +6,12 @@ import {
   findUserAnamnesis,
 } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
 
 export default function ListAnamnesis() {
   const router = useRouter()
   const [anamnesis, setAnamnesis] = useState<IAnamnesis[]>()
-  const { selectedUserId } = useAdminNavigationStore()
+  const { selectedUserId } = useAdminIsFetchingStore()
 
   const fetchAnamnesisData = useCallback(async () => {
     try {
