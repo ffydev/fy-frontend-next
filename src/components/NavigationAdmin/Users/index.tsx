@@ -1,5 +1,5 @@
 import UsersHeader from './UsersHeader'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   IPlanType,
   findPlansTypes,
@@ -25,25 +25,6 @@ export default function Users() {
   const [isDeleted, setIsDeleted] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
   const { isFetchingUsers } = useAdminIsFetchingStore()
-
-  const fetchPlanTypeData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findPlansTypes(token)
-
-      setPlanTypes(response)
-    } catch (error) {
-      console.error(error)
-      router.push('/login')
-    }
-  }, [router, setPlanTypes])
 
   useEffect(() => {
     const fetchUsersData = async () => {
@@ -79,8 +60,26 @@ export default function Users() {
   }, [router, userTypeId, search, isDeleted, skip, take, isFetchingUsers])
 
   useEffect(() => {
+    const fetchPlanTypeData = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        const response = await findPlansTypes(token)
+
+        setPlanTypes(response)
+      } catch (error) {
+        console.error(error)
+        router.push('/login')
+      }
+    }
     fetchPlanTypeData()
-  }, [])
+  }, [router])
 
   const handleWithPreviousPage = () => {
     if (!isButtonDisabled) {
