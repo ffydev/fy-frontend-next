@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, chakra } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import {
@@ -13,27 +13,26 @@ export default function ListAnamnesis() {
   const [anamnesis, setAnamnesis] = useState<IAnamnesis[]>()
   const { selectedUserId } = useAdminIsFetchingStore()
 
-  const fetchAnamnesisData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findUserAnamnesis(token, selectedUserId)
-
-      setAnamnesis(response)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [router, selectedUserId])
-
   useEffect(() => {
+    const fetchAnamnesisData = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        const response = await findUserAnamnesis(token, selectedUserId)
+
+        setAnamnesis(response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
     fetchAnamnesisData()
-  }, [fetchAnamnesisData])
+  }, [selectedUserId, router])
 
   return (
     <>
