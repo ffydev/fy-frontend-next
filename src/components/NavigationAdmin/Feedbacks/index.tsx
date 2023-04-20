@@ -10,8 +10,8 @@ import { Box, chakra, Flex, FormControl, Textarea } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
-import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
+import { useAdminNavigationStore } from '@/hooks/AdminStore/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
 
 export default function Feedbacks() {
   const router = useRouter()

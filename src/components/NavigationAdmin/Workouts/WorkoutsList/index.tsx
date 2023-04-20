@@ -19,7 +19,7 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import ExercisesList from '../../ExercisesList'
-import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
+import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
 
 interface WorkoutsProps {
   setWorkouts: (workouts: IWorkout[]) => void

@@ -17,7 +17,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
+import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
 
 const workoutTypes = [
   {

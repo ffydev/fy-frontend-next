@@ -8,7 +8,7 @@ import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
-import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
+import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
 
 export function Workouts() {
   const router = useRouter()
