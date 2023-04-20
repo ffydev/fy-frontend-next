@@ -1,6 +1,6 @@
 import PlanList from '@/components/NavigationAdmin/PlansList'
 import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
-import { useAdminNavigationStore } from '@/hooks/AdminStore/AdminNavigationStore/admin.navigation.store'
+import { useAdminNavigationStore } from '@/hooks/AdminStore/Navigation/'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
