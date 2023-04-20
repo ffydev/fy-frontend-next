@@ -18,7 +18,6 @@ import { useCallback, useEffect, useState } from 'react'
 import UserCreate from '../UserCreate'
 
 interface UsersHeaderProps {
-  fetchUsersData: () => void
   planTypes: IPlanType[]
   search: string
   setUserTypeId: (event: string) => void
@@ -28,7 +27,6 @@ interface UsersHeaderProps {
 }
 
 export default function UsersHeader({
-  fetchUsersData,
   planTypes,
   search,
   setUserTypeId,
@@ -70,11 +68,7 @@ export default function UsersHeader({
       </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
         <FormControl width={'100%'}>
-          <UserCreate
-            fetchUsersData={fetchUsersData}
-            usersTypes={usersTypes}
-            planTypes={planTypes}
-          />
+          <UserCreate usersTypes={usersTypes} planTypes={planTypes} />
         </FormControl>
 
         <SelectSettingValue

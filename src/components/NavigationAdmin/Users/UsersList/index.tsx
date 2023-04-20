@@ -1,4 +1,5 @@
 import PlanList from '@/components/NavigationAdmin/PlansList'
+import { useAdminIsFetchingStore } from '@/hooks/AdminIsFetching/admin.isFetching.store'
 import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
@@ -22,15 +23,10 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 interface UsersListProps {
-  fetchUsersData: () => void
   users: IUserInterface[]
   planTypes: IPlanType[]
 }
-export function UsersList({
-  fetchUsersData,
-  users,
-  planTypes,
-}: UsersListProps) {
+export function UsersList({ users, planTypes }: UsersListProps) {
   const router = useRouter()
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
@@ -44,6 +40,8 @@ export function UsersList({
     setSelectedUserId,
   } = useAdminNavigationStore()
 
+  const { setIsFetchingUsers } = useAdminIsFetchingStore()
+
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
 
@@ -53,7 +51,7 @@ export function UsersList({
       return
     }
     deleteUser(token, id).then(() => {
-      fetchUsersData()
+      setIsFetchingUsers()
     })
   }
 
@@ -76,7 +74,7 @@ export function UsersList({
     } catch (error) {
       console.error(error)
     } finally {
-      fetchUsersData()
+      setIsFetchingUsers()
     }
   }
 
