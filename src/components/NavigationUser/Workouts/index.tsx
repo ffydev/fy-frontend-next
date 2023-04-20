@@ -6,7 +6,7 @@ import {
 } from '@/pages/api/providers/workouts.provider'
 import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '@/hooks/ContextAuth'
 import { WorkoutsList } from './WorkoutsList'
 
@@ -17,69 +17,67 @@ export function Workouts() {
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
 
-  const fetchWorkoutsNames = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findWorkoutsNamesByUserId(
-        token,
-        user?.id as string,
-      )
-
-      setWorkoutsNames(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router, user?.id])
-
-  const fetchUserWorkouts = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      if (!selectedWorkoutId) {
-        setSelectedWorkoutId(workoutsNames[0]?.id as string)
-      }
-
-      const response = await findWorkoutsByUserId(
-        token,
-        selectedWorkoutId as string,
-        user?.id as string,
-      )
-
-      setWorkouts(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router, selectedWorkoutId, user?.id, workoutsNames])
-
   useEffect(() => {
+    const fetchWorkoutsNames = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        const response = await findWorkoutsNamesByUserId(
+          token,
+          user?.id as string,
+        )
+
+        setWorkoutsNames(response)
+      } catch (error) {
+        console.error(error)
+        // Implementar mensagem personalizada
+        router.push('/login')
+      }
+    }
     fetchWorkoutsNames()
-  }, [fetchWorkoutsNames])
+  }, [router, user?.id])
 
   useEffect(() => {
     if (workoutsNames.length > 0) {
       if (!selectedWorkoutId) {
         setSelectedWorkoutId(workoutsNames[0]?.id as string)
       }
+      const fetchUserWorkouts = async () => {
+        try {
+          const token = getUserToken()
+
+          if (!token) {
+            // Implementar mensagem personalizada
+            router.push('/login')
+            return
+          }
+
+          if (!selectedWorkoutId) {
+            setSelectedWorkoutId(workoutsNames[0]?.id as string)
+          }
+
+          const response = await findWorkoutsByUserId(
+            token,
+            selectedWorkoutId as string,
+            user?.id as string,
+          )
+
+          setWorkouts(response)
+        } catch (error) {
+          console.error(error)
+          // Implementar mensagem personalizada
+          router.push('/login')
+        }
+      }
       fetchUserWorkouts()
     }
-  }, [fetchUserWorkouts, selectedWorkoutId, workoutsNames])
+  }, [selectedWorkoutId, workoutsNames, router, user?.id])
 
   return (
     <>
