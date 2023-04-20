@@ -6,34 +6,33 @@ import {
 } from '@/pages/api/providers/user-feedbacks.provider'
 import { Box, chakra } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function ListFeedbacks() {
   const { user } = useAuth()
   const router = useRouter()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
 
-  const fetchFeedbacksData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findUserFeedbacks(token, user?.id!)
-
-      setFeedbacks(response)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [router, user?.id])
-
   useEffect(() => {
+    const fetchFeedbacksData = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        const response = await findUserFeedbacks(token, user?.id!)
+
+        setFeedbacks(response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
     fetchFeedbacksData()
-  }, [fetchFeedbacksData])
+  }, [router, user?.id])
 
   return (
     <>
