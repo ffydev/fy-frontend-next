@@ -62,7 +62,7 @@ export function StudentDepoiment() {
                     textAlign={'left'}
                     fontSize={['4xl', '6xl']}
                     fontWeight="bold"
-                    color={'whiteAlpha.900'}
+                    color={'#8059D4'}
                   >
                     {text}
                   </Heading>
