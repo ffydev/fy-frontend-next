@@ -15,7 +15,7 @@ const initialState: AuthState = {
 export const useAuthStore = create(
   combine(initialState, (set) => ({
     setUser: (user: IUser) => set(() => ({ user })),
-    setError: (error: string) => set(() => ({ error })),
+    setError: (error: string | undefined) => set(() => ({ error })),
     signOut: () => set(() => ({ user: undefined })),
     reset: () => {
       set(initialState)

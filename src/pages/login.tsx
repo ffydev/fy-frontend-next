@@ -168,7 +168,7 @@ export default function Login() {
                   <Button
                     w={'full'}
                     variant={'outline'}
-                    colorScheme="teal"
+                    colorScheme="purple"
                     type="reset"
                   >
                     Limpar dados
