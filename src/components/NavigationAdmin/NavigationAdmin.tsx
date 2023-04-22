@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import HandleButton from '../Buttons/HandleButton'
 import { Workouts } from './Workouts'
 import Feedbacks from './Feedbacks'
-import WorkoutsHeader from './Workouts/WorkoutsHeader'
 import ListAnamnesis from './Anamnesis'
 import { useAdminNavigationStore } from '@/stores/AdminStore/Navigation'
 import Users from './Users'
@@ -79,7 +78,6 @@ export default function NavigationAdmin() {
               </Stack>
               <Container maxW="7xl" p={{ base: 3, md: 1 }}>
                 <Stack maxW={'auto'}>
-                  <WorkoutsHeader />
                   <Workouts />
                 </Stack>
               </Container>

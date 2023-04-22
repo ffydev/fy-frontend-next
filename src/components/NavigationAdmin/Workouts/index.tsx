@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
 import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import WorkoutsHeader from './WorkoutsHeader'
 
 export function Workouts() {
   const router = useRouter()
@@ -79,10 +80,13 @@ export function Workouts() {
     setSelectedWorkoutId,
     router,
     selectedUserId,
+    isFetchingWorkoutsNames,
   ])
 
   return (
     <>
+      <WorkoutsHeader />
+
       <Tabs size="md" variant="enclosed" colorScheme={'purple'} isLazy>
         <TabList>
           {workoutsNames?.map((workout: IWorkout) => (

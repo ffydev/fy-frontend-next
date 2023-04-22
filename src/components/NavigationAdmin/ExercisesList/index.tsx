@@ -5,6 +5,7 @@ import {
   IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 import {
   Box,
   Center,
@@ -30,6 +31,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
   const [weight, setWeight] = useState<string | undefined>('')
   const [rir, setRir] = useState<string | undefined>('')
   const [describe, setDescribe] = useState<string | undefined>('')
+  const { setIsFetchingWorkoutsNames } = useAdminIsFetchingStore()
 
   const handleUpdateExercise = async (id: string) => {
     const token = getUserToken()
@@ -69,20 +71,28 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
   }
 
   const handleWithDeleteExercise = (id: string) => {
-    const token = getUserToken()
+    try {
+      const token = getUserToken()
 
-    if (!token) {
-      router.push('/login')
-      return
+      if (!token) {
+        router.push('/login')
+        return
+      }
+
+      deleteExercise(token, id).then(() => {
+        const updatedExercises = updatingExercisesState(exercisesState, id)
+        setExercisesState(updatedExercises)
+      })
+    } catch (error) {
+      console.error(error)
     }
-
-    deleteExercise(token, id).then(() => {
-      const updatedExercises = updatingExercisesState(exercisesState, id)
-      setExercisesState(updatedExercises)
-    })
   }
 
   const updatingExercisesState = (exercises: IExercise[], id: string) => {
+    if (exercises && exercises.length === 1) {
+      console.log('aqui')
+      setIsFetchingWorkoutsNames()
+    }
     return exercises.filter((exercise: IExercise) => exercise.id !== id)
   }
 
