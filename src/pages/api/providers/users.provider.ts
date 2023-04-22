@@ -62,7 +62,7 @@ export async function createUser(
     const response = await api.post<IUserInterface>('/users', user, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    console.log(response.data)
+
     return response.data
   } catch (error) {
     console.error('Failed to create user', error)

@@ -1,4 +1,3 @@
-import { api } from '@/pages/api/apis/api'
 import { IUser } from '@/pages/api/providers/auth.provider'
 import { createContext, useContext, useState, ReactNode } from 'react'
 import { useRouter } from 'next/router'
@@ -6,7 +5,6 @@ import { useRouter } from 'next/router'
 type AuthContextData = {
   user: IUser | undefined
   setUser: (user: IUser) => void
-  signIn: (username: string, password: string) => void
   signOut: () => void
   setError: (error: string) => void
   error: string
@@ -23,21 +21,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [error, setError] = useState('')
   const router = useRouter()
 
-  const signIn = async (username: string, password: string) => {
-    try {
-      const response = await api.post(`/login`, { username, password })
-
-      if (response.data) {
-        localStorage.setItem('fyToken', response.data.access_token)
-        setUser(response.data)
-        setError('')
-      }
-    } catch (error) {
-      setUser(undefined)
-      setError('Usuário ou senha inválidos')
-    }
-  }
-
   const signOut = () => {
     localStorage.removeItem('fyToken')
     setUser(undefined)
@@ -46,9 +29,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ user, setUser, signIn, signOut, setError, error }}
-    >
+    <AuthContext.Provider value={{ user, setUser, signOut, setError, error }}>
       {children}
     </AuthContext.Provider>
   )

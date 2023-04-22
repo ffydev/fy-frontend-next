@@ -8,25 +8,56 @@ import {
   FormLabel,
   Heading,
   Input,
-  InputGroup,
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { signIn } from './api/providers/auth.provider'
+
+const loginFormSchema = z.object({
+  username: z.string().email({
+    message: 'E-mail inválido',
+  }),
+  password: z
+    .string()
+    .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
+    .max(200, { message: 'A senha deve ter no máximo 200 caracteres' })
+    .nonempty({ message: 'Campo obrigatório' }),
+})
+
+type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const router = useRouter()
-  const { user, signIn, error, setError } = useAuth()
+  const { user, setUser, setError, error } = useAuth()
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const username = formData.get('username') as string
-    const password = formData.get('password') as string
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<loginFormSchemaType>({
+    resolver: zodResolver(loginFormSchema),
+  })
 
-    signIn(username, password)
+  const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
+    try {
+      const response = await signIn({
+        username: data.username,
+        password: data.password,
+      })
+
+      if (response) {
+        setUser(response)
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      setError('Usuário ou senha inválidos')
+    }
   }
 
   useEffect(() => {
@@ -87,7 +118,7 @@ export default function Login() {
                 />
               </Box>
             </Stack>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmitLogin)}>
               {error && <p>{error}</p>}
               <Stack spacing={4} w={'full'} maxW={'sm'}>
                 <Heading
@@ -105,25 +136,22 @@ export default function Login() {
                   Se você já possui uma conta, preencha seus dados de acesso à
                   plataforma.
                 </Text>
-                <FormControl id="email">
+                <FormControl>
                   <FormLabel>Seu E-mail</FormLabel>
                   <Input
-                    type="email"
-                    name="username"
                     placeholder="Coloque o seu e-mail"
-                    required
+                    {...register('username')}
                   />
+                  {errors.username && <Text>{errors.username.message}</Text>}
                 </FormControl>
-                <FormControl id="password">
+                <FormControl>
                   <FormLabel>Sua Senha</FormLabel>
-                  <InputGroup size="md">
-                    <Input
-                      type={'password'}
-                      name="password"
-                      placeholder="Coloque sua senha"
-                      required
-                    />
-                  </InputGroup>
+                  <Input
+                    type={'password'}
+                    placeholder="Coloque sua senha"
+                    {...register('password')}
+                  />
+                  {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
                 <Stack spacing={6} direction={['column', 'row']} pt={4}>
                   <Button

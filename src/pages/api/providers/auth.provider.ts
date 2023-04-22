@@ -13,13 +13,17 @@ export interface IUser {
   }
 }
 
-export async function signIn(username: string, password: string) {
+export interface ILogin {
+  username: string
+  password: string
+}
+
+export async function signIn(login: ILogin): Promise<IUser | null> {
   try {
-    const response = await api.post(`/login`, { username, password })
+    const response = await api.post(`/login`, login)
 
     if (response.data) {
       localStorage.setItem('fyToken', response.data.access_token)
-
       return response.data as IUser
     }
     return null
