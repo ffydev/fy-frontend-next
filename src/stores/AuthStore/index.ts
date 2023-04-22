@@ -1,21 +1,24 @@
 import { IUser } from '@/pages/api/providers/auth.provider'
 import { create } from 'zustand'
+import { combine } from 'zustand/middleware'
 
-interface AuthState {
+type AuthState = {
   user: IUser | undefined
-  setUser: (user: IUser) => void
   error: string | undefined
-  setError: (error: string | undefined) => void
-  signOut: () => void
 }
 
-export const useAuthStore = create<AuthState>((set) => {
-  return {
-    user: undefined,
-    setUser: (user) => set(() => ({ user })),
-    error: undefined,
-    setError: (error) => set(() => ({ error })),
+const initialState: AuthState = {
+  user: undefined,
+  error: undefined,
+}
+
+export const useAuthStore = create(
+  combine(initialState, (set) => ({
+    setUser: (user: IUser) => set(() => ({ user })),
+    setError: (error: string) => set(() => ({ error })),
     signOut: () => set(() => ({ user: undefined })),
-    reset: () => set(() => ({ user: {} as IUser })),
-  }
-})
+    reset: () => {
+      set(initialState)
+    },
+  })),
+)
