@@ -265,7 +265,7 @@ export default function Dashboard() {
             />
           </Stack>
 
-          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
             <Stack maxW={'auto'}>
               <Workouts />
             </Stack>
