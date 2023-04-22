@@ -1,13 +1,13 @@
 import DashboardAdmin from '@/components/Dashboards/DashboardAdmin'
 import DashboardUser from '@/components/Dashboards/DashboardUser'
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
 
 export default function Dashboard() {
   const router = useRouter()
-  const { user, setUser } = useAuth()
+  const { user, setUser, signOut } = useAuthStore()
   const [hasCurrentUser, setHasCurrentUser] = useState<boolean>(false)
 
   const fetchCurrentUserData = useCallback(
@@ -40,7 +40,7 @@ export default function Dashboard() {
         router.replace('/login')
       }
     }
-  }, [fetchCurrentUserData, hasCurrentUser, router, user])
+  }, [fetchCurrentUserData, hasCurrentUser, router, user, signOut])
 
   return (
     <>

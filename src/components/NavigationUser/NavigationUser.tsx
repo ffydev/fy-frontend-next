@@ -1,10 +1,10 @@
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import { Box, Center } from '@chakra-ui/react'
 import CompleteUserRegistration from './CompleteUserRegistration'
 import Dashboard from './Dashboard'
 
 export default function NavigationUser() {
-  const { user } = useAuth()
+  const { user } = useAuthStore()
 
   return (
     <>

@@ -1,41 +1,21 @@
 import { IUser } from '@/pages/api/providers/auth.provider'
-import { createContext, useContext, useState, ReactNode } from 'react'
-import { useRouter } from 'next/router'
+import { create } from 'zustand'
 
-type AuthContextData = {
+interface AuthState {
   user: IUser | undefined
-  setUser: (user: IUser) => void
+  setUser: (by: IUser) => void
+  error: string | undefined
+  setError: (error: string | undefined) => void
   signOut: () => void
-  setError: (error: string) => void
-  error: string
 }
 
-type AuthProviderProps = {
-  children: ReactNode
-}
-
-const AuthContext = createContext({} as AuthContextData)
-
-export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<IUser | undefined>(undefined)
-  const [error, setError] = useState('')
-  const router = useRouter()
-
-  const signOut = () => {
-    localStorage.removeItem('fyToken')
-    setUser(undefined)
-    setError('')
-    router.push('/login')
+export const useAuthStore = create<AuthState>((set) => {
+  return {
+    user: undefined,
+    setUser: (by) => set(() => ({ user: by })),
+    error: undefined,
+    setError: (error) => set(() => ({ error })),
+    signOut: () => set(() => ({ user: undefined })),
+    reset: () => set(() => ({ user: {} as IUser })),
   }
-
-  return (
-    <AuthContext.Provider value={{ user, setUser, signOut, setError, error }}>
-      {children}
-    </AuthContext.Provider>
-  )
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext)
-  return context
-}
+})

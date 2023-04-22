@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   IUserFeedback,
@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 export default function ListFeedbacks() {
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const router = useRouter()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
 

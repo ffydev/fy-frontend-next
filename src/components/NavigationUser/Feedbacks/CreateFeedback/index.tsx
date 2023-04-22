@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {
@@ -54,7 +54,7 @@ type createFeedbackFormSchemaType = z.infer<typeof createFeedbackFormSchema>
 
 export default function CreatingFeedback() {
   const router = useRouter()
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { setIsShowingDashboard, setIsShowingCreateFeedbacks } =
     useUserNavigationStore()
 

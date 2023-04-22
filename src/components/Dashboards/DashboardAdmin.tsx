@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import {
   Box,
   BoxProps,
@@ -32,7 +32,13 @@ export default function DashboardAdmin() {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [dashboardHome, setDashboardHome] = useState<boolean>(true)
-  const { user, signOut } = useAuth()
+  const { user, signOut } = useAuthStore()
+
+  const handleWithSignOut = () => {
+    localStorage.removeItem('fyToken')
+    signOut()
+    router.replace('/login')
+  }
 
   useEffect(() => {
     if (!user) {
@@ -79,7 +85,7 @@ export default function DashboardAdmin() {
           </DrawerContent>
         </Drawer>
         {/* mobilenav */}
-        <MobileNav onOpen={onOpen} user={user} signOut={signOut} />
+        <MobileNav onOpen={onOpen} user={user} signOut={handleWithSignOut} />
         <Box>
           {dashboardHome ? (
             <>

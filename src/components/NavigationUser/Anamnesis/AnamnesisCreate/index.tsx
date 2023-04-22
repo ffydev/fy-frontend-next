@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import { createAnamnesis } from '@/pages/api/providers/anamnesis.provider'
 import {
   findCurrentUser,
@@ -65,7 +65,7 @@ type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
 
 export default function AnamnesisCreate() {
   const router = useRouter()
-  const { user, setUser } = useAuth()
+  const { user, setUser } = useAuthStore()
   const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
     useUserNavigationStore()
 

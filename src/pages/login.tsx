@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import {
   Box,
   BoxProps,
@@ -8,16 +8,18 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
   Stack,
   Text,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { signIn } from './api/providers/auth.provider'
+import HandleButton from '@/components/Buttons/HandleButton'
 
 const loginFormSchema = z.object({
   username: z.string().email({
@@ -34,7 +36,8 @@ type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const router = useRouter()
-  const { user, setUser, setError, error } = useAuth()
+  const { setUser, setError, error } = useAuthStore()
+  const [loading, setLoading] = useState(false)
 
   const {
     register,
@@ -46,6 +49,7 @@ export default function Login() {
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
+      setLoading(true)
       const response = await signIn({
         username: data.username,
         password: data.password,
@@ -54,19 +58,15 @@ export default function Login() {
       if (response) {
         setUser(response)
         router.push('/dashboard')
+        return setError(undefined)
       }
+      return setError('Usuário ou senha inválidos')
     } catch (error) {
       setError('Usuário ou senha inválidos')
+    } finally {
+      setLoading(false)
     }
   }
-
-  useEffect(() => {
-    if (user) {
-      router.push('/dashboard')
-    } else {
-      setError('Usuário ou senha inválidos')
-    }
-  }, [user, router, setError])
 
   const BoxBgImage = (props: BoxProps) => {
     return (
@@ -119,7 +119,6 @@ export default function Login() {
               </Box>
             </Stack>
             <form onSubmit={handleSubmit(onSubmitLogin)}>
-              {error && <p>{error}</p>}
               <Stack spacing={4} w={'full'} maxW={'sm'}>
                 <Heading
                   as={'h1'}
@@ -128,14 +127,20 @@ export default function Login() {
                 >
                   Acesse sua conta
                 </Heading>
-                <Text
-                  as={'h2'}
-                  fontSize={'lg'}
-                  textAlign={{ base: 'center', md: 'left' }}
-                >
-                  Se você já possui uma conta, preencha seus dados de acesso à
-                  plataforma.
-                </Text>
+
+                {error && (
+                  <>
+                    <Text
+                      color={'red.400'}
+                      as={'h2'}
+                      fontSize={'lg'}
+                      textAlign={{ base: 'center', md: 'left' }}
+                    >
+                      {error}
+                    </Text>
+                  </>
+                )}
+
                 <FormControl>
                   <FormLabel>Seu E-mail</FormLabel>
                   <Input
@@ -154,21 +159,17 @@ export default function Login() {
                   {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
                 <Stack spacing={6} direction={['column', 'row']} pt={4}>
-                  <Button
-                    w={'full'}
-                    variant={'solid'}
-                    colorScheme="teal"
-                    type="submit"
-                    // rightIcon={'asdsa'}
-                  >
-                    Acessar sua conta
-                  </Button>
+                  {loading ? (
+                    <Spinner color="teal.500" size="xl" alignSelf="center" />
+                  ) : (
+                    <HandleButton text="Entrar" type="submit" />
+                  )}
+
                   <Button
                     w={'full'}
                     variant={'outline'}
                     colorScheme="teal"
                     type="reset"
-                    // rightIcon={'2121'}
                   >
                     Limpar dados
                   </Button>

@@ -7,12 +7,12 @@ import {
 import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import { WorkoutsList } from './WorkoutsList'
 
 export function Workouts() {
   const router = useRouter()
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])

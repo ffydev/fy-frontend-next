@@ -1,5 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/ContextAuth'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   answerFeedback,
@@ -15,7 +15,7 @@ import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
 
 export default function Feedbacks() {
   const router = useRouter()
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const { setIsShowingFeedbacks, setIsShowingUsers } = useAdminNavigationStore()
   const { selectedUserId } = useAdminIsFetchingStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
