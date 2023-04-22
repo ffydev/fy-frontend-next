@@ -1,5 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
-import { useAuthStore } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/AuthStore'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   answerFeedback,

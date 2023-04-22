@@ -7,7 +7,7 @@ import {
 import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useAuthStore } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/AuthStore'
 import { WorkoutsList } from './WorkoutsList'
 
 export function Workouts() {

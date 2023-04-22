@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/AuthStore'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {

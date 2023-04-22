@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/AuthStore'
 import { Box, Center } from '@chakra-ui/react'
 import CompleteUserRegistration from './CompleteUserRegistration'
 import Dashboard from './Dashboard'

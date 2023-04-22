@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/hooks/AuthStore'
 import {
   findCurrentUser,
   getUserToken,
