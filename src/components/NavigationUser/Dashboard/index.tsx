@@ -21,8 +21,8 @@ import {
 import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 import CreatingFeedback from '../Feedbacks/CreateFeedback'
 import ListFeedbacks from '../Feedbacks/ListFeedbacks'
-import { useAuthStore } from '@/Stores/AuthStore'
-import { useUserNavigationStore } from '@/Stores/UserStore/Navigation'
+import { useAuthStore } from '@/stores/AuthStore'
+import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 
 export default function Dashboard() {
   const { user } = useAuthStore()

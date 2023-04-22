@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/Stores/AuthStore'
+import { useAuthStore } from '@/stores/AuthStore'
 import { createAnamnesis } from '@/pages/api/providers/anamnesis.provider'
 import {
   findCurrentUser,
@@ -24,7 +24,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
-import { useUserNavigationStore } from '@/Stores/UserStore/Navigation'
+import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),

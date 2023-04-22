@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/Stores/AuthStore'
+import { useAuthStore } from '@/stores/AuthStore'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {
@@ -20,7 +20,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
-import { useUserNavigationStore } from '@/Stores/UserStore/Navigation'
+import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 
 const createFeedbackFormSchema = z.object({
   diet: z

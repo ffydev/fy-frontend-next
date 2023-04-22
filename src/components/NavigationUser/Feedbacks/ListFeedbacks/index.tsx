@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/Stores/AuthStore'
+import { useAuthStore } from '@/stores/AuthStore'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   IUserFeedback,

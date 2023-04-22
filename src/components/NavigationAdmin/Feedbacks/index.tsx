@@ -1,5 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
-import { useAuthStore } from '@/Stores/AuthStore'
+import { useAuthStore } from '@/stores/AuthStore'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   answerFeedback,
@@ -10,7 +10,7 @@ import { Box, chakra, Flex, FormControl, Textarea } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import { useAdminNavigationStore } from '@/Stores/AdminStore/Navigation'
+import { useAdminNavigationStore } from '@/stores/AdminStore/Navigation'
 import { useAdminIsFetchingStore } from '@/Stores/AdminStore/IsFetching'
 
 export default function Feedbacks() {

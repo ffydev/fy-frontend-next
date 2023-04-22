@@ -6,7 +6,7 @@ import { Workouts } from './Workouts'
 import Feedbacks from './Feedbacks'
 import WorkoutsHeader from './Workouts/WorkoutsHeader'
 import ListAnamnesis from './Anamnesis'
-import { useAdminNavigationStore } from '@/Stores/AdminStore/Navigation'
+import { useAdminNavigationStore } from '@/stores/AdminStore/Navigation'
 import Users from './Users'
 import { useAdminIsFetchingStore } from '@/Stores/AdminStore/IsFetching'
 
