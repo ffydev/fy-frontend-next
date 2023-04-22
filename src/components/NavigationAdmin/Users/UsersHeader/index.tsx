@@ -1,4 +1,3 @@
-import SelectSettingValue from '@/components/Select/SelectSettingValue'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
@@ -11,6 +10,7 @@ import {
   FormControl,
   Heading,
   Input,
+  Select,
   Stack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -71,11 +71,32 @@ export default function UsersHeader({
           <UserCreate usersTypes={usersTypes} planTypes={planTypes} />
         </FormControl>
 
-        <SelectSettingValue
-          tag={'Buscar por tipo de usuário'}
-          setValue={setUserTypeId}
-          mapValues={usersTypes}
-        />
+        <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
+          <Select
+            bgGradient={'linear(to-r, gray.800, gray.900)'}
+            variant={'filled'}
+            rounded={'lg'}
+            boxShadow={'lg'}
+            focusBorderColor={'purple.400'}
+            size={'md'}
+            onChange={(event) => setUserTypeId(event.target.value)}
+          >
+            <option style={{ backgroundColor: '#322659' }} value="">
+              Todos
+            </option>
+            {usersTypes.map((userType: IUserType) => (
+              <option
+                style={{ backgroundColor: '#322659' }}
+                key={userType.id}
+                value={userType.id}
+                defaultValue={''}
+              >
+                {userType.name === 'admin' ? 'Admistrador' : ''}
+                {userType.name === 'user' ? 'Usuário' : ''}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
 
         <FormControl width={'100%'} mb={{ base: '4', lg: '0' }}>
           <Input
