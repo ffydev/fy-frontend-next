@@ -25,7 +25,7 @@ import { useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { useAdminIsFetchingStore } from '@/Stores/AdminStore/IsFetching'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 interface CreateUserProps {
   usersTypes: IUserType[]

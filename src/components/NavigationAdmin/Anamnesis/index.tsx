@@ -6,7 +6,7 @@ import {
   findUserAnamnesis,
 } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useAdminIsFetchingStore } from '@/Stores/AdminStore/IsFetching'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 export default function ListAnamnesis() {
   const router = useRouter()
