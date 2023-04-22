@@ -9,7 +9,7 @@ import { IUserInterface, findUsers } from '@/pages/api/providers/users.provider'
 import { useRouter } from 'next/router'
 import { UsersList } from './UsersList'
 import Pagination from '@/components/Pagination'
-import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
+import { useAdminIsFetchingStore } from '@/Stores/AdminStore/IsFetching'
 
 export default function Users() {
   const router = useRouter()

@@ -24,7 +24,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
-import { useUserNavigationStore } from '@/hooks/UserStore/Navigation/'
+import { useUserNavigationStore } from '@/Stores/UserStore/Navigation'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),

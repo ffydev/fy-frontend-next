@@ -20,7 +20,7 @@ import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
-import { useUserNavigationStore } from '@/hooks/UserStore/Navigation/'
+import { useUserNavigationStore } from '@/Stores/UserStore/Navigation'
 
 const createFeedbackFormSchema = z.object({
   diet: z

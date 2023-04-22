@@ -6,9 +6,9 @@ import { Workouts } from './Workouts'
 import Feedbacks from './Feedbacks'
 import WorkoutsHeader from './Workouts/WorkoutsHeader'
 import ListAnamnesis from './Anamnesis'
-import { useAdminNavigationStore } from '@/hooks/AdminStore/Navigation/'
+import { useAdminNavigationStore } from '@/Stores/AdminStore/Navigation'
 import Users from './Users'
-import { useAdminIsFetchingStore } from '@/hooks/AdminStore/IsFetching/'
+import { useAdminIsFetchingStore } from '@/Stores/AdminStore/IsFetching'
 
 export default function NavigationAdmin() {
   const {
