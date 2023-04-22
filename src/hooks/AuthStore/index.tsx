@@ -3,7 +3,7 @@ import { create } from 'zustand'
 
 interface AuthState {
   user: IUser | undefined
-  setUser: (by: IUser) => void
+  setUser: (user: IUser) => void
   error: string | undefined
   setError: (error: string | undefined) => void
   signOut: () => void
@@ -12,7 +12,7 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => {
   return {
     user: undefined,
-    setUser: (by) => set(() => ({ user: by })),
+    setUser: (user) => set(() => ({ user })),
     error: undefined,
     setError: (error) => set(() => ({ error })),
     signOut: () => set(() => ({ user: undefined })),
