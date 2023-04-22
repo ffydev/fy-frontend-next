@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import NavigationAdmin from '../NavigationAdmin/NavigationAdmin'
@@ -39,16 +39,6 @@ export default function DashboardAdmin() {
     signOut()
     router.replace('/login')
   }
-
-  useEffect(() => {
-    if (!user) {
-      router.replace('/login')
-    }
-
-    if (user?.userType.name !== 'admin') {
-      router.replace('/login')
-    }
-  }, [router, user])
 
   const handleWithShowDashboardHome = () => {
     setDashboardHome(true)
