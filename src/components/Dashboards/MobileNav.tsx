@@ -1,4 +1,3 @@
-import { IUser } from '@/pages/api/providers/auth.provider'
 import {
   Avatar,
   Box,
@@ -16,20 +15,23 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { FiBell, FiChevronDown, FiMenu } from 'react-icons/fi'
+import { useAuthStore } from '@/stores/AuthStore'
+import { useRouter } from 'next/router'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
-  user?: IUser
-  signOut: () => void
 }
 
-export default function MobileNav({
-  onOpen,
-  user,
-  signOut,
-  ...rest
-}: MobileProps) {
+export default function MobileNav({ onOpen, ...rest }: MobileProps) {
   const [nameInitial, setNameInitial] = useState<string>('')
+  const { user, signOut } = useAuthStore()
+  const router = useRouter()
+
+  const handleWithSignOut = () => {
+    localStorage.removeItem('fyToken')
+    signOut()
+    router.replace('/login')
+  }
 
   function getingFirstNameInitials(name?: string) {
     if (name !== undefined && name !== '' && name !== null) {
@@ -72,7 +74,7 @@ export default function MobileNav({
         fontWeight="bold"
         ml={5}
       >
-        Olá, {user?.firstName}
+        {user?.firstName && `Olá,  ${user?.firstName}`}
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
@@ -132,7 +134,7 @@ export default function MobileNav({
               </MenuItem>
               <MenuDivider />
               <MenuItem
-                onClick={() => signOut()}
+                onClick={() => handleWithSignOut()}
                 _hover={{
                   bgColor: 'blackAlpha.400',
                   rounded: 'lg',

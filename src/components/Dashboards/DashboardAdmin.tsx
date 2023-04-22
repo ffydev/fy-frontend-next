@@ -1,4 +1,3 @@
-import { useAuthStore } from '@/stores/AuthStore'
 import {
   Box,
   BoxProps,
@@ -10,7 +9,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
@@ -29,16 +27,8 @@ const LinkItems: Array<LinkItemProps> = [
 ]
 
 export default function DashboardAdmin() {
-  const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [dashboardHome, setDashboardHome] = useState<boolean>(true)
-  const { user, signOut } = useAuthStore()
-
-  const handleWithSignOut = () => {
-    localStorage.removeItem('fyToken')
-    signOut()
-    router.replace('/login')
-  }
 
   const handleWithShowDashboardHome = () => {
     setDashboardHome(true)
@@ -75,7 +65,7 @@ export default function DashboardAdmin() {
           </DrawerContent>
         </Drawer>
         {/* mobilenav */}
-        <MobileNav onOpen={onOpen} user={user} signOut={handleWithSignOut} />
+        <MobileNav onOpen={onOpen} />
         <Box>
           {dashboardHome ? (
             <>
