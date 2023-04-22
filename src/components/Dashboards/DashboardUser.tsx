@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/hooks/AuthStore'
+import { useAuthStore } from '@/Stores/AuthStore'
 import {
   Box,
   BoxProps,

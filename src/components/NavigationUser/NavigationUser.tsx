@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/hooks/AuthStore'
+import { useAuthStore } from '@/Stores/AuthStore'
 import { Box, Center } from '@chakra-ui/react'
 import CompleteUserRegistration from './CompleteUserRegistration'
 import Dashboard from './Dashboard'

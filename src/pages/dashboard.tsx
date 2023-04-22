@@ -1,6 +1,6 @@
 import DashboardAdmin from '@/components/Dashboards/DashboardAdmin'
 import DashboardUser from '@/components/Dashboards/DashboardUser'
-import { useAuthStore } from '@/hooks/AuthStore'
+import { useAuthStore } from '@/Stores/AuthStore'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
