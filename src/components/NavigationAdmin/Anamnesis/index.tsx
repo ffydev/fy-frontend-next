@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, chakra } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import {
@@ -6,34 +6,33 @@ import {
   findUserAnamnesis,
 } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 export default function ListAnamnesis() {
   const router = useRouter()
   const [anamnesis, setAnamnesis] = useState<IAnamnesis[]>()
-  const { selectedUserId } = useAdminNavigationStore()
-
-  const fetchAnamnesisData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findUserAnamnesis(token, selectedUserId)
-
-      setAnamnesis(response)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [router, selectedUserId])
+  const { selectedUserId } = useAdminIsFetchingStore()
 
   useEffect(() => {
+    const fetchAnamnesisData = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        const response = await findUserAnamnesis(token, selectedUserId)
+
+        setAnamnesis(response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
     fetchAnamnesisData()
-  }, [fetchAnamnesisData])
+  }, [selectedUserId, router])
 
   return (
     <>

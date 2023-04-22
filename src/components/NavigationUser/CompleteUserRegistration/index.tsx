@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/stores/AuthStore'
 import {
   findCurrentUser,
   getUserToken,
@@ -62,7 +62,7 @@ type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 
 export default function CompleteUserRegistration() {
   const router = useRouter()
-  const { user, setUser } = useAuth()
+  const { user, setUser } = useAuthStore()
 
   const fetchCurrentUserData = useCallback(
     async (token: string) => {

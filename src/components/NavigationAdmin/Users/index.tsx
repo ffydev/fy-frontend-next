@@ -1,5 +1,5 @@
 import UsersHeader from './UsersHeader'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   IPlanType,
   findPlansTypes,
@@ -9,6 +9,7 @@ import { IUserInterface, findUsers } from '@/pages/api/providers/users.provider'
 import { useRouter } from 'next/router'
 import { UsersList } from './UsersList'
 import Pagination from '@/components/Pagination'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 export default function Users() {
   const router = useRouter()
@@ -23,62 +24,62 @@ export default function Users() {
   const [search, setSearch] = useState<string>('')
   const [isDeleted, setIsDeleted] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
+  const { isFetchingUsers } = useAdminIsFetchingStore()
 
-  const fetchUsersData = useCallback(async () => {
-    try {
-      const token = getUserToken()
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      try {
+        const token = getUserToken()
 
-      if (!token) {
-        // Implementar mensagem personalizada
-        return router.push('/login')
-      }
+        if (!token) {
+          // Implementar mensagem personalizada
+          return router.push('/login')
+        }
 
-      const response = await findUsers(token, {
-        userTypeId,
-        search,
-        isDeleted,
-        skip,
-        take,
-      })
+        const response = await findUsers(token, {
+          userTypeId,
+          search,
+          isDeleted,
+          skip,
+          take,
+        })
 
-      setUsers(response.usersData)
-      setUsersCount(response.usersCount)
-      setHasPreviousPage(response.hasPreviousPage)
-      setHasNextPage(response.hasNextPage)
-    } catch (error) {
-      console.error(error)
-      router.push('/login')
-    } finally {
-      setIsButtonDisabled(false)
-    }
-  }, [router, userTypeId, search, isDeleted, skip, take])
-
-  const fetchPlanTypeData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
+        setUsers(response.usersData)
+        setUsersCount(response.usersCount)
+        setHasPreviousPage(response.hasPreviousPage)
+        setHasNextPage(response.hasNextPage)
+      } catch (error) {
+        console.error(error)
         router.push('/login')
-        return
+      } finally {
+        setIsButtonDisabled(false)
       }
-
-      const response = await findPlansTypes(token)
-
-      setPlanTypes(response)
-    } catch (error) {
-      console.error(error)
-      router.push('/login')
     }
-  }, [router, setPlanTypes])
 
-  useEffect(() => {
     fetchUsersData()
-  }, [fetchUsersData])
+  }, [router, userTypeId, search, isDeleted, skip, take, isFetchingUsers])
 
   useEffect(() => {
+    const fetchPlanTypeData = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
+
+        const response = await findPlansTypes(token)
+
+        setPlanTypes(response)
+      } catch (error) {
+        console.error(error)
+        router.push('/login')
+      }
+    }
     fetchPlanTypeData()
-  }, [fetchPlanTypeData])
+  }, [router])
 
   const handleWithPreviousPage = () => {
     if (!isButtonDisabled) {
@@ -99,7 +100,6 @@ export default function Users() {
   return (
     <>
       <UsersHeader
-        fetchUsersData={fetchUsersData}
         planTypes={planTypes}
         search={search}
         setUserTypeId={setUserTypeId}
@@ -116,11 +116,7 @@ export default function Users() {
         isButtonDisabled={isButtonDisabled}
       />
 
-      <UsersList
-        fetchUsersData={fetchUsersData}
-        users={users}
-        planTypes={planTypes}
-      />
+      <UsersList users={users} planTypes={planTypes} />
     </>
   )
 }

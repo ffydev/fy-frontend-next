@@ -25,9 +25,9 @@ import { useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 interface CreateUserProps {
-  fetchUsersData: () => void
   usersTypes: IUserType[]
   planTypes: IPlanType[]
 }
@@ -56,13 +56,10 @@ const createUserFormSchema = z.object({
 
 type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 
-export default function UserCreate({
-  fetchUsersData,
-  usersTypes,
-  planTypes,
-}: CreateUserProps) {
+export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { setIsFetchingUsers } = useAdminIsFetchingStore()
 
   const {
     register,
@@ -97,7 +94,7 @@ export default function UserCreate({
         },
       })
 
-      fetchUsersData()
+      setIsFetchingUsers()
       onClose()
     } catch (error) {
       console.error(error)

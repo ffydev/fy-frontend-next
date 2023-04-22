@@ -23,7 +23,6 @@ export default function SelectSettingValue({
           size={'md'}
           onChange={(event) => setValue(event.target.value)}
           defaultValue=""
-          isRequired
         >
           <option style={{ backgroundColor: '#322659' }} value="">
             {tag}

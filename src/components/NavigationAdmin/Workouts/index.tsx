@@ -6,87 +6,87 @@ import {
 } from '@/pages/api/providers/workouts.provider'
 import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import WorkoutsHeader from './WorkoutsHeader'
 
 export function Workouts() {
   const router = useRouter()
-  const {
-    selectedUserId,
-    selectedWorkoutId,
-    setSelectedWorkoutId,
-    isFetchingWorkoutsNames,
-  } = useAdminNavigationStore()
+  const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId } =
+    useAdminIsFetchingStore()
+  const { isFetchingWorkoutsNames } = useAdminIsFetchingStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
 
-  const fetchWorkoutsNames = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findWorkoutsNamesByUserId(
-        token,
-        selectedUserId as string,
-      )
-
-      setWorkoutsNames(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router, selectedUserId])
-
   useEffect(() => {
-    fetchWorkoutsNames()
-  }, [isFetchingWorkoutsNames, fetchWorkoutsNames])
+    const fetchWorkoutsNames = async () => {
+      try {
+        const token = getUserToken()
 
-  const fetchUserWorkouts = useCallback(async () => {
-    try {
-      const token = getUserToken()
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
 
-      if (!token) {
+        const response = await findWorkoutsNamesByUserId(
+          token,
+          selectedUserId as string,
+        )
+
+        setWorkoutsNames(response)
+      } catch (error) {
+        console.error(error)
         // Implementar mensagem personalizada
         router.push('/login')
-        return
       }
-      const response = await findWorkoutsByUserId(
-        token,
-        selectedWorkoutId as string,
-        selectedUserId as string,
-      )
-
-      setWorkouts(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
     }
-  }, [router, selectedUserId, selectedWorkoutId])
+    fetchWorkoutsNames()
+  }, [isFetchingWorkoutsNames, router, selectedUserId])
 
   useEffect(() => {
     if (workoutsNames.length > 0) {
       if (!selectedWorkoutId) {
         setSelectedWorkoutId(workoutsNames[0]?.id as string)
       }
+      const fetchUserWorkouts = async () => {
+        try {
+          const token = getUserToken()
+
+          if (!token) {
+            // Implementar mensagem personalizada
+            router.push('/login')
+            return
+          }
+          const response = await findWorkoutsByUserId(
+            token,
+            selectedWorkoutId as string,
+            selectedUserId as string,
+          )
+
+          setWorkouts(response)
+        } catch (error) {
+          console.error(error)
+          // Implementar mensagem personalizada
+          router.push('/login')
+        }
+      }
       fetchUserWorkouts()
     }
   }, [
-    fetchUserWorkouts,
     selectedWorkoutId,
     workoutsNames,
     setSelectedWorkoutId,
+    router,
+    selectedUserId,
+    isFetchingWorkoutsNames,
   ])
 
   return (
     <>
+      <WorkoutsHeader />
+
       <Tabs size="md" variant="enclosed" colorScheme={'purple'} isLazy>
         <TabList>
           {workoutsNames?.map((workout: IWorkout) => (

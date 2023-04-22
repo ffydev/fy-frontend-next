@@ -1,4 +1,3 @@
-import { useAuth } from '@/hooks/ContextAuth'
 import {
   Box,
   BoxProps,
@@ -10,8 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import NavigationAdmin from '../NavigationAdmin/NavigationAdmin'
@@ -29,20 +27,8 @@ const LinkItems: Array<LinkItemProps> = [
 ]
 
 export default function DashboardAdmin() {
-  const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [dashboardHome, setDashboardHome] = useState<boolean>(true)
-  const { user, signOut } = useAuth()
-
-  useEffect(() => {
-    if (!user) {
-      router.replace('/login')
-    }
-
-    if (user?.userType.name !== 'admin') {
-      router.replace('/login')
-    }
-  }, [router, user])
 
   const handleWithShowDashboardHome = () => {
     setDashboardHome(true)
@@ -79,7 +65,7 @@ export default function DashboardAdmin() {
           </DrawerContent>
         </Drawer>
         {/* mobilenav */}
-        <MobileNav onOpen={onOpen} user={user} signOut={signOut} />
+        <MobileNav onOpen={onOpen} />
         <Box>
           {dashboardHome ? (
             <>

@@ -4,10 +4,10 @@ import { useEffect } from 'react'
 import HandleButton from '../Buttons/HandleButton'
 import { Workouts } from './Workouts'
 import Feedbacks from './Feedbacks'
-import WorkoutsHeader from './Workouts/WorkoutsHeader'
 import ListAnamnesis from './Anamnesis'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminNavigationStore } from '@/stores/AdminStore/Navigation'
 import Users from './Users'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 export default function NavigationAdmin() {
   const {
@@ -19,9 +19,9 @@ export default function NavigationAdmin() {
     setIsShowingWorkouts,
     setIsShowingAnamnesis,
     setIsShowingFeedbacks,
-    setSelectedUserId,
     reset,
   } = useAdminNavigationStore()
+  const { setSelectedUserId } = useAdminIsFetchingStore()
 
   const handleWithHideWorkouts = () => {
     setIsShowingWorkouts()
@@ -61,7 +61,7 @@ export default function NavigationAdmin() {
 
       {isShowingWorkouts && (
         <>
-          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+          <Box ml={{ base: 0, md: 60 }} minH={'300vh'}>
             <Container maxW="7xl" p={{ base: 5, md: 10 }}>
               <Stack
                 direction={'column'}
@@ -78,7 +78,6 @@ export default function NavigationAdmin() {
               </Stack>
               <Container maxW="7xl" p={{ base: 3, md: 1 }}>
                 <Stack maxW={'auto'}>
-                  <WorkoutsHeader />
                   <Workouts />
                 </Stack>
               </Container>

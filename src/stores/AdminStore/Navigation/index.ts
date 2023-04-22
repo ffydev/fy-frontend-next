@@ -6,9 +6,6 @@ const initialState = {
   isShowingWorkouts: false,
   isShowingAnamnesis: false,
   isShowingFeedbacks: false,
-  isFetchingWorkoutsNames: false,
-  selectedUserId: '',
-  selectedWorkoutId: '',
 }
 
 export const useAdminNavigationStore = create(
@@ -21,13 +18,6 @@ export const useAdminNavigationStore = create(
       set((state) => ({ isShowingAnamnesis: !state.isShowingAnamnesis })),
     setIsShowingFeedbacks: () =>
       set((state) => ({ isShowingFeedbacks: !state.isShowingFeedbacks })),
-    setIsFetchingWorkoutsNames: () =>
-      set((state) => ({
-        isFetchingWorkoutsNames: !state.isFetchingWorkoutsNames,
-      })),
-    setSelectedUserId: (id: string) => set(() => ({ selectedUserId: id })),
-    setSelectedWorkoutId: (id: string) =>
-      set(() => ({ selectedWorkoutId: id })),
     reset: () => {
       set(initialState)
     },

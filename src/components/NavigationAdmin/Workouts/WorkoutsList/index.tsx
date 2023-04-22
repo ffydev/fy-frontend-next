@@ -11,15 +11,23 @@ import {
 } from '@/pages/api/providers/exercises-types.provider'
 import { createExercise } from '@/pages/api/providers/exercises.provider'
 import {
+  deleteWorkout,
   findWorkoutsByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  CloseButton,
+  Flex,
+  SimpleGrid,
+  Spacer,
+  Stack,
+} from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ExercisesList from '../../ExercisesList'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 interface WorkoutsProps {
   setWorkouts: (workouts: IWorkout[]) => void
@@ -32,10 +40,40 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
   const [exerciseTypes, setExerciseTypes] = useState<IExerciseType[]>([])
   const [exerciseNames, setExerciseNames] = useState<IExerciseName[]>([])
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
-  const { selectedUserId } = useAdminNavigationStore()
+  const { selectedUserId, setIsFetchingWorkoutsNames, selectedWorkoutId } =
+    useAdminIsFetchingStore()
 
-  const handleCreateExercise = useCallback(
-    async (workoutId: string, exerciseNameId: string) => {
+  const handleCreateExercise = async (
+    workoutId: string,
+    exerciseNameId: string,
+  ) => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      await createExercise(token, {
+        workoutId,
+        exerciseNameId,
+      })
+
+      const workoutUpdated = await findWorkoutsByUserId(
+        token,
+        workoutId as string,
+        selectedUserId as string,
+      )
+      setWorkouts(workoutUpdated)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    const fetchExercisesTypesData = async () => {
       try {
         const token = getUserToken()
 
@@ -45,76 +83,73 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
           return
         }
 
-        await createExercise(token, {
-          workoutId,
-          exerciseNameId,
-        })
+        const response = await findExercisesTypes(token)
 
-        const workoutUpdated = await findWorkoutsByUserId(
-          token,
-          workoutId as string,
-          selectedUserId as string,
-        )
-        setWorkouts(workoutUpdated)
+        setExerciseTypes(response)
       } catch (error) {
         console.error(error)
-      }
-    },
-    [router, setWorkouts, selectedUserId],
-  )
-
-  const fetchExercisesTypesData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
+        // Implementar mensagem personalizadaexerciseNames
         router.push('/login')
-        return
       }
-
-      const response = await findExercisesTypes(token)
-
-      setExerciseTypes(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizadaexerciseNames
-      router.push('/login')
     }
+
+    fetchExercisesTypesData()
   }, [router, setExerciseTypes])
 
   useEffect(() => {
-    fetchExercisesTypesData()
-  }, [fetchExercisesTypesData])
+    const fetchExercisesNamesData = async () => {
+      try {
+        const token = getUserToken()
 
-  const fetchExercisesNamesData = useCallback(async () => {
-    try {
-      const token = getUserToken()
+        if (!token) {
+          // Implementar mensagem personalizada
+          router.push('/login')
+          return
+        }
 
-      if (!token) {
+        const response = await findExercisesNames(token, exerciseTypeId)
+
+        setExerciseNames(response)
+      } catch (error) {
+        console.error(error)
         // Implementar mensagem personalizada
         router.push('/login')
-        return
       }
+    }
 
-      const response = await findExercisesNames(token, exerciseTypeId)
+    fetchExercisesNamesData()
+  }, [router, setExerciseNames, exerciseTypeId])
 
-      setExerciseNames(response)
-    } catch (error) {
-      console.error(error)
+  const handleWithDeleteWorkout = async (id: string) => {
+    const token = getUserToken()
+
+    if (!token) {
       // Implementar mensagem personalizada
       router.push('/login')
+      return
     }
-  }, [exerciseTypeId, router, setExerciseNames])
 
-  useEffect(() => {
-    fetchExercisesNamesData()
-  }, [exerciseTypeId, fetchExercisesNamesData])
+    try {
+      await deleteWorkout(token, id)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsFetchingWorkoutsNames()
+    }
+  }
 
   return (
     <>
       {workouts?.map((workout: IWorkout) => (
         <Box key={workout.id} p={4} width="100%">
+          <Flex minW="auto">
+            <Spacer />
+            <CloseButton
+              onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
+              size="sm"
+            />
+          </Flex>
+
           <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
             <SimpleGrid
               columns={{ base: 1, md: 3 }}

@@ -1,5 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
-import { useAuth } from '@/hooks/ContextAuth'
+import { useAuthStore } from '@/stores/AuthStore'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   answerFeedback,
@@ -10,13 +10,14 @@ import { Box, chakra, Flex, FormControl, Textarea } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminNavigationStore } from '@/stores/AdminStore/Navigation'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 export default function Feedbacks() {
   const router = useRouter()
-  const { user } = useAuth()
-  const { selectedUserId, setIsShowingFeedbacks, setIsShowingUsers } =
-    useAdminNavigationStore()
+  const { user } = useAuthStore()
+  const { setIsShowingFeedbacks, setIsShowingUsers } = useAdminNavigationStore()
+  const { selectedUserId } = useAdminIsFetchingStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
   const [answer, setAnswer] = useState<string>('')
 

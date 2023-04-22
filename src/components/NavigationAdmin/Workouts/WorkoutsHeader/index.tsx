@@ -1,23 +1,13 @@
-import {
-  Button,
-  FormControl,
-  Heading,
-  Select,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { FormControl, Heading, Select, Stack, Text } from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import {
-  createWorkout,
-  deleteWorkout,
-} from '@/pages/api/providers/workouts.provider'
+import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useRouter } from 'next/router'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus, X } from '@phosphor-icons/react'
+import { Plus } from '@phosphor-icons/react'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAdminNavigationStore } from '@/hooks/AdminNavigationStore/admin.navigation.store'
+import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
 
 const workoutTypes = [
   {
@@ -55,8 +45,8 @@ type createWorkoutFormSchemaType = z.infer<typeof createWorkoutFormSchema>
 export default function WorkoutsHeader() {
   const router = useRouter()
 
-  const { selectedUserId, selectedWorkoutId, setIsFetchingWorkoutsNames } =
-    useAdminNavigationStore()
+  const { selectedUserId, setIsFetchingWorkoutsNames } =
+    useAdminIsFetchingStore()
 
   const {
     register,
@@ -80,24 +70,6 @@ export default function WorkoutsHeader() {
         userId: selectedUserId,
         workoutType: data.workoutType,
       })
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsFetchingWorkoutsNames()
-    }
-  }
-
-  const handleWithDeleteWorkout = async (id: string) => {
-    const token = getUserToken()
-
-    if (!token) {
-      // Implementar mensagem personalizada
-      router.push('/login')
-      return
-    }
-
-    try {
-      await deleteWorkout(token, id)
     } catch (error) {
       console.error(error)
     } finally {
@@ -147,18 +119,6 @@ export default function WorkoutsHeader() {
             </Select>
             {errors.workoutType && <Text>{errors.workoutType.message}</Text>}
           </FormControl>
-
-          <Stack>
-            <Button
-              bgGradient={'linear(to-r, gray.800, gray.900)'}
-              rounded={'lg'}
-              boxShadow={'lg'}
-              leftIcon={<X weight="bold" />}
-              onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
-            >
-              Excluir Workout
-            </Button>
-          </Stack>
         </Stack>
       </form>
     </>

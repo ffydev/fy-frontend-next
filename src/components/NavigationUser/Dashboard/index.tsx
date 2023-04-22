@@ -21,11 +21,11 @@ import {
 import AnamnesisCreate from '../Anamnesis/AnamnesisCreate'
 import CreatingFeedback from '../Feedbacks/CreateFeedback'
 import ListFeedbacks from '../Feedbacks/ListFeedbacks'
-import { useAuth } from '@/hooks/ContextAuth'
-import { useUserNavigationStore } from '@/hooks/UserNavigationStore/user.navigation.store'
+import { useAuthStore } from '@/stores/AuthStore'
+import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 
 export default function Dashboard() {
-  const { user } = useAuth()
+  const { user } = useAuthStore()
   const {
     isShowingDashboard,
     isShowingWorkouts,
@@ -265,7 +265,7 @@ export default function Dashboard() {
             />
           </Stack>
 
-          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
             <Stack maxW={'auto'}>
               <Workouts />
             </Stack>
