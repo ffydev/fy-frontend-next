@@ -21,7 +21,13 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const schema = z.object({
-    weight: z.coerce.number().min(0).max(800, { message: 'Valor Inválido' }),
+    weight: z.coerce
+      .number({
+        invalid_type_error: 'Valor Inválido',
+      })
+      .positive()
+      .min(0)
+      .max(800, { message: 'Valor Inválido' }),
   })
 
   const handleUpdateExercise = async (weight: string, id: string) => {
@@ -121,7 +127,6 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               <Input
                 key={exercise.id}
                 defaultValue={exercise.weight}
-                type="number"
                 onChange={(event) =>
                   handleUpdateExercise(event.target.value, exercise.id!)
                 }
