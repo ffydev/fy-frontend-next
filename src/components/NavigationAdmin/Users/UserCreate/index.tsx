@@ -201,7 +201,8 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                       key={userType.id}
                       value={userType.id}
                     >
-                      {userType.name}
+                      {userType.name === 'Owner' ? 'Admistrador' : ''}
+                      {userType.name === 'User' ? 'Usuário' : ''}
                     </option>
                   ))}
                 </Select>

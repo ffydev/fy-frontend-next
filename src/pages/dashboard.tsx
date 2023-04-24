@@ -2,7 +2,7 @@ import DashboardAdmin from '@/components/Dashboards/DashboardAdmin'
 import DashboardUser from '@/components/Dashboards/DashboardUser'
 import { useAuthStore } from '@/stores/AuthStore'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
 
 export default function Dashboard() {
@@ -10,42 +10,40 @@ export default function Dashboard() {
   const { user, setUser, signOut } = useAuthStore()
   const [hasCurrentUser, setHasCurrentUser] = useState<boolean>(false)
 
-  const fetchCurrentUserData = useCallback(
-    async (token: string) => {
-      try {
-        const currentUserData = await findCurrentUser(token)
-
-        if (!currentUserData) {
-          // Implementar mensagem personalizada
-          router.push('/login')
-          return
-        }
-
-        setUser(currentUserData)
-        setHasCurrentUser(true)
-      } catch (error) {
-        console.error(error)
-        router.push('/login')
-      }
-    },
-    [router, setUser],
-  )
-
   useEffect(() => {
     if (!user && !hasCurrentUser) {
       const token = getUserToken()
       if (token) {
+        const fetchCurrentUserData = async (token: string) => {
+          try {
+            const currentUserData = await findCurrentUser(token)
+
+            if (!currentUserData) {
+              // Implementar mensagem personalizada
+              router.push('/login')
+              return
+            }
+
+            setUser(currentUserData)
+            setHasCurrentUser(true)
+          } catch (error) {
+            console.error(error)
+            router.push('/login')
+          }
+        }
+
         fetchCurrentUserData(token)
       } else {
         router.replace('/login')
       }
     }
-  }, [fetchCurrentUserData, hasCurrentUser, router, user, signOut])
+  }, [hasCurrentUser, router, user, signOut, setUser])
 
   return (
     <>
-      {user?.userType.name === 'admin' && <DashboardAdmin />}
-      {user?.userType.name === 'user' && <DashboardUser />}
+      {user?.userType.name === 'Admin' && <DashboardAdmin />}
+      {user?.userType.name === 'Owner' && <DashboardAdmin />}
+      {user?.userType.name === 'User' && <DashboardUser />}
     </>
   )
 }
