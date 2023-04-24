@@ -126,7 +126,11 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                   handleUpdateExercise(event.target.value, exercise.id!)
                 }
               />
-              {errors[exercise.id!] && <Text>{errors[exercise.id!]}</Text>}
+              {errors[exercise.id!] && (
+                <Text color={'red.500'} mt={3}>
+                  {errors[exercise.id!]}
+                </Text>
+              )}
             </chakra.h1>
 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
