@@ -22,7 +22,6 @@ import { Plus, X } from '@phosphor-icons/react'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback } from 'react'
 
 const createUserFormSchema = z
   .object({
@@ -64,25 +63,22 @@ export default function CompleteUserRegistration() {
   const router = useRouter()
   const { user, setUser } = useAuthStore()
 
-  const fetchCurrentUserData = useCallback(
-    async (token: string) => {
-      try {
-        const currentUserData = await findCurrentUser(token)
+  const fetchCurrentUserData = async (token: string) => {
+    try {
+      const currentUserData = await findCurrentUser(token)
 
-        if (!currentUserData) {
-          // Implementar mensagem personalizada
-          router.push('/login')
-          return
-        }
-
-        setUser(currentUserData)
-      } catch (error) {
-        console.error(error)
+      if (!currentUserData) {
+        // Implementar mensagem personalizada
         router.push('/login')
+        return
       }
-    },
-    [router, setUser],
-  )
+
+      setUser(currentUserData)
+    } catch (error) {
+      console.error(error)
+      router.push('/login')
+    }
+  }
 
   const {
     register,
