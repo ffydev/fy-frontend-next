@@ -8,6 +8,7 @@ import { Box, Center, chakra, Flex, Input, Stack, Text } from '@chakra-ui/react'
 import { Eye, Pen } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { z } from 'zod'
 
 interface WorkoutsProps {
   exercises?: IExercise[]
@@ -16,10 +17,14 @@ interface WorkoutsProps {
 export default function ExercisesList({ exercises }: WorkoutsProps) {
   const router = useRouter()
   const [exercisesState, setExercisesState] = useState<IExercise[]>([])
-  const [weight, setWeight] = useState<string | undefined>('')
-  const [isHovering, setIsHovering] = useState(false)
+  const [isHovering, setIsHovering] = useState<boolean>(false)
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
-  const handleUpdateExercise = async (id: string) => {
+  const schema = z.object({
+    weight: z.coerce.number().min(0).max(800, { message: 'Valor Inválido' }),
+  })
+
+  const handleUpdateExercise = async (weight: string, id: string) => {
     const token = getUserToken()
 
     if (!token) {
@@ -29,13 +34,13 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
     }
 
     try {
+      const parsedWeight = schema.parse({ weight })
+
       await updateExerciseByUser(token, id, {
-        weight: weight ? +weight : undefined,
+        weight: parsedWeight.weight,
       })
 
       const exerciseUpdated = await findExerciseById(token, id)
-
-      setWeight(undefined)
 
       setExercisesState((prevExercisesState) => {
         const updatedExercisesState = prevExercisesState.map((exercise) =>
@@ -43,8 +48,17 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
         )
         return updatedExercisesState
       })
+
+      setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
     } catch (error) {
-      console.error(error)
+      if (error instanceof z.ZodError) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [id]: (error as z.ZodError).errors[0].message,
+        }))
+      } else {
+        console.error(error)
+      }
     }
   }
 
@@ -105,10 +119,14 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 Carga: <Pen size={20} />
               </Flex>
               <Input
+                key={exercise.id}
                 defaultValue={exercise.weight}
-                onChange={(event) => setWeight(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
+                type="number"
+                onChange={(event) =>
+                  handleUpdateExercise(event.target.value, exercise.id!)
+                }
               />
+              {errors[exercise.id!] && <Text>{errors[exercise.id!]}</Text>}
             </chakra.h1>
 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
