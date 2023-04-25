@@ -88,6 +88,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<createUserFormSchemaType>({
     resolver: zodResolver(
       isCreatingOwnerAccount ? createOwnerFormSchema : createUserFormSchema,
@@ -129,6 +130,9 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
       onClose()
     } catch (error) {
       console.error(error)
+    } finally {
+      reset()
+      setGeneratedPassword(generate({ length: 23 }))
     }
   }
 
