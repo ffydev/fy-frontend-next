@@ -91,8 +91,8 @@ export default function UsersHeader({
                 value={userType.id}
                 defaultValue={''}
               >
-                {userType.name === 'Owner' ? 'Admistrador' : ''}
-                {userType.name === 'User' ? 'Usuário' : ''}
+                {userType.name === 'Owner' ? 'Funcionários' : ''}
+                {userType.name === 'User' ? 'Pacientes' : ''}
               </option>
             ))}
           </Select>

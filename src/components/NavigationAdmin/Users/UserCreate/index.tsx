@@ -46,12 +46,14 @@ const createUserFormSchema = z.object({
   password: z
     .string()
     .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
-    .max(200, { message: 'A senha deve ter no máximo 200 caracteres' })
+    .max(120, { message: 'A senha deve ter no máximo 120 caracteres' })
     .nonempty({ message: 'Campo obrigatório' }),
-  initDate: z.string({
-    required_error: 'Campo obrigatório',
-    invalid_type_error: 'Data Inválida (YYYY-MM-DD)',
-  }),
+  initDate: z
+    .string({
+      required_error: 'Campo obrigatório',
+      invalid_type_error: 'Data Inválida (YYYY-MM-DD)',
+    })
+    .nonempty({ message: 'Informe a data de início' }),
   planDuration: z.coerce
     .number()
     .min(1, { message: 'Insira no mínimo 1 mês' })
@@ -67,7 +69,7 @@ const createOwnerFormSchema = z.object({
   password: z
     .string()
     .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
-    .max(200, { message: 'A senha deve ter no máximo 200 caracteres' })
+    .max(120, { message: 'A senha deve ter no máximo 120 caracteres' })
     .nonempty({ message: 'Campo obrigatório' }),
 })
 
@@ -79,7 +81,9 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
   const { setIsFetchingUsers } = useAdminIsFetchingStore()
   const [isCreatingOwnerAccount, setIsCreatingOwnerAccount] =
     useState<boolean>(false)
-  const [generatedPassword, setGeneratedPassword] = useState<string>('')
+  const [generatedPassword, setGeneratedPassword] = useState<string>(
+    generate({ length: 23 }),
+  )
   const {
     register,
     handleSubmit,
@@ -178,7 +182,9 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                       borderRadius={4}
                       colorScheme="purple"
                       mr={3}
-                      {...register('userTypeId')}
+                      {...register('userTypeId', {
+                        value: userType.id,
+                      })}
                       onChange={() => {
                         handleWithCreatingUserType(userType.name)
                       }}
@@ -186,6 +192,9 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                       {userType.name === 'Owner' ? 'Funcionário' : 'Paciente'}
                     </Radio>
                   ))}
+                  {errors.userTypeId && (
+                    <Text>{errors.userTypeId.message}</Text>
+                  )}
                 </RadioGroup>
               </FormControl>
 
@@ -253,9 +262,10 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                   />
                 </Flex>
                 <Input
-                  isReadOnly
-                  {...register('password')}
-                  value={generatedPassword}
+                  {...register('password', {
+                    value: generatedPassword,
+                  })}
+                  defaultValue={generatedPassword}
                   placeholder="Senha"
                 />
                 {errors.password && <Text>{errors.password.message}</Text>}
