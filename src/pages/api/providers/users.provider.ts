@@ -23,7 +23,7 @@ export interface ICreateUserWithIPlan {
   lastName?: string
   password: string
   userTypeId: string
-  plan: {
+  plan?: {
     create: IPlan
   }
 }
