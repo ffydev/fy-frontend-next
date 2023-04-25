@@ -201,7 +201,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                 onBlur={() => handleUpdateUser(user.id!)}
               />
 
-              {user?.userType.name === 'user' && (
+              {user?.userType.name === 'User' && (
                 <>
                   <Flex mt={3}>
                     <FormLabel>
