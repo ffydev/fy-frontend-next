@@ -125,7 +125,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
     }
   }
 
-  function handleWithCreatingUserType(userType: string) {
+  const handleWithCreatingUserType = (userType: string) => {
     userType === 'Owner'
       ? setIsCreatingOwnerAccount(true)
       : setIsCreatingOwnerAccount(false)
