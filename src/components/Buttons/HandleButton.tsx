@@ -9,6 +9,7 @@ interface ButtonProps {
   mr?: number
   onClick?: () => void
   type?: 'submit' | 'button'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 export default function HandleButton({
@@ -19,6 +20,7 @@ export default function HandleButton({
   mr,
   onClick,
   type,
+  size,
 }: ButtonProps) {
   return (
     <>
@@ -35,6 +37,7 @@ export default function HandleButton({
         w={w}
         leftIcon={leftIcon}
         type={type}
+        size={size}
       >
         {text}
       </Button>

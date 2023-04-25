@@ -21,6 +21,7 @@ import {
   Button,
   RadioGroup,
   Radio,
+  Flex,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRef, useState } from 'react'
@@ -28,6 +29,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { generate } from '@wcj/generate-password'
 
 interface CreateUserProps {
   usersTypes: IUserType[]
@@ -75,8 +77,9 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { setIsFetchingUsers } = useAdminIsFetchingStore()
-  const [isCreatingOwnerAccount, setIsCreatingOwnerAccount] = useState(false)
-
+  const [isCreatingOwnerAccount, setIsCreatingOwnerAccount] =
+    useState<boolean>(false)
+  const [generatedPassword, setGeneratedPassword] = useState<string>('')
   const {
     register,
     handleSubmit,
@@ -129,6 +132,10 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
     userType === 'Owner'
       ? setIsCreatingOwnerAccount(true)
       : setIsCreatingOwnerAccount(false)
+  }
+
+  const handleWithGeneratePassword = () => {
+    setGeneratedPassword(generate({ length: 23 }))
   }
 
   return (
@@ -235,8 +242,21 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
               )}
 
               <FormControl mt={4}>
-                <FormLabel>Senha</FormLabel>
-                <Input {...register('password')} placeholder="Senha" />
+                <Flex>
+                  <FormLabel>Senha</FormLabel>{' '}
+                  <HandleButton
+                    size="xs"
+                    text="Gerar Senha"
+                    leftIcon={<Plus weight="bold" />}
+                    onClick={handleWithGeneratePassword}
+                  />
+                </Flex>
+                <Input
+                  isReadOnly
+                  {...register('password')}
+                  value={generatedPassword}
+                  placeholder="Senha"
+                />
                 {errors.password && <Text>{errors.password.message}</Text>}
               </FormControl>
             </ModalBody>
