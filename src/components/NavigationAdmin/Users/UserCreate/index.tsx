@@ -262,6 +262,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                   />
                 </Flex>
                 <Input
+                  isReadOnly
                   {...register('password', {
                     value: generatedPassword,
                   })}
