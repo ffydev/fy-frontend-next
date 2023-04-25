@@ -23,7 +23,7 @@ import {
   Radio,
   Flex,
 } from '@chakra-ui/react'
-import { Plus } from '@phosphor-icons/react'
+import { Key, Plus } from '@phosphor-icons/react'
 import { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -247,7 +247,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                   <HandleButton
                     size="xs"
                     text="Gerar Senha"
-                    leftIcon={<Plus weight="bold" />}
+                    leftIcon={<Key weight="bold" />}
                     onClick={handleWithGeneratePassword}
                   />
                 </Flex>
