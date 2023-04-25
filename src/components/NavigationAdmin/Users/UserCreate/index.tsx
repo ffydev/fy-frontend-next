@@ -176,13 +176,14 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                       key={userType.id}
                       value={userType.id}
                       borderRadius={4}
+                      colorScheme="purple"
                       mr={3}
                       {...register('userTypeId')}
                       onChange={() => {
                         handleWithCreatingUserType(userType.name)
                       }}
                     >
-                      {userType.name === 'Owner' ? 'Proprietário' : 'Cliente'}
+                      {userType.name === 'Owner' ? 'Funcionário' : 'Cliente'}
                     </Radio>
                   ))}
                 </RadioGroup>
