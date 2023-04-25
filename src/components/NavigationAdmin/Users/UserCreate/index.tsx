@@ -186,7 +186,6 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                   <FormControl mt={4}>
                     <Select
                       bgGradient={'transparent'}
-                      defaultValue="" // Adicionar o atributo defaultValue
                       {...register('planTypeId')}
                     >
                       <option
