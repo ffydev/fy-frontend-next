@@ -19,9 +19,11 @@ import {
   Text,
   Select,
   Button,
+  RadioGroup,
+  Radio,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -54,19 +56,35 @@ const createUserFormSchema = z.object({
     .max(24, { message: 'Insira no máximo 24 meses' }),
 })
 
+const createOwnerFormSchema = z.object({
+  email: z
+    .string()
+    .email({ message: 'Email inválido' })
+    .nonempty({ message: 'Campo obrigatório' }),
+  userTypeId: z.string().nonempty({ message: 'Selecione um usuário' }),
+  password: z
+    .string()
+    .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
+    .max(200, { message: 'A senha deve ter no máximo 200 caracteres' })
+    .nonempty({ message: 'Campo obrigatório' }),
+})
+
 type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 
 export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { setIsFetchingUsers } = useAdminIsFetchingStore()
+  const [isCreatingOwnerAccount, setIsCreatingOwnerAccount] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<createUserFormSchemaType>({
-    resolver: zodResolver(createUserFormSchema),
+    resolver: zodResolver(
+      isCreatingOwnerAccount ? createOwnerFormSchema : createUserFormSchema,
+    ),
   })
 
   const initialRef = useRef<HTMLInputElement>(null)
@@ -81,17 +99,23 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
         return
       }
 
+      const planInput = isCreatingOwnerAccount
+        ? {}
+        : {
+            plan: {
+              create: {
+                initDate: data.initDate,
+                planDuration: data.planDuration,
+                planTypeId: data.planTypeId,
+              },
+            },
+          }
+
       await createUser(token, {
         email: data.email,
         password: data.password,
         userTypeId: data.userTypeId,
-        plan: {
-          create: {
-            initDate: data.initDate,
-            planDuration: data.planDuration,
-            planTypeId: data.planTypeId,
-          },
-        },
+        plan: planInput?.plan,
       })
 
       setIsFetchingUsers()
@@ -99,6 +123,12 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  function handleWithCreatingUserType(userType: string) {
+    userType === 'Owner'
+      ? setIsCreatingOwnerAccount(true)
+      : setIsCreatingOwnerAccount(false)
   }
 
   return (
@@ -133,81 +163,77 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
               </FormControl>
 
               <FormControl mt={4}>
-                <Select
-                  bgGradient={'transparent'}
-                  defaultValue="" // Adicionar o atributo defaultValue
-                  {...register('planTypeId')}
-                >
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    disabled
-                    value=""
-                  >
-                    Tipo de Plano
-                  </option>
-                  {planTypes.map((planType: IPlanType) => (
-                    <option
-                      style={{ backgroundColor: '#322659' }}
-                      key={planType.id}
-                      value={planType.id}
-                    >
-                      {planType.name}
-                    </option>
-                  ))}
-                </Select>
-                {errors.planTypeId && <Text>{errors.planTypeId.message}</Text>}
-              </FormControl>
-
-              <FormControl mt={4}>
-                <FormLabel>Data de Início: </FormLabel>
-                <Input
-                  type="date"
-                  {...register('initDate')}
-                  placeholder="Data de Início"
-                  isRequired
-                />
-                {errors.initDate && <Text>{errors.initDate.message}</Text>}
-              </FormControl>
-
-              <FormControl mt={4}>
-                <FormLabel>Duração em meses: </FormLabel>
-                <Input
-                  type="number"
-                  {...register('planDuration')}
-                  placeholder="Duração em meses"
-                  isRequired
-                />
-                {errors.planDuration && (
-                  <Text>{errors.planDuration.message}</Text>
-                )}
-              </FormControl>
-
-              <FormControl mt={4}>
-                <Select
-                  bgGradient={'transparent'}
-                  defaultValue="" // Adicionar o atributo defaultValue
-                  {...register('userTypeId')}
-                >
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    disabled
-                    value=""
-                  >
-                    Tipo de Usuário
-                  </option>
+                <RadioGroup>
                   {usersTypes.map((userType: IUserType) => (
-                    <option
-                      style={{ backgroundColor: '#322659' }}
+                    <Radio
                       key={userType.id}
                       value={userType.id}
+                      borderRadius={4}
+                      mr={3}
+                      {...register('userTypeId')}
+                      onChange={() => {
+                        handleWithCreatingUserType(userType.name)
+                      }}
                     >
-                      {userType.name === 'Owner' ? 'Admistrador' : ''}
-                      {userType.name === 'User' ? 'Usuário' : ''}
-                    </option>
+                      {userType.name === 'Owner' ? 'Proprietário' : 'Cliente'}
+                    </Radio>
                   ))}
-                </Select>
-                {errors.userTypeId && <Text>{errors.userTypeId.message}</Text>}
+                </RadioGroup>
               </FormControl>
+
+              {!isCreatingOwnerAccount && (
+                <>
+                  <FormControl mt={4}>
+                    <Select
+                      bgGradient={'transparent'}
+                      defaultValue="" // Adicionar o atributo defaultValue
+                      {...register('planTypeId')}
+                    >
+                      <option
+                        style={{ backgroundColor: '#322659' }}
+                        disabled
+                        value=""
+                      >
+                        Tipo de Plano
+                      </option>
+                      {planTypes.map((planType: IPlanType) => (
+                        <option
+                          style={{ backgroundColor: '#322659' }}
+                          key={planType.id}
+                          value={planType.id}
+                        >
+                          {planType.name}
+                        </option>
+                      ))}
+                    </Select>
+                    {errors.planTypeId && (
+                      <Text>{errors.planTypeId.message}</Text>
+                    )}
+                  </FormControl>
+
+                  <FormControl mt={4}>
+                    <FormLabel>Data de Início: </FormLabel>
+                    <Input
+                      type="date"
+                      {...register('initDate')}
+                      placeholder="Data de Início"
+                    />
+                    {errors.initDate && <Text>{errors.initDate.message}</Text>}
+                  </FormControl>
+
+                  <FormControl mt={4}>
+                    <FormLabel>Duração em meses: </FormLabel>
+                    <Input
+                      type="number"
+                      {...register('planDuration')}
+                      placeholder="Duração em meses"
+                    />
+                    {errors.planDuration && (
+                      <Text>{errors.planDuration.message}</Text>
+                    )}
+                  </FormControl>
+                </>
+              )}
 
               <FormControl mt={4}>
                 <FormLabel>Senha</FormLabel>

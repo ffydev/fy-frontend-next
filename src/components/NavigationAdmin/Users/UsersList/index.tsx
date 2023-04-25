@@ -204,12 +204,6 @@ export function UsersList({ users, planTypes }: UsersListProps) {
               {user?.userType.name === 'User' && (
                 <>
                   <Flex mt={3}>
-                    <FormLabel>
-                      {user.isRegistered
-                        ? 'Registro Completo'
-                        : 'Registro Incompleto'}
-                    </FormLabel>
-
                     {!user.hasAnamnesis ? null : (
                       <Button
                         background={'purple.700'}
