@@ -183,7 +183,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                         handleWithCreatingUserType(userType.name)
                       }}
                     >
-                      {userType.name === 'Owner' ? 'Funcionário' : 'Cliente'}
+                      {userType.name === 'Owner' ? 'Funcionário' : 'Paciente'}
                     </Radio>
                   ))}
                 </RadioGroup>
