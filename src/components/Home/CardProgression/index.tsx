@@ -10,10 +10,10 @@ import {
   Link,
 } from '@chakra-ui/react'
 import {
-  NotePencil,
+  Pulse,
   HandHeart,
-  Barbell,
   ArrowFatRight,
+  PersonSimpleRun,
 } from '@phosphor-icons/react'
 import { RevealWrapper } from 'next-reveal'
 
@@ -63,7 +63,7 @@ export default function CardProgression() {
                   }}
                 >
                   <Box>
-                    <NotePencil size={'4em'} weight={'fill'} color="#8059D4" />
+                    <Pulse size={'4em'} weight={'fill'} color="#8059D4" />
                   </Box>
                   <Box>
                     <Box>
@@ -211,7 +211,11 @@ export default function CardProgression() {
                   }}
                 >
                   <Box>
-                    <Barbell size={'4em'} weight={'fill'} color="#8059D4" />
+                    <PersonSimpleRun
+                      size={'4em'}
+                      weight={'fill'}
+                      color="#8059D4"
+                    />
                   </Box>
                   <Box>
                     <Box>
