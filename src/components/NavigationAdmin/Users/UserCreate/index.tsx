@@ -142,10 +142,6 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
       : setIsCreatingOwnerAccount(false)
   }
 
-  const handleWithGeneratePassword = () => {
-    setGeneratedPassword(generate({ length: 23 }))
-  }
-
   return (
     <>
       <Stack>
@@ -258,19 +254,20 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
               <FormControl mt={4}>
                 <Flex>
                   <FormLabel>Senha</FormLabel>{' '}
-                  <HandleButton
+                  <Button
                     size="xs"
-                    text="Gerar Senha"
                     leftIcon={<Key weight="bold" />}
-                    onClick={handleWithGeneratePassword}
-                  />
+                    onClick={() =>
+                      setGeneratedPassword(generate({ length: 23 }))
+                    }
+                  >
+                    Gerar Senha
+                  </Button>
                 </Flex>
                 <Input
                   isReadOnly
-                  {...register('password', {
-                    value: generatedPassword,
-                  })}
-                  defaultValue={generatedPassword}
+                  {...register('password')}
+                  value={generatedPassword}
                   placeholder="Senha"
                 />
                 {errors.password && <Text>{errors.password.message}</Text>}
