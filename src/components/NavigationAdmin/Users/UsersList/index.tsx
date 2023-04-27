@@ -220,7 +220,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                     <Flex>
                       <FormLabel>{`Data de exclusão: ${new Date(
                         user.deletedAt!,
-                      ).toLocaleDateString()}`}</FormLabel>
+                      ).toLocaleDateString('pt-BR')}`}</FormLabel>
 
                       <Button
                         title={'Ativar'}
