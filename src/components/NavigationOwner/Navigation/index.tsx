@@ -6,7 +6,7 @@ import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Workouts } from '../Workouts'
 import ListAnamnesis from '../Anamnesis'
-import Feedbacks from '../Feedbacks'
+import Feedbacks from '../FeedbacksList'
 import Users from '../Users'
 
 export default function Navigation() {
