@@ -14,7 +14,7 @@ import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import MobileNav from './MobileNav'
 import NavItem from './NavItem'
-import CheckUserRegister from '../NavigationUser/CheckUserRegister'
+import CheckRegister from '../NavigationOwner/CheckOwnerRegister'
 
 interface LinkItemProps {
   name: string
@@ -26,7 +26,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Início', icon: FiHome, dashboardHome: true },
 ]
 
-export default function DashboardUser() {
+export default function DashboardMenuOwner() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [dashboardHome, setDashboardHome] = useState<boolean>(true)
 
@@ -69,9 +69,7 @@ export default function DashboardUser() {
         <Box>
           {dashboardHome ? (
             <>
-              <Box>
-                <CheckUserRegister />
-              </Box>
+              <CheckRegister />
             </>
           ) : null}
         </Box>

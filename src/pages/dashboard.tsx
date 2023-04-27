@@ -1,9 +1,9 @@
-import DashboardUser from '@/components/Dashboards/DashboardUser'
+import DashboardMenuUser from '@/components/Dashboards/DashboardMenuUser'
 import { useAuthStore } from '@/stores/AuthStore'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
-import DashboardOwner from '@/components/Dashboards/DashboardOwner'
+import DashboardMenuOwner from '@/components/Dashboards/DashboardMenuOwner'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -41,9 +41,9 @@ export default function Dashboard() {
 
   return (
     <>
-      {user?.userType.name === 'Admin' && <DashboardOwner />}
-      {user?.userType.name === 'Owner' && <DashboardOwner />}
-      {user?.userType.name === 'User' && <DashboardUser />}
+      {user?.userType.name === 'Admin' && <DashboardMenuOwner />}
+      {user?.userType.name === 'Owner' && <DashboardMenuOwner />}
+      {user?.userType.name === 'User' && <DashboardMenuUser />}
     </>
   )
 }
