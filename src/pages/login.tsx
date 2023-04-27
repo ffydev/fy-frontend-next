@@ -162,7 +162,7 @@ export default function Login() {
                   {loading ? (
                     <Spinner color="teal.500" size="xl" alignSelf="center" />
                   ) : (
-                    <HandleButton text="Entrar" type="submit" />
+                    <HandleButton w={'full'} text="Entrar" type="submit" />
                   )}
 
                   <Button
