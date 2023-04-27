@@ -14,7 +14,7 @@ import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import MobileNav from './MobileNav'
 import NavItem from './NavItem'
-import CheckRegister from '../NavigationOwner/CheckOwnerRegister'
+import CheckRegister from '../OwnerFlow/CheckOwnerRegister'
 
 interface LinkItemProps {
   name: string
