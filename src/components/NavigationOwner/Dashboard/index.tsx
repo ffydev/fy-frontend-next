@@ -1,13 +1,14 @@
 import { Box, Container, Stack } from '@chakra-ui/react'
-import { ArrowArcLeft } from '@phosphor-icons/react'
+import { ArrowArcLeft, Users } from '@phosphor-icons/react'
 import { useEffect } from 'react'
-import HandleButton from '../Buttons/HandleButton'
-import { Workouts } from './Workouts'
-import Feedbacks from './Feedbacks'
-import ListAnamnesis from './Anamnesis'
-import { useAdminNavigationStore } from '@/stores/AdminStore/Navigation'
-import Users from './Users'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+
+import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
+
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import HandleButton from '@/components/Buttons/HandleButton'
+import { Workouts } from '../Workouts'
+import ListAnamnesis from '../Anamnesis'
+import Feedbacks from '../Feedbacks'
 
 export default function NavigationAdmin() {
   const {
@@ -21,7 +22,7 @@ export default function NavigationAdmin() {
     setIsShowingFeedbacks,
     reset,
   } = useAdminNavigationStore()
-  const { setSelectedUserId } = useAdminIsFetchingStore()
+  const { setSelectedUserId } = useOwnerIsFetchingStore()
 
   const handleWithHideWorkouts = () => {
     setIsShowingWorkouts()

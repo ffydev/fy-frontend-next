@@ -28,7 +28,7 @@ import { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { generate } from '@wcj/generate-password'
 
 interface CreateUserProps {
@@ -78,7 +78,7 @@ type createUserFormSchemaType = z.infer<typeof createUserFormSchema>
 export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { setIsFetchingUsers } = useAdminIsFetchingStore()
+  const { setIsFetchingUsers } = useOwnerIsFetchingStore()
   const [isCreatingOwnerAccount, setIsCreatingOwnerAccount] =
     useState<boolean>(false)
   const [generatedPassword, setGeneratedPassword] = useState<string>(

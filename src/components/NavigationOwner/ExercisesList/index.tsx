@@ -5,7 +5,7 @@ import {
   IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
   Center,
@@ -31,7 +31,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
   const [weight, setWeight] = useState<string | undefined>('')
   const [rir, setRir] = useState<string | undefined>('')
   const [describe, setDescribe] = useState<string | undefined>('')
-  const { setIsFetchingWorkoutsNames } = useAdminIsFetchingStore()
+  const { setIsFetchingWorkoutsNames } = useOwnerIsFetchingStore()
 
   const handleUpdateExercise = async (id: string) => {
     const token = getUserToken()

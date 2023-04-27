@@ -8,14 +8,14 @@ import { Tab, TabList, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import WorkoutsHeader from './WorkoutsHeader'
 
 export function Workouts() {
   const router = useRouter()
   const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId } =
-    useAdminIsFetchingStore()
-  const { isFetchingWorkoutsNames } = useAdminIsFetchingStore()
+    useOwnerIsFetchingStore()
+  const { isFetchingWorkoutsNames } = useOwnerIsFetchingStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
 

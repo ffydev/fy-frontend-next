@@ -8,7 +8,7 @@ const initialState = {
   isFetchingWorkoutsNames: false,
 }
 
-export const useAdminIsFetchingStore = create(
+export const useOwnerIsFetchingStore = create(
   combine({ ...initialState }, (set) => ({
     setSelectedUserId: (id: string) => set(() => ({ selectedUserId: id })),
     setSelectedWorkoutId: (id: string) =>

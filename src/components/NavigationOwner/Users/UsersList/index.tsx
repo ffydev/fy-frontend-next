@@ -1,6 +1,6 @@
-import PlanList from '@/components/NavigationAdmin/PlansList'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
-import { useAdminNavigationStore } from '@/stores/AdminStore/Navigation'
+import PlanList from '@/components/NavigationOwner/PlansList'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { IPlanType } from '@/pages/api/providers/plans-types.provider'
 import {
@@ -38,7 +38,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
     setIsShowingAnamnesis,
     setIsShowingFeedbacks,
   } = useAdminNavigationStore()
-  const { setIsFetchingUsers, setSelectedUserId } = useAdminIsFetchingStore()
+  const { setIsFetchingUsers, setSelectedUserId } = useOwnerIsFetchingStore()
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()

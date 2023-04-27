@@ -12,9 +12,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
-import NavigationAdmin from '../NavigationAdmin/NavigationAdmin'
 import MobileNav from './MobileNav'
 import NavItem from './NavItem'
+import NavigationOwner from '../NavigationOwner/NavigationOwner'
 
 interface LinkItemProps {
   name: string
@@ -26,7 +26,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Início', icon: FiHome, dashboardHome: true },
 ]
 
-export default function DashboardAdmin() {
+export default function DashboardOwner() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [dashboardHome, setDashboardHome] = useState<boolean>(true)
 
@@ -69,7 +69,7 @@ export default function DashboardAdmin() {
         <Box>
           {dashboardHome ? (
             <>
-              <NavigationAdmin />
+              <NavigationOwner />
             </>
           ) : null}
         </Box>

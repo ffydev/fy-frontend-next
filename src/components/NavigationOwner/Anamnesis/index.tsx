@@ -6,12 +6,12 @@ import {
   findUserAnamnesis,
 } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 
 export default function ListAnamnesis() {
   const router = useRouter()
   const [anamnesis, setAnamnesis] = useState<IAnamnesis[]>()
-  const { selectedUserId } = useAdminIsFetchingStore()
+  const { selectedUserId } = useOwnerIsFetchingStore()
 
   useEffect(() => {
     const fetchAnamnesisData = async () => {

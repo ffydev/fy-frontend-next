@@ -27,7 +27,7 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import ExercisesList from '../../ExercisesList'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 
 interface WorkoutsProps {
   setWorkouts: (workouts: IWorkout[]) => void
@@ -41,7 +41,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
   const [exerciseNames, setExerciseNames] = useState<IExerciseName[]>([])
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const { selectedUserId, setIsFetchingWorkoutsNames, selectedWorkoutId } =
-    useAdminIsFetchingStore()
+    useOwnerIsFetchingStore()
 
   const handleCreateExercise = async (
     workoutId: string,

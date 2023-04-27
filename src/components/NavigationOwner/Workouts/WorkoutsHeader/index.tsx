@@ -7,7 +7,7 @@ import { Plus } from '@phosphor-icons/react'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 
 const workoutTypes = [
   {
@@ -46,7 +46,7 @@ export default function WorkoutsHeader() {
   const router = useRouter()
 
   const { selectedUserId, setIsFetchingWorkoutsNames } =
-    useAdminIsFetchingStore()
+    useOwnerIsFetchingStore()
 
   const {
     register,

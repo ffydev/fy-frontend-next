@@ -9,7 +9,7 @@ import { IUserInterface, findUsers } from '@/pages/api/providers/users.provider'
 import { useRouter } from 'next/router'
 import { UsersList } from './UsersList'
 import Pagination from '@/components/Pagination'
-import { useAdminIsFetchingStore } from '@/stores/AdminStore/IsFetching'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 
 export default function Users() {
   const router = useRouter()
@@ -24,7 +24,7 @@ export default function Users() {
   const [search, setSearch] = useState<string>('')
   const [isDeleted, setIsDeleted] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
-  const { isFetchingUsers } = useAdminIsFetchingStore()
+  const { isFetchingUsers } = useOwnerIsFetchingStore()
 
   useEffect(() => {
     const fetchUsersData = async () => {
