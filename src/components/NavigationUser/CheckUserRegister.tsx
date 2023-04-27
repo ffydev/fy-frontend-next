@@ -1,9 +1,9 @@
 import { useAuthStore } from '@/stores/AuthStore'
 import { Box, Center } from '@chakra-ui/react'
 import CompleteUserRegistration from './CompleteUserRegistration'
-import Dashboard from './Dashboard'
+import Navigation from './Navigation'
 
-export default function NavigationUser() {
+export default function CheckUserRegister() {
   const { user } = useAuthStore()
 
   return (
@@ -20,7 +20,7 @@ export default function NavigationUser() {
         ) : (
           <>
             <Box minH={'100vh'}>
-              <Dashboard />
+              <Navigation />
             </Box>
           </>
         )}

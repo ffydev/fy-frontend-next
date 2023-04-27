@@ -12,9 +12,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
-import NavigationUser from '../NavigationUser/NavigationUser'
 import MobileNav from './MobileNav'
 import NavItem from './NavItem'
+import CheckUserRegister from '../NavigationUser/CheckUserRegister'
 
 interface LinkItemProps {
   name: string
@@ -70,7 +70,7 @@ export default function DashboardUser() {
           {dashboardHome ? (
             <>
               <Box>
-                <NavigationUser />
+                <CheckUserRegister />
               </Box>
             </>
           ) : null}

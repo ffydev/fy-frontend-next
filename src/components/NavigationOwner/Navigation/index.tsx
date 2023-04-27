@@ -1,16 +1,15 @@
 import { Box, Container, Stack } from '@chakra-ui/react'
-import { ArrowArcLeft, Users } from '@phosphor-icons/react'
+import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useEffect } from 'react'
-
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
-
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Workouts } from '../Workouts'
 import ListAnamnesis from '../Anamnesis'
 import Feedbacks from '../Feedbacks'
+import Users from '../Users'
 
-export default function NavigationAdmin() {
+export default function Navigation() {
   const {
     isShowingUsers,
     isShowingWorkouts,

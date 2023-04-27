@@ -24,7 +24,7 @@ import ListFeedbacks from '../Feedbacks/ListFeedbacks'
 import { useAuthStore } from '@/stores/AuthStore'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 
-export default function Dashboard() {
+export default function Navigation() {
   const { user } = useAuthStore()
   const {
     isShowingDashboard,

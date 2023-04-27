@@ -1,4 +1,3 @@
-import PlanList from '@/components/NavigationOwner/PlansList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
@@ -21,6 +20,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import PlanList from '../../PlansList'
 
 interface UsersListProps {
   users: IUserInterface[]
