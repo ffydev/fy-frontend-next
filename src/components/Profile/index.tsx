@@ -95,11 +95,10 @@ export default function Profile() {
         lastName: data.lastName,
         password: data.password,
       })
-      onClose()
+      reset()
     } catch (error) {
       console.error(error)
     } finally {
-      reset()
       setIsFetchingCurrentUser()
     }
   }
