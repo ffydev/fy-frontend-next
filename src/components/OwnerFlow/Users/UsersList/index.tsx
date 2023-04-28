@@ -145,38 +145,39 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                   size="sm"
                 />
               </Flex>
+              {user?.userType.name === 'User' && (
+                <Flex justifyContent={'initial'}>
+                  <Button
+                    mr={2}
+                    background={'purple.700'}
+                    size={'xs'}
+                    onClick={() => handleWithShowUserWorkouts(user.id)}
+                    value={user.id}
+                  >
+                    Workouts
+                  </Button>
 
-              <Flex justifyContent={'initial'}>
-                <Button
-                  mr={2}
-                  background={'purple.700'}
-                  size={'xs'}
-                  onClick={() => handleWithShowUserWorkouts(user.id)}
-                  value={user.id}
-                >
-                  Workouts
-                </Button>
+                  <Button
+                    mr={2}
+                    background={'purple.700'}
+                    size={'xs'}
+                    onClick={() => handleWithShowUserFeedbacks(user.id)}
+                    value={user.id}
+                  >
+                    Feedbacks
+                  </Button>
 
-                <Button
-                  mr={2}
-                  background={'purple.700'}
-                  size={'xs'}
-                  onClick={() => handleWithShowUserFeedbacks(user.id)}
-                  value={user.id}
-                >
-                  Feedbacks
-                </Button>
-
-                <Button
-                  mr={2}
-                  background={'purple.700'}
-                  size={'xs'}
-                  onClick={() => handleWithShowAnamnesis(user.id)}
-                  value={user.id}
-                >
-                  Anamnese
-                </Button>
-              </Flex>
+                  <Button
+                    mr={2}
+                    background={'purple.700'}
+                    size={'xs'}
+                    onClick={() => handleWithShowAnamnesis(user.id)}
+                    value={user.id}
+                  >
+                    Anamnese
+                  </Button>
+                </Flex>
+              )}
 
               <Input
                 mt={2}
