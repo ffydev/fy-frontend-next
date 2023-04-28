@@ -42,7 +42,7 @@ const createUserFormSchema = z.object({
     .email({ message: 'Email inválido' })
     .nonempty({ message: 'Campo obrigatório' }),
   planTypeId: z.string().nonempty({ message: 'Selecione um plano' }),
-  userTypeId: z.string().nonempty({ message: 'Selecione um usuário' }),
+  userTypeId: z.string().nonempty({ message: 'Selecione um tipo de usuário' }),
   password: z
     .string()
     .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
@@ -65,7 +65,7 @@ const createOwnerFormSchema = z.object({
     .string()
     .email({ message: 'Email inválido' })
     .nonempty({ message: 'Campo obrigatório' }),
-  userTypeId: z.string().nonempty({ message: 'Selecione um usuário' }),
+  userTypeId: z.string().nonempty({ message: 'Selecione um tipo de usuário' }),
   password: z
     .string()
     .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
