@@ -182,11 +182,11 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
                       borderRadius={4}
                       colorScheme="purple"
                       mr={3}
-                      {...register('userTypeId', {
-                        value: userType.id,
-                      })}
                       onChange={() => {
                         handleWithCreatingUserType(userType.name)
+                        register('userTypeId', {
+                          value: userType.id,
+                        })
                       }}
                     >
                       {userType.name === 'Owner' ? 'Funcionário' : 'Paciente'}
