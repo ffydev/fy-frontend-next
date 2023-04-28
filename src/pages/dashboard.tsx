@@ -37,9 +37,9 @@ export default function Dashboard() {
 
   return (
     <>
-      {user?.userType.name === 'Admin' && <DashboardMenuOwner />}
-      {user?.userType.name === 'Owner' && <DashboardMenuOwner />}
-      {user?.userType.name === 'User' && <DashboardMenuUser />}
+      {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
+      {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
+      {user?.userType?.name === 'User' && <DashboardMenuUser />}
     </>
   )
 }
