@@ -36,7 +36,7 @@ type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const router = useRouter()
-  const { setUser, setError, error } = useAuthStore()
+  const { setError, error } = useAuthStore()
   const [loading, setLoading] = useState(false)
 
   const {
@@ -56,7 +56,6 @@ export default function Login() {
       })
 
       if (response) {
-        setUser(response)
         router.push('/dashboard')
         return setError(undefined)
       }
