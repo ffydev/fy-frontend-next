@@ -6,7 +6,7 @@ const initialState = {
   user: {} as IUser,
   error: '',
   isFetchingCurrentUser: false,
-  isLoading: true,
+  isLoadingLogin: false,
 }
 
 export const useAuthStore = create(
@@ -18,7 +18,8 @@ export const useAuthStore = create(
         isFetchingCurrentUser: !state.isFetchingCurrentUser,
       })),
     signOut: () => set(() => ({ user: undefined })),
-    setLoading: (isLoading: boolean) => set(() => ({ isLoading })),
+    setIsLoadingLogin: (isLoadingLogin: boolean) =>
+      set(() => ({ isLoadingLogin })),
     reset: () => {
       set(initialState)
     },

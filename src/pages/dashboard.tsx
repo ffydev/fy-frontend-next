@@ -7,13 +7,21 @@ import DashboardMenuOwner from '@/components/Dashboards/DashboardMenuOwner'
 
 export default function Dashboard() {
   const router = useRouter()
-  const { user, setUser, signOut, isFetchingCurrentUser } = useAuthStore()
+  const {
+    user,
+    setUser,
+    signOut,
+    isFetchingCurrentUser,
+    setIsLoadingLogin,
+    isLoadingLogin,
+  } = useAuthStore()
 
   useEffect(() => {
     const token = getUserToken()
     if (token) {
       const fetchCurrentUserData = async (token: string) => {
         try {
+          setIsLoadingLogin(true)
           const currentUserData = await findCurrentUser(token)
 
           if (!currentUserData) {
@@ -35,11 +43,26 @@ export default function Dashboard() {
     }
   }, [router, signOut, setUser, isFetchingCurrentUser])
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoadingLogin(false)
+    }, 1000)
+
+    return () => clearTimeout(timeout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
-      {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
-      {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
-      {user?.userType?.name === 'User' && <DashboardMenuUser />}
+      {isLoadingLogin ? (
+        <h1>Carregando...</h1>
+      ) : (
+        <>
+          {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
+          {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
+          {user?.userType?.name === 'User' && <DashboardMenuUser />}
+        </>
+      )}
     </>
   )
 }

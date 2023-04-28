@@ -36,7 +36,7 @@ type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const router = useRouter()
-  const { setError, error } = useAuthStore()
+  const { setError, error, setIsLoadingLogin } = useAuthStore()
   const [loading, setLoading] = useState(false)
 
   const {
@@ -57,13 +57,15 @@ export default function Login() {
 
       if (response) {
         router.push('/dashboard')
+        setLoading(true)
         return setError(undefined)
       }
+      setLoading(false)
       return setError('Usuário ou senha inválidos')
     } catch (error) {
       setError('Usuário ou senha inválidos')
     } finally {
-      setLoading(false)
+      setIsLoadingLogin(true)
     }
   }
 
