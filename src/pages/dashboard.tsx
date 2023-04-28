@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
 import DashboardMenuOwner from '@/components/Dashboards/DashboardMenuOwner'
+import IsLoading from '@/components/IsLoading'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -55,7 +56,7 @@ export default function Dashboard() {
   return (
     <>
       {isLoadingLogin ? (
-        <h1>Carregando...</h1>
+        <IsLoading />
       ) : (
         <>
           {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
