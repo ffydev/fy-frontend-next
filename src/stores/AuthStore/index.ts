@@ -18,6 +18,7 @@ export const useAuthStore = create(
         isFetchingCurrentUser: !state.isFetchingCurrentUser,
       })),
     signOut: () => set(() => ({ user: undefined })),
+    setLoading: (isLoading: boolean) => set(() => ({ isLoading })),
     reset: () => {
       set(initialState)
     },
