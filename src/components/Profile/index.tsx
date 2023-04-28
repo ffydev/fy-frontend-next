@@ -95,10 +95,11 @@ export default function Profile() {
         lastName: data.lastName,
         password: data.password,
       })
-      reset()
+      onClose()
     } catch (error) {
       console.error(error)
     } finally {
+      reset()
       setIsFetchingCurrentUser()
     }
   }
@@ -110,7 +111,6 @@ export default function Profile() {
         w={'full'}
         variant={'ghost'}
         onClick={onOpen}
-        ml={-4}
         sx={{
           display: 'flex',
           justifyContent: 'flex-start',

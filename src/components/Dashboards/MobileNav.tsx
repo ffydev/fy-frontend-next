@@ -117,14 +117,9 @@ export default function MobileNav({ onOpen, ...rest }: MobileProps) {
               backdropBlur="1rem"
               boxShadow={'lg'}
             >
-              <MenuItem
-                _hover={{
-                  bgColor: 'blackAlpha.400',
-                  rounded: 'lg',
-                }}
-              >
+              <>
                 <Profile />
-              </MenuItem>
+              </>
 
               <MenuDivider />
               <MenuItem
