@@ -35,6 +35,10 @@ export default function Dashboard() {
         } catch (error) {
           console.error(error)
           router.push('/login')
+        } finally {
+          setTimeout(() => {
+            setIsLoadingLogin(false)
+          }, 1000)
         }
       }
 
@@ -42,16 +46,7 @@ export default function Dashboard() {
     } else {
       router.replace('/login')
     }
-  }, [router, signOut, setUser, isFetchingCurrentUser])
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsLoadingLogin(false)
-    }, 1000)
-
-    return () => clearTimeout(timeout)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [router, signOut, setUser, isFetchingCurrentUser, setIsLoadingLogin])
 
   return (
     <>

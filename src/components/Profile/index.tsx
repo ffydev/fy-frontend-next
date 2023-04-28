@@ -139,11 +139,7 @@ export default function Profile() {
               <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>
                 <FormControl gridColumn="span 1">
                   <FormLabel>Email</FormLabel>
-                  <Input
-                    defaultValue={user?.email}
-                    {...register('email')}
-                    placeholder="Email"
-                  />
+                  <Input {...register('email')} defaultValue={user?.email} />
                   {errors.email && <Text>{errors.email.message}</Text>}
                 </FormControl>
 
