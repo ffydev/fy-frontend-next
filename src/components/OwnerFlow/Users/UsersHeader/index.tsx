@@ -81,9 +81,6 @@ export default function UsersHeader({
             size={'md'}
             onChange={(event) => setUserTypeId(event.target.value)}
           >
-            <option style={{ backgroundColor: '#322659' }} value="">
-              Todos
-            </option>
             {usersTypes.map((userType: IUserType) => (
               <option
                 style={{ backgroundColor: '#322659' }}
