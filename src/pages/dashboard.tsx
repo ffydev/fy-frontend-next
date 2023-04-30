@@ -37,7 +37,9 @@ export default function Dashboard() {
       }
 
       setUser(currentUserData)
-      setIsLoadingLogin(false)
+      setTimeout(() => {
+        setIsLoadingLogin(false)
+      }, 700)
     }
 
     fetchUserData()
@@ -49,7 +51,7 @@ export default function Dashboard() {
         <IsLoading />
       ) : (
         <>
-          {!user?.isRegistered ? (
+          {user?.isRegistered === false ? (
             <Center py={[4, 6, 8]}>
               <Box minH={'100vh'}>
                 <CompleteUserRegistration />

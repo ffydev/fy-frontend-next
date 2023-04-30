@@ -1,8 +1,5 @@
 import { useAuthStore } from '@/stores/AuthStore'
-import {
-  findCurrentUser,
-  getUserToken,
-} from '@/pages/api/providers/auth.provider'
+import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 import {
   Box,
@@ -61,24 +58,7 @@ type createOwnerFormSchemaType = z.infer<typeof createOwnerFormSchema>
 
 export default function CompleteUserRegistration() {
   const router = useRouter()
-  const { user, setUser } = useAuthStore()
-
-  const fetchCurrentUserData = async (token: string) => {
-    try {
-      const currentUserData = await findCurrentUser(token)
-
-      if (!currentUserData) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      setUser(currentUserData)
-    } catch (error) {
-      console.error(error)
-      router.push('/login')
-    }
-  }
+  const { user, setIsFetchingCurrentUser } = useAuthStore()
 
   const {
     register,
@@ -104,7 +84,7 @@ export default function CompleteUserRegistration() {
       }
 
       await updateUser(token, user!.id, userData)
-      await fetchCurrentUserData(token)
+      setIsFetchingCurrentUser()
     } catch (error) {
       console.error(error)
     }
