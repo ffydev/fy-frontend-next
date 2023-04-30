@@ -16,7 +16,7 @@ import {
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus, X } from '@phosphor-icons/react'
-import { updateUser } from '@/pages/api/providers/users.provider'
+import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -83,7 +83,7 @@ export default function CompleteUserRegistration() {
         password: data.password,
       }
 
-      await updateUser(token, user!.id, userData)
+      await updateUserByUser(token, user!.id, userData)
       setIsFetchingCurrentUser()
     } catch (error) {
       console.error(error)
