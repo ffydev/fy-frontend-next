@@ -18,34 +18,27 @@ export default function Dashboard() {
   } = useAuthStore()
 
   useEffect(() => {
-    const token = getUserToken()
-    if (token) {
-      const fetchCurrentUserData = async (token: string) => {
-        try {
-          setIsLoadingLogin(true)
-          const currentUserData = await findCurrentUser(token)
-
-          if (!currentUserData) {
-            // Implementar mensagem personalizada
-            router.push('/login')
-            return
-          }
-
-          setUser(currentUserData)
-        } catch (error) {
-          console.error(error)
-          router.push('/login')
-        } finally {
-          setTimeout(() => {
-            setIsLoadingLogin(false)
-          }, 1000)
-        }
+    const fetchUserData = async () => {
+      const token = getUserToken()
+      if (!token) {
+        router.push('/login')
+        return
       }
 
-      fetchCurrentUserData(token)
-    } else {
-      router.replace('/login')
+      setIsLoadingLogin(true)
+      const currentUserData = await findCurrentUser(token)
+
+      if (!currentUserData) {
+        // Implementar mensagem personalizada
+        router.push('/login')
+        return
+      }
+
+      setUser(currentUserData)
+      setIsLoadingLogin(false)
     }
+
+    fetchUserData()
   }, [router, signOut, setUser, isFetchingCurrentUser, setIsLoadingLogin])
 
   return (
