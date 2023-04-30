@@ -101,7 +101,6 @@ export default function CompleteUserRegistration() {
         firstName: data.firstName,
         lastName: data.lastName,
         password: data.password,
-        isRegistered: true,
       }
 
       await updateUserByUser(token, user!.id, userData)
