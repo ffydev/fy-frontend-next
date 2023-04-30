@@ -1,4 +1,4 @@
-import { Box, Container, Stack } from '@chakra-ui/react'
+import { Container, Stack } from '@chakra-ui/react'
 import { ArrowArcLeft } from '@phosphor-icons/react'
 import { useEffect } from 'react'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
@@ -86,53 +86,49 @@ export default function Navigation() {
 
       {isShowingAnamnesis && (
         <>
-          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-              <Stack
-                direction={'column'}
-                align={'start'}
-                alignSelf={'center'}
-                position={'relative'}
-                mt={3}
-                ml={3}
-              >
-                <HandleButton
-                  text={'Voltar'}
-                  leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-                  onClick={handleWithHideAnamnesis}
-                />
-              </Stack>
-              <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-                <ListAnamnesis />
-              </Container>
-            </Container>
-          </Box>
+          <Stack
+            direction={'column'}
+            align={'start'}
+            alignSelf={'center'}
+            position={'relative'}
+            mt={3}
+            ml={3}
+          >
+            <HandleButton
+              text={'Voltar'}
+              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              onClick={handleWithHideAnamnesis}
+            />
+          </Stack>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
+            <Stack maxW={'auto'}>
+              <ListAnamnesis />
+            </Stack>
+          </Container>
         </>
       )}
 
       {isShowingFeedbacks && (
         <>
-          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-              <Stack
-                direction={'column'}
-                align={'start'}
-                alignSelf={'center'}
-                position={'relative'}
-                mt={3}
-                ml={3}
-              >
-                <HandleButton
-                  text={'Voltar'}
-                  leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-                  onClick={handleWithHideFeedbacks}
-                />
-              </Stack>
-              <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-                <Feedbacks />
-              </Container>
-            </Container>
-          </Box>
+          <Stack
+            direction={'column'}
+            align={'start'}
+            alignSelf={'center'}
+            position={'relative'}
+            mt={3}
+            ml={3}
+          >
+            <HandleButton
+              text={'Voltar'}
+              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              onClick={handleWithHideFeedbacks}
+            />
+          </Stack>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
+            <Stack maxW={'auto'}>
+              <Feedbacks />
+            </Stack>
+          </Container>
         </>
       )}
     </>
