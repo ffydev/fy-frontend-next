@@ -12,7 +12,7 @@ import { useEffect } from 'react'
 import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
 import {
-  ArrowArcLeft,
+  ArrowLeft,
   Barbell,
   Receipt,
   UserList,
@@ -259,8 +259,7 @@ export default function Navigation() {
             ml={3}
           >
             <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              leftIcon={<ArrowLeft size={28} weight="bold" />}
               onClick={handleWithWorkouts}
             />
           </Stack>
@@ -284,8 +283,7 @@ export default function Navigation() {
             ml={3}
           >
             <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              leftIcon={<ArrowLeft size={28} weight="bold" />}
               onClick={handleWithShowFeedbacks}
             />
           </Stack>
@@ -309,8 +307,7 @@ export default function Navigation() {
             ml={3}
           >
             <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              leftIcon={<ArrowLeft size={28} weight="bold" />}
               onClick={() => handleWithCreateFeedbacks()}
             />
           </Stack>
@@ -331,8 +328,7 @@ export default function Navigation() {
             ml={3}
           >
             <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              leftIcon={<ArrowLeft size={28} weight="bold" />}
               onClick={() => handleWithCreateAnamnesis()}
             />
           </Stack>
