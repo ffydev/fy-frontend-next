@@ -14,7 +14,7 @@ import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import MobileNav from './MobileNav'
 import NavItem from './NavItem'
-import CheckUserRegister from '../UserFlow/CheckUserRegister'
+import Navigation from '../UserFlow/Navigation'
 
 interface LinkItemProps {
   name: string
@@ -69,8 +69,8 @@ export default function DashboardMenuUser() {
         <Box>
           {dashboardHome ? (
             <>
-              <Box>
-                <CheckUserRegister />
+              <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+                <Navigation />
               </Box>
             </>
           ) : null}

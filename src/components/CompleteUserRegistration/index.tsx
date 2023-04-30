@@ -59,7 +59,7 @@ const createOwnerFormSchema = z
 
 type createOwnerFormSchemaType = z.infer<typeof createOwnerFormSchema>
 
-export default function CompleteOwnerRegistration() {
+export default function CompleteUserRegistration() {
   const router = useRouter()
   const { user, setUser } = useAuthStore()
 
@@ -101,7 +101,6 @@ export default function CompleteOwnerRegistration() {
         firstName: data.firstName,
         lastName: data.lastName,
         password: data.password,
-        isRegistered: true,
       }
 
       await updateUser(token, user!.id, userData)

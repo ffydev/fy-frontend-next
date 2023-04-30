@@ -14,7 +14,7 @@ import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import MobileNav from './MobileNav'
 import NavItem from './NavItem'
-import CheckRegister from '../OwnerFlow/CheckOwnerRegister'
+import Navigation from '../OwnerFlow/Navigation'
 
 interface LinkItemProps {
   name: string
@@ -69,7 +69,9 @@ export default function DashboardMenuOwner() {
         <Box>
           {dashboardHome ? (
             <>
-              <CheckRegister />
+              <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+                <Navigation />
+              </Box>
             </>
           ) : null}
         </Box>

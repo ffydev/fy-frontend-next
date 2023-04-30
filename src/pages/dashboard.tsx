@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
 import DashboardMenuOwner from '@/components/Dashboards/DashboardMenuOwner'
 import IsLoading from '@/components/IsLoading'
+import CompleteUserRegistration from '@/components/CompleteUserRegistration'
+import { Box, Center } from '@chakra-ui/react'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -47,9 +49,19 @@ export default function Dashboard() {
         <IsLoading />
       ) : (
         <>
-          {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
-          {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
-          {user?.userType?.name === 'User' && <DashboardMenuUser />}
+          {!user?.isRegistered ? (
+            <Center py={[4, 6, 8]}>
+              <Box minH={'100vh'}>
+                <CompleteUserRegistration />
+              </Box>
+            </Center>
+          ) : (
+            <>
+              {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
+              {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
+              {user?.userType?.name === 'User' && <DashboardMenuUser />}
+            </>
+          )}
         </>
       )}
     </>

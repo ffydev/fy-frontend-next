@@ -30,8 +30,8 @@ export default function MobileNav({ onOpen, ...rest }: MobileProps) {
 
   const handleWithSignOut = () => {
     localStorage.removeItem('fyToken')
-    signOut()
     router.replace('/login')
+    signOut()
   }
 
   function getingFirstNameInitials(name?: string) {
