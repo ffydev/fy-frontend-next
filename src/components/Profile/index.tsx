@@ -25,7 +25,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 const updateUserFormSchema = z
   .object({
-    email: z.string().email({ message: 'Email inválido' }),
     firstName: z.string().nonempty({ message: 'Campo obrigatório' }),
     lastName: z.string(),
     password: z.string().optional(),
@@ -90,7 +89,6 @@ export default function Profile() {
       }
 
       await updateUserByUser(token, user?.id!, {
-        email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
         password: data.password,
@@ -137,12 +135,6 @@ export default function Profile() {
           <ModalBody pb={6}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>
-                <FormControl gridColumn="span 1">
-                  <FormLabel>Email</FormLabel>
-                  <Input {...register('email')} defaultValue={user?.email} />
-                  {errors.email && <Text>{errors.email.message}</Text>}
-                </FormControl>
-
                 <FormControl gridColumn="span 1">
                   <FormLabel>Primeiro Nome</FormLabel>
                   <Input
