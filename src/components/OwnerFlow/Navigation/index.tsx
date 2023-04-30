@@ -120,9 +120,7 @@ export default function Navigation() {
             </Flex>
           </Stack>
           <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
-            <Stack maxW={'auto'}>
-              <ListAnamnesis />
-            </Stack>
+            <ListAnamnesis />
           </Container>
         </>
       )}
@@ -154,9 +152,7 @@ export default function Navigation() {
             </Flex>
           </Stack>
           <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
-            <Stack maxW={'auto'}>
-              <Feedbacks />
-            </Stack>
+            <Feedbacks />
           </Container>
         </>
       )}

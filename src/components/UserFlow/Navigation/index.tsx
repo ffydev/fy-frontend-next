@@ -2,6 +2,7 @@ import {
   Box,
   Center,
   Container,
+  Flex,
   Heading,
   SimpleGrid,
   Stack,
@@ -258,16 +259,25 @@ export default function Navigation() {
             mt={3}
             ml={3}
           >
-            <HandleButton
-              leftIcon={<ArrowLeft size={28} weight="bold" />}
-              onClick={handleWithWorkouts}
-            />
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={28} weight="bold" />}
+                onClick={handleWithWorkouts}
+              />
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Workouts
+              </Heading>
+            </Flex>
           </Stack>
 
           <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
-            <Stack maxW={'auto'}>
-              <Workouts />
-            </Stack>
+            <Workouts />
           </Container>
         </>
       )}
@@ -282,16 +292,25 @@ export default function Navigation() {
             mt={3}
             ml={3}
           >
-            <HandleButton
-              leftIcon={<ArrowLeft size={28} weight="bold" />}
-              onClick={handleWithShowFeedbacks}
-            />
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={28} weight="bold" />}
+                onClick={handleWithShowFeedbacks}
+              />
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Feedbacks
+              </Heading>
+            </Flex>
           </Stack>
 
           <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-            <Stack maxW={'auto'}>
-              <ListFeedbacks />
-            </Stack>
+            <ListFeedbacks />
           </Container>
         </>
       )}
@@ -306,10 +325,21 @@ export default function Navigation() {
             mt={3}
             ml={3}
           >
-            <HandleButton
-              leftIcon={<ArrowLeft size={28} weight="bold" />}
-              onClick={() => handleWithCreateFeedbacks()}
-            />
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={28} weight="bold" />}
+                onClick={() => handleWithCreateFeedbacks()}
+              />
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Criar Feedback
+              </Heading>
+            </Flex>
           </Stack>
           <Center>
             <CreatingFeedback />
@@ -327,10 +357,21 @@ export default function Navigation() {
             mt={3}
             ml={3}
           >
-            <HandleButton
-              leftIcon={<ArrowLeft size={28} weight="bold" />}
-              onClick={() => handleWithCreateAnamnesis()}
-            />
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={28} weight="bold" />}
+                onClick={() => handleWithCreateAnamnesis()}
+              />
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Criar Anamnese
+              </Heading>
+            </Flex>
           </Stack>
           <Center>
             <AnamnesisCreate />
