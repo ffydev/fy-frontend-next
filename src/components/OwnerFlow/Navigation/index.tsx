@@ -1,5 +1,5 @@
-import { Container, Stack } from '@chakra-ui/react'
-import { ArrowArcLeft } from '@phosphor-icons/react'
+import { Container, Flex, Heading, Stack } from '@chakra-ui/react'
+import { ArrowLeft } from '@phosphor-icons/react'
 import { useEffect } from 'react'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
@@ -69,17 +69,25 @@ export default function Navigation() {
             mt={3}
             ml={3}
           >
-            <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={handleWithHideWorkouts}
-            />
-          </Stack>
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={20} weight="bold" />}
+                onClick={handleWithHideWorkouts}
+              />
 
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Workouts
+              </Heading>
+            </Flex>
+          </Stack>
           <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
-            <Stack maxW={'auto'}>
-              <Workouts />
-            </Stack>
+            <Workouts />
           </Container>
         </>
       )}
@@ -94,11 +102,22 @@ export default function Navigation() {
             mt={3}
             ml={3}
           >
-            <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={handleWithHideAnamnesis}
-            />
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={28} weight="bold" />}
+                onClick={handleWithHideAnamnesis}
+              />
+
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Anamnese
+              </Heading>
+            </Flex>
           </Stack>
           <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
             <Stack maxW={'auto'}>
@@ -118,11 +137,21 @@ export default function Navigation() {
             mt={3}
             ml={3}
           >
-            <HandleButton
-              text={'Voltar'}
-              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={handleWithHideFeedbacks}
-            />
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={28} weight="bold" />}
+                onClick={handleWithHideFeedbacks}
+              />
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Feedbacks
+              </Heading>
+            </Flex>
           </Stack>
           <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
             <Stack maxW={'auto'}>

@@ -1,4 +1,4 @@
-import { FormControl, Heading, Select, Stack, Text } from '@chakra-ui/react'
+import { FormControl, Select, Stack, Text } from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useRouter } from 'next/router'
@@ -79,9 +79,6 @@ export default function WorkoutsHeader() {
 
   return (
     <>
-      <Heading as="h3" size="lg" pb="6" fontWeight="medium" textAlign="left">
-        Workouts
-      </Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={6}>
           <FormControl width={'100%'}>
