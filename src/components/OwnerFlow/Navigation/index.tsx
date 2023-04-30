@@ -61,7 +61,7 @@ export default function Navigation() {
 
       {isShowingWorkouts && (
         <>
-          <Box ml={{ base: 0, md: 60 }} minH={'300vh'}>
+          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
             <Container maxW="7xl" p={{ base: 5, md: 10 }}>
               <Stack
                 direction={'column'}
