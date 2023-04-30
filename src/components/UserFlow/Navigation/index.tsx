@@ -261,7 +261,7 @@ export default function Navigation() {
             <HandleButton
               text={'Voltar'}
               leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-              onClick={() => handleWithWorkouts()}
+              onClick={handleWithWorkouts}
             />
           </Stack>
 

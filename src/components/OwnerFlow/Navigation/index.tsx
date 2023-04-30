@@ -51,45 +51,43 @@ export default function Navigation() {
     <>
       {isShowingUsers && (
         <>
-          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+          <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+            <Container maxW={'7xl'}>
               <Users />
             </Container>
-          </Box>
+          </Stack>
         </>
       )}
 
       {isShowingWorkouts && (
         <>
-          <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
-              <Stack
-                direction={'column'}
-                align={'start'}
-                alignSelf={'center'}
-                position={'relative'}
-                mb={6}
-              >
-                <HandleButton
-                  text={'Voltar'}
-                  leftIcon={<ArrowArcLeft size={28} weight="bold" />}
-                  onClick={handleWithHideWorkouts}
-                />
-              </Stack>
-              <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-                <Stack maxW={'auto'}>
-                  <Workouts />
-                </Stack>
-              </Container>
-            </Container>
-          </Box>
+          <Stack
+            direction={'column'}
+            align={'start'}
+            alignSelf={'center'}
+            position={'relative'}
+            mt={3}
+            ml={3}
+          >
+            <HandleButton
+              text={'Voltar'}
+              leftIcon={<ArrowArcLeft size={28} weight="bold" />}
+              onClick={handleWithHideWorkouts}
+            />
+          </Stack>
+
+          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
+            <Stack maxW={'auto'}>
+              <Workouts />
+            </Stack>
+          </Container>
         </>
       )}
 
       {isShowingAnamnesis && (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+            <Container maxW="7xl" p={{ base: 3, md: 1 }}>
               <Stack
                 direction={'column'}
                 align={'start'}
@@ -104,7 +102,7 @@ export default function Navigation() {
                   onClick={handleWithHideAnamnesis}
                 />
               </Stack>
-              <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+              <Container maxW="7xl" p={{ base: 3, md: 1 }}>
                 <ListAnamnesis />
               </Container>
             </Container>
@@ -115,7 +113,7 @@ export default function Navigation() {
       {isShowingFeedbacks && (
         <>
           <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
-            <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+            <Container maxW="7xl" p={{ base: 3, md: 1 }}>
               <Stack
                 direction={'column'}
                 align={'start'}
@@ -130,7 +128,7 @@ export default function Navigation() {
                   onClick={handleWithHideFeedbacks}
                 />
               </Stack>
-              <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+              <Container maxW="7xl" p={{ base: 3, md: 1 }}>
                 <Feedbacks />
               </Container>
             </Container>
