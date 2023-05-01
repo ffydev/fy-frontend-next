@@ -17,6 +17,7 @@ import { useState, useEffect } from 'react'
 import { FiBell, FiChevronDown, FiMenu } from 'react-icons/fi'
 import { useAuthStore } from '@/stores/AuthStore'
 import { useRouter } from 'next/router'
+import Profile from '../Profile'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
@@ -29,8 +30,9 @@ export default function MobileNav({ onOpen, ...rest }: MobileProps) {
 
   const handleWithSignOut = () => {
     localStorage.removeItem('fyToken')
-    signOut()
-    router.replace('/login')
+    router.replace('/login').then(() => {
+      signOut()
+    })
   }
 
   function getingFirstNameInitials(name?: string) {
@@ -116,22 +118,10 @@ export default function MobileNav({ onOpen, ...rest }: MobileProps) {
               backdropBlur="1rem"
               boxShadow={'lg'}
             >
-              <MenuItem
-                _hover={{
-                  bgColor: 'blackAlpha.400',
-                  rounded: 'lg',
-                }}
-              >
-                Perfil
-              </MenuItem>
-              <MenuItem
-                _hover={{
-                  bgColor: 'blackAlpha.400',
-                  rounded: 'lg',
-                }}
-              >
-                Configuração
-              </MenuItem>
+              <>
+                <Profile />
+              </>
+
               <MenuDivider />
               <MenuItem
                 onClick={() => handleWithSignOut()}
