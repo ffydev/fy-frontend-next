@@ -258,6 +258,8 @@ export default function Navigation() {
             position={'relative'}
             mt={3}
             ml={3}
+            pt={6}
+            pb={6}
           >
             <Flex>
               <HandleButton
@@ -291,6 +293,8 @@ export default function Navigation() {
             position={'relative'}
             mt={3}
             ml={3}
+            pt={6}
+            pb={6}
           >
             <Flex>
               <HandleButton
@@ -324,6 +328,8 @@ export default function Navigation() {
             position={'relative'}
             mt={3}
             ml={3}
+            pt={6}
+            pb={6}
           >
             <Flex>
               <HandleButton
@@ -356,6 +362,8 @@ export default function Navigation() {
             position={'relative'}
             mt={3}
             ml={3}
+            pt={6}
+            pb={6}
           >
             <Flex>
               <HandleButton

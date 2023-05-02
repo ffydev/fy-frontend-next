@@ -128,7 +128,6 @@ export default function Login() {
                 >
                   Acesse sua conta
                 </Heading>
-
                 {error && (
                   <>
                     <Text
@@ -172,7 +171,7 @@ export default function Login() {
                     colorScheme="purple"
                     type="reset"
                   >
-                    Limpar dados
+                    Cencelar
                   </Button>
                 </Stack>
               </Stack>

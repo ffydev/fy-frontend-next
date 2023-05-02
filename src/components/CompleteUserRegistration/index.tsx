@@ -92,11 +92,22 @@ export default function CompleteUserRegistration() {
 
   return (
     <>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading
+            fontSize={'4xl'}
+            textAlign={'center'}
+            textTransform={'capitalize'}
+          >
+            complete seu cadastro 📝
+          </Heading>
+        </Stack>
+      </Stack>
       <Box
+        m={4}
         mt={3}
         mb={4}
-        p={4}
-        bgColor={'whiteAlpha.100'}
+        p={6}
         rounded={'lg'}
         border={'1px'}
         borderColor={'whiteAlpha.200'}
@@ -104,7 +115,6 @@ export default function CompleteUserRegistration() {
         backdropFilter="blur(15px)"
         boxShadow={'lg'}
       >
-        <Heading>Complete seu cadastro</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>
             <FormControl gridColumn="span 1">

@@ -68,6 +68,8 @@ export default function Navigation() {
             position={'relative'}
             mt={3}
             ml={3}
+            pt={6}
+            pb={6}
           >
             <Flex>
               <HandleButton
@@ -86,7 +88,7 @@ export default function Navigation() {
               </Heading>
             </Flex>
           </Stack>
-          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
+          <Container maxW="7xl" p={3} minH={'200vh'}>
             <Workouts />
           </Container>
         </>
@@ -101,6 +103,8 @@ export default function Navigation() {
             position={'relative'}
             mt={3}
             ml={3}
+            pt={6}
+            pb={6}
           >
             <Flex>
               <HandleButton
@@ -134,6 +138,8 @@ export default function Navigation() {
             position={'relative'}
             mt={3}
             ml={3}
+            pt={6}
+            pb={6}
           >
             <Flex>
               <HandleButton
