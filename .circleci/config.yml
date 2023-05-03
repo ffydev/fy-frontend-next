@@ -1,0 +1,207 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
+version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  node: circleci/node@5.0.0
+  slack: circleci/slack@4.1
+  aws-ecr: circleci/aws-ecr@7.3.0
+  aws-s3: circleci/aws-s3@3.0.0
+
+executors:
+  build_image:
+    machine:
+      image: ubuntu-2204:2023.04.2
+      docker_layer_caching: true
+    resource_class: large
+
+jobs:
+#  notify:
+#    machine:
+#      image: ubuntu-2204:2023.04.2
+#    steps:
+#      - slack/notify:
+#          event: always
+#          custom: |
+#            {
+#              "text": "CircleCI job started!",
+#              "blocks": [
+#                  {
+#                      "type": "header",
+#                      "text": {
+#                          "type": "plain_text",
+#                          "text": "Deployment Started :hourglass_flowing_sand:",
+#                          "emoji": true
+#                      }
+#                  },
+#                  {
+#                      "type": "section",
+#                      "fields": [
+#                          {
+#                              "type": "mrkdwn",
+#                              "text": "*Job*: deploy"
+#                          }
+#                      ]
+#                  },
+#                  {
+#                      "type": "section",
+#                      "fields": [
+#                          {
+#                              "type": "mrkdwn",
+#                              "text": "*Project*: $CIRCLE_PROJECT_REPONAME"
+#                          },
+#                          {
+#                              "type": "mrkdwn",
+#                              "text": "*Branch*: $CIRCLE_BRANCH"
+#                          },
+#                          {
+#                              "type": "mrkdwn",
+#                              "text": "*Commit*: $CIRCLE_SHA1"
+#                          },
+#                          {
+#                              "type": "mrkdwn",
+#                              "text": "*Author*: $CIRCLE_USERNAME"
+#                          }
+#                      ],
+#                      "accessory": {
+#                          "type": "image",
+#                          "image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
+#                          "alt_text": "CircleCI logo"
+#                      }
+#                  },
+#                  {
+#                      "type": "section",
+#                      "fields": [
+#                          {
+#                              "type": "mrkdwn",
+#                              "text": "*Mentions*: $SLACK_PARAM_MENTIONS"
+#                          }
+#                      ]
+#                  },
+#                  {
+#                      "type": "actions",
+#                      "elements": [
+#                          {
+#                              "type": "button",
+#                              "text": {
+#                                  "type": "plain_text",
+#                                  "text": "View Job"
+#                              },
+#                              "url": "${CIRCLE_BUILD_URL}"
+#                          }
+#                      ]
+#                  }
+#              ]
+#            }
+  build:
+    docker:
+      - image: cimg/node:18.16.0
+    resource_class: large
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - aws-s3/copy:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: 's3://production-fy-backend-platform-production-bucket/envs/env_frontend'
+          to: '.env'
+      - run:
+          command: npm run build
+          name: Build app
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+#      - slack/notify:
+#          event: fail
+#          template: basic_fail_1
+  push:
+    executor: build_image
+    steps:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          attach-workspace: true
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          checkout: false
+          create-repo: false
+          region: AWS_REGION
+          remote-docker-layer-caching: true
+          repo: $ECR_REPO_NAME
+          skip-when-tags-exist: false
+          tag: 'latestnew,$CIRCLE_SHA1'
+  deploy:
+    machine:
+      image: ubuntu-2204:2023.04.2
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "ce:50:45:08:1e:26:1d:01:a5:fa:e9:dd:8c:e2:63:e0"
+      - aws-s3/copy:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: 's3://production-fy-backend-platform-production-bucket/envs/env_frontend'
+          to: '.env'
+      - run:
+          name: Copy .env file to server over SSH
+          command: |
+            scp .env $SSH_USER@$SSH_HOST:~/infra/frontend
+      - run:
+          name: Authenticate on AWS ECR over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 972398102957.dkr.ecr.sa-east-1.amazonaws.com"
+      - run:
+          name: Deploy over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "docker rm --force frontend_app_1; docker pull 972398102957.dkr.ecr.sa-east-1.amazonaws.com/fy-production-frontend:$CIRCLE_SHA1; docker run --name frontend_app_1 --network frontend --env-file ~/infra/frontend/.env --restart unless-stopped -d 972398102957.dkr.ecr.sa-east-1.amazonaws.com/fy-production-frontend:$CIRCLE_SHA1"
+      - run:
+          name: Restart Nginx over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "docker restart infra_nginx_1"
+#      - slack/notify:
+#          event: fail
+#          template: basic_fail_1
+#      - slack/notify:
+#          event: pass
+#          template: success_tagged_deploy_1
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  build_and_deploy: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
+#      - notify:
+#          context: Slack
+#          filters:
+#            branches:
+#              only: main # only deploy on the main branch
+      - build:
+          context:
+#            - Slack
+            - AwsProduction
+          filters:
+            branches:
+              only: main # only deploy on the main branch
+#          requires:
+#            - notify # only deploy once build job has completed
+      - push:
+          context: AwsProduction
+          filters:
+            branches:
+              only: main # only deploy on the main branch
+          requires:
+            - build # only deploy once build job has completed
+      - deploy:
+          requires:
+            - push # only deploy once build job has completed
+          context:
+#            - Slack
+            - AwsProduction
+          filters:
+            branches:
+              only: main # only deploy on the main branch
