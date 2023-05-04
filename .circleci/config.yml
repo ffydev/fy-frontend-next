@@ -101,7 +101,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          pkg-manager: npm
+          pkg-manager: yarn
       - aws-s3/copy:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
@@ -109,7 +109,7 @@ jobs:
           from: 's3://production-fy-backend-platform-production-bucket/envs/env_frontend'
           to: '.env'
       - run:
-          command: npm run build
+          command: yarn build
           name: Build app
       - persist_to_workspace:
           root: ~/project
