@@ -8,5 +8,5 @@ RUN rm -rf node_modules
 RUN npm install
 RUN npm run build
 
-CMD npm run start:prod
+CMD yarn next start
 EXPOSE 3000
