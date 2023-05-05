@@ -171,7 +171,7 @@ export default function Login() {
                     colorScheme="purple"
                     type="reset"
                   >
-                    Cencelar
+                    Cancelar
                   </Button>
                 </Stack>
               </Stack>
