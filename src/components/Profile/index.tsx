@@ -37,7 +37,7 @@ const updateUserFormSchema = z
         data.password !== null &&
         data.password !== ''
       ) {
-        if (data.password.length >= 8) {
+        if (data.password.length >= 8 && data.password.length <= 72) {
           return true
         } else {
           return false
@@ -46,7 +46,7 @@ const updateUserFormSchema = z
       return true
     },
     {
-      message: 'A senha deve ter no mínimo 8 caracteres',
+      message: 'A senha deve ter no mínimo 8 caracteres e no máximo 72',
       path: ['password'],
     },
   )

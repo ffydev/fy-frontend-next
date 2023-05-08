@@ -46,7 +46,7 @@ const createUserFormSchema = z.object({
   password: z
     .string()
     .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
-    .max(120, { message: 'A senha deve ter no máximo 120 caracteres' })
+    .max(72, { message: 'A senha deve ter no máximo 72 caracteres' })
     .nonempty({ message: 'Campo obrigatório' }),
   initDate: z
     .string({
