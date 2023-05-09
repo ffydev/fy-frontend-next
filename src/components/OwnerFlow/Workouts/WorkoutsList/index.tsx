@@ -75,6 +75,13 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         selectedUserId as string,
       )
       setWorkouts(workoutUpdated)
+
+      toast({
+        title: 'Exercício adicionado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
     }
@@ -180,10 +187,16 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
 
     try {
       await deleteWorkout(token, id)
+      toast({
+        title: 'Workout deletado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
       toast({
-        title: 'Erro ao deletar treino.',
+        title: 'Erro ao deletar workout.',
         description: 'Por favor, tente novamente.',
         status: 'error',
         duration: 3000,

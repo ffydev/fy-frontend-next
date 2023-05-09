@@ -77,8 +77,21 @@ export default function WorkoutsHeader() {
         userId: selectedUserId,
         workoutType: data.workoutType,
       })
+      toast({
+        title: 'Workout cadastrado com sucesso!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Ocorreu um erro ao cadastrar o workout.',
+        description: 'Por favor, tente novamente.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     } finally {
       setIsFetchingWorkoutsNames()
     }

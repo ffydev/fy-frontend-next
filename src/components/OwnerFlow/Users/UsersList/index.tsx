@@ -58,6 +58,12 @@ export function UsersList({ users, planTypes }: UsersListProps) {
     }
     deleteUser(token, id).then(() => {
       setIsFetchingUsers()
+      toast({
+        title: 'Usuário deletado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     })
   }
 
@@ -125,6 +131,12 @@ export function UsersList({ users, planTypes }: UsersListProps) {
       })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao ativar anamnese.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     }
   }
 
@@ -151,8 +163,20 @@ export function UsersList({ users, planTypes }: UsersListProps) {
       setDeletedAt('Ativar')
     } catch (error) {
       console.log(error)
+      toast({
+        title: 'Erro ao ativar usuário.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     } finally {
       await handleUpdateUser(userId)
+      toast({
+        title: 'Usuário ativado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     }
   }
 
