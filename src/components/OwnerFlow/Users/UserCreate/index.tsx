@@ -22,6 +22,7 @@ import {
   RadioGroup,
   Radio,
   Flex,
+  useToast,
 } from '@chakra-ui/react'
 import { Key, Plus } from '@phosphor-icons/react'
 import { useRef, useState } from 'react'
@@ -97,12 +98,21 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
 
   const initialRef = useRef<HTMLInputElement>(null)
 
+  const toast = useToast()
+
   const onSubmit: SubmitHandler<createUserFormSchemaType> = async (data) => {
     try {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+
         router.push('/login')
         return
       }
@@ -128,8 +138,24 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
 
       setIsFetchingUsers()
       onClose()
+
+      toast({
+        title: 'Usuário Criado',
+        description: 'Usuário criado com sucesso.',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
+
+      toast({
+        title: 'Erro',
+        description: 'Erro ao criar usuário.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
     } finally {
       reset()
       setGeneratedPassword(generate({ length: 23 }))
