@@ -89,7 +89,7 @@ export default function Profile() {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')
@@ -105,7 +105,7 @@ export default function Profile() {
       toast({
         title: 'Perfil atualizado com sucesso!',
         status: 'success',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     } catch (error) {
@@ -114,7 +114,7 @@ export default function Profile() {
         title: 'Erro ao atualizar perfil.',
         description: 'Por favor, tente novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     } finally {

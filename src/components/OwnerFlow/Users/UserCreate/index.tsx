@@ -109,7 +109,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
 
@@ -143,7 +143,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
         title: 'Usuário Criado',
         description: 'Usuário criado com sucesso.',
         status: 'success',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     } catch (error) {
@@ -153,7 +153,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
         title: 'Erro',
         description: 'Erro ao criar usuário.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     } finally {

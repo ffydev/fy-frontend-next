@@ -57,7 +57,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')
@@ -90,7 +90,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
             title: 'Sua sessão expirou.',
             description: 'Por favor, faça login novamente.',
             status: 'error',
-            duration: 9000,
+            duration: 3000,
             isClosable: true,
           })
           router.push('/login')
@@ -106,7 +106,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
           title: 'Erro ao buscar tipos de exercícios.',
           description: 'Por favor, tente novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
       }
@@ -131,7 +131,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
             title: 'Sua sessão expirou.',
             description: 'Por favor, faça login novamente.',
             status: 'error',
-            duration: 9000,
+            duration: 3000,
             isClosable: true,
           })
           router.push('/login')
@@ -147,7 +147,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
           title: 'Erro ao buscar nome dos exercícios.',
           description: 'Por favor, tente novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')
@@ -171,7 +171,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         title: 'Sua sessão expirou.',
         description: 'Por favor, faça login novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
       router.push('/login')
@@ -186,7 +186,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         title: 'Erro ao deletar treino.',
         description: 'Por favor, tente novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     } finally {

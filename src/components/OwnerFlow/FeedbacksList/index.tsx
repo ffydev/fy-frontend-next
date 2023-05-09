@@ -39,7 +39,7 @@ export default function Feedbacks() {
             title: 'Sua sessão expirou.',
             description: 'Por favor, faça login novamente.',
             status: 'error',
-            duration: 9000,
+            duration: 3000,
             isClosable: true,
           })
 
@@ -66,7 +66,7 @@ export default function Feedbacks() {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')

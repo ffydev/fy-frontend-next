@@ -48,7 +48,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
         title: 'Sua sessão expirou.',
         description: 'Por favor, faça login novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
       router.push('/login')
@@ -72,6 +72,13 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
       })
 
       setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
+
+      toast({
+        title: 'Peso atualizado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       if (error instanceof z.ZodError) {
         setErrors((prevErrors) => ({

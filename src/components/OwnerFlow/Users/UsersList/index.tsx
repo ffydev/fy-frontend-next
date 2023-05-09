@@ -50,7 +50,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
         title: 'Sua sessão expirou.',
         description: 'Por favor, faça login novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
       router.push('/login')
@@ -70,7 +70,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')
@@ -82,6 +82,13 @@ export function UsersList({ users, planTypes }: UsersListProps) {
         firstName: firstName !== '' ? firstName : undefined,
         lastName: lastName !== '' ? lastName : undefined,
         deletedAt: deletedAt !== '' ? deletedAt : undefined,
+      })
+
+      toast({
+        title: 'Usuário atualizado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       })
     } catch (error) {
       console.error(error)
@@ -99,7 +106,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')
@@ -108,6 +115,13 @@ export function UsersList({ users, planTypes }: UsersListProps) {
 
       await updateUser(token, userId, {
         hasAnamnesis: false,
+      })
+
+      toast({
+        title: 'Anamnese ativada com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       })
     } catch (error) {
       console.error(error)

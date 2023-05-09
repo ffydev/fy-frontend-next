@@ -88,7 +88,7 @@ export default function AnamnesisCreate() {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')
@@ -102,7 +102,7 @@ export default function AnamnesisCreate() {
         title: 'Erro ao buscar dados do usuário.',
         description: 'Por favor, tente novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     }
@@ -119,7 +119,7 @@ export default function AnamnesisCreate() {
           title: 'Sua sessão expirou.',
           description: 'Por favor, faça login novamente.',
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         })
         router.push('/login')
@@ -150,7 +150,7 @@ export default function AnamnesisCreate() {
         title: 'Anamnese criada com sucesso!',
         description: 'Agora você pode acessar seu Dashboard.',
         status: 'success',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     } catch (error) {
@@ -159,7 +159,7 @@ export default function AnamnesisCreate() {
         title: 'Erro ao criar anamnese.',
         description: 'Por favor, tente novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     } finally {
