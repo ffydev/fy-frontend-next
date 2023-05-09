@@ -22,6 +22,7 @@ import {
   SimpleGrid,
   Spacer,
   Stack,
+  useToast,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
@@ -42,6 +43,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
   const [exerciseTypeId, setExerciseTypeId] = useState<string>('')
   const { selectedUserId, setIsFetchingWorkoutsNames, selectedWorkoutId } =
     useOwnerIsFetchingStore()
+  const toast = useToast()
 
   const handleCreateExercise = async (
     workoutId: string,
@@ -51,7 +53,13 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
@@ -78,7 +86,13 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         const token = getUserToken()
 
         if (!token) {
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           router.push('/login')
           return
         }
@@ -88,13 +102,24 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         setExerciseTypes(response)
       } catch (error) {
         console.error(error)
-        // Implementar mensagem personalizadaexerciseNames
-        router.push('/login')
+        toast({
+          title: 'Erro ao buscar tipos de exercícios.',
+          description: 'Por favor, tente novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
       }
     }
 
     fetchExercisesTypesData()
-  }, [router, setExerciseTypes])
+  }, [
+    router,
+    setExerciseTypes,
+    selectedUserId,
+    setIsFetchingWorkoutsNames,
+    toast,
+  ])
 
   useEffect(() => {
     const fetchExercisesNamesData = async () => {
@@ -102,7 +127,13 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         const token = getUserToken()
 
         if (!token) {
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           router.push('/login')
           return
         }
@@ -112,19 +143,37 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         setExerciseNames(response)
       } catch (error) {
         console.error(error)
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Erro ao buscar nome dos exercícios.',
+          description: 'Por favor, tente novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
       }
     }
 
     fetchExercisesNamesData()
-  }, [router, setExerciseNames, exerciseTypeId])
+  }, [
+    router,
+    setExerciseNames,
+    exerciseTypeId,
+    setIsFetchingWorkoutsNames,
+    toast,
+  ])
 
   const handleWithDeleteWorkout = async (id: string) => {
     const token = getUserToken()
 
     if (!token) {
-      // Implementar mensagem personalizada
+      toast({
+        title: 'Sua sessão expirou.',
+        description: 'Por favor, faça login novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
       router.push('/login')
       return
     }
@@ -133,6 +182,13 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
       await deleteWorkout(token, id)
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao deletar treino.',
+        description: 'Por favor, tente novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
     } finally {
       setIsFetchingWorkoutsNames()
     }

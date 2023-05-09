@@ -4,7 +4,7 @@ import {
   IUserFeedback,
   findUserFeedbacks,
 } from '@/pages/api/providers/user-feedbacks.provider'
-import { Box, chakra } from '@chakra-ui/react'
+import { Box, chakra, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -12,6 +12,7 @@ export default function ListFeedbacks() {
   const { user } = useAuthStore()
   const router = useRouter()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchFeedbacksData = async () => {
@@ -19,7 +20,13 @@ export default function ListFeedbacks() {
         const token = getUserToken()
 
         if (!token) {
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           router.push('/login')
           return
         }
@@ -32,7 +39,7 @@ export default function ListFeedbacks() {
       }
     }
     fetchFeedbacksData()
-  }, [router, user?.id])
+  }, [router, user?.id, toast])
 
   return (
     <>

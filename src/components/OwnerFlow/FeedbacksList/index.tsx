@@ -6,10 +6,17 @@ import {
   findUserFeedbacks,
   IUserFeedback,
 } from '@/pages/api/providers/user-feedbacks.provider'
-import { Box, chakra, Flex, FormControl, Textarea } from '@chakra-ui/react'
+import {
+  Box,
+  chakra,
+  Flex,
+  FormControl,
+  Textarea,
+  useToast,
+} from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 
@@ -20,35 +27,48 @@ export default function Feedbacks() {
   const { selectedUserId } = useOwnerIsFetchingStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
   const [answer, setAnswer] = useState<string>('')
-
-  const fetchFeedbacksData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findUserFeedbacks(token, selectedUserId)
-
-      setFeedbacks(response)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [router, selectedUserId])
+  const toast = useToast()
 
   useEffect(() => {
+    const fetchFeedbacksData = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
+          router.push('/login')
+          return
+        }
+
+        const response = await findUserFeedbacks(token, selectedUserId)
+
+        setFeedbacks(response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
     fetchFeedbacksData()
-  }, [fetchFeedbacksData])
+  }, [router, selectedUserId, toast])
 
   const handleWithAswerFeedback = async (id: string) => {
     try {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }

@@ -13,6 +13,7 @@ import {
   Textarea,
   Input,
   Container,
+  useToast,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -65,6 +66,7 @@ export default function CreatingFeedback() {
   } = useForm<createFeedbackFormSchemaType>({
     resolver: zodResolver(createFeedbackFormSchema),
   })
+  const toast = useToast()
 
   const onSubmit: SubmitHandler<createFeedbackFormSchemaType> = async (
     data,
@@ -85,8 +87,20 @@ export default function CreatingFeedback() {
         others: data.others,
         userId: user?.id,
       })
+      toast({
+        title: 'Feedback criado com sucesso',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao criar feedback',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     } finally {
       setIsShowingCreateFeedbacks()
       setIsShowingDashboard()

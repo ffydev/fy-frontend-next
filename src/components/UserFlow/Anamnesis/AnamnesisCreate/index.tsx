@@ -17,6 +17,7 @@ import {
   Select,
   Stack,
   Text,
+  useToast,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -76,13 +77,20 @@ export default function AnamnesisCreate() {
   } = useForm<createAnamnesisFormSchemaType>({
     resolver: zodResolver(createAnamnesisFormSchema),
   })
+  const toast = useToast()
 
   const fetchCurrentUserData = async (token: string) => {
     try {
       const currentUserData = await findCurrentUser(token)
 
       if (!currentUserData) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
@@ -90,7 +98,13 @@ export default function AnamnesisCreate() {
       setUser(currentUserData)
     } catch (error) {
       console.error(error)
-      router.push('/login')
+      toast({
+        title: 'Erro ao buscar dados do usuário.',
+        description: 'Por favor, tente novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
     }
   }
 
@@ -101,7 +115,13 @@ export default function AnamnesisCreate() {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
@@ -126,8 +146,22 @@ export default function AnamnesisCreate() {
 
       await updateUserByUser(token, user!.id, { hasAnamnesis: true })
       await fetchCurrentUserData(token)
+      toast({
+        title: 'Anamnese criada com sucesso!',
+        description: 'Agora você pode acessar seu Dashboard.',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao criar anamnese.',
+        description: 'Por favor, tente novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
     } finally {
       setIsShowingDashboard()
       setIsShowingCreateAnamnesis()

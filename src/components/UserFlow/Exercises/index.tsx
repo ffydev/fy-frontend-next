@@ -4,7 +4,16 @@ import {
   IExercise,
   updateExerciseByUser,
 } from '@/pages/api/providers/exercises.provider'
-import { Box, Center, chakra, Flex, Input, Stack, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Center,
+  chakra,
+  Flex,
+  Input,
+  Stack,
+  Text,
+  useToast,
+} from '@chakra-ui/react'
 import { Eye, Pen } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -29,12 +38,19 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
       .min(0)
       .max(800, { message: 'Valor Inválido' }),
   })
+  const toast = useToast()
 
   const handleUpdateExercise = async (weight: string, id: string) => {
     const token = getUserToken()
 
     if (!token) {
-      // Implementar mensagem personalizada
+      toast({
+        title: 'Sua sessão expirou.',
+        description: 'Por favor, faça login novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
       router.push('/login')
       return
     }
@@ -56,6 +72,12 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
       })
 
       setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
+      toast({
+        title: 'Peso atualizado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       if (error instanceof z.ZodError) {
         setErrors((prevErrors) => ({
@@ -64,6 +86,13 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
         }))
       } else {
         console.error(error)
+        toast({
+          title: 'Erro ao atualizar peso.',
+          description: 'Por favor, tente novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
       }
     }
   }

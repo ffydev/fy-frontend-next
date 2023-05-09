@@ -17,6 +17,7 @@ import {
   SimpleGrid,
   Spacer,
   Stack,
+  useToast,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -39,12 +40,19 @@ export function UsersList({ users, planTypes }: UsersListProps) {
     setIsShowingFeedbacks,
   } = useAdminNavigationStore()
   const { setIsFetchingUsers, setSelectedUserId } = useOwnerIsFetchingStore()
+  const toast = useToast()
 
   const handleWithDeleteUser = (id: string) => {
     const token = getUserToken()
 
     if (!token) {
-      // Implementar mensagem personalizada
+      toast({
+        title: 'Sua sessão expirou.',
+        description: 'Por favor, faça login novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
       router.push('/login')
       return
     }
@@ -58,7 +66,13 @@ export function UsersList({ users, planTypes }: UsersListProps) {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
@@ -81,7 +95,13 @@ export function UsersList({ users, planTypes }: UsersListProps) {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }

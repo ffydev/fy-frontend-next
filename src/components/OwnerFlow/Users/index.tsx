@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { UsersList } from './UsersList'
 import Pagination from '@/components/Pagination'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import { useToast } from '@chakra-ui/react'
 
 export default function Users() {
   const router = useRouter()
@@ -25,6 +26,7 @@ export default function Users() {
   const [isDeleted, setIsDeleted] = useState<string>('')
   const [planTypes, setPlanTypes] = useState<IPlanType[]>([])
   const { isFetchingUsers } = useOwnerIsFetchingStore()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchUsersData = async () => {
@@ -32,7 +34,13 @@ export default function Users() {
         const token = getUserToken()
 
         if (!token) {
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           return router.push('/login')
         }
 
@@ -57,7 +65,16 @@ export default function Users() {
     }
 
     fetchUsersData()
-  }, [router, userTypeId, search, isDeleted, skip, take, isFetchingUsers])
+  }, [
+    router,
+    userTypeId,
+    search,
+    isDeleted,
+    skip,
+    take,
+    isFetchingUsers,
+    toast,
+  ])
 
   useEffect(() => {
     const fetchPlanTypeData = async () => {
@@ -65,7 +82,13 @@ export default function Users() {
         const token = getUserToken()
 
         if (!token) {
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           router.push('/login')
           return
         }
@@ -79,7 +102,7 @@ export default function Users() {
       }
     }
     fetchPlanTypeData()
-  }, [router])
+  }, [router, toast])
 
   const handleWithPreviousPage = () => {
     if (!isButtonDisabled) {

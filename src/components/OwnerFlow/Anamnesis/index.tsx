@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Box, chakra } from '@chakra-ui/react'
+import { Box, chakra, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import {
   IAnamnesis,
@@ -12,6 +12,7 @@ export default function ListAnamnesis() {
   const router = useRouter()
   const [anamnesis, setAnamnesis] = useState<IAnamnesis[]>()
   const { selectedUserId } = useOwnerIsFetchingStore()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchAnamnesisData = async () => {
@@ -19,7 +20,14 @@ export default function ListAnamnesis() {
         const token = getUserToken()
 
         if (!token) {
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+
           router.push('/login')
           return
         }
@@ -32,7 +40,7 @@ export default function ListAnamnesis() {
       }
     }
     fetchAnamnesisData()
-  }, [selectedUserId, router])
+  }, [selectedUserId, router, toast])
 
   return (
     <>

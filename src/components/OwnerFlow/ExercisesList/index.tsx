@@ -15,6 +15,7 @@ import {
   Input,
   Spacer,
   Stack,
+  useToast,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -32,12 +33,19 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
   const [rir, setRir] = useState<string | undefined>('')
   const [describe, setDescribe] = useState<string | undefined>('')
   const { setIsFetchingWorkoutsNames } = useOwnerIsFetchingStore()
+  const toast = useToast()
 
   const handleUpdateExercise = async (id: string) => {
     const token = getUserToken()
 
     if (!token) {
-      // Implementar mensagem personalizada
+      toast({
+        title: 'Sua sessão expirou.',
+        description: 'Por favor, faça login novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
       router.push('/login')
       return
     }

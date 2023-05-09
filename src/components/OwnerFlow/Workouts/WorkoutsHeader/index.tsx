@@ -1,4 +1,4 @@
-import { FormControl, Select, Stack, Text } from '@chakra-ui/react'
+import { FormControl, Select, Stack, Text, useToast } from '@chakra-ui/react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createWorkout } from '@/pages/api/providers/workouts.provider'
 import { useRouter } from 'next/router'
@@ -55,13 +55,20 @@ export default function WorkoutsHeader() {
   } = useForm<createWorkoutFormSchemaType>({
     resolver: zodResolver(createWorkoutFormSchema),
   })
+  const toast = useToast()
 
   const onSubmit: SubmitHandler<createWorkoutFormSchemaType> = async (data) => {
     try {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }

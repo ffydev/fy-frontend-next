@@ -6,7 +6,7 @@ import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
 import DashboardMenuOwner from '@/components/Dashboards/DashboardMenuOwner'
 import IsLoading from '@/components/IsLoading'
 import CompleteUserRegistration from '@/components/CompleteUserRegistration'
-import { Box, Center } from '@chakra-ui/react'
+import { Box, Center, useToast } from '@chakra-ui/react'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -18,11 +18,19 @@ export default function Dashboard() {
     setIsLoadingLogin,
     isLoadingLogin,
   } = useAuthStore()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchUserData = async () => {
       const token = getUserToken()
       if (!token) {
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
@@ -31,7 +39,13 @@ export default function Dashboard() {
       const currentUserData = await findCurrentUser(token)
 
       if (!currentUserData) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
@@ -43,7 +57,14 @@ export default function Dashboard() {
     }
 
     fetchUserData()
-  }, [router, signOut, setUser, isFetchingCurrentUser, setIsLoadingLogin])
+  }, [
+    router,
+    signOut,
+    setUser,
+    isFetchingCurrentUser,
+    setIsLoadingLogin,
+    toast,
+  ])
 
   return (
     <>

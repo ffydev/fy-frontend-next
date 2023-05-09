@@ -4,7 +4,7 @@ import {
   findWorkoutsNamesByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
-import { Tab, TabList, Tabs } from '@chakra-ui/react'
+import { Tab, TabList, Tabs, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/stores/AuthStore'
@@ -16,6 +16,7 @@ export function Workouts() {
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workouts, setWorkouts] = useState<IWorkout[]>([])
+  const toast = useToast()
 
   useEffect(() => {
     const fetchWorkoutsNames = async () => {
@@ -23,7 +24,13 @@ export function Workouts() {
         const token = getUserToken()
 
         if (!token) {
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           router.push('/login')
           return
         }
@@ -36,12 +43,18 @@ export function Workouts() {
         setWorkoutsNames(response)
       } catch (error) {
         console.error(error)
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
       }
     }
     fetchWorkoutsNames()
-  }, [router, user?.id])
+  }, [router, user?.id, toast])
 
   useEffect(() => {
     if (workoutsNames.length > 0) {
@@ -53,7 +66,13 @@ export function Workouts() {
           const token = getUserToken()
 
           if (!token) {
-            // Implementar mensagem personalizada
+            toast({
+              title: 'Sua sessão expirou.',
+              description: 'Por favor, faça login novamente.',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+            })
             router.push('/login')
             return
           }
@@ -71,13 +90,19 @@ export function Workouts() {
           setWorkouts(response)
         } catch (error) {
           console.error(error)
-          // Implementar mensagem personalizada
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           router.push('/login')
         }
       }
       fetchUserWorkouts()
     }
-  }, [selectedWorkoutId, workoutsNames, router, user?.id])
+  }, [selectedWorkoutId, workoutsNames, router, user?.id, toast])
 
   return (
     <>

@@ -12,9 +12,10 @@ import {
   Input,
   Select,
   Stack,
+  useToast,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import UserCreate from '../UserCreate'
 
 interface UsersHeaderProps {
@@ -36,30 +37,42 @@ export default function UsersHeader({
 }: UsersHeaderProps) {
   const router = useRouter()
   const [usersTypes, setUsersTypes] = useState<IUserType[]>([])
-
-  const fetchUserTypeData = useCallback(async () => {
-    try {
-      const token = getUserToken()
-
-      if (!token) {
-        // Implementar mensagem personalizada
-        router.push('/login')
-        return
-      }
-
-      const response = await findUsersTypes(token)
-
-      setUsersTypes(response)
-    } catch (error) {
-      console.error(error)
-      // Implementar mensagem personalizada
-      router.push('/login')
-    }
-  }, [router, setUsersTypes])
+  const toast = useToast()
 
   useEffect(() => {
+    const fetchUserTypeData = async () => {
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+          router.push('/login')
+          return
+        }
+
+        const response = await findUsersTypes(token)
+
+        setUsersTypes(response)
+      } catch (error) {
+        console.error(error)
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+        router.push('/login')
+      }
+    }
     fetchUserTypeData()
-  }, [fetchUserTypeData])
+  }, [router, toast])
 
   return (
     <>

@@ -13,6 +13,7 @@ import {
   SimpleGrid,
   Tag,
   Text,
+  useToast,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -27,13 +28,20 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
   const [initDate, setInitDate] = useState<string>()
   const [endDate, setEndDate] = useState<string>()
   const [planTypeId, setPlanTypeId] = useState<string | undefined>()
+  const toast = useToast()
 
   const handleUpdatePlan = async (planId: string) => {
     try {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }

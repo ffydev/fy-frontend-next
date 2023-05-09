@@ -12,6 +12,7 @@ import {
   Input,
   Text,
   Grid,
+  useToast,
 } from '@chakra-ui/react'
 import { useAuthStore } from '@/stores/AuthStore'
 import HandleButton from '../Buttons/HandleButton'
@@ -77,13 +78,20 @@ export default function Profile() {
   } = useForm<updateUserFormSchemaType>({
     resolver: zodResolver(updateUserFormSchema),
   })
+  const toast = useToast()
 
   const onSubmit: SubmitHandler<updateUserFormSchemaType> = async (data) => {
     try {
       const token = getUserToken()
 
       if (!token) {
-        // Implementar mensagem personalizada
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
@@ -94,8 +102,21 @@ export default function Profile() {
         password: data.password,
       })
       onClose()
+      toast({
+        title: 'Perfil atualizado com sucesso!',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao atualizar perfil.',
+        description: 'Por favor, tente novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
     } finally {
       reset()
       setIsFetchingCurrentUser()
