@@ -140,7 +140,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
       onClose()
 
       toast({
-        title: 'Usuário Criado',
+        title: 'Usuário Criado.',
         description: 'Usuário criado com sucesso.',
         status: 'success',
         duration: 3000,
@@ -150,7 +150,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
       console.error(error)
 
       toast({
-        title: 'Erro',
+        title: 'Email já cadastrado.',
         description: 'Erro ao criar usuário.',
         status: 'error',
         duration: 3000,

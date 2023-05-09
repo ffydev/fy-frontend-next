@@ -157,7 +157,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
               <Input
                 key={exercise.id}
                 defaultValue={exercise.weight}
-                onChange={(event) =>
+                onBlur={(event) =>
                   handleUpdateExercise(event.target.value, exercise.id!)
                 }
               />
