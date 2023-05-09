@@ -96,7 +96,7 @@ export default function CreatingFeedback() {
     } catch (error) {
       console.error(error)
       toast({
-        title: 'Erro ao criar feedback',
+        title: 'Limite mensal de feedbacks atingido',
         status: 'error',
         duration: 3000,
         isClosable: true,
