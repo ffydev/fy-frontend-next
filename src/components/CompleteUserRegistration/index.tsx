@@ -12,6 +12,7 @@ import {
   Stack,
   HStack,
   Button,
+  useToast,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -59,7 +60,7 @@ type createOwnerFormSchemaType = z.infer<typeof createOwnerFormSchema>
 export default function CompleteUserRegistration() {
   const router = useRouter()
   const { user, setIsFetchingCurrentUser } = useAuthStore()
-
+  const toast = useToast()
   const {
     register,
     handleSubmit,
@@ -85,8 +86,22 @@ export default function CompleteUserRegistration() {
 
       await updateUserByUser(token, user!.id, userData)
       setIsFetchingCurrentUser()
+      toast({
+        title: 'Cadastro completo',
+        description: 'Seu cadastro foi completado com sucesso',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao completar cadastro',
+        description: 'Ocorreu um erro ao completar seu cadastro',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     }
   }
 
