@@ -74,7 +74,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
       setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
 
       toast({
-        title: 'Peso atualizado com sucesso.',
+        title: 'Carga atualizada com sucesso.',
         status: 'success',
         duration: 3000,
         isClosable: true,
@@ -88,7 +88,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
       } else {
         console.error(error)
         toast({
-          title: 'Erro ao atualizar peso.',
+          title: 'Erro ao atualizar carga.',
           description: 'Por favor, tente novamente.',
           status: 'error',
           duration: 3000,
