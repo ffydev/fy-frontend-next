@@ -3,7 +3,6 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   deleteWorkout,
   findWorkoutsByUserId,
-  IWorkout,
 } from '@/pages/api/providers/workouts.provider'
 import {
   Box,
