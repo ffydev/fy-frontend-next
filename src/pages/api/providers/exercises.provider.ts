@@ -1,16 +1,9 @@
-import { IExerciseName } from '@/pages/api/providers/exercises-names.provider'
 import { api } from '../apis/api'
 
 export interface IExercise {
   id?: string
-  sets?: number
-  reps?: number
-  describe?: string
-  weight?: number
-  rir?: string
-  workoutId?: string
-  exerciseNameId?: string
-  exerciseNames?: IExerciseName
+  name?: string
+  muscleGroup?: string
 }
 
 export async function deleteExercise(token: string, id: string): Promise<void> {

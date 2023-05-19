@@ -1,6 +1,5 @@
 import HandleButton from '@/components/Buttons/HandleButton'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { createExercise } from '@/pages/api/providers/exercises.provider'
 import {
   deleteWorkout,
   findWorkoutsByUserId,
@@ -19,6 +18,7 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import ExercisesList from '../../ExercisesList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import { createWorkoutsExercise } from '@/pages/api/providers/workoutsExercises.provider'
 
 interface WorkoutsProps {
   setWorkouts: (workouts: IWorkout[]) => void
@@ -33,7 +33,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
 
   const handleCreateExercise = async (
     workoutId: string,
-    exerciseNameId: string,
+    exerciseId: string,
   ) => {
     try {
       const token = getUserToken()
@@ -50,9 +50,9 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         return
       }
 
-      await createExercise(token, {
+      await createWorkoutsExercise(token, {
         workoutId,
-        exerciseNameId,
+        exerciseId,
       })
 
       const workoutUpdated = await findWorkoutsByUserId(
@@ -123,9 +123,9 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
                 }
               />
 
-              {workout.exercises && workout.exercises.length > 0 && (
+              {/* {workout.exercises && workout.exercises.length > 0 && (
                 <ExercisesList exercises={workout.exercises} />
-              )}
+              )} */}
             </SimpleGrid>
           </Stack>
         </Box>
