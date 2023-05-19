@@ -174,6 +174,73 @@ export function WorkoutsLists({ workoutsExercises, setWorkoutsExercises }: Worko
 
   return (
     <>
+      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+        <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          spacing={5}
+          mb={4}
+          w={'full'}
+        >
+
+          <FormControl>
+            <Select
+              bgGradient={'transparent'}
+              onChange={(e) => setSelectedMuscleGroup(e.target.value)}
+            >
+              <option
+                style={{ backgroundColor: '#322659' }}
+                disabled
+                value=""
+              >
+                Grupo Mucular
+              </option>
+              {muscleGroups.map((muscleGroup: IExercise) => (
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  key={muscleGroup.id}
+                  value={muscleGroup.muscleGroup}
+                >
+                  {muscleGroup.muscleGroup}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl>
+            <Select
+              bgGradient={'transparent'}
+              onChange={(e) => setSelectedExerciseId(e.target.value)}
+            >
+              <option
+                style={{ backgroundColor: '#322659' }}
+                disabled
+                value=""
+              >
+                Exercícios
+              </option>
+              {exercises.map((exercise: IExercise) => (
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  key={exercise.id}
+                  value={exercise.id}
+                >
+                  {exercise.name}
+                </option>
+              ))}
+            </Select>
+
+          </FormControl>
+
+          <HandleButton
+            text="Adicionar Exercício"
+            leftIcon={<Plus weight="bold" />}
+            onClick={() =>
+              handleCreateExercise(selectedWorkoutId, selectedExerciseId)
+            }
+          />
+        </SimpleGrid>
+      </Stack>
+
       {workoutsExercises?.map((workout: IWorkoutsExercises) => (
         <Box key={workout.id} p={4} width="100%">
           <Flex minW="auto">
@@ -191,63 +258,6 @@ export function WorkoutsLists({ workoutsExercises, setWorkoutsExercises }: Worko
               mb={4}
               w={'full'}
             >
-
-              <FormControl>
-                <Select
-                  bgGradient={'transparent'}
-                  onChange={(e) => setSelectedMuscleGroup(e.target.value)}
-                >
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    disabled
-                    value=""
-                  >
-                    Grupo Mucular
-                  </option>
-                  {muscleGroups.map((muscleGroup: IExercise) => (
-                    <option
-                      style={{ backgroundColor: '#322659' }}
-                      key={muscleGroup.id}
-                      value={muscleGroup.muscleGroup}
-                    >
-                      {muscleGroup.muscleGroup}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <FormControl>
-                <Select
-                  bgGradient={'transparent'}
-                  onChange={(e) => setSelectedExerciseId(e.target.value)}
-                >
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    disabled
-                    value=""
-                  >
-                    Exercícios
-                  </option>
-                  {exercises.map((exercise: IExercise) => (
-                    <option
-                      style={{ backgroundColor: '#322659' }}
-                      key={exercise.id}
-                      value={exercise.id}
-                    >
-                      {exercise.name}
-                    </option>
-                  ))}
-                </Select>
-
-              </FormControl>
-
-              <HandleButton
-                text="Adicionar Exercício"
-                leftIcon={<Plus weight="bold" />}
-                onClick={() =>
-                  handleCreateExercise(selectedWorkoutId, selectedExerciseId)
-                }
-              />
 
               {workoutsExercises && (
                 <ExercisesList workoutsExercises={workoutsExercises} />
