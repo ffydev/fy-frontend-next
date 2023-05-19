@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import WorkoutsHeader from './WorkoutsHeader'
+import { findWorkoutsExercisesByWorkout, IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
 
 export function Workouts() {
   const router = useRouter()
@@ -17,7 +18,7 @@ export function Workouts() {
     useOwnerIsFetchingStore()
   const { isFetchingWorkoutsNames } = useOwnerIsFetchingStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
-  const [workouts, setWorkouts] = useState<IWorkout[]>([])
+  const [workoutsExercises, setWorkoutsExercises] = useState<IWorkoutsExercises[]>([])
   const toast = useToast()
 
   useEffect(() => {
@@ -79,12 +80,12 @@ export function Workouts() {
               router.push('/login')
               return
             }
-            const response = await findWorkoutsByUserId(
+            const response = await findWorkoutsExercisesByWorkout(
               token,
               selectedWorkoutId as string,
             )
 
-            setWorkouts(response)
+            setWorkoutsExercises(response)
           } catch (error) {
             console.error(error)
             toast({
@@ -124,7 +125,7 @@ export function Workouts() {
             </Tab>
           ))}
         </TabList>
-        <WorkoutsLists setWorkouts={setWorkouts} workouts={workouts} />
+        <WorkoutsLists setWorkoutsExercises={setWorkoutsExercises} workoutsExercises={workoutsExercises} />
       </Tabs>
     </>
   )

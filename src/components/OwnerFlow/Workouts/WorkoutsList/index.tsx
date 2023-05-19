@@ -20,16 +20,16 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import ExercisesList from '../../ExercisesList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
-import { createWorkoutsExercise } from '@/pages/api/providers/workoutsExercises.provider'
+import { createWorkoutsExercise, IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
 import { findExerciseByMuscleGroup, findMuscleGroup, IExercise } from '@/pages/api/providers/exercises.provider'
 import { useEffect, useState } from 'react'
 
 interface WorkoutsProps {
-  setWorkouts: (workouts: IWorkout[]) => void
-  workouts: IWorkout[]
+  setWorkoutsExercises: (workoutsExercises: IWorkoutsExercises[]) => void
+  workoutsExercises: IWorkoutsExercises[]
 }
 
-export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
+export function WorkoutsLists({ workoutsExercises, setWorkoutsExercises }: WorkoutsProps) {
   const router = useRouter()
   const { setIsFetchingWorkoutsNames, selectedWorkoutId } =
     useOwnerIsFetchingStore()
@@ -67,7 +67,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         token,
         workoutId as string,
       )
-      setWorkouts(workoutUpdated)
+      setWorkoutsExercises(workoutUpdated)
     } catch (error) {
       console.error(error)
     }
@@ -128,8 +128,6 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
         const response = await findExerciseByMuscleGroup(token, selectedMuscleGroup)
         setExercises(response)
 
-        console.log(response, 'exercises by muscle group')
-
       } catch (error) {
         console.error(error)
         toast({
@@ -177,7 +175,7 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
 
   return (
     <>
-      {workouts?.map((workout: IWorkout) => (
+      {workoutsExercises?.map((workout: IWorkoutsExercises) => (
         <Box key={workout.id} p={4} width="100%">
           <Flex minW="auto">
             <Spacer />
@@ -241,23 +239,25 @@ export function WorkoutsLists({ workouts, setWorkouts }: WorkoutsProps) {
                     </option>
                   ))}
                 </Select>
+
               </FormControl>
 
               <HandleButton
                 text="Adicionar Exercício"
                 leftIcon={<Plus weight="bold" />}
                 onClick={() =>
-                  handleCreateExercise(workout.id!, selectedExerciseId)
+                  handleCreateExercise(selectedWorkoutId, selectedExerciseId)
                 }
               />
 
-              {/* {workout.exercises && workout.exercises.length > 0 && (
-                <ExercisesList exercises={workout.exercises} />
-              )} */}
+              {workoutsExercises && (
+                <ExercisesList workoutsExercises={workoutsExercises} />
+              )}
             </SimpleGrid>
           </Stack>
         </Box>
-      ))}
+      ))
+      }
     </>
   )
 }

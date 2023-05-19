@@ -5,6 +5,7 @@ import {
   IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
+import { IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
@@ -12,7 +13,6 @@ import {
   chakra,
   CloseButton,
   Flex,
-  Input,
   Spacer,
   Stack,
   useToast,
@@ -21,10 +21,10 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 interface WorkoutsProps {
-  exercises?: IExercise[]
+  workoutsExercises?: IWorkoutsExercises[]
 }
 
-export default function ExercisesList({ exercises }: WorkoutsProps) {
+export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
   const router = useRouter()
   const [exercisesState, setExercisesState] = useState<IExercise[]>([])
   const [sets, setSets] = useState<string | undefined>('')
@@ -35,48 +35,47 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
   const { setIsFetchingWorkoutsNames } = useOwnerIsFetchingStore()
   const toast = useToast()
 
-  const handleUpdateExercise = async (id: string) => {
-    const token = getUserToken()
+  // const handleUpdateExercise = async (id: string) => {
+  //   const token = getUserToken()
 
-    if (!token) {
-      toast({
-        title: 'Sua sessão expirou.',
-        description: 'Por favor, faça login novamente.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-      router.push('/login')
-      return
-    }
+  //   if (!token) {
+  //     toast({
+  //       title: 'Sua sessão expirou.',
+  //       description: 'Por favor, faça login novamente.',
+  //       status: 'error',
+  //       duration: 3000,
+  //       isClosable: true,
+  //     })
+  //     router.push('/login')
+  //     return
+  //   }
 
-    try {
-      await updateExercise(token, id, {
-        sets: sets ? +sets : undefined,
-        reps: reps ? +reps : undefined,
-        weight: weight ? +weight : undefined,
-        rir: rir !== '' ? rir : undefined,
-        describe: describe !== '' ? describe : undefined,
-      })
+  //   try {
+  //     await updateExercise(token, id, {
+  //       reps: reps ? +reps : undefined,
+  //       weight: weight ? +weight : undefined,
+  //       rir: rir !== '' ? rir : undefined,
+  //       describe: describe !== '' ? describe : undefined,
+  //     })
 
-      const exerciseUpdated = await findExerciseById(token, id)
+  //     const exerciseUpdated = await findExerciseById(token, id)
 
-      setSets(undefined)
-      setReps(undefined)
-      setWeight(undefined)
-      setRir(undefined)
+  //     setSets(undefined)
+  //     setReps(undefined)
+  //     setWeight(undefined)
+  //     setRir(undefined)
 
-      setExercisesState((prevExercisesState) => {
-        const updatedExercisesState = prevExercisesState.map((exercise) =>
-          exercise.id === id ? exerciseUpdated : exercise,
-        )
+  //     setExercisesState((prevExercisesState) => {
+  //       const updatedExercisesState = prevExercisesState.map((exercise) =>
+  //         exercise.id === id ? exerciseUpdated : exercise,
+  //       )
 
-        return updatedExercisesState
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  //       return updatedExercisesState
+  //     })
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   const handleWithDeleteExercise = (id: string) => {
     try {
@@ -87,32 +86,16 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
         return
       }
 
-      deleteExercise(token, id).then(() => {
-        const updatedExercises = updatingExercisesState(exercisesState, id)
-        setExercisesState(updatedExercises)
-      })
     } catch (error) {
       console.error(error)
     }
   }
 
-  const updatingExercisesState = (exercises: IExercise[], id: string) => {
-    if (exercises && exercises.length === 1) {
-      console.log('aqui')
-      setIsFetchingWorkoutsNames()
-    }
-    return exercises.filter((exercise: IExercise) => exercise.id !== id)
-  }
-
-  useEffect(() => {
-    setExercisesState(exercises!)
-  }, [exercises])
-
   return (
     <>
-      {exercisesState?.map((exercise) => (
+      {workoutsExercises?.map((workoutExercise: IWorkoutsExercises) => (
         <Box
-          key={exercise.id}
+          key={workoutExercise.id}
           p={4}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
@@ -125,7 +108,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
           <Flex minW="auto">
             <Spacer />
             <CloseButton
-              onClick={() => handleWithDeleteExercise(exercise.id!)}
+              onClick={() => handleWithDeleteExercise(workoutExercise?.exercise?.id!)}
               size="sm"
             />
           </Flex>
@@ -146,15 +129,15 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 fontSize="sm"
                 lineHeight={6}
               >
-                {exercise.exerciseNames?.exerciseType?.name}
+                {workoutExercise?.exercise?.muscleGroup}
               </chakra.h1>
             </Center>
 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              {exercise.exerciseNames?.name}
+              {workoutExercise?.exercise?.name}
             </chakra.h1>
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
+            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Séries
               <Input
                 placeholder="Séries"
@@ -162,8 +145,8 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 onChange={(event) => setSets(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </chakra.h1>
-
+            </chakra.h1> */}
+            {/* 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Repetições
               <Input
@@ -172,9 +155,9 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 onChange={(event) => setReps(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </chakra.h1>
+            </chakra.h1> */}
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
+            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Carga
               <Input
                 placeholder="Carga"
@@ -182,9 +165,9 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 onChange={(event) => setWeight(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </chakra.h1>
+            </chakra.h1> */}
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
+            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Repetições em reserva
               <Input
                 placeholder="Repetições em reserva"
@@ -192,9 +175,9 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 onChange={(event) => setRir(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </chakra.h1>
+            </chakra.h1> */}
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
+            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               Descrição
               <Input
                 placeholder="Descrição"
@@ -202,7 +185,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 onChange={(event) => setDescribe(event.target.value)}
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               />
-            </chakra.h1>
+            </chakra.h1> */}
           </Stack>
         </Box>
       ))}
