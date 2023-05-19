@@ -42,18 +42,17 @@ export async function findWorkoutsNamesByUserId(
 export async function findWorkoutsByUserId(
   token: string,
   workoutId: string,
-  userId: string,
 ): Promise<IWorkout[]> {
   try {
     const response = await api.get<IWorkout[]>(
-      `/workouts/by-user?workoutId=${workoutId}&userId=${userId}`,
+      `/workouts/by-user/${workoutId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
     )
     return response.data
   } catch (error) {
-    console.error(`Failed to find workouts for user with id ${userId}`, error)
+    console.error(`Failed to find workouts for user with id ${workoutId}`, error)
     throw error
   }
 }

@@ -80,7 +80,6 @@ export function Workouts() {
           const response = await findWorkoutsByUserId(
             token,
             selectedWorkoutId as string,
-            selectedUserId as string,
           )
 
           setWorkouts(response)

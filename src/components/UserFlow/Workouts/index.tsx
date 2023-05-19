@@ -84,7 +84,6 @@ export function Workouts() {
           const response = await findWorkoutsByUserId(
             token,
             selectedWorkoutId as string,
-            user?.id as string,
           )
 
           setWorkouts(response)
