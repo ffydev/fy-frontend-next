@@ -241,32 +241,27 @@ export function WorkoutsLists({ workoutsExercises, setWorkoutsExercises }: Worko
         </SimpleGrid>
       </Stack>
 
-      {workoutsExercises?.map((workout: IWorkoutsExercises) => (
-        <Box key={workout.id} p={4} width="100%">
-          <Flex minW="auto">
-            <Spacer />
-            <CloseButton
-              onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
-              size="sm"
-            />
-          </Flex>
 
-          <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
-            <SimpleGrid
-              columns={{ base: 1, md: 3 }}
-              spacing={5}
-              mb={4}
-              w={'full'}
-            >
+      <Flex minW="auto">
+        <Spacer />
+        <CloseButton
+          onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
+          size="sm"
+        />
+      </Flex>
 
-              {workoutsExercises && (
-                <ExercisesList workoutsExercises={workoutsExercises} />
-              )}
-            </SimpleGrid>
-          </Stack>
-        </Box>
-      ))
-      }
+      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+        <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          spacing={5}
+          mb={4}
+          w={'full'}
+        >
+          {workoutsExercises && (
+            <ExercisesList workoutsExercises={workoutsExercises} />
+          )}
+        </SimpleGrid>
+      </Stack>
     </>
   )
 }
