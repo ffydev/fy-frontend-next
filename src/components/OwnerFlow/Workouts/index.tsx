@@ -62,39 +62,42 @@ export function Workouts() {
       if (!selectedWorkoutId) {
         setSelectedWorkoutId(workoutsNames[0]?.id as string)
       }
-      const fetchUserWorkouts = async () => {
-        try {
-          const token = getUserToken()
 
-          if (!token) {
+      if (selectedWorkoutId) {
+        const fetchUserWorkouts = async () => {
+          try {
+            const token = getUserToken()
+
+            if (!token) {
+              toast({
+                title: 'Sua sessão expirou.',
+                description: 'Por favor, faça login novamente.',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+              })
+              router.push('/login')
+              return
+            }
+            const response = await findWorkoutsByUserId(
+              token,
+              selectedWorkoutId as string,
+            )
+
+            setWorkouts(response)
+          } catch (error) {
+            console.error(error)
             toast({
-              title: 'Sua sessão expirou.',
-              description: 'Por favor, faça login novamente.',
+              title: 'Erro ao buscar workouts.',
+              description: 'Por favor, tente novamente.',
               status: 'error',
               duration: 3000,
               isClosable: true,
             })
-            router.push('/login')
-            return
           }
-          const response = await findWorkoutsByUserId(
-            token,
-            selectedWorkoutId as string,
-          )
-
-          setWorkouts(response)
-        } catch (error) {
-          console.error(error)
-          toast({
-            title: 'Erro ao buscar workouts.',
-            description: 'Por favor, tente novamente.',
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
-          })
         }
+        fetchUserWorkouts()
       }
-      fetchUserWorkouts()
     }
   }, [
     selectedWorkoutId,
