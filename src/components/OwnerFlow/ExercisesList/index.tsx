@@ -1,3 +1,4 @@
+import SetsList from '@/components/SetsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   deleteExercise,
@@ -5,10 +6,12 @@ import {
   IExercise,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
+import { createSet } from '@/pages/api/providers/sets.provider'
 import { IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
+  Button,
   Center,
   chakra,
   CloseButton,
@@ -33,7 +36,40 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
   const [rir, setRir] = useState<string | undefined>('')
   const [describe, setDescribe] = useState<string | undefined>('')
   const { setIsFetchingWorkoutsNames } = useOwnerIsFetchingStore()
+  const [workoutExerciseId, setWorkoutExerciseId] = useState<string | undefined>('')
   const toast = useToast()
+
+  const handleWithCreatingSet = async (workoutExerciseId: string) => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+
+        router.push('/login')
+        return
+      }
+
+      await createSet(token, workoutExerciseId)
+
+    } catch (error) {
+      console.error(error)
+
+      toast({
+        title: 'Não foi possível adicionar série.',
+        description: 'Erro ao adicionar série.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }
 
   // const handleUpdateExercise = async (id: string) => {
   //   const token = getUserToken()
@@ -186,6 +222,26 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
                 onBlur={() => handleUpdateExercise(exercise.id!)}
               />
             </chakra.h1> */}
+
+            <Flex>
+              <Button
+                onClick={() => handleWithCreatingSet(workoutExercise.id!)}
+                background={'purple.700'}
+                size={'xs'}>
+                Adicionar série
+              </Button>
+            </Flex>
+
+            <Flex justifyContent={'space-between'}>
+              <chakra.h1 fontWeight={'thin'}>Repetições</chakra.h1>
+              <chakra.h1 fontWeight={'thin'}>Carga</chakra.h1>
+              <chakra.h1 fontWeight={'thin'}>Tipo</chakra.h1>
+              <chakra.h1 fontWeight={'thin'}>Reserva</chakra.h1>
+            </Flex>
+
+            {workoutsExercises?.length > 0 && (
+              <SetsList sets={workoutExercise.sets} />
+            )}
           </Stack>
         </Box>
       ))}

@@ -1,5 +1,6 @@
 import { api } from '../apis/api'
 import { IExercise } from './exercises.provider'
+import { ISet } from './sets.provider'
 import { IWorkout } from './workouts.provider'
 
 export interface IWorkoutsExercises {
@@ -8,6 +9,7 @@ export interface IWorkoutsExercises {
   exerciseId?: string
   workout?: IWorkout
   exercise?: IExercise
+  sets?: ISet[]
 }
 
 export async function createWorkoutsExercise(
