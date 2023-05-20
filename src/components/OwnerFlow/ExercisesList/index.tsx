@@ -18,7 +18,6 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 
 interface WorkoutsProps {
   workoutsExercises?: IWorkoutsExercises[]
@@ -48,6 +47,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
       }
 
       await createSet(token, workoutExerciseId)
+      setIsFetchingWorkouts()
 
     } catch (error) {
       console.error(error)
