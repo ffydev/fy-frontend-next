@@ -14,9 +14,8 @@ import { findWorkoutsExercisesByWorkout, IWorkoutsExercises } from '@/pages/api/
 
 export function Workouts() {
   const router = useRouter()
-  const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId, isFetchingWorkouts } =
+  const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId, isFetchingWorkouts, isFetchingWorkoutsNames } =
     useOwnerIsFetchingStore()
-  const { isFetchingWorkoutsNames } = useOwnerIsFetchingStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [workoutsExercises, setWorkoutsExercises] = useState<IWorkoutsExercises[]>([])
   const toast = useToast()
@@ -97,6 +96,7 @@ export function Workouts() {
             })
           }
         }
+
         fetchUserWorkouts()
       }
     }

@@ -42,7 +42,6 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
     exerciseId: string,
   ) => {
     try {
-      console.log('teste')
       const token = getUserToken()
 
       if (!token) {

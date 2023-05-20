@@ -82,12 +82,13 @@ export default function SetsList({ sets }: SetsListProps) {
     }
   }
 
+
   return (
     <>
       {sets?.map((set: ISet) => (
         [
           <Box key={set.id}>
-            <Flex justifyContent={''}>
+            <Flex justifyContent={'space-evenly'}>
               <Input
                 defaultValue={set.reps}
                 textColor={'whiteAlpha.800'}
