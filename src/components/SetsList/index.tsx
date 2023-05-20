@@ -1,9 +1,17 @@
-import { getUserToken } from "@/pages/api/providers/auth.provider"
-import { ISet, deleteSet, updateSet } from "@/pages/api/providers/sets.provider"
-import { useOwnerIsFetchingStore } from "@/stores/OwnerStore/IsFetching"
-import { Box, Input, Flex, Spacer, CloseButton, useToast, Select } from "@chakra-ui/react"
-import { useRouter } from "next/router"
-import { useState } from "react"
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { ISet, deleteSet, updateSet } from '@/pages/api/providers/sets.provider'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import {
+  Box,
+  Input,
+  Flex,
+  Spacer,
+  CloseButton,
+  useToast,
+  Select,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 interface SetsListProps {
   sets?: ISet[]
@@ -12,8 +20,7 @@ interface SetsListProps {
 export default function SetsList({ sets }: SetsListProps) {
   const toast = useToast()
   const router = useRouter()
-  const { setIsFetchingWorkouts } =
-    useOwnerIsFetchingStore()
+  const { setIsFetchingWorkouts } = useOwnerIsFetchingStore()
   const [reps, setReps] = useState<string | undefined>('')
   const [weight, setWeight] = useState<string | undefined>('')
   const [rir, setRir] = useState<string | undefined>('')
@@ -69,14 +76,13 @@ export default function SetsList({ sets }: SetsListProps) {
       }
 
       await updateSet(token, id, {
-        reps: reps ? reps : undefined,
-        weight: weight ? weight : undefined,
-        setType: setType ? setType : undefined,
-        rir: rir ? rir : undefined,
+        reps: reps || undefined,
+        weight: weight || undefined,
+        setType: setType || undefined,
+        rir: rir || undefined,
       })
 
       setIsFetchingWorkouts()
-
     } catch (error) {
       console.log(error)
     }
@@ -84,87 +90,70 @@ export default function SetsList({ sets }: SetsListProps) {
 
   return (
     <>
-      {sets?.map((set: ISet) => (
-        [
-          <Box key={set.id}>
-            <Flex justifyContent={''}>
-              <Input
-                defaultValue={set.reps}
-                textColor={'whiteAlpha.800'}
-                borderRadius={3}
-                fontWeight={'medium'}
-                fontSize="sm"
-                onChange={(event) => setReps(event.target.value)}
-                onBlur={() => handleWithUpdateSet(set.id!)}
-              />
+      {sets?.map((set: ISet) => [
+        <Box key={set.id}>
+          <Flex justifyContent={''}>
+            <Input
+              defaultValue={set.reps}
+              textColor={'whiteAlpha.800'}
+              borderRadius={3}
+              fontWeight={'medium'}
+              fontSize="sm"
+              onChange={(event) => setReps(event.target.value)}
+              onBlur={() => handleWithUpdateSet(set.id!)}
+            />
 
-              <Input
-                defaultValue={set.weight}
-                textColor={'whiteAlpha.800'}
-                borderRadius={3}
-                fontWeight={'medium'}
-                fontSize="sm"
-                onChange={(event) => setWeight(event.target.value)}
-                onBlur={() => handleWithUpdateSet(set.id!)}
-              />
+            <Input
+              defaultValue={set.weight}
+              textColor={'whiteAlpha.800'}
+              borderRadius={3}
+              fontWeight={'medium'}
+              fontSize="sm"
+              onChange={(event) => setWeight(event.target.value)}
+              onBlur={() => handleWithUpdateSet(set.id!)}
+            />
 
-              <Select
-                bgGradient={'transparent'}
-                onChange={(event) => setSetType(event.target.value)}
-                onBlur={() => handleWithUpdateSet(set.id!)}
-                defaultValue={set.setType}
-              >
-                <option
-                  style={{ backgroundColor: '#322659' }}
-                  value=""
-                  disabled
-                >
-                  {set.setType}
-                </option>
+            <Select
+              bgGradient={'transparent'}
+              onChange={(event) => setSetType(event.target.value)}
+              onBlur={() => handleWithUpdateSet(set.id!)}
+              defaultValue={set.setType}
+            >
+              <option style={{ backgroundColor: '#322659' }} value="" disabled>
+                {set.setType}
+              </option>
 
-                <option
-                  style={{ backgroundColor: '#322659' }}
-                  value="REGULAR"
-                >
-                  Regular
-                </option>
+              <option style={{ backgroundColor: '#322659' }} value="REGULAR">
+                Regular
+              </option>
 
-                <option
-                  style={{ backgroundColor: '#322659' }}
-                  value="DROP_SET"
-                >
-                  DROP_SET
-                </option>
+              <option style={{ backgroundColor: '#322659' }} value="DROP_SET">
+                DROP_SET
+              </option>
 
-                <option
-                  style={{ backgroundColor: '#322659' }}
-                  value="BI_SET"
-                >
-                  BI_SET
-                </option>
+              <option style={{ backgroundColor: '#322659' }} value="BI_SET">
+                BI_SET
+              </option>
+            </Select>
 
-              </Select>
+            <Input
+              defaultValue={set.rir}
+              textColor={'whiteAlpha.800'}
+              borderRadius={3}
+              fontWeight={'medium'}
+              fontSize="sm"
+              onChange={(event) => setRir(event.target.value)}
+              onBlur={() => handleWithUpdateSet(set.id!)}
+            />
 
-              <Input
-                defaultValue={set.rir}
-                textColor={'whiteAlpha.800'}
-                borderRadius={3}
-                fontWeight={'medium'}
-                fontSize="sm"
-                onChange={(event) => setRir(event.target.value)}
-                onBlur={() => handleWithUpdateSet(set.id!)}
-              />
-
-              <Spacer />
-              <CloseButton
-                onClick={() => handleWithDeleteSet(set.id!)}
-                size="sm"
-              />
-
-            </Flex>
-          </Box>
-        ]
-      ))}
+            <Spacer />
+            <CloseButton
+              onClick={() => handleWithDeleteSet(set.id!)}
+              size="sm"
+            />
+          </Flex>
+        </Box>,
+      ])}
     </>
   )
 }

@@ -1,11 +1,7 @@
 import HandleButton from '@/components/Buttons/HandleButton'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { deleteWorkout } from '@/pages/api/providers/workouts.provider'
 import {
-  deleteWorkout,
-  findWorkoutsByUserId,
-} from '@/pages/api/providers/workouts.provider'
-import {
-  Box,
   CloseButton,
   Flex,
   FormControl,
@@ -19,8 +15,15 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import ExercisesList from '../../ExercisesList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
-import { createWorkoutsExercise, IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
-import { findExerciseByMuscleGroup, findMuscleGroup, IExercise } from '@/pages/api/providers/exercises.provider'
+import {
+  createWorkoutsExercise,
+  IWorkoutsExercises,
+} from '@/pages/api/providers/workoutsExercises.provider'
+import {
+  findExerciseByMuscleGroup,
+  findMuscleGroup,
+  IExercise,
+} from '@/pages/api/providers/exercises.provider'
 import { useEffect, useState } from 'react'
 
 interface WorkoutsProps {
@@ -29,8 +32,11 @@ interface WorkoutsProps {
 
 export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
   const router = useRouter()
-  const { setIsFetchingWorkoutsNames, selectedWorkoutId, setIsFetchingWorkouts } =
-    useOwnerIsFetchingStore()
+  const {
+    setIsFetchingWorkoutsNames,
+    selectedWorkoutId,
+    setIsFetchingWorkouts,
+  } = useOwnerIsFetchingStore()
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
@@ -42,7 +48,6 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
     exerciseId: string,
   ) => {
     try {
-      console.log('teste')
       const token = getUserToken()
 
       if (!token) {
@@ -87,7 +92,6 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
 
         const response = await findMuscleGroup(token)
         setMuscleGroups(response)
-
       } catch (error) {
         console.error(error)
         toast({
@@ -120,9 +124,11 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
           return
         }
 
-        const response = await findExerciseByMuscleGroup(token, selectedMuscleGroup)
+        const response = await findExerciseByMuscleGroup(
+          token,
+          selectedMuscleGroup,
+        )
         setExercises(response)
-
       } catch (error) {
         console.error(error)
         toast({
@@ -135,7 +141,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
       }
     }
     fetchExerciseByMuscleGroup()
-  }, [selectedMuscleGroup])
+  }, [selectedMuscleGroup, toast, router])
 
   const handleWithDeleteWorkout = async (id: string) => {
     const token = getUserToken()
@@ -171,23 +177,13 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
   return (
     <>
       <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
-        <SimpleGrid
-          columns={{ base: 1, md: 3 }}
-          spacing={5}
-          mb={4}
-          w={'full'}
-        >
-
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
           <FormControl>
             <Select
               bgGradient={'transparent'}
               onChange={(e) => setSelectedMuscleGroup(e.target.value)}
             >
-              <option
-                style={{ backgroundColor: '#322659' }}
-                disabled
-                value=""
-              >
+              <option style={{ backgroundColor: '#322659' }} disabled value="">
                 Grupo Mucular
               </option>
               {muscleGroups.map((muscleGroup: IExercise) => (
@@ -207,11 +203,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
               bgGradient={'transparent'}
               onChange={(e) => setSelectedExerciseId(e.target.value)}
             >
-              <option
-                style={{ backgroundColor: '#322659' }}
-                disabled
-                value=""
-              >
+              <option style={{ backgroundColor: '#322659' }} disabled value="">
                 Exercícios
               </option>
               {exercises.map((exercise: IExercise) => (
@@ -224,7 +216,6 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
                 </option>
               ))}
             </Select>
-
           </FormControl>
 
           <HandleButton
@@ -237,7 +228,6 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
         </SimpleGrid>
       </Stack>
 
-
       <Flex minW="auto">
         <Spacer />
         <CloseButton
@@ -247,12 +237,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
       </Flex>
 
       <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
-        <SimpleGrid
-          columns={{ base: 1, md: 3 }}
-          spacing={5}
-          mb={4}
-          w={'full'}
-        >
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
           {workoutsExercises && (
             <ExercisesList workoutsExercises={workoutsExercises} />
           )}

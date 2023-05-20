@@ -52,7 +52,10 @@ export async function findWorkoutsByUserId(
     )
     return response.data
   } catch (error) {
-    console.error(`Failed to find workouts for user with id ${workoutId}`, error)
+    console.error(
+      `Failed to find workouts for user with id ${workoutId}`,
+      error,
+    )
     throw error
   }
 }

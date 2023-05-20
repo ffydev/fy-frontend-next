@@ -1,112 +1,90 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider'
-import {
-  findExerciseById,
-  IExercise,
-  updateExerciseByUser,
-} from '@/pages/api/providers/exercises.provider'
-import {
-  Box,
-  Center,
-  chakra,
-  Flex,
-  Input,
-  Stack,
-  Text,
-  useToast,
-} from '@chakra-ui/react'
-import { Eye, Pen } from '@phosphor-icons/react'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { z } from 'zod'
+import { IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
+import { Box, Center, chakra, Flex, Stack } from '@chakra-ui/react'
+import { ISet } from '@/pages/api/providers/sets.provider'
 
-interface WorkoutsProps {
-  exercises?: IExercise[]
+interface WorkoutsExercisesProps {
+  workoutsExercises?: IWorkoutsExercises[]
 }
 
-export default function ExercisesList({ exercises }: WorkoutsProps) {
-  const router = useRouter()
-  const [exercisesState, setExercisesState] = useState<IExercise[]>([])
-  const [isHovering, setIsHovering] = useState<boolean>(false)
-  const [errors, setErrors] = useState<{ [key: string]: string }>({})
+export default function ExercisesList({
+  workoutsExercises,
+}: WorkoutsExercisesProps) {
+  // const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
-  const schema = z.object({
-    weight: z.coerce
-      .number({
-        invalid_type_error: 'Valor Inválido',
-      })
-      .positive()
-      .min(0)
-      .max(800, { message: 'Valor Inválido' }),
-  })
-  const toast = useToast()
+  // const schema = z.object({
+  //   weight: z.coerce
+  //     .number({
+  //       invalid_type_error: 'Valor Inválido',
+  //     })
+  //     .positive()
+  //     .min(0)
+  //     .max(800, { message: 'Valor Inválido' }),
+  // })
+  // const toast = useToast()
 
-  const handleUpdateExercise = async (weight: string, id: string) => {
-    const token = getUserToken()
+  // const handleUpdateExercise = async (weight: string, id: string) => {
+  //   const token = getUserToken()
 
-    if (!token) {
-      toast({
-        title: 'Sua sessão expirou.',
-        description: 'Por favor, faça login novamente.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-      router.push('/login')
-      return
-    }
+  //   if (!token) {
+  //     toast({
+  //       title: 'Sua sessão expirou.',
+  //       description: 'Por favor, faça login novamente.',
+  //       status: 'error',
+  //       duration: 3000,
+  //       isClosable: true,
+  //     })
+  //     router.push('/login')
+  //     return
+  //   }
 
-    try {
-      const parsedWeight = schema.parse({ weight })
+  //   try {
+  //     const parsedWeight = schema.parse({ weight })
 
-      await updateExerciseByUser(token, id, {
-        weight: parsedWeight.weight,
-      })
+  //     await updateExerciseByUser(token, id, {
+  //       weight: parsedWeight.weight,
+  //     })
 
-      const exerciseUpdated = await findExerciseById(token, id)
+  //     const exerciseUpdated = await findExerciseById(token, id)
 
-      setExercisesState((prevExercisesState) => {
-        const updatedExercisesState = prevExercisesState.map((exercise) =>
-          exercise.id === id ? exerciseUpdated : exercise,
-        )
-        return updatedExercisesState
-      })
+  //     setExercisesState((prevExercisesState) => {
+  //       const updatedExercisesState = prevExercisesState.map((exercise) =>
+  //         exercise.id === id ? exerciseUpdated : exercise,
+  //       )
+  //       return updatedExercisesState
+  //     })
 
-      setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
+  //     setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
 
-      toast({
-        title: 'Peso atualizado com sucesso.',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [id]: (error as z.ZodError).errors[0].message,
-        }))
-      } else {
-        console.error(error)
-        toast({
-          title: 'Erro ao atualizar peso.',
-          description: 'Por favor, tente novamente.',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-      }
-    }
-  }
-
-  useEffect(() => {
-    setExercisesState(exercises!)
-  }, [exercises])
+  //     toast({
+  //       title: 'Peso atualizado com sucesso.',
+  //       status: 'success',
+  //       duration: 3000,
+  //       isClosable: true,
+  //     })
+  //   } catch (error) {
+  //     if (error instanceof z.ZodError) {
+  //       setErrors((prevErrors) => ({
+  //         ...prevErrors,
+  //         [id]: (error as z.ZodError).errors[0].message,
+  //       }))
+  //     } else {
+  //       console.error(error)
+  //       toast({
+  //         title: 'Erro ao atualizar peso.',
+  //         description: 'Por favor, tente novamente.',
+  //         status: 'error',
+  //         duration: 3000,
+  //         isClosable: true,
+  //       })
+  //     }
+  //   }
+  // }
 
   return (
     <>
-      {exercisesState?.map((exercise) => (
+      {workoutsExercises?.map((workoutExercise) => (
         <Box
-          key={exercise.id}
+          key={workoutExercise.id}
           p={4}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
@@ -132,25 +110,61 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                 fontSize="sm"
                 lineHeight={6}
               >
-                {exercise.exerciseNames?.exerciseType?.name}
+                {workoutExercise?.exercise?.muscleGroup}
               </chakra.h1>
             </Center>
 
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              {exercise.exerciseNames?.name}
+              {workoutExercise?.exercise?.name}
             </chakra.h1>
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Séries:
-              <Text>{exercise.sets}</Text>
-            </chakra.h1>
+            <Flex justifyContent={'space-between'}>
+              <chakra.h1 fontWeight={'thin'}>Repetições</chakra.h1>
+              <chakra.h1 fontWeight={'thin'}>Carga</chakra.h1>
+              <chakra.h1 fontWeight={'thin'}>Tipo</chakra.h1>
+              <chakra.h1 fontWeight={'thin'}>Reserva</chakra.h1>
+            </Flex>
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Repetições:
-              <Text>{exercise.reps}</Text>
-            </chakra.h1>
+            {workoutExercise.sets &&
+              workoutExercise.sets.map((set: ISet) => (
+                <Box key={set.id}>
+                  <Flex justifyContent={'space-between'}>
+                    <chakra.h1
+                      fontWeight={'medium'}
+                      fontSize="md"
+                      lineHeight={6}
+                    >
+                      {set.reps}
+                    </chakra.h1>
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
+                    <chakra.h1
+                      fontWeight={'medium'}
+                      fontSize="md"
+                      lineHeight={6}
+                    >
+                      {set.weight}
+                    </chakra.h1>
+
+                    <chakra.h1
+                      fontWeight={'medium'}
+                      fontSize="md"
+                      lineHeight={6}
+                    >
+                      {set.setType}
+                    </chakra.h1>
+
+                    <chakra.h1
+                      fontWeight={'medium'}
+                      fontSize="md"
+                      lineHeight={6}
+                    >
+                      {set.rir}
+                    </chakra.h1>
+                  </Flex>
+                </Box>
+              ))}
+
+            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               <Flex>
                 Carga: <Pen size={20} />
               </Flex>
@@ -166,44 +180,7 @@ export default function ExercisesList({ exercises }: WorkoutsProps) {
                   {errors[exercise.id!]}
                 </Text>
               )}
-            </chakra.h1>
-
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Repetições em reserva:
-              <Text>{exercise.rir}</Text>
-            </chakra.h1>
-
-            <chakra.h1
-              fontWeight={'medium'}
-              fontSize="md"
-              lineHeight={6}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-            >
-              Descrição:{' '}
-              <Box minH={30}>
-                {exercise.describe && (
-                  <>
-                    {!isHovering ? (
-                      <>
-                        <Center>
-                          <Eye size={23} />
-                        </Center>
-                      </>
-                    ) : (
-                      <>
-                        <Text
-                          fontWeight={'thin'}
-                          visibility={isHovering ? 'visible' : 'hidden'}
-                        >
-                          {exercise.describe}
-                        </Text>
-                      </>
-                    )}
-                  </>
-                )}
-              </Box>
-            </chakra.h1>
+            </chakra.h1> */}
           </Stack>
         </Box>
       ))}

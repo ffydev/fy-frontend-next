@@ -17,9 +17,13 @@ export async function createWorkoutsExercise(
   workoutsExcercises: IWorkoutsExercises,
 ): Promise<IWorkoutsExercises> {
   try {
-    const response = await api.post<IWorkoutsExercises>(`/workouts-exercises`, workoutsExcercises, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await api.post<IWorkoutsExercises>(
+      `/workouts-exercises`,
+      workoutsExcercises,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {
@@ -33,24 +37,35 @@ export async function findWorkoutsExercisesByWorkout(
   workoutId: string,
 ): Promise<IWorkoutsExercises[]> {
   try {
-    const response = await api.get<IWorkoutsExercises[]>(`/workouts-exercises/${workoutId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await api.get<IWorkoutsExercises[]>(
+      `/workouts-exercises/${workoutId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
     return response.data
   } catch (error) {
-    console.error(`Failed to find workouts for user with id ${workoutId}`, error)
+    console.error(
+      `Failed to find workouts for user with id ${workoutId}`,
+      error,
+    )
     throw error
   }
 }
 
-export async function deleteWorkoutExercise(token: string, workoutExerciseId: string): Promise<void> {
+export async function deleteWorkoutExercise(
+  token: string,
+  workoutExerciseId: string,
+): Promise<void> {
   try {
     await api.delete(`/workouts-exercises/${workoutExerciseId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-
   } catch (error) {
-    console.error(`Failed to delete workout exercise with id ${workoutExerciseId}`, error)
+    console.error(
+      `Failed to delete workout exercise with id ${workoutExerciseId}`,
+      error,
+    )
     throw error
   }
 }
