@@ -1,21 +1,34 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
-  findWorkoutsByUserId,
-  findWorkoutsNamesByUserId,
   IWorkout,
+  findWorkoutsNamesByUserId,
 } from '@/pages/api/providers/workouts.provider'
-import { Tab, TabList, Tabs, useToast } from '@chakra-ui/react'
+import {
+  Box,
+  SimpleGrid,
+  Stack,
+  Tab,
+  TabList,
+  Tabs,
+  useToast,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/stores/AuthStore'
-import { WorkoutsList } from './WorkoutsList'
+import {
+  findWorkoutsExercisesByWorkout,
+  IWorkoutsExercises,
+} from '@/pages/api/providers/workoutsExercises.provider'
+import ExercisesList from '../Exercises'
 
 export function Workouts() {
   const router = useRouter()
   const { user } = useAuthStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
-  const [workouts, setWorkouts] = useState<IWorkout[]>([])
+  const [workoutsExercises, setWorkoutsExercises] = useState<
+    IWorkoutsExercises[]
+  >([])
   const toast = useToast()
 
   useEffect(() => {
@@ -61,6 +74,11 @@ export function Workouts() {
       if (!selectedWorkoutId) {
         setSelectedWorkoutId(workoutsNames[0]?.id as string)
       }
+
+      if (!selectedWorkoutId) {
+        return
+      }
+
       const fetchUserWorkouts = async () => {
         try {
           const token = getUserToken()
@@ -77,26 +95,21 @@ export function Workouts() {
             return
           }
 
-          if (!selectedWorkoutId) {
-            setSelectedWorkoutId(workoutsNames[0]?.id as string)
-          }
-
-          const response = await findWorkoutsByUserId(
+          const response = await findWorkoutsExercisesByWorkout(
             token,
             selectedWorkoutId as string,
           )
 
-          setWorkouts(response)
+          setWorkoutsExercises(response)
         } catch (error) {
           console.error(error)
           toast({
-            title: 'Sua sessão expirou.',
-            description: 'Por favor, faça login novamente.',
+            title: 'Erro ao buscar workouts.',
+            description: 'Por favor, tente novamente.',
             status: 'error',
             duration: 3000,
             isClosable: true,
           })
-          router.push('/login')
         }
       }
       fetchUserWorkouts()
@@ -105,7 +118,7 @@ export function Workouts() {
 
   return (
     <>
-      <Tabs size="lg" isLazy variant="enclosed" colorScheme={'whiteAlpha'}>
+      <Tabs size="md" variant="enclosed" colorScheme={'purple'} isLazy>
         <TabList>
           {workoutsNames?.map((workout: IWorkout) => (
             <Tab
@@ -117,7 +130,13 @@ export function Workouts() {
             </Tab>
           ))}
         </TabList>
-        <WorkoutsList workouts={workouts} />
+        <Box p={4} width="100%">
+          <Stack direction={['column', 'row']} w={'full'}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w={'full'}>
+              <ExercisesList workoutsExercises={workoutsExercises} />
+            </SimpleGrid>
+          </Stack>
+        </Box>
       </Tabs>
     </>
   )

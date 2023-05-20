@@ -1,10 +1,10 @@
 import SetsList from '@/components/SetsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import {
-  IExercise,
-} from '@/pages/api/providers/exercises.provider'
 import { createSet } from '@/pages/api/providers/sets.provider'
-import { deleteWorkoutExercise, IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
+import {
+  deleteWorkoutExercise,
+  IWorkoutsExercises,
+} from '@/pages/api/providers/workoutsExercises.provider'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
@@ -25,8 +25,7 @@ interface WorkoutsProps {
 
 export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
   const router = useRouter()
-  const { setIsFetchingWorkouts } =
-    useOwnerIsFetchingStore()
+  const { setIsFetchingWorkouts } = useOwnerIsFetchingStore()
   const toast = useToast()
 
   const handleWithCreatingSet = async (workoutExerciseId: string) => {
@@ -49,6 +48,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
       await createSet(token, workoutExerciseId)
       setIsFetchingWorkouts()
 
+      setIsFetchingWorkouts()
     } catch (error) {
       console.error(error)
 
@@ -74,7 +74,6 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
       await deleteWorkoutExercise(token, id)
 
       setIsFetchingWorkouts()
-
     } catch (error) {
       console.error(error)
       toast({
@@ -137,7 +136,8 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
               <Button
                 onClick={() => handleWithCreatingSet(workoutExercise.id!)}
                 background={'purple.700'}
-                size={'xs'}>
+                size={'xs'}
+              >
                 Adicionar série
               </Button>
             </Flex>

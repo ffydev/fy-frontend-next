@@ -1,6 +1,5 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
-  findWorkoutsByUserId,
   findWorkoutsNamesByUserId,
   IWorkout,
 } from '@/pages/api/providers/workouts.provider'
@@ -10,14 +9,24 @@ import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import WorkoutsHeader from './WorkoutsHeader'
-import { findWorkoutsExercisesByWorkout, IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
+import {
+  findWorkoutsExercisesByWorkout,
+  IWorkoutsExercises,
+} from '@/pages/api/providers/workoutsExercises.provider'
 
 export function Workouts() {
   const router = useRouter()
-  const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId, isFetchingWorkouts, isFetchingWorkoutsNames } =
-    useOwnerIsFetchingStore()
+  const {
+    selectedUserId,
+    selectedWorkoutId,
+    setSelectedWorkoutId,
+    isFetchingWorkouts,
+    isFetchingWorkoutsNames,
+  } = useOwnerIsFetchingStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
-  const [workoutsExercises, setWorkoutsExercises] = useState<IWorkoutsExercises[]>([])
+  const [workoutsExercises, setWorkoutsExercises] = useState<
+    IWorkoutsExercises[]
+  >([])
   const toast = useToast()
 
   useEffect(() => {
