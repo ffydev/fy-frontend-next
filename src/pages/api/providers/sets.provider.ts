@@ -1,4 +1,4 @@
-import { api } from "../apis/api"
+import { api } from '../apis/api'
 
 export interface ISet {
   id?: string
@@ -14,9 +14,13 @@ export async function createSet(
   workoutExerciseId: string,
 ): Promise<ISet> {
   try {
-    const response = await api.post<ISet>(`/sets/${workoutExerciseId}`, {}, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await api.post<ISet>(
+      `/sets/${workoutExerciseId}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {
@@ -36,7 +40,11 @@ export async function deleteSet(token: string, id: string): Promise<void> {
   }
 }
 
-export async function updateSet(token: string, id: string, set: ISet): Promise<void> {
+export async function updateSet(
+  token: string,
+  id: string,
+  set: ISet,
+): Promise<void> {
   try {
     await api.patch(`/sets/${id}`, set, {
       headers: { Authorization: `Bearer ${token}` },

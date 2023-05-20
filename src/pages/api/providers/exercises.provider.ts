@@ -72,9 +72,7 @@ export async function createExercise(
   }
 }
 
-export async function findMuscleGroup(
-  token: string,
-): Promise<IExercise[]> {
+export async function findMuscleGroup(token: string): Promise<IExercise[]> {
   try {
     const response = await api.get<IExercise[]>('/exercises/muscle-groups', {
       headers: { Authorization: `Bearer ${token}` },
@@ -92,9 +90,12 @@ export async function findExerciseByMuscleGroup(
   muscleGroup: string,
 ): Promise<IExercise[]> {
   try {
-    const response = await api.get<IExercise[]>(`/exercises/by-muscle-group/${muscleGroup}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await api.get<IExercise[]>(
+      `/exercises/by-muscle-group/${muscleGroup}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {
@@ -102,7 +103,6 @@ export async function findExerciseByMuscleGroup(
     throw error
   }
 }
-
 
 export async function findExerciseById(
   token: string,
