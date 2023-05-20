@@ -1,13 +1,10 @@
 import SetsList from '@/components/SetsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
-  deleteExercise,
-  findExerciseById,
   IExercise,
-  updateExercise,
 } from '@/pages/api/providers/exercises.provider'
 import { createSet } from '@/pages/api/providers/sets.provider'
-import { IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
+import { deleteWorkoutExercise, IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
@@ -29,14 +26,8 @@ interface WorkoutsProps {
 
 export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
   const router = useRouter()
-  const [exercisesState, setExercisesState] = useState<IExercise[]>([])
-  const [sets, setSets] = useState<string | undefined>('')
-  const [reps, setReps] = useState<string | undefined>('')
-  const [weight, setWeight] = useState<string | undefined>('')
-  const [rir, setRir] = useState<string | undefined>('')
-  const [describe, setDescribe] = useState<string | undefined>('')
-  const { setIsFetchingWorkoutsNames } = useOwnerIsFetchingStore()
-  const [workoutExerciseId, setWorkoutExerciseId] = useState<string | undefined>('')
+  const { setIsFetchingWorkouts } =
+    useOwnerIsFetchingStore()
   const toast = useToast()
 
   const handleWithCreatingSet = async (workoutExerciseId: string) => {
@@ -71,49 +62,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
     }
   }
 
-  // const handleUpdateExercise = async (id: string) => {
-  //   const token = getUserToken()
-
-  //   if (!token) {
-  //     toast({
-  //       title: 'Sua sessão expirou.',
-  //       description: 'Por favor, faça login novamente.',
-  //       status: 'error',
-  //       duration: 3000,
-  //       isClosable: true,
-  //     })
-  //     router.push('/login')
-  //     return
-  //   }
-
-  //   try {
-  //     await updateExercise(token, id, {
-  //       reps: reps ? +reps : undefined,
-  //       weight: weight ? +weight : undefined,
-  //       rir: rir !== '' ? rir : undefined,
-  //       describe: describe !== '' ? describe : undefined,
-  //     })
-
-  //     const exerciseUpdated = await findExerciseById(token, id)
-
-  //     setSets(undefined)
-  //     setReps(undefined)
-  //     setWeight(undefined)
-  //     setRir(undefined)
-
-  //     setExercisesState((prevExercisesState) => {
-  //       const updatedExercisesState = prevExercisesState.map((exercise) =>
-  //         exercise.id === id ? exerciseUpdated : exercise,
-  //       )
-
-  //       return updatedExercisesState
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
-
-  const handleWithDeleteExercise = (id: string) => {
+  const handleWithDeleteExercise = async (id: string) => {
     try {
       const token = getUserToken()
 
@@ -122,8 +71,19 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         return
       }
 
+      await deleteWorkoutExercise(token, id)
+
+      setIsFetchingWorkouts()
+
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Não foi possível deletar exercício.',
+        description: 'Erro ao deletar exercício.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     }
   }
 
@@ -144,7 +104,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
           <Flex minW="auto">
             <Spacer />
             <CloseButton
-              onClick={() => handleWithDeleteExercise(workoutExercise?.exercise?.id!)}
+              onClick={() => handleWithDeleteExercise(workoutExercise?.id!)}
               size="sm"
             />
           </Flex>
@@ -172,56 +132,6 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
             <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
               {workoutExercise?.exercise?.name}
             </chakra.h1>
-
-            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Séries
-              <Input
-                placeholder="Séries"
-                defaultValue={exercise.sets}
-                onChange={(event) => setSets(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </chakra.h1> */}
-            {/* 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Repetições
-              <Input
-                placeholder="Repetições"
-                defaultValue={exercise.reps}
-                onChange={(event) => setReps(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </chakra.h1> */}
-
-            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Carga
-              <Input
-                placeholder="Carga"
-                defaultValue={exercise.weight}
-                onChange={(event) => setWeight(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </chakra.h1> */}
-
-            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Repetições em reserva
-              <Input
-                placeholder="Repetições em reserva"
-                defaultValue={exercise.rir}
-                onChange={(event) => setRir(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </chakra.h1> */}
-
-            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              Descrição
-              <Input
-                placeholder="Descrição"
-                defaultValue={exercise.describe}
-                onChange={(event) => setDescribe(event.target.value)}
-                onBlur={() => handleUpdateExercise(exercise.id!)}
-              />
-            </chakra.h1> */}
 
             <Flex>
               <Button

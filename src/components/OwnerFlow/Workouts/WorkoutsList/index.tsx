@@ -24,13 +24,12 @@ import { findExerciseByMuscleGroup, findMuscleGroup, IExercise } from '@/pages/a
 import { useEffect, useState } from 'react'
 
 interface WorkoutsProps {
-  setWorkoutsExercises: (workoutsExercises: IWorkoutsExercises[]) => void
   workoutsExercises: IWorkoutsExercises[]
 }
 
-export function WorkoutsLists({ workoutsExercises, setWorkoutsExercises }: WorkoutsProps) {
+export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
   const router = useRouter()
-  const { setIsFetchingWorkoutsNames, selectedWorkoutId } =
+  const { setIsFetchingWorkoutsNames, selectedWorkoutId, setIsFetchingWorkouts } =
     useOwnerIsFetchingStore()
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
@@ -43,6 +42,7 @@ export function WorkoutsLists({ workoutsExercises, setWorkoutsExercises }: Worko
     exerciseId: string,
   ) => {
     try {
+      console.log('teste')
       const token = getUserToken()
 
       if (!token) {
@@ -62,11 +62,7 @@ export function WorkoutsLists({ workoutsExercises, setWorkoutsExercises }: Worko
         exerciseId,
       })
 
-      const workoutUpdated = await findWorkoutsByUserId(
-        token,
-        workoutId as string,
-      )
-      setWorkoutsExercises(workoutUpdated)
+      setIsFetchingWorkouts()
     } catch (error) {
       console.error(error)
     }

@@ -23,7 +23,7 @@ export async function createWorkoutsExercise(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to create workout exercise', error)
     throw error
   }
 }
@@ -43,3 +43,14 @@ export async function findWorkoutsExercisesByWorkout(
   }
 }
 
+export async function deleteWorkoutExercise(token: string, workoutExerciseId: string): Promise<void> {
+  try {
+    await api.delete(`/workouts-exercises/${workoutExerciseId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+  } catch (error) {
+    console.error(`Failed to delete workout exercise with id ${workoutExerciseId}`, error)
+    throw error
+  }
+}

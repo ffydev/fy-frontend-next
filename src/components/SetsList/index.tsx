@@ -1,6 +1,7 @@
 import { getUserToken } from "@/pages/api/providers/auth.provider"
 import { ISet, deleteSet, updateSet } from "@/pages/api/providers/sets.provider"
-import { Box, chakra, Input, Stack, Flex, Spacer, CloseButton, useToast, FormControl, Select } from "@chakra-ui/react"
+import { useOwnerIsFetchingStore } from "@/stores/OwnerStore/IsFetching"
+import { Box, Input, Flex, Spacer, CloseButton, useToast, Select } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
@@ -11,12 +12,12 @@ interface SetsListProps {
 export default function SetsList({ sets }: SetsListProps) {
   const toast = useToast()
   const router = useRouter()
+  const { setIsFetchingWorkouts } =
+    useOwnerIsFetchingStore()
   const [reps, setReps] = useState<string | undefined>('')
   const [weight, setWeight] = useState<string | undefined>('')
   const [rir, setRir] = useState<string | undefined>('')
-  const [describe, setDescribe] = useState<string | undefined>('')
   const [setType, setSetType] = useState<string | undefined>('')
-  const [setId, setSetId] = useState<string | undefined>('')
 
   const handleWithDeleteSet = async (id: string) => {
     try {
@@ -36,6 +37,7 @@ export default function SetsList({ sets }: SetsListProps) {
       }
 
       await deleteSet(token, id)
+      setIsFetchingWorkouts()
     } catch (error) {
       console.log(error)
 
@@ -73,15 +75,15 @@ export default function SetsList({ sets }: SetsListProps) {
         rir: rir ? rir : undefined,
       })
 
+      setIsFetchingWorkouts()
+
     } catch (error) {
       console.log(error)
     }
   }
 
-
   return (
     <>
-
       {sets?.map((set: ISet) => (
         [
           <Box key={set.id}>
@@ -106,44 +108,42 @@ export default function SetsList({ sets }: SetsListProps) {
                 onBlur={() => handleWithUpdateSet(set.id!)}
               />
 
-              <FormControl mt={4}>
-                <Select
-                  bgGradient={'transparent'}
-                  onChange={(event) => setSetType(event.target.value)}
-                  onBlur={() => handleWithUpdateSet(set.id!)}
-                  defaultValue={set.setType}
+              <Select
+                bgGradient={'transparent'}
+                onChange={(event) => setSetType(event.target.value)}
+                onBlur={() => handleWithUpdateSet(set.id!)}
+                defaultValue={set.setType}
+              >
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  value=""
+                  disabled
                 >
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    value=""
-                    disabled
-                  >
-                    {set.setType}
-                  </option>
+                  {set.setType}
+                </option>
 
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    value="REGULAR"
-                  >
-                    Regular
-                  </option>
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  value="REGULAR"
+                >
+                  Regular
+                </option>
 
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    value="DROP_SET"
-                  >
-                    DROP_SET
-                  </option>
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  value="DROP_SET"
+                >
+                  DROP_SET
+                </option>
 
-                  <option
-                    style={{ backgroundColor: '#322659' }}
-                    value="BI_SET"
-                  >
-                    BI_SET
-                  </option>
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  value="BI_SET"
+                >
+                  BI_SET
+                </option>
 
-                </Select>
-              </FormControl>
+              </Select>
 
               <Input
                 defaultValue={set.rir}

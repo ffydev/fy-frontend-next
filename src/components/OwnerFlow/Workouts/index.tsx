@@ -14,7 +14,7 @@ import { findWorkoutsExercisesByWorkout, IWorkoutsExercises } from '@/pages/api/
 
 export function Workouts() {
   const router = useRouter()
-  const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId } =
+  const { selectedUserId, selectedWorkoutId, setSelectedWorkoutId, isFetchingWorkouts } =
     useOwnerIsFetchingStore()
   const { isFetchingWorkoutsNames } = useOwnerIsFetchingStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
@@ -108,6 +108,7 @@ export function Workouts() {
     selectedUserId,
     isFetchingWorkoutsNames,
     toast,
+    isFetchingWorkouts,
   ])
 
   return (
@@ -125,7 +126,7 @@ export function Workouts() {
             </Tab>
           ))}
         </TabList>
-        <WorkoutsLists setWorkoutsExercises={setWorkoutsExercises} workoutsExercises={workoutsExercises} />
+        <WorkoutsLists workoutsExercises={workoutsExercises} />
       </Tabs>
     </>
   )
