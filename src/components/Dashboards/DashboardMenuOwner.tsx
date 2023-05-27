@@ -69,7 +69,7 @@ export default function DashboardMenuOwner() {
         <Box>
           {dashboardHome ? (
             <>
-              <Box ml={{ base: 0, md: 60 }} minH={'100vh'}>
+              <Box ml={{ base: 0, md: 60 }}>
                 <Navigation />
               </Box>
             </>
