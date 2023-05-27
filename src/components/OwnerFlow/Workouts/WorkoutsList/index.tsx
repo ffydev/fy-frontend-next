@@ -7,7 +7,6 @@ import {
   FormControl,
   Select,
   SimpleGrid,
-  Spacer,
   Stack,
   useToast,
 } from '@chakra-ui/react'
@@ -176,8 +175,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
 
   return (
     <>
-      <Flex minW="auto">
-        <Spacer />
+      <Flex justifyContent={'flex-end'}>
         <CloseButton
           mt={3}
           onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}

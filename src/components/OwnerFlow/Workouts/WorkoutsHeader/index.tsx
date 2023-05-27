@@ -87,7 +87,7 @@ export default function WorkoutsHeader() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack direction={['column', 'row']} spacing={6} w={'full'} mb={6}>
+        <Stack direction={['column', 'row']} spacing={3} w={'full'} mb={3}>
           <FormControl width={'100%'}>
             <Stack>
               <HandleButton
