@@ -278,7 +278,7 @@ export default function Navigation() {
             </Flex>
           </Stack>
 
-          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
             <Workouts />
           </Container>
         </>

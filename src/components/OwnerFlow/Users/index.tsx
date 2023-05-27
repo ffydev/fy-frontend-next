@@ -131,15 +131,17 @@ export default function Users() {
         usersCount={usersCount}
       />
 
-      <Pagination
-        hasPreviousPage={hasPreviousPage}
-        hasNextPage={hasNextPage}
-        handlePreviousPage={handleWithPreviousPage}
-        handleNextPage={handleWithNextPage}
-        isButtonDisabled={isButtonDisabled}
-      />
-
       <UsersList users={users} planTypes={planTypes} />
+
+      {users && users.length > 9 && (
+        <Pagination
+          hasPreviousPage={hasPreviousPage}
+          hasNextPage={hasNextPage}
+          handlePreviousPage={handleWithPreviousPage}
+          handleNextPage={handleWithNextPage}
+          isButtonDisabled={isButtonDisabled}
+        />
+      )}
     </>
   )
 }

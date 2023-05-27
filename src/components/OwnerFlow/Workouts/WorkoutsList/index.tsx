@@ -7,7 +7,6 @@ import {
   FormControl,
   Select,
   SimpleGrid,
-  Spacer,
   Stack,
   useToast,
 } from '@chakra-ui/react'
@@ -176,7 +175,15 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
 
   return (
     <>
-      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+      <Flex justifyContent={'flex-end'}>
+        <CloseButton
+          mt={3}
+          onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
+          size="sm"
+        />
+      </Flex>
+
+      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
           <FormControl>
             <Select
@@ -228,15 +235,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
         </SimpleGrid>
       </Stack>
 
-      <Flex minW="auto">
-        <Spacer />
-        <CloseButton
-          onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
-          size="sm"
-        />
-      </Flex>
-
-      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
           {workoutsExercises && (
             <ExercisesList workoutsExercises={workoutsExercises} />

@@ -88,7 +88,7 @@ export default function Navigation() {
               </Heading>
             </Flex>
           </Stack>
-          <Container maxW="7xl" p={3} minH={'200vh'}>
+          <Container maxW="7xl" p={3}>
             <Workouts />
           </Container>
         </>
@@ -123,7 +123,7 @@ export default function Navigation() {
               </Heading>
             </Flex>
           </Stack>
-          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
             <ListAnamnesis />
           </Container>
         </>
@@ -157,7 +157,7 @@ export default function Navigation() {
               </Heading>
             </Flex>
           </Stack>
-          <Container maxW="7xl" p={{ base: 3, md: 1 }} minH={'200vh'}>
+          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
             <Feedbacks />
           </Container>
         </>

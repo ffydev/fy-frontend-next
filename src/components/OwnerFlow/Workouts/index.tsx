@@ -135,7 +135,9 @@ export function Workouts() {
             </Tab>
           ))}
         </TabList>
-        <WorkoutsLists workoutsExercises={workoutsExercises} />
+        {workoutsNames && workoutsNames.length > 0 && (
+          <WorkoutsLists workoutsExercises={workoutsExercises} />
+        )}
       </Tabs>
     </>
   )
