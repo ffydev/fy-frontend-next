@@ -105,6 +105,8 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
             <CloseButton
               onClick={() => handleWithDeleteExercise(workoutExercise?.id!)}
               size="sm"
+              border={'1px'}
+              borderColor={'whiteAlpha.300'}
             />
           </Flex>
 
@@ -118,8 +120,8 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
               <chakra.h1
                 textColor={'whiteAlpha.800'}
                 bgColor={'purple.700'}
-                borderRadius={3}
-                px={2}
+                px={'4'}
+                rounded={'lg'}
                 fontWeight={'medium'}
                 fontSize="sm"
                 lineHeight={6}
@@ -142,12 +144,22 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
               </Button>
             </Flex>
 
-            <Flex justifyContent={'space-between'}>
-              <chakra.h1 fontWeight={'thin'}>Repetições</chakra.h1>
-              <chakra.h1 fontWeight={'thin'}>Carga</chakra.h1>
-              <chakra.h1 fontWeight={'thin'}>Tipo</chakra.h1>
-              <chakra.h1 fontWeight={'thin'}>Reserva</chakra.h1>
-            </Flex>
+            {/* <Flex justifyContent={'space-between'}>
+              <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+                <GridItem w="100%" h="10">
+                  <chakra.h1 fontWeight={'thin'}>Repetições</chakra.h1>
+                </GridItem>
+                <GridItem w="100%" h="10">
+                  <chakra.h1 fontWeight={'thin'}>Carga</chakra.h1>
+                </GridItem>
+                <GridItem w="100%" h="10">
+                  <chakra.h1 fontWeight={'thin'}>Tipo</chakra.h1>
+                </GridItem>
+                <GridItem w="100%" h="10">
+                  <chakra.h1 fontWeight={'thin'}>Reserva</chakra.h1>
+                </GridItem>
+              </Grid>
+            </Flex> */}
 
             {workoutsExercises?.length > 0 && (
               <SetsList sets={workoutExercise.sets} />

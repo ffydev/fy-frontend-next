@@ -178,6 +178,8 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
       <Flex justifyContent={'flex-end'}>
         <CloseButton
           mt={3}
+          border={'1px'}
+          borderColor={'whiteAlpha.300'}
           onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
           size="sm"
         />
