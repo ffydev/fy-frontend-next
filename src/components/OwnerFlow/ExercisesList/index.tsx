@@ -47,8 +47,6 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
 
       await createSet(token, workoutExerciseId)
       setIsFetchingWorkouts()
-
-      setIsFetchingWorkouts()
     } catch (error) {
       console.error(error)
 
