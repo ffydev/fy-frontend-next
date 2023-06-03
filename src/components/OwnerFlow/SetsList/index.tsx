@@ -94,33 +94,42 @@ export default function SetsList({ sets }: SetsListProps) {
     <>
       {sets?.map((set: ISet) => [
         <Box key={set.id}>
-          <Table variant="unstyled" size={'sm'}>
+          <Table
+            variant="unstyled"
+            size={'sm'}
+            justifyContent={'space-between'}
+          >
             <Tbody>
               <Tr>
-                <Td textAlign={'center'} p={0} minW={'70px'} m={1}>
+                <Td textAlign={'center'} p={0} minW={'1rem'}>
                   <Input
+                    p={0}
+                    m={0}
                     border={'none'}
                     textAlign={'center'}
-                    p={0}
                     defaultValue={set.reps}
                     onChange={(event) => setReps(event.target.value)}
                     onBlur={() => handleWithUpdateSet(set.id!)}
                   />
                 </Td>
-                <Td textAlign={'center'} p={0} minW={'70px'}>
+                <Td textAlign={'center'} p={0} minW={'1rem'}>
                   <Input
+                    p={0}
+                    m={0}
                     border={'none'}
                     textAlign={'center'}
-                    p={0}
                     defaultValue={set.weight}
                     onChange={(event) => setWeight(event.target.value)}
                     onBlur={() => handleWithUpdateSet(set.id!)}
                   />
                 </Td>
 
-                <Td textAlign={'center'} p={0} minW={'70px'}>
+                <Td textAlign={'center'} p={0} minW={'9rem'}>
                   <Select
+                    p={0}
+                    m={0}
                     border={'none'}
+                    textAlign={'center'}
                     defaultValue={set.setType}
                     onChange={(event) => setSetType(event.target.value)}
                     onBlur={() => handleWithUpdateSet(set.id!)}
@@ -136,34 +145,35 @@ export default function SetsList({ sets }: SetsListProps) {
                       style={{ backgroundColor: '#322659' }}
                       value="REGULAR"
                     >
-                      Regular
+                      REGULAR
                     </option>
                     <option
                       style={{ backgroundColor: '#322659' }}
                       value="DROP_SET"
                     >
-                      Drop_Set
+                      DROP_SET
                     </option>
                     <option
                       style={{ backgroundColor: '#322659' }}
                       value="BI_SET"
                     >
-                      Bi_Set
+                      BI_SET
                     </option>
                   </Select>
                 </Td>
-                <Td textAlign={'center'} p={0} minW={'70px'}>
+                <Td textAlign={'center'} p={0} minW={'2rem'}>
                   <Input
+                    p={0}
+                    m={0}
                     border={'none'}
                     textAlign={'center'}
-                    p={0}
                     defaultValue={set.rir}
                     onChange={(event) => setRir(event.target.value)}
                     onBlur={() => handleWithUpdateSet(set.id!)}
                   />
                 </Td>
 
-                <Td borderRadius={3} textAlign={'center'} p={0} minW={'30px'}>
+                <Td borderRadius={3} textAlign={'center'} p={0} minW={'1rem'}>
                   <CloseButtonComponent
                     onClick={() => handleWithDeleteSet(set.id!)}
                   />

@@ -234,8 +234,8 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
         </SimpleGrid>
       </Stack>
 
-      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
+      <Stack direction={['column', 'row']} spacing={3} w={'full'} mt={3}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} mb={4} w={'full'}>
           {workoutsExercises && (
             <ExercisesList workoutsExercises={workoutsExercises} />
           )}
