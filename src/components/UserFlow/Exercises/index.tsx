@@ -142,11 +142,21 @@ export default function ExercisesList({
                   <Table variant="unstyled" size={'sm'}>
                     <Tbody>
                       <Tr>
-                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                        <Td
+                          textAlign={'center'}
+                          p={0}
+                          minW={'2rem'}
+                          maxW={'2rem'}
+                        >
                           {set.reps}
                         </Td>
 
-                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                        <Td
+                          textAlign={'center'}
+                          p={0}
+                          minW={'2rem'}
+                          maxW={'2rem'}
+                        >
                           <Input
                             key={set.id}
                             defaultValue={set.weight}
@@ -156,7 +166,7 @@ export default function ExercisesList({
                             textAlign={'center'}
                             p={0}
                             m={0}
-                            maxW={'70px'}
+                            maxW={'14'}
                           />
                           {errors[set.id!] && (
                             <Text color={'red.500'} mt={3}>
@@ -165,10 +175,20 @@ export default function ExercisesList({
                           )}
                         </Td>
 
-                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                        <Td
+                          textAlign={'center'}
+                          p={0}
+                          minW={'2rem'}
+                          maxW={'2rem'}
+                        >
                           {set.setType}
                         </Td>
-                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                        <Td
+                          textAlign={'center'}
+                          p={0}
+                          minW={'2rem'}
+                          maxW={'2rem'}
+                        >
                           {set.rir}
                         </Td>
                       </Tr>
