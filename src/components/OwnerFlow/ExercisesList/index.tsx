@@ -1,5 +1,5 @@
 import { CloseButtonComponent } from '@/components/Buttons/Closed'
-import SetsList from '@/components/SetsList'
+import SetsList from '@/components/OwnerFlow/SetsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createSet } from '@/pages/api/providers/sets.provider'
 import {
