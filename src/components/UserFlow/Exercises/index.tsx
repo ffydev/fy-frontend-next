@@ -1,5 +1,16 @@
 import { IWorkoutsExercises } from '@/pages/api/providers/workoutsExercises.provider'
-import { Box, Center, chakra, Flex, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Text,
+  Stack,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Center,
+} from '@chakra-ui/react'
 import { ISet } from '@/pages/api/providers/sets.provider'
 
 interface WorkoutsExercisesProps {
@@ -94,73 +105,62 @@ export default function ExercisesList({
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <Stack
-            direction={'column'}
-            spacing={5}
-            w={'full'}
-            textColor={'whiteAlpha.800'}
-          >
-            <Center>
-              <chakra.h1
-                textColor={'whiteAlpha.800'}
+          <Stack direction={'column'} spacing={3} textColor={'whiteAlpha.800'}>
+            <Center justifyContent={'center'} mb={3} flexDirection={'column'}>
+              <Text
+                textAlign={'center'}
                 bgColor={'purple.700'}
                 borderRadius={3}
-                px={2}
-                fontWeight={'medium'}
                 fontSize="sm"
-                lineHeight={6}
+                p={1}
               >
                 {workoutExercise?.exercise?.muscleGroup}
-              </chakra.h1>
+              </Text>
+              <Text fontSize="md" p={1}>
+                {workoutExercise?.exercise?.name}
+              </Text>
             </Center>
 
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              {workoutExercise?.exercise?.name}
-            </chakra.h1>
-
-            <Flex justifyContent={'space-between'}>
-              <chakra.h1 fontWeight={'thin'}>Repetições</chakra.h1>
-              <chakra.h1 fontWeight={'thin'}>Carga</chakra.h1>
-              <chakra.h1 fontWeight={'thin'}>Tipo</chakra.h1>
-              <chakra.h1 fontWeight={'thin'}>Reserva</chakra.h1>
-            </Flex>
+            <Table variant="unstyled" size={'sm'}>
+              <Thead>
+                <Tr borderBottom={'1px solid grey'}>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    REPS
+                  </Th>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    Carga
+                  </Th>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    Tipo
+                  </Th>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    Reserva
+                  </Th>
+                </Tr>
+              </Thead>
+            </Table>
 
             {workoutExercise.sets &&
               workoutExercise.sets.map((set: ISet) => (
                 <Box key={set.id}>
-                  <Flex justifyContent={'space-between'}>
-                    <chakra.h1
-                      fontWeight={'medium'}
-                      fontSize="md"
-                      lineHeight={6}
-                    >
-                      {set.reps}
-                    </chakra.h1>
-
-                    <chakra.h1
-                      fontWeight={'medium'}
-                      fontSize="md"
-                      lineHeight={6}
-                    >
-                      {set.weight}
-                    </chakra.h1>
-
-                    <chakra.h1
-                      fontWeight={'medium'}
-                      fontSize="md"
-                      lineHeight={6}
-                    >
-                      {set.setType}
-                    </chakra.h1>
-
-                    <chakra.h1
-                      fontWeight={'medium'}
-                      fontSize="md"
-                      lineHeight={6}
-                    >
-                      {set.rir}
-                    </chakra.h1>
-                  </Flex>
+                  <Table variant="unstyled" size={'sm'}>
+                    <Tbody>
+                      <Tr>
+                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                          {set.reps}
+                        </Td>
+                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                          {set.weight}
+                        </Td>
+                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                          {set.setType}
+                        </Td>
+                        <Td textAlign={'center'} p={0} minW={'70px'}>
+                          {set.rir}
+                        </Td>
+                      </Tr>
+                    </Tbody>
+                  </Table>
                 </Box>
               ))}
 
