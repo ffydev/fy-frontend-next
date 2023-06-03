@@ -34,6 +34,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
   const {
     setIsFetchingWorkoutsNames,
     selectedWorkoutId,
+    setSelectedWorkoutId,
     setIsFetchingWorkouts,
   } = useOwnerIsFetchingStore()
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
@@ -159,6 +160,8 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
 
     try {
       await deleteWorkout(token, id)
+      setSelectedWorkoutId('')
+      setIsFetchingWorkoutsNames()
     } catch (error) {
       console.error(error)
       toast({
@@ -168,8 +171,6 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
         duration: 3000,
         isClosable: true,
       })
-    } finally {
-      setIsFetchingWorkoutsNames()
     }
   }
 
