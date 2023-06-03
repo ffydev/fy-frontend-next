@@ -133,19 +133,24 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
             <Table variant="unstyled" size={'sm'}>
               <Thead>
                 <Tr borderBottom={'1px solid grey'}>
-                  <Th textAlign={'center'} p={0} minW={'4rem'}>
+                  <Th textAlign={'center'} p={0} maxW={'2rem'} minW={'2rem'}>
                     REPS
                   </Th>
-                  <Th textAlign={'center'} p={0} minW={'4rem'}>
+                  <Th textAlign={'center'} p={0} maxW={'2rem'} minW={'2rem'}>
                     Carga
                   </Th>
-                  <Th textAlign={'center'} p={0} minW={'4rem'}>
+                  <Th textAlign={'center'} p={0} maxW={'2rem'} minW={'2rem'}>
                     Tipo
                   </Th>
-                  <Th textAlign={'center'} p={0} minW={'4rem'}>
+                  <Th textAlign={'center'} p={0} maxW={'2rem'} minW={'2rem'}>
                     Reserva
                   </Th>
-                  <Th textAlign={'center'} p={0} minW={'1rem'}></Th>
+                  <Th
+                    textAlign={'center'}
+                    p={0}
+                    maxW={'1rem'}
+                    minW={'1rem'}
+                  ></Th>
                 </Tr>
               </Thead>
             </Table>
