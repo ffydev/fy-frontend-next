@@ -130,23 +130,6 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
               </Text>
             </Center>
 
-            {/* <Flex justifyContent={'space-between'}>
-              <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-                <GridItem w="100%" h="10">
-                  <chakra.h1 fontWeight={'thin'}>Repetições</chakra.h1>
-                </GridItem>
-                <GridItem w="100%" h="10">
-                  <chakra.h1 fontWeight={'thin'}>Carga</chakra.h1>
-                </GridItem>
-                <GridItem w="100%" h="10">
-                  <chakra.h1 fontWeight={'thin'}>Tipo</chakra.h1>
-                </GridItem>
-                <GridItem w="100%" h="10">
-                  <chakra.h1 fontWeight={'thin'}>Reserva</chakra.h1>
-                </GridItem>
-              </Grid>
-            </Flex> */}
-
             <Table variant="unstyled" size={'sm'}>
               <Thead>
                 <Tr borderBottom={'1px solid grey'}>
