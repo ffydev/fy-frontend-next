@@ -4,7 +4,6 @@ import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
   Input,
-  CloseButton,
   useToast,
   Select,
   Table,
@@ -14,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { CloseButtonComponent } from '../Buttons/Closed'
 
 interface SetsListProps {
   sets?: ISet[]
@@ -164,14 +164,7 @@ export default function SetsList({ sets }: SetsListProps) {
                 </Td>
 
                 <Td borderRadius={3} textAlign={'center'} p={0} minW={'30px'}>
-                  <CloseButton
-                    _hover={{
-                      bgGradient: 'linear(to-r, red.500, red.600)',
-                      transition: '0.8s',
-                    }}
-                    size="sm"
-                    border={'1px'}
-                    borderColor={'whiteAlpha.300'}
+                  <CloseButtonComponent
                     onClick={() => handleWithDeleteSet(set.id!)}
                   />
                 </Td>

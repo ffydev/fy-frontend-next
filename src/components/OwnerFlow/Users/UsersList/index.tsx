@@ -10,7 +10,6 @@ import {
 import {
   Box,
   Button,
-  CloseButton,
   Flex,
   FormLabel,
   Input,
@@ -22,6 +21,7 @@ import {
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import PlanList from '../../PlansList'
+import { CloseButtonComponent } from '@/components/Buttons/Closed'
 
 interface UsersListProps {
   users: IUserInterface[]
@@ -174,9 +174,8 @@ export function UsersList({ users, planTypes }: UsersListProps) {
             >
               <Flex minWidth="max-content">
                 <Spacer />
-                <CloseButton
+                <CloseButtonComponent
                   onClick={() => handleWithDeleteUser(user.id)}
-                  size="sm"
                 />
               </Flex>
               {user?.userType.name === 'User' && (

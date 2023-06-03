@@ -1,3 +1,4 @@
+import { CloseButtonComponent } from '@/components/Buttons/Closed'
 import SetsList from '@/components/SetsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { createSet } from '@/pages/api/providers/sets.provider'
@@ -11,7 +12,6 @@ import {
   Button,
   Center,
   Text,
-  CloseButton,
   Flex,
   Spacer,
   Stack,
@@ -104,14 +104,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         >
           <Flex minW="auto">
             <Spacer />
-            <CloseButton
-              _hover={{
-                bgGradient: 'linear(to-r, red.500, red.600)',
-                transition: '0.8s',
-              }}
-              size="sm"
-              border={'1px'}
-              borderColor={'whiteAlpha.300'}
+            <CloseButtonComponent
               onClick={() => handleWithDeleteExercise(workoutExercise?.id!)}
             />
           </Flex>
@@ -179,7 +172,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
             )}
           </Stack>
 
-          <Flex>
+          <Flex mt={3}>
             <Button
               onClick={() => handleWithCreatingSet(workoutExercise.id!)}
               background={'purple.700'}

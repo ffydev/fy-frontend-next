@@ -2,7 +2,6 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { deleteWorkout } from '@/pages/api/providers/workouts.provider'
 import {
-  CloseButton,
   Flex,
   FormControl,
   Select,
@@ -24,6 +23,7 @@ import {
   IExercise,
 } from '@/pages/api/providers/exercises.provider'
 import { useEffect, useState } from 'react'
+import { CloseButtonComponent } from '@/components/Buttons/Closed'
 
 interface WorkoutsProps {
   workoutsExercises: IWorkoutsExercises[]
@@ -175,13 +175,9 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
 
   return (
     <>
-      <Flex justifyContent={'flex-end'}>
-        <CloseButton
-          mt={3}
-          border={'1px'}
-          borderColor={'whiteAlpha.300'}
+      <Flex justifyContent={'flex-end'} mt={3}>
+        <CloseButtonComponent
           onClick={() => handleWithDeleteWorkout(selectedWorkoutId!)}
-          size="sm"
         />
       </Flex>
 
