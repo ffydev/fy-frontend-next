@@ -10,12 +10,16 @@ import {
   Box,
   Button,
   Center,
-  chakra,
+  Text,
   CloseButton,
   Flex,
   Spacer,
   Stack,
   useToast,
+  Table,
+  Thead,
+  Tr,
+  Th,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
@@ -101,10 +105,14 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
           <Flex minW="auto">
             <Spacer />
             <CloseButton
-              onClick={() => handleWithDeleteExercise(workoutExercise?.id!)}
+              _hover={{
+                bgGradient: 'linear(to-r, red.500, red.600)',
+                transition: '0.8s',
+              }}
               size="sm"
               border={'1px'}
               borderColor={'whiteAlpha.300'}
+              onClick={() => handleWithDeleteExercise(workoutExercise?.id!)}
             />
           </Flex>
 
@@ -114,33 +122,20 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
             w={'full'}
             textColor={'whiteAlpha.800'}
           >
-            <Center>
-              <chakra.h1
-                textColor={'whiteAlpha.800'}
+            <Center justifyContent={'center'} flexDirection={'column'}>
+              <Text
+                textAlign={'center'}
                 bgColor={'purple.700'}
-                px={'4'}
-                rounded={'lg'}
-                fontWeight={'medium'}
+                borderRadius={3}
                 fontSize="sm"
-                lineHeight={6}
+                p={1}
               >
                 {workoutExercise?.exercise?.muscleGroup}
-              </chakra.h1>
+              </Text>
+              <Text fontSize="md" p={1}>
+                {workoutExercise?.exercise?.name}
+              </Text>
             </Center>
-
-            <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              {workoutExercise?.exercise?.name}
-            </chakra.h1>
-
-            <Flex>
-              <Button
-                onClick={() => handleWithCreatingSet(workoutExercise.id!)}
-                background={'purple.700'}
-                size={'xs'}
-              >
-                Adicionar série
-              </Button>
-            </Flex>
 
             {/* <Flex justifyContent={'space-between'}>
               <Grid templateColumns="repeat(4, 1fr)" gap={6}>
@@ -159,10 +154,40 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
               </Grid>
             </Flex> */}
 
+            <Table variant="unstyled" size={'sm'}>
+              <Thead>
+                <Tr borderBottom={'1px solid grey'}>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    REPS
+                  </Th>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    Carga
+                  </Th>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    Tipo
+                  </Th>
+                  <Th textAlign={'center'} p={0} minW={'70px'}>
+                    Reserva
+                  </Th>
+                  <Th textAlign={'center'} p={0} minW={'30px'}></Th>
+                </Tr>
+              </Thead>
+            </Table>
+
             {workoutsExercises?.length > 0 && (
               <SetsList sets={workoutExercise.sets} />
             )}
           </Stack>
+
+          <Flex>
+            <Button
+              onClick={() => handleWithCreatingSet(workoutExercise.id!)}
+              background={'purple.700'}
+              size={'xs'}
+            >
+              + Adicionar série
+            </Button>
+          </Flex>
         </Box>
       ))}
     </>

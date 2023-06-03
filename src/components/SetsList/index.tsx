@@ -7,14 +7,10 @@ import {
   CloseButton,
   useToast,
   Select,
-  TableContainer,
   Table,
-  Thead,
   Tr,
-  Th,
   Tbody,
   Td,
-  Flex,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -98,118 +94,90 @@ export default function SetsList({ sets }: SetsListProps) {
     <>
       {sets?.map((set: ISet) => [
         <Box key={set.id}>
-          <Flex>
-            <TableContainer>
-              <Table variant="simple" size={'sm'}>
-                <Thead>
-                  <Tr>
-                    <Th>Repetições</Th>
-                    <Th>Carga</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>
-                      <Input
-                        size={'sm'}
-                        defaultValue={set.reps}
-                        textColor={'whiteAlpha.800'}
-                        border={'1px'}
-                        borderColor={'whiteAlpha.300'}
-                        rounded={'lg'}
-                        fontWeight={'medium'}
-                        fontSize="sm"
-                        onChange={(event) => setReps(event.target.value)}
-                        onBlur={() => handleWithUpdateSet(set.id!)}
-                      />
-                    </Td>
-                    <Td>
-                      <Input
-                        size={'sm'}
-                        defaultValue={set.weight}
-                        textColor={'whiteAlpha.800'}
-                        border={'1px'}
-                        borderColor={'whiteAlpha.300'}
-                        rounded={'lg'}
-                        fontWeight={'medium'}
-                        fontSize="sm"
-                        onChange={(event) => setWeight(event.target.value)}
-                        onBlur={() => handleWithUpdateSet(set.id!)}
-                      />
-                    </Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Tipo</Th>
-                    <Th>Reserva</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>
-                      <Select
-                        size={'sm'}
-                        bgGradient={'transparent'}
-                        border={'1px'}
-                        borderColor={'whiteAlpha.300'}
-                        rounded={'lg'}
-                        onChange={(event) => setSetType(event.target.value)}
-                        onBlur={() => handleWithUpdateSet(set.id!)}
-                        defaultValue={set.setType}
-                      >
-                        <option
-                          style={{ backgroundColor: '#322659' }}
-                          value=""
-                          disabled
-                        >
-                          {set.setType}
-                        </option>
-                        <option
-                          style={{ backgroundColor: '#322659' }}
-                          value="REGULAR"
-                        >
-                          Regular
-                        </option>
-                        <option
-                          style={{ backgroundColor: '#322659' }}
-                          value="DROP_SET"
-                        >
-                          Drop_Set
-                        </option>
-                        <option
-                          style={{ backgroundColor: '#322659' }}
-                          value="BI_SET"
-                        >
-                          Bi_Set
-                        </option>
-                      </Select>
-                    </Td>
-                    <Td>
-                      <Input
-                        size={'sm'}
-                        defaultValue={set.rir}
-                        textColor={'whiteAlpha.800'}
-                        border={'1px'}
-                        borderColor={'whiteAlpha.300'}
-                        rounded={'lg'}
-                        fontWeight={'medium'}
-                        fontSize="sm"
-                        onChange={(event) => setRir(event.target.value)}
-                        onBlur={() => handleWithUpdateSet(set.id!)}
-                      />
-                    </Td>
-                  </Tr>
-                </Tbody>
-              </Table>
-            </TableContainer>
-            <CloseButton
-              border={'1px'}
-              borderColor={'whiteAlpha.300'}
-              onClick={() => handleWithDeleteSet(set.id!)}
-              size="sm"
-            />
-          </Flex>
+          <Table variant="unstyled" size={'sm'}>
+            <Tbody>
+              <Tr>
+                <Td textAlign={'center'} p={0} minW={'70px'} m={1}>
+                  <Input
+                    border={'none'}
+                    textAlign={'center'}
+                    p={0}
+                    defaultValue={set.reps}
+                    onChange={(event) => setReps(event.target.value)}
+                    onBlur={() => handleWithUpdateSet(set.id!)}
+                  />
+                </Td>
+                <Td textAlign={'center'} p={0} minW={'70px'}>
+                  <Input
+                    border={'none'}
+                    textAlign={'center'}
+                    p={0}
+                    defaultValue={set.weight}
+                    onChange={(event) => setWeight(event.target.value)}
+                    onBlur={() => handleWithUpdateSet(set.id!)}
+                  />
+                </Td>
+
+                <Td textAlign={'center'} p={0} minW={'70px'}>
+                  <Select
+                    border={'none'}
+                    defaultValue={set.setType}
+                    onChange={(event) => setSetType(event.target.value)}
+                    onBlur={() => handleWithUpdateSet(set.id!)}
+                  >
+                    <option
+                      style={{ backgroundColor: '#322659' }}
+                      value=""
+                      disabled
+                    >
+                      {set.setType}
+                    </option>
+                    <option
+                      style={{ backgroundColor: '#322659' }}
+                      value="REGULAR"
+                    >
+                      Regular
+                    </option>
+                    <option
+                      style={{ backgroundColor: '#322659' }}
+                      value="DROP_SET"
+                    >
+                      Drop_Set
+                    </option>
+                    <option
+                      style={{ backgroundColor: '#322659' }}
+                      value="BI_SET"
+                    >
+                      Bi_Set
+                    </option>
+                  </Select>
+                </Td>
+                <Td textAlign={'center'} p={0} minW={'70px'}>
+                  <Input
+                    border={'none'}
+                    textAlign={'center'}
+                    p={0}
+                    defaultValue={set.rir}
+                    onChange={(event) => setRir(event.target.value)}
+                    onBlur={() => handleWithUpdateSet(set.id!)}
+                  />
+                </Td>
+
+                <Td borderRadius={3} textAlign={'center'} p={0} minW={'30px'}>
+                  <CloseButton
+                    _hover={{
+                      bgGradient: 'linear(to-r, red.500, red.600)',
+                      transition: '0.8s',
+                    }}
+                    size="sm"
+                    border={'1px'}
+                    borderColor={'whiteAlpha.300'}
+                    onClick={() => handleWithDeleteSet(set.id!)}
+                  />
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
         </Box>,
       ])}
     </>
