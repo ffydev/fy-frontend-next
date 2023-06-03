@@ -10,8 +10,14 @@ import {
   Thead,
   Tr,
   Center,
+  useToast,
+  Input,
 } from '@chakra-ui/react'
-import { ISet } from '@/pages/api/providers/sets.provider'
+import { ISet, updateSet } from '@/pages/api/providers/sets.provider'
+import z from 'zod'
+import { useState } from 'react'
+import { getUserToken } from '@/pages/api/providers/auth.provider'
+import { useRouter } from 'next/router'
 
 interface WorkoutsExercisesProps {
   workoutsExercises?: IWorkoutsExercises[]
@@ -20,76 +26,66 @@ interface WorkoutsExercisesProps {
 export default function ExercisesList({
   workoutsExercises,
 }: WorkoutsExercisesProps) {
-  // const [errors, setErrors] = useState<{ [key: string]: string }>({})
+  const router = useRouter()
+  const toast = useToast()
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
-  // const schema = z.object({
-  //   weight: z.coerce
-  //     .number({
-  //       invalid_type_error: 'Valor Inválido',
-  //     })
-  //     .positive()
-  //     .min(0)
-  //     .max(800, { message: 'Valor Inválido' }),
-  // })
-  // const toast = useToast()
+  const schema = z.object({
+    weight: z.coerce
+      .number({
+        invalid_type_error: 'Valor Inválido',
+      })
+      .max(800, { message: 'Valor Inválido' }),
+  })
 
-  // const handleUpdateExercise = async (weight: string, id: string) => {
-  //   const token = getUserToken()
+  const handleUpdateSets = async (weight: string, id: string) => {
+    const token = getUserToken()
 
-  //   if (!token) {
-  //     toast({
-  //       title: 'Sua sessão expirou.',
-  //       description: 'Por favor, faça login novamente.',
-  //       status: 'error',
-  //       duration: 3000,
-  //       isClosable: true,
-  //     })
-  //     router.push('/login')
-  //     return
-  //   }
+    if (!token) {
+      toast({
+        title: 'Sua sessão expirou.',
+        description: 'Por favor, faça login novamente.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      router.push('/login')
+      return
+    }
 
-  //   try {
-  //     const parsedWeight = schema.parse({ weight })
+    try {
+      const parsedWeight = schema.parse({ weight })
 
-  //     await updateExerciseByUser(token, id, {
-  //       weight: parsedWeight.weight,
-  //     })
+      await updateSet(token, id, {
+        weight: parsedWeight.weight.toString(),
+      })
 
-  //     const exerciseUpdated = await findExerciseById(token, id)
+      setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
 
-  //     setExercisesState((prevExercisesState) => {
-  //       const updatedExercisesState = prevExercisesState.map((exercise) =>
-  //         exercise.id === id ? exerciseUpdated : exercise,
-  //       )
-  //       return updatedExercisesState
-  //     })
-
-  //     setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }))
-
-  //     toast({
-  //       title: 'Peso atualizado com sucesso.',
-  //       status: 'success',
-  //       duration: 3000,
-  //       isClosable: true,
-  //     })
-  //   } catch (error) {
-  //     if (error instanceof z.ZodError) {
-  //       setErrors((prevErrors) => ({
-  //         ...prevErrors,
-  //         [id]: (error as z.ZodError).errors[0].message,
-  //       }))
-  //     } else {
-  //       console.error(error)
-  //       toast({
-  //         title: 'Erro ao atualizar peso.',
-  //         description: 'Por favor, tente novamente.',
-  //         status: 'error',
-  //         duration: 3000,
-  //         isClosable: true,
-  //       })
-  //     }
-  //   }
-  // }
+      toast({
+        title: 'Peso atualizado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [id]: (error as z.ZodError).errors[0].message,
+        }))
+      } else {
+        console.error(error)
+        toast({
+          title: 'Erro ao atualizar peso.',
+          description: 'Por favor, tente novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    }
+  }
 
   return (
     <>
@@ -149,9 +145,26 @@ export default function ExercisesList({
                         <Td textAlign={'center'} p={0} minW={'70px'}>
                           {set.reps}
                         </Td>
+
                         <Td textAlign={'center'} p={0} minW={'70px'}>
-                          {set.weight}
+                          <Input
+                            key={set.id}
+                            defaultValue={set.weight}
+                            onBlur={(event) =>
+                              handleUpdateSets(event.target.value, set.id!)
+                            }
+                            textAlign={'center'}
+                            p={0}
+                            m={0}
+                            maxW={'70px'}
+                          />
+                          {errors[set.id!] && (
+                            <Text color={'red.500'} mt={3}>
+                              {errors[set.id!]}
+                            </Text>
+                          )}
                         </Td>
+
                         <Td textAlign={'center'} p={0} minW={'70px'}>
                           {set.setType}
                         </Td>
@@ -163,24 +176,6 @@ export default function ExercisesList({
                   </Table>
                 </Box>
               ))}
-
-            {/* <chakra.h1 fontWeight={'medium'} fontSize="md" lineHeight={6}>
-              <Flex>
-                Carga: <Pen size={20} />
-              </Flex>
-              <Input
-                key={exercise.id}
-                defaultValue={exercise.weight}
-                onBlur={(event) =>
-                  handleUpdateExercise(event.target.value, exercise.id!)
-                }
-              />
-              {errors[exercise.id!] && (
-                <Text color={'red.500'} mt={3}>
-                  {errors[exercise.id!]}
-                </Text>
-              )}
-            </chakra.h1> */}
           </Stack>
         </Box>
       ))}
