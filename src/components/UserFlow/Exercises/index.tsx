@@ -9,9 +9,9 @@ import {
   Th,
   Thead,
   Tr,
-  Center,
   useToast,
   Input,
+  Flex,
 } from '@chakra-ui/react'
 import { ISet, updateSet } from '@/pages/api/providers/sets.provider'
 import z from 'zod'
@@ -101,22 +101,37 @@ export default function ExercisesList({
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
         >
-          <Stack direction={'column'} spacing={3} textColor={'whiteAlpha.800'}>
-            <Center justifyContent={'center'} mb={3} flexDirection={'column'}>
-              <Text
-                textAlign={'center'}
-                bgColor={'purple.700'}
-                borderRadius={3}
-                fontSize="sm"
-                p={1}
-              >
-                {workoutExercise?.exercise?.muscleGroup}
-              </Text>
-              <Text fontSize="md" p={1}>
-                {workoutExercise?.exercise?.name}
-              </Text>
-            </Center>
+          {workoutExercise &&
+            workoutExercise?.workoutsExercisesNames &&
+            workoutExercise?.workoutsExercisesNames?.map(
+              (workoutExerciseName) => (
+                <>
+                  <Flex
+                    key={workoutExerciseName.id}
+                    flexWrap={'wrap'}
+                    justifyContent={'start'}
+                    alignItems={'center'}
+                    mb={3}
+                    mt={3}
+                  >
+                    <Text
+                      textAlign={'center'}
+                      bgColor={'purple.700'}
+                      borderRadius={3}
+                      fontSize="sm"
+                      p={1}
+                    >
+                      {workoutExerciseName?.exercises?.muscleGroup}
+                    </Text>
+                    <Text fontSize="md" p={1}>
+                      {workoutExerciseName?.exercises?.name}
+                    </Text>
+                  </Flex>
+                </>
+              ),
+            )}
 
+          <Stack direction={'column'} spacing={3} textColor={'whiteAlpha.800'}>
             <Table variant="unstyled" size={'sm'}>
               <Thead>
                 <Tr borderBottom={'1px solid grey'}>
