@@ -317,7 +317,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
           >
             <Box>
               <HandleButton
-                text="Adicionar tipo de exercício"
+                text="Tipo de exercício"
                 leftIcon={<Plus weight="bold" />}
                 size={'xs'}
                 onClick={() => {
@@ -356,6 +356,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
                       <FormControl mb={3} mt={3}>
                         <Select
                           bgGradient={'transparent'}
+                          value={selectedMuscleGroup}
                           onChange={(e) =>
                             setSelectedMuscleGroup(e.target.value)
                           }
@@ -363,9 +364,8 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
                           <option
                             style={{ backgroundColor: '#322659' }}
                             disabled
-                            value=""
                           >
-                            Grupo Mucular
+                            Grupo Muscular
                           </option>
                           {muscleGroups.map((muscleGroup: IExercise) => (
                             <option
@@ -408,7 +408,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
 
                     <ModalFooter>
                       <HandleButton
-                        text="Adicionar"
+                        text="Tipo de exercício"
                         leftIcon={<Plus weight="bold" />}
                         onClick={() =>
                           handleWithAddExerciseName(selectedExerciseNameId!)
@@ -452,7 +452,8 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
 
           <Flex mt={3}>
             <HandleButton
-              text="+ Adicionar série"
+              text="Série"
+              leftIcon={<Plus weight="bold" />}
               onClick={() => handleWithCreatingSet(workoutExercise.id!)}
               size={'xs'}
             />
