@@ -172,7 +172,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
     <>
       <Stack>
         <HandleButton
-          text="Cadastrar usuário"
+          text="Usuário"
           leftIcon={<Plus weight="bold" />}
           onClick={onOpen}
         />
@@ -303,7 +303,7 @@ export default function UserCreate({ usersTypes, planTypes }: CreateUserProps) {
             <ModalFooter>
               <HandleButton
                 mr={3}
-                text="Cadastrar Usuário"
+                text="Usuário"
                 leftIcon={<Plus weight="bold" />}
                 type="submit"
               />

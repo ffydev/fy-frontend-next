@@ -356,14 +356,16 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
                       <FormControl mb={3} mt={3}>
                         <Select
                           bgGradient={'transparent'}
-                          value={selectedMuscleGroup}
                           onChange={(e) =>
                             setSelectedMuscleGroup(e.target.value)
                           }
+                          value={selectedMuscleGroup}
+                          defaultValue=""
                         >
                           <option
                             style={{ backgroundColor: '#322659' }}
                             disabled
+                            value=""
                           >
                             Grupo Muscular
                           </option>

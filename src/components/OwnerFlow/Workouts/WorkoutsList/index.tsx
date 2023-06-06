@@ -94,7 +94,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
       <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
           <HandleButton
-            text="Adicionar Exercício"
+            text="Exercício"
             leftIcon={<Plus weight="bold" />}
             onClick={() => handleCreateExercise(selectedWorkoutId)}
           />

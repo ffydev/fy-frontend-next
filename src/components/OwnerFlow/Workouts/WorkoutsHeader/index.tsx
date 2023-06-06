@@ -91,7 +91,7 @@ export default function WorkoutsHeader() {
           <FormControl width={'100%'}>
             <Stack>
               <HandleButton
-                text="Cadastrar Workout"
+                text="Workout"
                 leftIcon={<Plus weight="bold" />}
                 type="submit"
               />
