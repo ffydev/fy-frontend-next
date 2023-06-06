@@ -1,14 +1,13 @@
 import { api } from '../apis/api'
-import { IExercise } from './exercises.provider'
 import { ISet } from './sets.provider'
 import { IWorkout } from './workouts.provider'
+import { IWorkoutExerciseName } from './workoutsExercisesNames.provider'
 
 export interface IWorkoutsExercises {
   id?: string
   workoutId?: string
-  exerciseId?: string
   workout?: IWorkout
-  exercise?: IExercise
+  workoutsExercisesNames?: IWorkoutExerciseName[]
   sets?: ISet[]
 }
 
