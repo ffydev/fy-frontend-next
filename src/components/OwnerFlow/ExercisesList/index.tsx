@@ -19,7 +19,6 @@ import {
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
-  Button,
   Text,
   Flex,
   Spacer,
@@ -32,6 +31,14 @@ import {
   FormControl,
   SimpleGrid,
   Select,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
@@ -44,12 +51,14 @@ interface WorkoutsProps {
 export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
   const router = useRouter()
   const toast = useToast()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { setIsFetchingWorkouts } = useOwnerIsFetchingStore()
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
   const [selectedExerciseNameId, setSelectedExerciseNameId] =
     useState<string>('')
+  const [selectedExercise, setSelectedExercise] = useState<string>('')
 
   useEffect(() => {
     const fetchMuscleGroups = async () => {
@@ -121,10 +130,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
     fetchExerciseByMuscleGroup()
   }, [selectedMuscleGroup, toast, router])
 
-  const handleWithAddExerciseName = async (
-    workoutExerciseId: string,
-    exerciseNameId: string,
-  ) => {
+  const handleWithAddExerciseName = async (exerciseNameId: string) => {
     try {
       const token = getUserToken()
 
@@ -141,8 +147,16 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
       }
 
       await createWorkoutsExerciseName(token, {
-        workoutExerciseId,
+        workoutExerciseId: selectedExercise,
         exerciseId: exerciseNameId,
+      })
+
+      toast({
+        title: 'Exercício adicionado.',
+        description: 'Exercício adicionado com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       })
 
       setIsFetchingWorkouts()
@@ -231,6 +245,12 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
     }
   }
 
+  const handleWithSelectedWorkoutExercise = (
+    selectedWorkoutExerciseId: string,
+  ) => {
+    setSelectedExercise(selectedWorkoutExerciseId)
+  }
+
   return (
     <>
       {workoutsExercises?.map((workoutExercise: IWorkoutsExercises) => (
@@ -258,6 +278,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
               (workoutExerciseName) => (
                 <>
                   <Flex
+                    key={workoutExerciseName.id}
                     flexWrap={'wrap'}
                     justifyContent={'start'}
                     alignItems={'center'}
@@ -292,7 +313,20 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
             spacing={5}
             w={'full'}
             textColor={'whiteAlpha.800'}
+            mt={3}
           >
+            <Box>
+              <HandleButton
+                text="Adicionar tipo de exercício"
+                leftIcon={<Plus weight="bold" />}
+                size={'xs'}
+                onClick={() => {
+                  onOpen()
+                  handleWithSelectedWorkoutExercise(workoutExercise.id!)
+                }}
+              />
+            </Box>
+
             <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
               <SimpleGrid
                 columns={{ base: 1, md: 3 }}
@@ -300,64 +334,89 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
                 mb={4}
                 w={'full'}
               >
-                <FormControl>
-                  <Select
-                    bgGradient={'transparent'}
-                    onChange={(e) => setSelectedMuscleGroup(e.target.value)}
+                <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay
+                    bg="blackAlpha.300"
+                    backdropFilter="blur(10px)"
+                  />
+                  <ModalContent
+                    bgGradient={[
+                      'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+                      'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
+                    ]}
+                    border={'1px'}
+                    borderColor={'whiteAlpha.200'}
+                    backdropFilter={'auto'}
+                    backdropBlur={'1rem'}
+                    boxShadow={'lg'}
                   >
-                    <option
-                      style={{ backgroundColor: '#322659' }}
-                      disabled
-                      value=""
-                    >
-                      Grupo Mucular
-                    </option>
-                    {muscleGroups.map((muscleGroup: IExercise) => (
-                      <option
-                        style={{ backgroundColor: '#322659' }}
-                        key={muscleGroup.id}
-                        value={muscleGroup.muscleGroup}
-                      >
-                        {muscleGroup.muscleGroup}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
+                    <ModalHeader></ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      <FormControl mb={3} mt={3}>
+                        <Select
+                          bgGradient={'transparent'}
+                          onChange={(e) =>
+                            setSelectedMuscleGroup(e.target.value)
+                          }
+                        >
+                          <option
+                            style={{ backgroundColor: '#322659' }}
+                            disabled
+                            value=""
+                          >
+                            Grupo Mucular
+                          </option>
+                          {muscleGroups.map((muscleGroup: IExercise) => (
+                            <option
+                              style={{ backgroundColor: '#322659' }}
+                              key={muscleGroup.id}
+                              value={muscleGroup.muscleGroup}
+                            >
+                              {muscleGroup.muscleGroup}
+                            </option>
+                          ))}
+                        </Select>
+                      </FormControl>
 
-                <FormControl>
-                  <Select
-                    onChange={(e) => setSelectedExerciseNameId(e.target.value)}
-                    bgGradient={'transparent'}
-                  >
-                    <option
-                      style={{ backgroundColor: '#322659' }}
-                      disabled
-                      value=""
-                    >
-                      Exercícios
-                    </option>
-                    {exercises.map((exercise: IExercise) => (
-                      <option
-                        style={{ backgroundColor: '#322659' }}
-                        key={exercise.id}
-                        value={exercise.id}
-                      >
-                        {exercise.name}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
+                      <FormControl>
+                        <Select
+                          onChange={(e) =>
+                            setSelectedExerciseNameId(e.target.value)
+                          }
+                          bgGradient={'transparent'}
+                        >
+                          <option
+                            style={{ backgroundColor: '#322659' }}
+                            disabled
+                            value=""
+                          >
+                            Exercícios
+                          </option>
+                          {exercises.map((exercise: IExercise) => (
+                            <option
+                              style={{ backgroundColor: '#322659' }}
+                              key={exercise.id}
+                              value={exercise.id}
+                            >
+                              {exercise.name}
+                            </option>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </ModalBody>
 
-                <HandleButton
-                  text="Adicionar"
-                  leftIcon={<Plus weight="bold" />}
-                  onClick={() =>
-                    handleWithAddExerciseName(
-                      workoutExercise.id!,
-                      selectedExerciseNameId!,
-                    )
-                  }
-                />
+                    <ModalFooter>
+                      <HandleButton
+                        text="Adicionar"
+                        leftIcon={<Plus weight="bold" />}
+                        onClick={() =>
+                          handleWithAddExerciseName(selectedExerciseNameId!)
+                        }
+                      />
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
               </SimpleGrid>
             </Stack>
 
@@ -392,13 +451,11 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
           </Stack>
 
           <Flex mt={3}>
-            <Button
+            <HandleButton
+              text="+ Adicionar série"
               onClick={() => handleWithCreatingSet(workoutExercise.id!)}
-              background={'purple.700'}
               size={'xs'}
-            >
-              + Adicionar série
-            </Button>
+            />
           </Flex>
         </Box>
       ))}
