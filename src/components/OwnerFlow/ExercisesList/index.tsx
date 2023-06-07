@@ -29,7 +29,6 @@ import {
   Tr,
   Th,
   FormControl,
-  SimpleGrid,
   Select,
   Modal,
   ModalOverlay,
@@ -327,100 +326,87 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
               />
             </Box>
 
-            <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
-              <SimpleGrid
-                columns={{ base: 1, md: 3 }}
-                spacing={5}
-                mb={4}
-                w={'full'}
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+              <ModalContent
+                bgGradient={[
+                  'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+                  'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
+                ]}
+                border={'1px'}
+                borderColor={'whiteAlpha.200'}
+                backdropFilter={'auto'}
+                backdropBlur={'1rem'}
+                boxShadow={'lg'}
               >
-                <Modal isOpen={isOpen} onClose={onClose}>
-                  <ModalOverlay
-                    bg="blackAlpha.300"
-                    backdropFilter="blur(10px)"
+                <ModalHeader>
+                  <ModalCloseButton />
+                </ModalHeader>
+                <ModalBody>
+                  <FormControl mb={3} mt={3}>
+                    <Select
+                      bgGradient={'transparent'}
+                      onChange={(e) => setSelectedMuscleGroup(e.target.value)}
+                      value={selectedMuscleGroup}
+                      defaultValue=""
+                    >
+                      <option
+                        style={{ backgroundColor: '#322659' }}
+                        disabled
+                        value=""
+                      >
+                        Grupo Muscular
+                      </option>
+                      {muscleGroups.map((muscleGroup: IExercise) => (
+                        <option
+                          style={{ backgroundColor: '#322659' }}
+                          key={muscleGroup.id}
+                          value={muscleGroup.muscleGroup}
+                        >
+                          {muscleGroup.muscleGroup}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+
+                  <FormControl>
+                    <Select
+                      onChange={(e) =>
+                        setSelectedExerciseNameId(e.target.value)
+                      }
+                      bgGradient={'transparent'}
+                    >
+                      <option
+                        style={{ backgroundColor: '#322659' }}
+                        disabled
+                        value=""
+                      >
+                        Exercícios
+                      </option>
+                      {exercises.map((exercise: IExercise) => (
+                        <option
+                          style={{ backgroundColor: '#322659' }}
+                          key={exercise.id}
+                          value={exercise.id}
+                        >
+                          {exercise.name}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </ModalBody>
+
+                <ModalFooter>
+                  <HandleButton
+                    text="Tipo de exercício"
+                    leftIcon={<Plus weight="bold" />}
+                    onClick={() =>
+                      handleWithAddExerciseName(selectedExerciseNameId!)
+                    }
                   />
-                  <ModalContent
-                    bgGradient={[
-                      'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
-                      'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
-                    ]}
-                    border={'1px'}
-                    borderColor={'whiteAlpha.200'}
-                    backdropFilter={'auto'}
-                    backdropBlur={'1rem'}
-                    boxShadow={'lg'}
-                  >
-                    <ModalHeader></ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                      <FormControl mb={3} mt={3}>
-                        <Select
-                          bgGradient={'transparent'}
-                          onChange={(e) =>
-                            setSelectedMuscleGroup(e.target.value)
-                          }
-                          value={selectedMuscleGroup}
-                          defaultValue=""
-                        >
-                          <option
-                            style={{ backgroundColor: '#322659' }}
-                            disabled
-                            value=""
-                          >
-                            Grupo Muscular
-                          </option>
-                          {muscleGroups.map((muscleGroup: IExercise) => (
-                            <option
-                              style={{ backgroundColor: '#322659' }}
-                              key={muscleGroup.id}
-                              value={muscleGroup.muscleGroup}
-                            >
-                              {muscleGroup.muscleGroup}
-                            </option>
-                          ))}
-                        </Select>
-                      </FormControl>
-
-                      <FormControl>
-                        <Select
-                          onChange={(e) =>
-                            setSelectedExerciseNameId(e.target.value)
-                          }
-                          bgGradient={'transparent'}
-                        >
-                          <option
-                            style={{ backgroundColor: '#322659' }}
-                            disabled
-                            value=""
-                          >
-                            Exercícios
-                          </option>
-                          {exercises.map((exercise: IExercise) => (
-                            <option
-                              style={{ backgroundColor: '#322659' }}
-                              key={exercise.id}
-                              value={exercise.id}
-                            >
-                              {exercise.name}
-                            </option>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <HandleButton
-                        text="Tipo de exercício"
-                        leftIcon={<Plus weight="bold" />}
-                        onClick={() =>
-                          handleWithAddExerciseName(selectedExerciseNameId!)
-                        }
-                      />
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal>
-              </SimpleGrid>
-            </Stack>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
 
             <Table variant="unstyled" size={'sm'}>
               <Thead>
