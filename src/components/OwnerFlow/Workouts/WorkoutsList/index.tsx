@@ -1,7 +1,7 @@
 import HandleButton from '@/components/Buttons/HandleButton'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { deleteWorkout } from '@/pages/api/providers/workouts.provider'
-import { Flex, SimpleGrid, Stack, useToast } from '@chakra-ui/react'
+import { Box, Flex, SimpleGrid, Stack, useToast } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import ExercisesList from '../../ExercisesList'
@@ -91,16 +91,6 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
         />
       </Flex>
 
-      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
-          <HandleButton
-            text="Exercício"
-            leftIcon={<Plus weight="bold" />}
-            onClick={() => handleCreateExercise(selectedWorkoutId)}
-          />
-        </SimpleGrid>
-      </Stack>
-
       <Stack direction={['column', 'row']} spacing={3} w={'full'} mt={3}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} mb={4} w={'full'}>
           {workoutsExercises && (
@@ -108,6 +98,14 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
           )}
         </SimpleGrid>
       </Stack>
+
+      <Box>
+        <HandleButton
+          text="Exercício"
+          leftIcon={<Plus weight="bold" />}
+          onClick={() => handleCreateExercise(selectedWorkoutId)}
+        />
+      </Box>
     </>
   )
 }
