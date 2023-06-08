@@ -18,7 +18,6 @@ export function Workouts() {
     selectedUserId,
     selectedWorkoutId,
     setSelectedWorkoutId,
-    isFetchingWorkouts,
     isFetchingWorkoutsNames,
   } = useOwnerIsFetchingStore()
   const { setWorkoutsExercises } = useWorkoutsExercisesStore()
@@ -101,7 +100,6 @@ export function Workouts() {
             })
           }
         }
-
         fetchUserWorkouts()
       }
     }
@@ -113,7 +111,6 @@ export function Workouts() {
     selectedUserId,
     isFetchingWorkoutsNames,
     toast,
-    isFetchingWorkouts,
     setWorkoutsExercises,
   ])
 

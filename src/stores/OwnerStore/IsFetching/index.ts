@@ -6,7 +6,6 @@ const initialState = {
   selectedWorkoutId: '',
   isFetchingUsers: false,
   isFetchingWorkoutsNames: false,
-  isFetchingWorkouts: false,
 }
 
 export const useOwnerIsFetchingStore = create(
@@ -21,10 +20,6 @@ export const useOwnerIsFetchingStore = create(
     setIsFetchingWorkoutsNames: () =>
       set((state) => ({
         isFetchingWorkoutsNames: !state.isFetchingWorkoutsNames,
-      })),
-    setIsFetchingWorkouts: () =>
-      set((state) => ({
-        isFetchingWorkouts: !state.isFetchingWorkouts,
       })),
     reset: () => {
       set(initialState)
