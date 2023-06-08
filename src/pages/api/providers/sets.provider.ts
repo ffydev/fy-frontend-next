@@ -29,11 +29,13 @@ export async function createSet(
   }
 }
 
-export async function deleteSet(token: string, id: string): Promise<void> {
+export async function deleteSet(token: string, id: string) {
   try {
-    await api.delete(`/sets/${id}`, {
+    const response = await api.delete(`/sets/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
+
+    return response
   } catch (error) {
     console.error('Failed to delete set', error)
     throw error
@@ -44,11 +46,13 @@ export async function updateSet(
   token: string,
   id: string,
   set: ISet,
-): Promise<void> {
+): Promise<ISet> {
   try {
-    await api.patch(`/sets/${id}`, set, {
+    const response = await api.patch(`/sets/${id}`, set, {
       headers: { Authorization: `Bearer ${token}` },
     })
+
+    return response.data
   } catch (error) {
     console.error('Failed to delete set', error)
     throw error

@@ -1,6 +1,5 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { ISet, deleteSet, updateSet } from '@/pages/api/providers/sets.provider'
-import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import {
   Box,
   Input,
@@ -15,6 +14,7 @@ import {
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { CloseButtonComponent } from '../../Buttons/Closed'
+import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
 
 interface SetsListProps {
   sets?: ISet[]
@@ -23,7 +23,8 @@ interface SetsListProps {
 export default function SetsList({ sets }: SetsListProps) {
   const toast = useToast()
   const router = useRouter()
-  const { setIsFetchingWorkouts } = useOwnerIsFetchingStore()
+  const { workoutsExercises, setWorkoutsExercises } =
+    useWorkoutsExercisesStore()
   const [reps, setReps] = useState<string | undefined>('')
   const [weight, setWeight] = useState<string | undefined>('')
   const [rir, setRir] = useState<string | undefined>('')
@@ -46,8 +47,11 @@ export default function SetsList({ sets }: SetsListProps) {
         return
       }
 
-      await deleteSet(token, id)
-      setIsFetchingWorkouts()
+      const response = await deleteSet(token, id)
+
+      if (response) {
+        deleteSetFromWorkoutExercise(id)
+      }
     } catch (error) {
       console.log(error)
 
@@ -59,6 +63,17 @@ export default function SetsList({ sets }: SetsListProps) {
         isClosable: true,
       })
     }
+  }
+
+  const deleteSetFromWorkoutExercise = (id: string) => {
+    const updatedSets = workoutsExercises.map((workoutExercise) => {
+      const sets = workoutExercise.sets?.filter((set) => set.id !== id)
+      return {
+        ...workoutExercise,
+        sets,
+      }
+    })
+    setWorkoutsExercises(updatedSets)
   }
 
   const handleWithUpdateSet = async (id: string) => {
@@ -78,17 +93,37 @@ export default function SetsList({ sets }: SetsListProps) {
         return
       }
 
-      await updateSet(token, id, {
+      const response = await updateSet(token, id, {
         reps: reps || undefined,
         weight: weight || undefined,
         setType: setType || undefined,
         rir: rir || undefined,
       })
 
-      setIsFetchingWorkouts()
+      if (response) {
+        updateSetFromWorkoutExercise(id, response)
+      }
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const updateSetFromWorkoutExercise = (id: string, setResponse: ISet) => {
+    const updatedSets = workoutsExercises.map((workoutExercise) => {
+      const updatedSet = workoutExercise.sets?.map((set) => {
+        if (set.id === id) {
+          return setResponse
+        }
+        return set
+      })
+
+      return {
+        ...workoutExercise,
+        sets: updatedSet,
+      }
+    })
+
+    setWorkoutsExercises(updatedSets)
   }
 
   return (

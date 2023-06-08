@@ -6,24 +6,19 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import ExercisesList from '../../ExercisesList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
-import {
-  createWorkoutsExercise,
-  IWorkoutsExercises,
-} from '@/pages/api/providers/workoutsExercises.provider'
+import { createWorkoutsExercise } from '@/pages/api/providers/workoutsExercises.provider'
 import { CloseButtonComponent } from '@/components/Buttons/Closed'
+import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
 
-interface WorkoutsProps {
-  workoutsExercises: IWorkoutsExercises[]
-}
-
-export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
+export function WorkoutsLists() {
   const router = useRouter()
   const {
     setIsFetchingWorkoutsNames,
     selectedWorkoutId,
     setSelectedWorkoutId,
-    setIsFetchingWorkouts,
   } = useOwnerIsFetchingStore()
+  const { workoutsExercises, setWorkoutsExercises } =
+    useWorkoutsExercisesStore()
   const toast = useToast()
 
   const handleCreateExercise = async (workoutId: string) => {
@@ -42,11 +37,13 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
         return
       }
 
-      await createWorkoutsExercise(token, {
+      const response = await createWorkoutsExercise(token, {
         workoutId,
       })
 
-      setIsFetchingWorkouts()
+      if (response) {
+        setWorkoutsExercises([...workoutsExercises, response])
+      }
     } catch (error) {
       console.error(error)
     }
@@ -93,9 +90,7 @@ export function WorkoutsLists({ workoutsExercises }: WorkoutsProps) {
 
       <Stack direction={['column', 'row']} spacing={3} w={'full'} mt={3}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} mb={4} w={'full'}>
-          {workoutsExercises && (
-            <ExercisesList workoutsExercises={workoutsExercises} />
-          )}
+          {workoutsExercises && <ExercisesList />}
         </SimpleGrid>
       </Stack>
 

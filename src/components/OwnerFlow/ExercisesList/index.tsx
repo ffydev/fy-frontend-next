@@ -7,7 +7,7 @@ import {
   findMuscleGroup,
   IExercise,
 } from '@/pages/api/providers/exercises.provider'
-import { createSet } from '@/pages/api/providers/sets.provider'
+import { createSet, ISet } from '@/pages/api/providers/sets.provider'
 import {
   deleteWorkoutExercise,
   IWorkoutsExercises,
@@ -16,7 +16,7 @@ import {
   createWorkoutsExerciseName,
   deleteWorkoutExerciseName,
 } from '@/pages/api/providers/workoutsExercisesNames.provider'
-import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
 import {
   Box,
   Text,
@@ -43,15 +43,12 @@ import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-interface WorkoutsProps {
-  workoutsExercises?: IWorkoutsExercises[]
-}
-
-export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
+export default function ExercisesList() {
   const router = useRouter()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { setIsFetchingWorkouts } = useOwnerIsFetchingStore()
+  const { workoutsExercises, setWorkoutsExercises } =
+    useWorkoutsExercisesStore()
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
@@ -145,10 +142,14 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         return
       }
 
-      await createWorkoutsExerciseName(token, {
+      const response = await createWorkoutsExerciseName(token, {
         workoutExerciseId: selectedExercise,
         exerciseId: exerciseNameId,
       })
+
+      if (response) {
+        addExerciseNameAtWorkoutExercise(selectedExercise, response)
+      }
 
       toast({
         title: 'Exercício adicionado.',
@@ -157,14 +158,25 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         duration: 3000,
         isClosable: true,
       })
-
-      setIsFetchingWorkouts()
     } catch (error) {
       console.error(error)
     }
   }
 
-  const handleWithCreatingSet = async (workoutExerciseId: string) => {
+  const addExerciseNameAtWorkoutExercise = (
+    workoutExerciseId: string,
+    exercise: IExercise,
+  ) => {
+    for (const workoutExercise of workoutsExercises) {
+      if (workoutExercise.id === workoutExerciseId) {
+        workoutExercise?.workoutsExercisesNames?.push(exercise)
+      }
+    }
+
+    setWorkoutsExercises(workoutsExercises)
+  }
+
+  const handleWithCreateSet = async (workoutExerciseId: string) => {
     try {
       const token = getUserToken()
 
@@ -181,8 +193,15 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         return
       }
 
-      await createSet(token, workoutExerciseId)
-      setIsFetchingWorkouts()
+      const response = await createSet(token, workoutExerciseId)
+
+      if (response) {
+        createSetAtWorkoutExercise(
+          workoutsExercises,
+          workoutExerciseId,
+          response,
+        )
+      }
     } catch (error) {
       console.error(error)
 
@@ -196,6 +215,19 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
     }
   }
 
+  const createSetAtWorkoutExercise = (
+    workoutsExercises: IWorkoutsExercises[],
+    workoutExerciseId: string,
+    newSet: ISet,
+  ) => {
+    for (const workoutExercise of workoutsExercises) {
+      if (workoutExercise.id === workoutExerciseId) {
+        workoutExercise?.sets?.push(newSet)
+      }
+    }
+    setWorkoutsExercises(workoutsExercises)
+  }
+
   const handleWithDeleteExercise = async (id: string) => {
     try {
       const token = getUserToken()
@@ -205,9 +237,11 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         return
       }
 
-      await deleteWorkoutExercise(token, id)
+      const response = await deleteWorkoutExercise(token, id)
 
-      setIsFetchingWorkouts()
+      if (response) {
+        deleteExerciseAtWorkoutExercise(id)
+      }
     } catch (error) {
       console.error(error)
       toast({
@@ -220,6 +254,13 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
     }
   }
 
+  const deleteExerciseAtWorkoutExercise = (id: string) => {
+    const updatedExercises = workoutsExercises.filter(
+      (workoutExercise) => workoutExercise.id !== id,
+    )
+    setWorkoutsExercises(updatedExercises)
+  }
+
   const handleWithDeleteExerciseName = async (id: string) => {
     try {
       const token = getUserToken()
@@ -229,9 +270,11 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         return
       }
 
-      await deleteWorkoutExerciseName(token, id)
+      const response = await deleteWorkoutExerciseName(token, id)
 
-      setIsFetchingWorkouts()
+      if (response) {
+        deleteExerciseNameAtWorkoutExercise(id)
+      }
     } catch (error) {
       console.error(error)
       toast({
@@ -242,6 +285,19 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
         isClosable: true,
       })
     }
+  }
+
+  const deleteExerciseNameAtWorkoutExercise = (id: string) => {
+    const updatedExercises = workoutsExercises.map((workoutExercise) => {
+      const updatedNames = workoutExercise.workoutsExercisesNames?.filter(
+        (exercise) => exercise.id !== id,
+      )
+      return {
+        ...workoutExercise,
+        workoutsExercisesNames: updatedNames,
+      }
+    })
+    setWorkoutsExercises(updatedExercises)
   }
 
   const handleWithSelectedWorkoutExercise = (
@@ -442,7 +498,7 @@ export default function ExercisesList({ workoutsExercises }: WorkoutsProps) {
             <HandleButton
               text="Série"
               leftIcon={<Plus weight="bold" />}
-              onClick={() => handleWithCreatingSet(workoutExercise.id!)}
+              onClick={() => handleWithCreateSet(workoutExercise.id!)}
               size={'xs'}
             />
           </Flex>

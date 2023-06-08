@@ -55,11 +55,16 @@ export async function findWorkoutsExercisesByWorkout(
 export async function deleteWorkoutExercise(
   token: string,
   workoutExerciseId: string,
-): Promise<void> {
+) {
   try {
-    await api.delete(`/workouts-exercises/${workoutExerciseId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await api.delete(
+      `/workouts-exercises/${workoutExerciseId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response
   } catch (error) {
     console.error(
       `Failed to delete workout exercise with id ${workoutExerciseId}`,

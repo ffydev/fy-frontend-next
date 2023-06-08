@@ -9,10 +9,8 @@ import { useEffect, useState } from 'react'
 import { WorkoutsLists } from './WorkoutsList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import WorkoutsHeader from './WorkoutsHeader'
-import {
-  findWorkoutsExercisesByWorkout,
-  IWorkoutsExercises,
-} from '@/pages/api/providers/workoutsExercises.provider'
+import { findWorkoutsExercisesByWorkout } from '@/pages/api/providers/workoutsExercises.provider'
+import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
 
 export function Workouts() {
   const router = useRouter()
@@ -23,10 +21,8 @@ export function Workouts() {
     isFetchingWorkouts,
     isFetchingWorkoutsNames,
   } = useOwnerIsFetchingStore()
+  const { setWorkoutsExercises } = useWorkoutsExercisesStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
-  const [workoutsExercises, setWorkoutsExercises] = useState<
-    IWorkoutsExercises[]
-  >([])
   const toast = useToast()
 
   useEffect(() => {
@@ -118,6 +114,7 @@ export function Workouts() {
     isFetchingWorkoutsNames,
     toast,
     isFetchingWorkouts,
+    setWorkoutsExercises,
   ])
 
   return (
@@ -135,9 +132,7 @@ export function Workouts() {
             </Tab>
           ))}
         </TabList>
-        {workoutsNames && workoutsNames.length > 0 && (
-          <WorkoutsLists workoutsExercises={workoutsExercises} />
-        )}
+        {workoutsNames && workoutsNames.length > 0 && <WorkoutsLists />}
       </Tabs>
     </>
   )
