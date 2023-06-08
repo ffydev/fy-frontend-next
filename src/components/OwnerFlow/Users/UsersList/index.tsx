@@ -90,10 +90,10 @@ export function UsersList({ users, planTypes }: UsersListProps) {
         duration: 3000,
         isClosable: true,
       })
+
+      setIsFetchingUsers()
     } catch (error) {
       console.error(error)
-    } finally {
-      setIsFetchingUsers()
     }
   }
 
@@ -116,6 +116,8 @@ export function UsersList({ users, planTypes }: UsersListProps) {
       await updateUser(token, userId, {
         hasAnamnesis: false,
       })
+
+      setIsFetchingUsers()
 
       toast({
         title: 'Anamnese ativada com sucesso.',
