@@ -23,6 +23,13 @@ export interface IAnamnesis {
   deletedAt?: string
 }
 
+export interface IFindUserAnamnesis {
+  anamnesis: IAnamnesis[]
+  anamnmesisPictures: {
+    Key: string
+  }
+}
+
 export async function createAnamnesis(
   token: string,
   anamnesis: IAnamnesis,
@@ -42,9 +49,9 @@ export async function createAnamnesis(
 export async function findUserAnamnesis(
   token: string,
   userId: string,
-): Promise<IAnamnesis[]> {
+): Promise<IFindUserAnamnesis> {
   try {
-    const response = await api.get<IAnamnesis[]>(
+    const response = await api.get<IFindUserAnamnesis>(
       `/anamnesis/by-user?userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },

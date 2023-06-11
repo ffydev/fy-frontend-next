@@ -34,7 +34,7 @@ export default function ListAnamnesis() {
 
         const response = await findUserAnamnesis(token, selectedUserId)
 
-        setAnamnesis(response)
+        setAnamnesis(response.anamnesis)
       } catch (error) {
         console.error(error)
       }
