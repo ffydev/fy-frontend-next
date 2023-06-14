@@ -16,7 +16,7 @@ export interface IAnamnesis {
   comorbidities?: string
   budgetForDietSupplementation?: string
   supplementsPharmaceuticalsUsed?: string
-  imagePaths?: string
+  pictures?: any
   userId: string
   createdAt?: string
   updatedAt?: string
@@ -36,12 +36,15 @@ export async function createAnamnesis(
 ): Promise<IAnamnesis> {
   try {
     const response = await api.post<IAnamnesis>('/anamnesis', anamnesis, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
     })
-
+    console.log(response.data)
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to create anamnesis', error)
     throw error
   }
 }
