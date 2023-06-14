@@ -26,6 +26,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
+import { MdCloudUpload } from 'react-icons/md'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
@@ -60,6 +61,7 @@ const createAnamnesisFormSchema = z.object({
   comorbidities: z.string().optional(),
   budgetForDietSupplementation: z.string().optional(),
   supplementsPharmaceuticalsUsed: z.string().optional(),
+  pictures: z.any(),
 })
 
 type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
@@ -77,6 +79,7 @@ export default function AnamnesisCreate() {
   } = useForm<createAnamnesisFormSchemaType>({
     resolver: zodResolver(createAnamnesisFormSchema),
   })
+
   const toast = useToast()
 
   const fetchCurrentUserData = async (token: string) => {
@@ -126,6 +129,16 @@ export default function AnamnesisCreate() {
         return
       }
 
+      let mappedData: any = []
+
+      const outerKeys = Object.keys(data.pictures)
+
+      outerKeys.map((key) => {
+        mappedData = data.pictures[key]
+      })
+
+      console.log(mappedData)
+
       await createAnamnesis(token, {
         gender: data.gender,
         age: data.age,
@@ -142,17 +155,18 @@ export default function AnamnesisCreate() {
         budgetForDietSupplementation: data.budgetForDietSupplementation,
         supplementsPharmaceuticalsUsed: data.supplementsPharmaceuticalsUsed,
         userId: user!.id,
+        pictures: mappedData,
       })
 
-      await updateUserByUser(token, user!.id, { hasAnamnesis: true })
-      await fetchCurrentUserData(token)
-      toast({
-        title: 'Anamnese criada com sucesso!',
-        description: 'Agora você pode acessar seu Dashboard.',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
+      // await updateUserByUser(token, user!.id, { hasAnamnesis: true })
+      // await fetchCurrentUserData(token)
+      // toast({
+      //   title: 'Anamnese criada com sucesso!',
+      //   description: 'Agora você pode acessar seu Dashboard.',
+      //   status: 'success',
+      //   duration: 3000,
+      //   isClosable: true,
+      // })
     } catch (error) {
       console.error(error)
       toast({
@@ -311,6 +325,37 @@ export default function AnamnesisCreate() {
                   {...register('supplementsPharmaceuticalsUsed')}
                   placeholder="Suplementos/Fármacos utilizados"
                 />
+              </FormControl>
+
+              <FormControl gridColumn="span 2">
+                <label>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    p={4}
+                    minW={'full'}
+                    border="2px dashed"
+                    borderColor="gray.300"
+                    borderRadius="md"
+                    textAlign="center"
+                    cursor="pointer"
+                    _hover={{ bg: 'gray.50' }}
+                  >
+                    <MdCloudUpload size={24} />
+                    <Text mt={2} fontSize="sm" fontWeight="bold">
+                      Arraste as imagens ou clique para fazer o upload
+                    </Text>
+                  </Box>
+                  <Input
+                    {...register('pictures')}
+                    type="file"
+                    style={{ display: 'none' }}
+                    accept="image/*"
+                    multiple
+                  />
+                </label>
+                {errors.pictures && <Text>{errors.pictures.message}</Text>}
               </FormControl>
             </Grid>
 
