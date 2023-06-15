@@ -60,7 +60,7 @@ const createAnamnesisFormSchema = z.object({
   comorbidities: z.string().optional(),
   budgetForDietSupplementation: z.string().optional(),
   supplementsPharmaceuticalsUsed: z.string().optional(),
-  pictures: z.any().refine((files) => !files, {
+  pictures: z.any().refine((obj) => Object.keys(obj).length > 0, {
     message: 'Por favor, selecione suas fotos.',
   }),
 })
@@ -168,7 +168,7 @@ export default function AnamnesisCreate() {
       )
       formData.append('userId', user!.id)
 
-      await createAnamnesis(token, formData)
+      await createAnamnesis(token, formData as any)
 
       await fetchCurrentUserData(token)
       toast({
