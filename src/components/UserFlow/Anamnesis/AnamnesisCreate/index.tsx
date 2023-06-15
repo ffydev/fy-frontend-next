@@ -24,7 +24,6 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import { MdCloudUpload } from 'react-icons/md'
 
@@ -61,7 +60,9 @@ const createAnamnesisFormSchema = z.object({
   comorbidities: z.string().optional(),
   budgetForDietSupplementation: z.string().optional(),
   supplementsPharmaceuticalsUsed: z.string().optional(),
-  pictures: z.any(),
+  pictures: z.any().refine((files) => !files, {
+    message: 'Por favor, selecione suas fotos.',
+  }),
 })
 
 type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
@@ -129,44 +130,54 @@ export default function AnamnesisCreate() {
         return
       }
 
-      let mappedData: any = []
+      const formData = new FormData()
+      const filesValues = Object.entries(data.pictures)
 
-      const outerKeys = Object.keys(data.pictures)
-
-      outerKeys.map((key) => {
-        mappedData = data.pictures[key]
+      filesValues.map((file: any) => {
+        return formData.append('pictures', file[1])
       })
 
-      console.log(mappedData)
+      formData.append('gender', data.gender)
+      formData.append('age', String(data.age))
+      formData.append('height', String(data.height))
+      formData.append('weight', String(data.weight))
+      formData.append('mealPlanAtHome', String(data.mealPlanAtHome))
+      formData.append('foodPreferences', JSON.stringify(data.foodPreferences))
+      formData.append('mealTimes', JSON.stringify(data.mealTimes))
+      formData.append(
+        'lastDayFoodIntake',
+        JSON.stringify(data.lastDayFoodIntake),
+      )
+      formData.append('allergies', JSON.stringify(data.allergies))
+      formData.append(
+        'physicalActivities',
+        JSON.stringify(data.physicalActivities),
+      )
+      formData.append(
+        'jointPainDiscomfort',
+        JSON.stringify(data.jointPainDiscomfort),
+      )
+      formData.append('comorbidities', JSON.stringify(data.comorbidities))
+      formData.append(
+        'budgetForDietSupplementation',
+        JSON.stringify(data.budgetForDietSupplementation),
+      )
+      formData.append(
+        'supplementsPharmaceuticalsUsed',
+        JSON.stringify(data.supplementsPharmaceuticalsUsed),
+      )
+      formData.append('userId', user!.id)
 
-      await createAnamnesis(token, {
-        gender: data.gender,
-        age: data.age,
-        height: data.height,
-        weight: data.weight,
-        mealPlanAtHome: data.mealPlanAtHome,
-        foodPreferences: data.foodPreferences,
-        mealTimes: data.mealTimes,
-        lastDayFoodIntake: data.lastDayFoodIntake,
-        allergies: data.allergies,
-        physicalActivities: data.physicalActivities,
-        jointPainDiscomfort: data.jointPainDiscomfort,
-        comorbidities: data.comorbidities,
-        budgetForDietSupplementation: data.budgetForDietSupplementation,
-        supplementsPharmaceuticalsUsed: data.supplementsPharmaceuticalsUsed,
-        userId: user!.id,
-        pictures: mappedData,
+      await createAnamnesis(token, formData)
+
+      await fetchCurrentUserData(token)
+      toast({
+        title: 'Anamnese criada com sucesso!',
+        description: 'Agora você pode acessar seu Dashboard.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       })
-
-      // await updateUserByUser(token, user!.id, { hasAnamnesis: true })
-      // await fetchCurrentUserData(token)
-      // toast({
-      //   title: 'Anamnese criada com sucesso!',
-      //   description: 'Agora você pode acessar seu Dashboard.',
-      //   status: 'success',
-      //   duration: 3000,
-      //   isClosable: true,
-      // })
     } catch (error) {
       console.error(error)
       toast({
@@ -209,6 +220,7 @@ export default function AnamnesisCreate() {
                 <Select
                   {...register('gender')}
                   placeholder="Selecione seu gênero"
+                  defaultValue={'masculino'}
                 >
                   <option value="masculino">Masculino</option>
                   <option value="feminino">Feminino</option>
@@ -220,6 +232,7 @@ export default function AnamnesisCreate() {
               <FormControl gridColumn="span 1">
                 <FormLabel>Idade</FormLabel>
                 <Input
+                  defaultValue={'27'}
                   {...register('age')}
                   placeholder="Digite sua idade"
                   isRequired
@@ -230,6 +243,7 @@ export default function AnamnesisCreate() {
               <FormControl gridColumn="span 1">
                 <FormLabel>Altura</FormLabel>
                 <Input
+                  defaultValue={'1.68'}
                   {...register('height')}
                   placeholder="Digite sua altura em cm"
                   isRequired
@@ -240,6 +254,7 @@ export default function AnamnesisCreate() {
               <FormControl gridColumn="span 1">
                 <FormLabel>Peso</FormLabel>
                 <Input
+                  defaultValue={'100'}
                   {...register('weight')}
                   placeholder="Digite seu peso em kg"
                   isRequired
@@ -355,7 +370,9 @@ export default function AnamnesisCreate() {
                     multiple
                   />
                 </label>
-                {errors.pictures && <Text>{errors.pictures.message}</Text>}
+                {errors?.pictures && (
+                  <Text>{errors.pictures.message as any}</Text>
+                )}
               </FormControl>
             </Grid>
 

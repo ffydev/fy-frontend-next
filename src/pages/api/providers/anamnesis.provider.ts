@@ -32,16 +32,16 @@ export interface IFindUserAnamnesis {
 
 export async function createAnamnesis(
   token: string,
-  anamnesis: IAnamnesis,
-): Promise<IAnamnesis> {
+  anamnesis: any,
+): Promise<any> {
   try {
-    const response = await api.post<IAnamnesis>('/anamnesis', anamnesis, {
+    const response = await api.post<any>('/anamnesis', anamnesis, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
     })
-    console.log(response.data)
+
     return response.data
   } catch (error) {
     console.error('Failed to create anamnesis', error)
