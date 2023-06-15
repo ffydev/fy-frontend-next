@@ -220,7 +220,6 @@ export default function AnamnesisCreate() {
                 <Select
                   {...register('gender')}
                   placeholder="Selecione seu gênero"
-                  defaultValue={'masculino'}
                 >
                   <option value="masculino">Masculino</option>
                   <option value="feminino">Feminino</option>
@@ -232,7 +231,6 @@ export default function AnamnesisCreate() {
               <FormControl gridColumn="span 1">
                 <FormLabel>Idade</FormLabel>
                 <Input
-                  defaultValue={'27'}
                   {...register('age')}
                   placeholder="Digite sua idade"
                   isRequired
@@ -243,7 +241,6 @@ export default function AnamnesisCreate() {
               <FormControl gridColumn="span 1">
                 <FormLabel>Altura</FormLabel>
                 <Input
-                  defaultValue={'1.68'}
                   {...register('height')}
                   placeholder="Digite sua altura em cm"
                   isRequired
@@ -254,7 +251,6 @@ export default function AnamnesisCreate() {
               <FormControl gridColumn="span 1">
                 <FormLabel>Peso</FormLabel>
                 <Input
-                  defaultValue={'100'}
                   {...register('weight')}
                   placeholder="Digite seu peso em kg"
                   isRequired
