@@ -353,7 +353,7 @@ export default function AnamnesisCreate() {
                     {...register('pictures')}
                     type="file"
                     style={{ display: 'none' }}
-                    accept="image/*"
+                    accept=".png, .jpg, .jpeg"
                     multiple
                   />
                 </label>
