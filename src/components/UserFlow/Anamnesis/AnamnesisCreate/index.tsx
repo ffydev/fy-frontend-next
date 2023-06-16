@@ -142,29 +142,20 @@ export default function AnamnesisCreate() {
       formData.append('height', String(data.height))
       formData.append('weight', String(data.weight))
       formData.append('mealPlanAtHome', String(data.mealPlanAtHome))
-      formData.append('foodPreferences', JSON.stringify(data.foodPreferences))
-      formData.append('mealTimes', JSON.stringify(data.mealTimes))
-      formData.append(
-        'lastDayFoodIntake',
-        JSON.stringify(data.lastDayFoodIntake),
-      )
-      formData.append('allergies', JSON.stringify(data.allergies))
-      formData.append(
-        'physicalActivities',
-        JSON.stringify(data.physicalActivities),
-      )
-      formData.append(
-        'jointPainDiscomfort',
-        JSON.stringify(data.jointPainDiscomfort),
-      )
-      formData.append('comorbidities', JSON.stringify(data.comorbidities))
+      formData.append('foodPreferences', String(data.foodPreferences))
+      formData.append('mealTimes', String(data.mealTimes))
+      formData.append('lastDayFoodIntake', String(data.lastDayFoodIntake))
+      formData.append('allergies', String(data.allergies))
+      formData.append('physicalActivities', String(data.physicalActivities))
+      formData.append('jointPainDiscomfort', String(data.jointPainDiscomfort))
+      formData.append('comorbidities', String(data.comorbidities))
       formData.append(
         'budgetForDietSupplementation',
-        JSON.stringify(data.budgetForDietSupplementation),
+        String(data.budgetForDietSupplementation),
       )
       formData.append(
         'supplementsPharmaceuticalsUsed',
-        JSON.stringify(data.supplementsPharmaceuticalsUsed),
+        String(data.supplementsPharmaceuticalsUsed),
       )
       formData.append('userId', user!.id)
 
