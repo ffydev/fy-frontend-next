@@ -7,10 +7,12 @@ import {
 } from '@/pages/api/providers/anamnesis.provider'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import { ViewPictures } from './viewPictures'
 
 export default function ListAnamnesis() {
   const router = useRouter()
   const [anamnesis, setAnamnesis] = useState<IAnamnesis[]>()
+  const [pictures, setPictures] = useState<any>()
   const { selectedUserId } = useOwnerIsFetchingStore()
   const toast = useToast()
 
@@ -34,6 +36,7 @@ export default function ListAnamnesis() {
 
         const response = await findUserAnamnesis(token, selectedUserId)
         setAnamnesis(response.anamnesis)
+        setPictures(response.anamnmesisPictures)
       } catch (error) {
         console.error(error)
       }
@@ -110,6 +113,8 @@ export default function ListAnamnesis() {
             Suplementos/Fármacos utilizados :{' '}
             {anamnesis.supplementsPharmaceuticalsUsed}
           </chakra.h1>
+
+          <ViewPictures pictures={pictures} />
         </Box>
       ))}
     </>
