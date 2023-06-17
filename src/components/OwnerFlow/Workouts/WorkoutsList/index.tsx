@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 import ExercisesList from '../../ExercisesList'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { createWorkoutsExercise } from '@/pages/api/providers/workoutsExercises.provider'
-import { CloseButtonComponent } from '@/components/Buttons/Closed'
 import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
+import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 
 export function WorkoutsLists() {
   const router = useRouter()

@@ -2,9 +2,15 @@ import { CloseButton } from '@chakra-ui/react'
 
 interface CloseButtonProps {
   onClick?: () => void
+  position?: any
+  right?: number
 }
 
-export function CloseButtonComponent({ onClick }: CloseButtonProps) {
+export function CloseButtonComponent({
+  onClick,
+  position,
+  right,
+}: CloseButtonProps) {
   return (
     <CloseButton
       _hover={{
@@ -15,6 +21,8 @@ export function CloseButtonComponent({ onClick }: CloseButtonProps) {
       border={'1px'}
       borderColor={'whiteAlpha.300'}
       onClick={onClick}
+      position={position}
+      right={right}
     />
   )
 }

@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { CloseButtonComponent } from '../../Buttons/Closed'
+import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
 
 interface SetsListProps {

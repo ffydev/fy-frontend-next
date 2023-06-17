@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Container,
+  Flex,
   FormControl,
   FormLabel,
   Grid,
@@ -28,6 +29,8 @@ import { z } from 'zod'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import { MdCloudUpload } from 'react-icons/md'
 import { useState } from 'react'
+import Image from 'next/image'
+import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
@@ -71,10 +74,12 @@ type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
 
 export default function AnamnesisCreate() {
   const router = useRouter()
+  const toast = useToast()
   const { user, setUser } = useAuthStore()
   const [isloadingButton, setIsLoadingButton] = useState(false)
   const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
     useUserNavigationStore()
+  const [picturesContent, setPicturesContent] = useState([])
 
   const {
     register,
@@ -84,7 +89,32 @@ export default function AnamnesisCreate() {
     resolver: zodResolver(createAnamnesisFormSchema),
   })
 
-  const toast = useToast()
+  const handleFileChange = (event: any) => {
+    console.log(event)
+    const files = event.target.files
+    const images = Array.from(files)
+
+    const imagePreviews: any = []
+
+    images.forEach((image) => {
+      const reader = new FileReader()
+
+      reader.onload = (e: any) => {
+        imagePreviews.push(e.target.result)
+        if (imagePreviews.length === images.length) {
+          setPicturesContent(imagePreviews)
+        }
+      }
+
+      reader.readAsDataURL(image as any)
+    })
+  }
+
+  const removeImage = (index: number) => {
+    const updatedPictures = [...picturesContent]
+    updatedPictures.splice(index, 1)
+    setPicturesContent(updatedPictures)
+  }
 
   const fetchCurrentUserData = async (token: string) => {
     try {
@@ -366,8 +396,26 @@ export default function AnamnesisCreate() {
                     style={{ display: 'none', pointerEvents: 'none' }}
                     accept=".png, .jpg, .jpeg"
                     multiple
+                    onChange={(event) => handleFileChange(event)}
                   />
                 </label>
+                <Flex flexWrap="wrap">
+                  {picturesContent?.map((image: any, index: any) => (
+                    <Box key={index} m={3} position="relative">
+                      <CloseButtonComponent
+                        onClick={() => removeImage(index)}
+                        position="absolute"
+                        right={0}
+                      />
+                      <Image
+                        src={image}
+                        alt="Imagens selecionadas pelo usuário"
+                        width={100}
+                        height={100}
+                      />
+                    </Box>
+                  ))}
+                </Flex>
                 {errors?.pictures && (
                   <Text>{errors.pictures.message as any}</Text>
                 )}

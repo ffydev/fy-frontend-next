@@ -1,4 +1,4 @@
-import { CloseButtonComponent } from '@/components/Buttons/Closed'
+import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 import HandleButton from '@/components/Buttons/HandleButton'
 import SetsList from '@/components/OwnerFlow/SetsList'
 import { getUserToken } from '@/pages/api/providers/auth.provider'

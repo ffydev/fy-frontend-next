@@ -21,7 +21,7 @@ import {
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import PlanList from '../../PlansList'
-import { CloseButtonComponent } from '@/components/Buttons/Closed'
+import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 
 interface UsersListProps {
   users: IUserInterface[]
