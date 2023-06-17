@@ -464,7 +464,7 @@ export default function AnamnesisCreate() {
                   colorScheme="purple"
                   type="reset"
                 >
-                  Cancelar
+                  Limpar
                 </Button>
               </Stack>
             </Flex>
