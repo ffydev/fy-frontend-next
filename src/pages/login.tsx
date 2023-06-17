@@ -37,7 +37,7 @@ type loginFormSchemaType = z.infer<typeof loginFormSchema>
 export default function Login() {
   const router = useRouter()
   const { setError, error, setIsLoadingLogin } = useAuthStore()
-  const [loadingButton, setLoadingButton] = useState(false)
+  const [isloadingButton, setIsLoadingButton] = useState(false)
 
   const {
     register,
@@ -49,7 +49,7 @@ export default function Login() {
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
-      setLoadingButton(true)
+      setIsLoadingButton(true)
       const response = await signIn({
         username: data.username,
         password: data.password,
@@ -57,10 +57,10 @@ export default function Login() {
 
       if (response) {
         router.push('/dashboard')
-        setLoadingButton(true)
+        setIsLoadingButton(true)
         return setError(undefined)
       }
-      setLoadingButton(false)
+      setIsLoadingButton(false)
       return setError('Usuário ou senha inválidos')
     } catch (error) {
       setError('Usuário ou senha inválidos')
@@ -159,7 +159,7 @@ export default function Login() {
                   {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
                 <Stack spacing={6} direction={['column', 'row']} pt={4}>
-                  {loadingButton ? (
+                  {isloadingButton ? (
                     <Spinner color="teal.500" size="xl" alignSelf="center" />
                   ) : (
                     <HandleButton w={'full'} text="Entrar" type="submit" />

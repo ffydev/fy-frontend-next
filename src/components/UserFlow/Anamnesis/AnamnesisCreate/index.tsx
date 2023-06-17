@@ -15,6 +15,7 @@ import {
   HStack,
   Input,
   Select,
+  Spinner,
   Stack,
   Text,
   useToast,
@@ -26,6 +27,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import { MdCloudUpload } from 'react-icons/md'
+import { useState } from 'react'
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
@@ -72,6 +74,7 @@ export default function AnamnesisCreate() {
   const { user, setUser } = useAuthStore()
   const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
     useUserNavigationStore()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const {
     register,
@@ -130,6 +133,8 @@ export default function AnamnesisCreate() {
         return
       }
 
+      setIsLoading(true)
+
       const formData = new FormData()
       const filesValues = Object.entries(data.pictures)
 
@@ -181,6 +186,7 @@ export default function AnamnesisCreate() {
     } finally {
       setIsShowingDashboard()
       setIsShowingCreateAnamnesis()
+      setIsLoading(false)
     }
   }
 
@@ -342,7 +348,10 @@ export default function AnamnesisCreate() {
                     borderRadius="md"
                     textAlign="center"
                     cursor="pointer"
-                    _hover={{ bg: 'gray.50' }}
+                    _hover={{
+                      bgGradient: 'linear(to-r, purple.500, purple.600)',
+                      transition: '0.8s',
+                    }}
                   >
                     <MdCloudUpload size={24} />
                     <Text mt={2} fontSize="sm" fontWeight="bold">
@@ -352,7 +361,7 @@ export default function AnamnesisCreate() {
                   <Input
                     {...register('pictures')}
                     type="file"
-                    style={{ display: 'none' }}
+                    style={{ display: 'none', pointerEvents: 'none' }}
                     accept=".png, .jpg, .jpeg"
                     multiple
                   />
@@ -365,12 +374,16 @@ export default function AnamnesisCreate() {
 
             <Stack mt={6} mb={4}>
               <HStack>
-                <HandleButton
-                  text="Enviar"
-                  leftIcon={<Plus weight="bold" />}
-                  w={'full'}
-                  type={'submit'}
-                />
+                {isLoading ? (
+                  <Spinner color="teal.500" size="xl" alignSelf="center" />
+                ) : (
+                  <HandleButton
+                    text="Enviar"
+                    leftIcon={<Plus weight="bold" />}
+                    w={'full'}
+                    type={'submit'}
+                  />
+                )}
                 <Button
                   variant={'outline'}
                   w={'full'}
