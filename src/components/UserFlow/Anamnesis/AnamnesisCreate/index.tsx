@@ -13,7 +13,6 @@ import {
   FormControl,
   FormLabel,
   Grid,
-  HStack,
   Input,
   Select,
   Spinner,
@@ -23,7 +22,6 @@ import {
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus, X } from '@phosphor-icons/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
@@ -76,7 +74,7 @@ export default function AnamnesisCreate() {
   const router = useRouter()
   const toast = useToast()
   const { user, setUser } = useAuthStore()
-  const [isloadingButton, setIsLoadingButton] = useState(true)
+  const [isloadingButton, setIsLoadingButton] = useState(false)
   const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
     useUserNavigationStore()
   const [picturesContent, setPicturesContent] = useState([])
