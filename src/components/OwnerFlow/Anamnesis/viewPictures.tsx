@@ -57,8 +57,8 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
           backdropFilter={'auto'}
           backdropBlur={'1rem'}
           boxShadow={'lg'}
-          minWidth={'1280'} // Defina o tamanho mínimo horizontalmente como 70% da largura da tela
-          minHeight={'720'} // Defina o tamanho mínimo verticalmente como 70% da altura da tela
+          minWidth={'1280'}
+          minHeight={'1064'}
         >
           <ModalBody>
             <Box position="relative" flexDirection="column">
