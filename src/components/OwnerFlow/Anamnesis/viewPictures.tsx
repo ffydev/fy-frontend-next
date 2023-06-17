@@ -57,6 +57,8 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
           backdropFilter={'auto'}
           backdropBlur={'1rem'}
           boxShadow={'lg'}
+          minWidth={'1280'} // Defina o tamanho mínimo horizontalmente como 70% da largura da tela
+          minHeight={'720'} // Defina o tamanho mínimo verticalmente como 70% da altura da tela
         >
           <ModalBody>
             <Box position="relative">
@@ -64,6 +66,8 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
                 <Image
                   src={`data:image/jpeg;base64,${pictures[currentSlide].imageData}`}
                   alt={pictures[currentSlide].imagekey}
+                  maxWidth="100%"
+                  maxHeight="100%"
                 />
               )}
             </Box>
