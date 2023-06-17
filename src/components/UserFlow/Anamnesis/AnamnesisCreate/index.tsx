@@ -80,6 +80,7 @@ export default function AnamnesisCreate() {
   const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
     useUserNavigationStore()
   const [picturesContent, setPicturesContent] = useState([])
+  const [selectedFiles, setSelectedFiles] = useState([])
 
   const {
     register,
@@ -90,11 +91,11 @@ export default function AnamnesisCreate() {
   })
 
   const handleFileChange = (event: any) => {
-    console.log(event)
     const files = event.target.files
     const images = Array.from(files)
 
     const imagePreviews: any = []
+    const fileList: any = []
 
     images.forEach((image) => {
       const reader = new FileReader()
@@ -107,13 +108,22 @@ export default function AnamnesisCreate() {
       }
 
       reader.readAsDataURL(image as any)
+
+      fileList.push(image)
     })
+
+    setSelectedFiles(fileList)
   }
 
-  const removeImage = (index: number) => {
+  const removeImage = (index: any) => {
     const updatedPictures = [...picturesContent]
+    const updatedFiles = [...selectedFiles]
+
     updatedPictures.splice(index, 1)
+    updatedFiles.splice(index, 1)
+
     setPicturesContent(updatedPictures)
+    setSelectedFiles(updatedFiles)
   }
 
   const fetchCurrentUserData = async (token: string) => {
@@ -166,10 +176,9 @@ export default function AnamnesisCreate() {
       setIsLoadingButton(true)
 
       const formData = new FormData()
-      const filesValues = Object.entries(data.pictures)
 
-      filesValues.map((file: any) => {
-        return formData.append('pictures', file[1])
+      selectedFiles.forEach((file) => {
+        formData.append('pictures', file)
       })
 
       formData.append('gender', data.gender)
@@ -389,16 +398,22 @@ export default function AnamnesisCreate() {
                     <Text mt={2} fontSize="sm" fontWeight="bold">
                       Arraste as imagens ou clique para fazer o upload
                     </Text>
+                    <Input
+                      id="fileInput"
+                      onChange={(event) => {
+                        register('pictures', {
+                          value: event.target.files,
+                        })
+                        handleFileChange(event)
+                      }}
+                      type="file"
+                      accept=".png, .jpg, .jpeg"
+                      multiple
+                      style={{ display: 'none' }}
+                    />
                   </Box>
-                  <Input
-                    {...register('pictures')}
-                    type="file"
-                    style={{ display: 'none', pointerEvents: 'none' }}
-                    accept=".png, .jpg, .jpeg"
-                    multiple
-                    onChange={(event) => handleFileChange(event)}
-                  />
                 </label>
+
                 <Flex flexWrap="wrap">
                   {picturesContent?.map((image: any, index: any) => (
                     <Box key={index} m={3} position="relative">
