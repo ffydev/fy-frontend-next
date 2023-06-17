@@ -72,9 +72,9 @@ type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
 export default function AnamnesisCreate() {
   const router = useRouter()
   const { user, setUser } = useAuthStore()
+  const [isloadingButton, setIsLoadingButton] = useState(false)
   const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
     useUserNavigationStore()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const {
     register,
@@ -133,7 +133,7 @@ export default function AnamnesisCreate() {
         return
       }
 
-      setIsLoading(true)
+      setIsLoadingButton(true)
 
       const formData = new FormData()
       const filesValues = Object.entries(data.pictures)
@@ -167,6 +167,7 @@ export default function AnamnesisCreate() {
       await createAnamnesis(token, formData as any)
 
       await fetchCurrentUserData(token)
+
       toast({
         title: 'Anamnese criada com sucesso!',
         description: 'Agora você pode acessar seu Dashboard.',
@@ -174,6 +175,9 @@ export default function AnamnesisCreate() {
         duration: 3000,
         isClosable: true,
       })
+
+      setIsShowingDashboard()
+      setIsShowingCreateAnamnesis()
     } catch (error) {
       console.error(error)
       toast({
@@ -184,9 +188,7 @@ export default function AnamnesisCreate() {
         isClosable: true,
       })
     } finally {
-      setIsShowingDashboard()
-      setIsShowingCreateAnamnesis()
-      setIsLoading(false)
+      setIsLoadingButton(false)
     }
   }
 
@@ -374,8 +376,8 @@ export default function AnamnesisCreate() {
 
             <Stack mt={6} mb={4}>
               <HStack>
-                {isLoading ? (
-                  <Spinner color="teal.500" size="xl" alignSelf="center" />
+                {isloadingButton ? (
+                  <Spinner color="teal.500" w={'full'} alignSelf="center" />
                 ) : (
                   <HandleButton
                     text="Enviar"
