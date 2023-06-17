@@ -435,39 +435,33 @@ export default function AnamnesisCreate() {
               </FormControl>
             </Grid>
 
-            <Flex justifyContent="space-between">
-              <Stack
-                spacing={6}
-                direction={['column', 'row']}
-                pt={4}
-                pr={4}
-                pl={4}
-                justifyContent="space-between"
-                flex="1"
-              >
-                {isloadingButton ? (
-                  <Button background={'none'} w={'xl'} pointerEvents={'none'}>
-                    <Spinner color="teal.500" size="xl" alignSelf="center" />
-                  </Button>
-                ) : (
-                  <HandleButton
-                    w="xl"
-                    text="Entrar"
-                    type="submit"
-                    onClick={handleWithCancelCreatingAnamnesis}
-                  />
-                )}
-
-                <Button
-                  w="xl"
-                  variant="outline"
-                  colorScheme="purple"
-                  type="reset"
-                >
-                  Limpar
+            <Stack
+              direction={['column', 'row']}
+              mt={3}
+              justifyContent={'space-between'}
+            >
+              {isloadingButton ? (
+                <Button w={'full'} background={'none'} pointerEvents={'none'}>
+                  <Spinner w={'full'} color="teal.500" alignSelf="center" />
                 </Button>
-              </Stack>
-            </Flex>
+              ) : (
+                <HandleButton
+                  w={'full'}
+                  text="Entrar"
+                  type="submit"
+                  onClick={handleWithCancelCreatingAnamnesis}
+                />
+              )}
+
+              <Button
+                w={'full'}
+                variant="outline"
+                colorScheme="purple"
+                type="reset"
+              >
+                Limpar
+              </Button>
+            </Stack>
           </form>
         </Box>
       </Container>
