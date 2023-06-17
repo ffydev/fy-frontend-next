@@ -447,7 +447,7 @@ export default function AnamnesisCreate() {
               ) : (
                 <HandleButton
                   w={'full'}
-                  text="Entrar"
+                  text="Enviar"
                   type="submit"
                   onClick={handleWithCancelCreatingAnamnesis}
                 />
