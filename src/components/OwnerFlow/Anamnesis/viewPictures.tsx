@@ -45,7 +45,7 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
     <>
       <Button onClick={openModal}>Visualizar Fotos</Button>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <Modal isOpen={isModalOpen} onClose={closeModal} size={'4xl'}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           bgGradient={[
@@ -57,8 +57,6 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
           backdropFilter={'auto'}
           backdropBlur={'1rem'}
           boxShadow={'lg'}
-          minWidth={'1280'}
-          minHeight={'1064'}
         >
           <ModalBody>
             <Box position="relative" flexDirection="column">
@@ -68,7 +66,7 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
                   alt={pictures[currentSlide].imagekey}
                   maxWidth="100%"
                   maxHeight="100%"
-                  objectFit="contain"
+                  objectFit="fill"
                 />
               )}
             </Box>
