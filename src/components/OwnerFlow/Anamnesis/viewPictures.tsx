@@ -61,13 +61,14 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
           minHeight={'720'} // Defina o tamanho mínimo verticalmente como 70% da altura da tela
         >
           <ModalBody>
-            <Box position="relative">
+            <Box position="relative" flexDirection="column">
               {pictures[currentSlide] && (
                 <Image
                   src={`data:image/jpeg;base64,${pictures[currentSlide].imageData}`}
                   alt={pictures[currentSlide].imagekey}
                   maxWidth="100%"
                   maxHeight="100%"
+                  objectFit="contain"
                 />
               )}
             </Box>
