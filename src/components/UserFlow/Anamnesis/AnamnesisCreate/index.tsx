@@ -76,7 +76,7 @@ export default function AnamnesisCreate() {
   const router = useRouter()
   const toast = useToast()
   const { user, setUser } = useAuthStore()
-  const [isloadingButton, setIsLoadingButton] = useState(false)
+  const [isloadingButton, setIsLoadingButton] = useState(true)
   const { setIsShowingDashboard, setIsShowingCreateAnamnesis } =
     useUserNavigationStore()
   const [picturesContent, setPicturesContent] = useState([])
@@ -437,29 +437,39 @@ export default function AnamnesisCreate() {
               </FormControl>
             </Grid>
 
-            <Stack mt={6} mb={4}>
-              <HStack>
+            <Flex justifyContent="space-between">
+              <Stack
+                spacing={6}
+                direction={['column', 'row']}
+                pt={4}
+                pr={4}
+                pl={4}
+                justifyContent="space-between"
+                flex="1"
+              >
                 {isloadingButton ? (
-                  <Spinner color="teal.500" w={'full'} alignSelf="center" />
+                  <Button background={'none'} w={'xl'} pointerEvents={'none'}>
+                    <Spinner color="teal.500" size="xl" alignSelf="center" />
+                  </Button>
                 ) : (
                   <HandleButton
-                    text="Enviar"
-                    leftIcon={<Plus weight="bold" />}
-                    w={'full'}
-                    type={'submit'}
+                    w="xl"
+                    text="Entrar"
+                    type="submit"
+                    onClick={handleWithCancelCreatingAnamnesis}
                   />
                 )}
+
                 <Button
-                  variant={'outline'}
-                  w={'full'}
-                  leftIcon={<X weight="bold" />}
+                  w="xl"
+                  variant="outline"
+                  colorScheme="purple"
                   type="reset"
-                  onClick={handleWithCancelCreatingAnamnesis}
                 >
                   Cancelar
                 </Button>
-              </HStack>
-            </Stack>
+              </Stack>
+            </Flex>
           </form>
         </Box>
       </Container>
