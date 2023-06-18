@@ -445,15 +445,11 @@ export default function AnamnesisCreate() {
                   <Spinner w={'full'} color="teal.500" alignSelf="center" />
                 </Button>
               ) : (
-                <HandleButton
-                  w={'full'}
-                  text="Enviar"
-                  type="submit"
-                  onClick={handleWithCancelCreatingAnamnesis}
-                />
+                <HandleButton w={'full'} text="Enviar" type="submit" />
               )}
 
               <Button
+                onClick={handleWithCancelCreatingAnamnesis}
                 w={'full'}
                 variant="outline"
                 colorScheme="purple"
