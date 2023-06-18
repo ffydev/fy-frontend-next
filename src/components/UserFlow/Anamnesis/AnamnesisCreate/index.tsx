@@ -442,7 +442,7 @@ export default function AnamnesisCreate() {
             >
               {isloadingButton ? (
                 <Button w={'full'} background={'none'} pointerEvents={'none'}>
-                  <Spinner w={'full'} color="teal.500" alignSelf="center" />
+                  <Spinner size={'md'} color="teal.500" alignSelf="center" />
                 </Button>
               ) : (
                 <HandleButton w={'full'} text="Enviar" type="submit" />

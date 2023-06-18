@@ -1,5 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Box, chakra, useToast } from '@chakra-ui/react'
+import {
+  Box,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useToast,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import {
   IAnamnesis,
@@ -49,7 +59,7 @@ export default function ListAnamnesis() {
       {anamnesis?.map((anamnesis: IAnamnesis) => (
         <Box
           key={anamnesis.id}
-          p={4}
+          p={6}
           rounded={'lg'}
           border={'1px'}
           bgColor={'whiteAlpha.50'}
@@ -59,61 +69,76 @@ export default function ListAnamnesis() {
           backdropFilter="blur(5px)"
           minWidth="250px"
         >
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Data: {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Idade: {anamnesis.age}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Gênero: {anamnesis.gender}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Altura: {anamnesis.height}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Peso: {anamnesis.weight}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Plano alimentar em casa : {anamnesis.mealPlanAtHome}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Preferências alimentares : {anamnesis.foodPreferences}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Alimentação nas últimas 24 horas : {anamnesis.lastDayFoodIntake}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Atividades físicas : {anamnesis.physicalActivities}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Dor ou desconforto nas articulações :{' '}
-            {anamnesis.jointPainDiscomfort}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Comorbidades : {anamnesis.comorbidities}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Orçamento para suplementação alimentar :{' '}
-            {anamnesis.budgetForDietSupplementation}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Suplementos/Fármacos utilizados :{' '}
-            {anamnesis.supplementsPharmaceuticalsUsed}
-          </chakra.h1>
-
+          <TableContainer
+            display={'block'}
+            maxWidth={'100%'}
+            overflowX={'auto'}
+            overflowY={'hidden'}
+            whiteSpace={'nowrap'}
+          >
+            <Table size={'sm'} variant={'simple'}>
+              <Thead>
+                <Tr>
+                  <Th>Data:</Th>
+                  <Th>Idade:</Th>
+                  <Th>Gênero:</Th>
+                  <Th>Altura:</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>
+                    {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
+                  </Td>
+                  <Td>{anamnesis.age}</Td>
+                  <Td>{anamnesis.gender}</Td>
+                  <Td>{anamnesis.height}</Td>
+                </Tr>
+              </Tbody>
+              <Thead>
+                <Tr>
+                  <Th>Peso:</Th>
+                  <Th>Plano alimentar em casa:</Th>
+                  <Th>Preferências alimentares:</Th>
+                  <Th>Alimentação nas últimas 24 horas:</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>{anamnesis.weight}</Td>
+                  <Td>{anamnesis.mealPlanAtHome}</Td>
+                  <Td> {anamnesis.foodPreferences}</Td>
+                  <Td>{anamnesis.lastDayFoodIntake}</Td>
+                </Tr>
+              </Tbody>
+              <Thead>
+                <Tr>
+                  <Th>Atividades físicas:</Th>
+                  <Th>Dor ou desconforto nas articulações:</Th>
+                  <Th>Comorbidades:</Th>
+                  <Th>Orçamento para suplementação alimentar:</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>{anamnesis.physicalActivities}</Td>
+                  <Td>{anamnesis.jointPainDiscomfort}</Td>
+                  <Td>{anamnesis.comorbidities}</Td>
+                  <Td>{anamnesis.budgetForDietSupplementation}</Td>
+                </Tr>
+              </Tbody>
+              <Thead>
+                <Tr>
+                  <Th>Suplementos/Fármacos utilizados:</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>{anamnesis.supplementsPharmaceuticalsUsed}</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
           <ViewPictures pictures={pictures} />
         </Box>
       ))}

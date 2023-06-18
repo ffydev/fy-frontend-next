@@ -43,15 +43,14 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
 
   return (
     <>
-      <Button onClick={openModal}>Visualizar Fotos</Button>
+      <Button mt={6} size={'sm'} onClick={openModal}>
+        Visualizar Fotos
+      </Button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal} size={'4xl'}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
-          bgGradient={[
-            'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
-            'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
-          ]}
+          bgColor={'blackAlpha.100'}
           border={'1px'}
           borderColor={'whiteAlpha.200'}
           backdropFilter={'auto'}
@@ -59,7 +58,12 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
           boxShadow={'lg'}
         >
           <ModalBody>
-            <Box position="relative" flexDirection="column">
+            <Box
+              position="relative"
+              flexDirection="column"
+              p={4}
+              overflow={'hidden'}
+            >
               {pictures[currentSlide] && (
                 <Image
                   src={`data:image/jpeg;base64,${pictures[currentSlide].imageData}`}
