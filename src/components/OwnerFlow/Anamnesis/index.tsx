@@ -67,78 +67,153 @@ export default function ListAnamnesis() {
           boxShadow={'lg'}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
-          minWidth="250px"
+          maxWidth={'lg'}
         >
-          <TableContainer
-            display={'block'}
-            maxWidth={'100%'}
-            overflowX={'auto'}
-            overflowY={'hidden'}
-            whiteSpace={'nowrap'}
-          >
-            <Table size={'sm'} variant={'simple'}>
-              <Thead>
-                <Tr>
-                  <Th>Data:</Th>
-                  <Th>Idade:</Th>
-                  <Th>Gênero:</Th>
-                  <Th>Altura:</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>
-                    {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
-                  </Td>
-                  <Td>{anamnesis.age}</Td>
-                  <Td>{anamnesis.gender}</Td>
-                  <Td>{anamnesis.height}</Td>
-                </Tr>
-              </Tbody>
-              <Thead>
-                <Tr>
-                  <Th>Peso:</Th>
-                  <Th>Plano alimentar em casa:</Th>
-                  <Th>Preferências alimentares:</Th>
-                  <Th>Alimentação nas últimas 24 horas:</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>{anamnesis.weight}</Td>
-                  <Td>{anamnesis.mealPlanAtHome}</Td>
-                  <Td> {anamnesis.foodPreferences}</Td>
-                  <Td>{anamnesis.lastDayFoodIntake}</Td>
-                </Tr>
-              </Tbody>
-              <Thead>
-                <Tr>
-                  <Th>Atividades físicas:</Th>
-                  <Th>Dor ou desconforto nas articulações:</Th>
-                  <Th>Comorbidades:</Th>
-                  <Th>Orçamento para suplementação alimentar:</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>{anamnesis.physicalActivities}</Td>
-                  <Td>{anamnesis.jointPainDiscomfort}</Td>
-                  <Td>{anamnesis.comorbidities}</Td>
-                  <Td>{anamnesis.budgetForDietSupplementation}</Td>
-                </Tr>
-              </Tbody>
-              <Thead>
-                <Tr>
-                  <Th>Suplementos/Fármacos utilizados:</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>{anamnesis.supplementsPharmaceuticalsUsed}</Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <Box overflowY="auto" maxHeight="300px">
+            <TableContainer
+              display={'block'}
+              overflowY={'hidden'}
+              overflowX={'auto'}
+              whiteSpace={'nowrap'}
+            >
+              <Table>
+                <Thead>
+                  <Tr>
+                    <Th>Data:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>
+                      {new Date(anamnesis.createdAt!).toLocaleDateString(
+                        'pt-BR',
+                      )}
+                    </Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Idade:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.age}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Gênero:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.gender}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Altura:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.height}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Peso:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.weight}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Plano alimentar em casa:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.mealPlanAtHome}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Preferências alimentares:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td> {anamnesis.foodPreferences}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Alimentação nas últimas 24 horas:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.lastDayFoodIntake}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Atividades físicas:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.physicalActivities}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Dor ou desconforto nas articulações:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.jointPainDiscomfort}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Comorbidades:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.comorbidities}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Orçamento para suplementação alimentar:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.budgetForDietSupplementation}</Td>
+                  </Tr>
+                </Tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Suplementos/Fármacos utilizados:</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{anamnesis.supplementsPharmaceuticalsUsed}</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
           <ViewPictures pictures={pictures} />
         </Box>
       ))}
