@@ -75,7 +75,6 @@ const createAnamnesisFormSchema = z.object({
       (obj) => {
         Object.entries(obj)
         for (const file of obj) {
-          console.log(file)
           if (file.size > maxFileSize) {
             return false
           }
@@ -88,7 +87,6 @@ const createAnamnesisFormSchema = z.object({
       (obj) => {
         Object.entries(obj)
         for (const file of obj) {
-          console.log(file)
           if (!imageTypes.includes(file.type)) {
             return false
           }
