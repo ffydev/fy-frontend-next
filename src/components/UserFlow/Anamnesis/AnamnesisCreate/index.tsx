@@ -30,6 +30,9 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 
+const maxFileSize = 10 * 1024 * 1024
+const imageTypes = ['image/png', 'image/jpeg', 'image/jpg']
+
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
   age: z.coerce
@@ -63,9 +66,37 @@ const createAnamnesisFormSchema = z.object({
   comorbidities: z.string().optional(),
   budgetForDietSupplementation: z.string().optional(),
   supplementsPharmaceuticalsUsed: z.string().optional(),
-  pictures: z.any().refine((obj) => Object.keys(obj).length > 0, {
-    message: 'Por favor, selecione suas fotos.',
-  }),
+  pictures: z
+    .any()
+    .refine((obj) => Object.keys(obj).length > 0, {
+      message: 'Por favor, selecione suas fotos.',
+    })
+    .refine(
+      (obj) => {
+        Object.entries(obj)
+        for (const file of obj) {
+          console.log(file)
+          if (file.size > maxFileSize) {
+            return false
+          }
+        }
+        return true
+      },
+      { message: 'O tamanho de cada foto deve ser no máximo 10 megabytes.' },
+    )
+    .refine(
+      (obj) => {
+        Object.entries(obj)
+        for (const file of obj) {
+          console.log(file)
+          if (!imageTypes.includes(file.type)) {
+            return false
+          }
+        }
+        return true
+      },
+      { message: 'Por favor, selecione apenas imagens.' },
+    ),
 })
 
 type createAnamnesisFormSchemaType = z.infer<typeof createAnamnesisFormSchema>
