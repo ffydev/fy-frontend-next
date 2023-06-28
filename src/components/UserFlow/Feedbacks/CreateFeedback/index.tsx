@@ -62,28 +62,33 @@ const createFeedbackFormSchema = z.object({
     .any()
     .refine(
       (obj) => {
-        Object.entries(obj)
-        for (const file of obj) {
-          if (file.size > maxFileSize) {
-            return false
+        if (obj) {
+          Object?.entries(obj)
+          for (const file of obj) {
+            if (file.size > maxFileSize) {
+              return false
+            }
           }
+          return true
         }
-        return true
       },
       { message: 'O tamanho de cada vídeo deve ser no máximo 300 megabytes.' },
     )
     .refine(
       (obj) => {
-        Object.entries(obj)
-        for (const file of obj) {
-          if (!imageTypes.includes(file.type)) {
-            return false
+        if (obj) {
+          Object?.entries(obj)
+          for (const file of obj) {
+            if (!imageTypes.includes(file.type)) {
+              return false
+            }
           }
+          return true
         }
-        return true
       },
       { message: 'Por favor, selecione apenas vídeos.' },
-    ),
+    )
+    .optional(),
 })
 
 type createFeedbackFormSchemaType = z.infer<typeof createFeedbackFormSchema>
@@ -157,9 +162,18 @@ export default function CreatingFeedback() {
       const token = getUserToken()
 
       if (!token) {
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
         router.push('/login')
         return
       }
+
+      console.log('creating')
 
       const formData = new FormData()
       formData.append('diet', String(data.diet))
@@ -169,9 +183,11 @@ export default function CreatingFeedback() {
       formData.append('others', String(data.others))
       formData.append('userId', String(user?.id))
 
-      selectedFiles.forEach((file) => {
-        formData.append('videos', file)
-      })
+      if (selectedFiles.length === 0) {
+        selectedFiles.forEach((file) => {
+          formData.append('videos', file)
+        })
+      }
 
       await createUserFeedback(token, formData as IUserFeedback)
       toast({
@@ -282,6 +298,7 @@ export default function CreatingFeedback() {
                       style={{ display: 'none' }}
                     />
                   </Box>
+                  {errors.videos && <Text>{errors.videos.message as any}</Text>}
                 </label>
                 <Flex flexWrap="wrap">
                   {picturesContent?.map((image: any, index: any) => (
