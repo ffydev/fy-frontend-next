@@ -12,10 +12,11 @@ import {
   Input,
   Container,
   useToast,
+  Flex,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus, X } from '@phosphor-icons/react'
+import { Plus, Spinner, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -24,6 +25,8 @@ import {
 } from '@/pages/api/providers/user-feedbacks.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import { MdCloudUpload } from 'react-icons/md'
+import React, { useState } from 'react'
+import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 
 const maxFileSize = 300 * 1024 * 1024
 const imageTypes = ['videos/mp4', 'videos/3gp', 'videos/quicktime']
@@ -98,6 +101,52 @@ export default function CreatingFeedback() {
     resolver: zodResolver(createFeedbackFormSchema),
   })
   const toast = useToast()
+  const [picturesContent, setPicturesContent] = useState([])
+  const [selectedFiles, setSelectedFiles] = useState([])
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const files: FileList | null = event.target.files
+    if (files) {
+      const images: File[] = Array.from(files)
+      const imagePreviews: string[] = []
+      const fileList: File[] = []
+
+      images.forEach((image: File) => {
+        const reader: FileReader = new FileReader()
+
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+          const result: any | ArrayBuffer | null = e.target?.result
+          console.log(result)
+          if (result) {
+            imagePreviews.push(result.toString())
+          }
+
+          if (imagePreviews.length === images.length) {
+            setPicturesContent(imagePreviews as any)
+          }
+        }
+
+        reader.readAsDataURL(image)
+        fileList.push(image)
+      })
+
+      setSelectedFiles(fileList as any)
+    }
+  }
+
+  const removeImage = (index: any) => {
+    const updatedPictures = [...picturesContent]
+    const updatedFiles = [...selectedFiles]
+
+    updatedPictures.splice(index, 1)
+    updatedFiles.splice(index, 1)
+
+    setPicturesContent(updatedPictures)
+    setSelectedFiles(updatedFiles)
+  }
 
   const onSubmit: SubmitHandler<createFeedbackFormSchemaType> = async (
     data,
@@ -117,6 +166,10 @@ export default function CreatingFeedback() {
       formData.append('fatigue', String(data.fatigue))
       formData.append('others', String(data.others))
       formData.append('userId', String(user?.id))
+
+      selectedFiles.forEach((file) => {
+        formData.append('videos', file)
+      })
 
       await createUserFeedback(token, formData as IUserFeedback)
       toast({
@@ -219,7 +272,7 @@ export default function CreatingFeedback() {
                         register('videos', {
                           value: event.target.files,
                         })
-                        // handleFileChange(event)
+                        handleFileChange(event)
                       }}
                       type="file"
                       accept=".mp4, .3gp, .quicktime"
@@ -228,6 +281,28 @@ export default function CreatingFeedback() {
                     />
                   </Box>
                 </label>
+                <Flex flexWrap="wrap">
+                  {picturesContent?.map((image: any, index: any) => (
+                    <Box key={index} m={3} position="relative">
+                      {!imageLoaded && <Spinner />}{' '}
+                      <video
+                        src={image}
+                        controls={false}
+                        width={100}
+                        height={100}
+                        style={{ display: imageLoaded ? 'block' : 'none' }}
+                        onLoadedData={() => setImageLoaded(true)}
+                      />
+                      <CloseButtonComponent
+                        onClick={() => removeImage(index)}
+                        position="absolute"
+                        top={0}
+                        right={0}
+                        style={{ display: imageLoaded ? 'block' : 'none' }}
+                      />
+                    </Box>
+                  ))}
+                </Flex>
               </FormControl>
 
               <Stack

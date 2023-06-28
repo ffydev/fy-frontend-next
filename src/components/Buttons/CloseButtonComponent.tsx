@@ -4,12 +4,16 @@ interface CloseButtonProps {
   onClick?: () => void
   position?: any
   right?: number
+  top?: number
+  style?: any
 }
 
 export function CloseButtonComponent({
   onClick,
   position,
   right,
+  top,
+  style,
 }: CloseButtonProps) {
   return (
     <CloseButton
@@ -23,6 +27,8 @@ export function CloseButtonComponent({
       onClick={onClick}
       position={position}
       right={right}
+      top={top}
+      style={style}
     />
   )
 }
