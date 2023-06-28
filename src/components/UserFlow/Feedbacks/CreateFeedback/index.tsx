@@ -5,7 +5,6 @@ import {
   Box,
   FormControl,
   FormLabel,
-  Grid,
   Text,
   Stack,
   HStack,
@@ -22,6 +21,10 @@ import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
+import { MdCloudUpload } from 'react-icons/md'
+
+const maxFileSize = 300 * 1024 * 1024
+const imageTypes = ['videos/mp4', 'videos/3gp', 'videos/quicktime']
 
 const createFeedbackFormSchema = z.object({
   diet: z
@@ -49,6 +52,32 @@ const createFeedbackFormSchema = z.object({
     .min(0)
     .max(200, { message: 'A mensagem deve ter no máximo 200 caracteres' })
     .optional(),
+  videos: z
+    .any()
+    .refine(
+      (obj) => {
+        Object.entries(obj)
+        for (const file of obj) {
+          if (file.size > maxFileSize) {
+            return false
+          }
+        }
+        return true
+      },
+      { message: 'O tamanho de cada vídeo deve ser no máximo 300 megabytes.' },
+    )
+    .refine(
+      (obj) => {
+        Object.entries(obj)
+        for (const file of obj) {
+          if (!imageTypes.includes(file.type)) {
+            return false
+          }
+        }
+        return true
+      },
+      { message: 'Por favor, selecione apenas vídeos.' },
+    ),
 })
 
 type createFeedbackFormSchemaType = z.infer<typeof createFeedbackFormSchema>
@@ -128,12 +157,13 @@ export default function CreatingFeedback() {
           boxShadow={'lg'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid gap={6}>
-              <FormControl gridColumn="span 1" mt={3}>
+            <Stack m={3}>
+              <FormControl gridColumn="span 1">
                 <FormLabel>Peso</FormLabel>
                 <Input {...register('weight')} placeholder="Peso" isRequired />
                 {errors.weight && <Text>{errors.weight.message}</Text>}
               </FormControl>
+
               <FormControl gridColumn="span 1">
                 <FormLabel>Dieta</FormLabel>
                 <Textarea {...register('diet')} placeholder="Dieta" />
@@ -158,26 +188,67 @@ export default function CreatingFeedback() {
                 {errors.others && <Text>{errors.others.message}</Text>}
               </FormControl>
 
-              <Stack mt={6} mb={4}>
-                <HStack>
-                  <HandleButton
-                    text="Criar Feedback"
-                    leftIcon={<Plus weight="bold" />}
-                    w={'full'}
-                    type={'submit'}
-                  />
-                  <Button
-                    variant={'outline'}
-                    w={'full'}
-                    leftIcon={<X weight="bold" />}
-                    type="reset"
-                    onClick={handleWithCancelCreatingFeedback}
+              <FormControl gridColumn="span 2" mt={3}>
+                <label>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    p={4}
+                    minW={'full'}
+                    border="2px dashed"
+                    borderColor="gray.300"
+                    borderRadius="md"
+                    textAlign="center"
+                    cursor="pointer"
+                    _hover={{
+                      bgGradient: 'linear(to-r, purple.500, purple.600)',
+                      transition: '0.8s',
+                    }}
                   >
-                    Cancelar
-                  </Button>
-                </HStack>
+                    <MdCloudUpload size={24} />
+                    <Text mt={2} fontSize="sm" fontWeight="bold">
+                      Arraste os vídeos ou clique para fazer o upload
+                    </Text>
+                    <Input
+                      id="fileInput"
+                      onChange={(event) => {
+                        register('videos', {
+                          value: event.target.files,
+                        })
+                        // handleFileChange(event)
+                      }}
+                      type="file"
+                      accept=".mp4, .3gp, .quicktime"
+                      multiple
+                      style={{ display: 'none' }}
+                    />
+                  </Box>
+                </label>
+              </FormControl>
+
+              <Stack
+                direction={['column', 'row']}
+                mt={3}
+                justifyContent={'space-between'}
+              >
+                <HandleButton
+                  text="Criar Feedback"
+                  leftIcon={<Plus weight="bold" />}
+                  w={'full'}
+                  type={'submit'}
+                />
+                <Button
+                  variant={'outline'}
+                  w={'full'}
+                  leftIcon={<X weight="bold" />}
+                  type="reset"
+                  onClick={handleWithCancelCreatingFeedback}
+                >
+                  Cancelar
+                </Button>
               </Stack>
-            </Grid>
+            </Stack>
           </form>
         </Box>
       </Container>
