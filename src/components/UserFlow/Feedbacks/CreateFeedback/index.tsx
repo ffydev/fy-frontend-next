@@ -118,7 +118,7 @@ export default function CreatingFeedback() {
         <Box
           mt={3}
           mb={4}
-          p={4}
+          p={8}
           bgColor={'whiteAlpha.100'}
           rounded={'lg'}
           border={'1px'}
@@ -128,12 +128,12 @@ export default function CreatingFeedback() {
           boxShadow={'lg'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl gridColumn="span 1" mt={3} w={'-webkit-fit-content'}>
-              <FormLabel>Peso</FormLabel>
-              <Input {...register('weight')} placeholder="Peso" isRequired />
-              {errors.weight && <Text>{errors.weight.message}</Text>}
-            </FormControl>
-            <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={3}>
+            <Grid gap={6}>
+              <FormControl gridColumn="span 1" mt={3}>
+                <FormLabel>Peso</FormLabel>
+                <Input {...register('weight')} placeholder="Peso" isRequired />
+                {errors.weight && <Text>{errors.weight.message}</Text>}
+              </FormControl>
               <FormControl gridColumn="span 1">
                 <FormLabel>Dieta</FormLabel>
                 <Textarea {...register('diet')} placeholder="Dieta" />
@@ -157,27 +157,27 @@ export default function CreatingFeedback() {
                 <Textarea {...register('others')} placeholder="Outros" />
                 {errors.others && <Text>{errors.others.message}</Text>}
               </FormControl>
-            </Grid>
 
-            <Stack mt={6} mb={4}>
-              <HStack>
-                <HandleButton
-                  text="Criar Feedback"
-                  leftIcon={<Plus weight="bold" />}
-                  w={'full'}
-                  type={'submit'}
-                />
-                <Button
-                  variant={'outline'}
-                  w={'full'}
-                  leftIcon={<X weight="bold" />}
-                  type="reset"
-                  onClick={handleWithCancelCreatingFeedback}
-                >
-                  Cancelar
-                </Button>
-              </HStack>
-            </Stack>
+              <Stack mt={6} mb={4}>
+                <HStack>
+                  <HandleButton
+                    text="Criar Feedback"
+                    leftIcon={<Plus weight="bold" />}
+                    w={'full'}
+                    type={'submit'}
+                  />
+                  <Button
+                    variant={'outline'}
+                    w={'full'}
+                    leftIcon={<X weight="bold" />}
+                    type="reset"
+                    onClick={handleWithCancelCreatingFeedback}
+                  >
+                    Cancelar
+                  </Button>
+                </HStack>
+              </Stack>
+            </Grid>
           </form>
         </Box>
       </Container>
