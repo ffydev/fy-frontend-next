@@ -173,8 +173,6 @@ export default function CreatingFeedback() {
         return
       }
 
-      console.log('creating')
-
       const formData = new FormData()
       formData.append('diet', String(data.diet))
       formData.append('workouts', String(data.workouts))
