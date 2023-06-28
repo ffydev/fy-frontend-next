@@ -13,10 +13,11 @@ import {
   Container,
   useToast,
   Flex,
+  Spinner,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus, Spinner, X } from '@phosphor-icons/react'
+import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -119,7 +120,7 @@ export default function CreatingFeedback() {
 
         reader.onload = (e: ProgressEvent<FileReader>) => {
           const result: any | ArrayBuffer | null = e.target?.result
-          console.log(result)
+
           if (result) {
             imagePreviews.push(result.toString())
           }
@@ -134,6 +135,7 @@ export default function CreatingFeedback() {
       })
 
       setSelectedFiles(fileList as any)
+      setImageLoaded(false)
     }
   }
 
@@ -284,7 +286,13 @@ export default function CreatingFeedback() {
                 <Flex flexWrap="wrap">
                   {picturesContent?.map((image: any, index: any) => (
                     <Box key={index} m={3} position="relative">
-                      {!imageLoaded && <Spinner />}{' '}
+                      {!imageLoaded && (
+                        <Spinner
+                          color="teal.500"
+                          size="xl"
+                          alignSelf="center"
+                        />
+                      )}{' '}
                       <video
                         src={image}
                         controls={false}
