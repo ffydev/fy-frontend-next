@@ -31,7 +31,13 @@ import Image from 'next/image'
 import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 
 const maxFileSize = 10 * 1024 * 1024
-const imageTypes = ['image/png', 'image/jpeg', 'image/jpg']
+const imageTypes = [
+  'image/png',
+  'image/jpeg',
+  'image/jpg',
+  'image/heic',
+  'image/heif',
+]
 
 const createAnamnesisFormSchema = z.object({
   gender: z.string().nonempty({ message: 'Selecione seu gênero' }),
