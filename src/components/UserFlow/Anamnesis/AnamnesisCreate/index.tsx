@@ -440,7 +440,8 @@ export default function AnamnesisCreate() {
                         handleFileChange(event)
                       }}
                       type="file"
-                      accept=".png, .jpg, .jpeg"
+                      accept=".png, .jpg, .jpeg, .heic,
+                      .heif"
                       multiple
                       style={{ display: 'none' }}
                     />
