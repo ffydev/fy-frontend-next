@@ -18,7 +18,10 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
+import {
+  IUserFeedback,
+  createUserFeedback,
+} from '@/pages/api/providers/user-feedbacks.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import { MdCloudUpload } from 'react-icons/md'
 
@@ -107,14 +110,15 @@ export default function CreatingFeedback() {
         return
       }
 
-      await createUserFeedback(token, {
-        diet: data.diet,
-        workouts: data.workouts,
-        weight: data.weight,
-        fatigue: data.fatigue,
-        others: data.others,
-        userId: user?.id,
-      })
+      const formData = new FormData()
+      formData.append('diet', String(data.diet))
+      formData.append('workouts', String(data.workouts))
+      formData.append('weight', String(data.weight))
+      formData.append('fatigue', String(data.fatigue))
+      formData.append('others', String(data.others))
+      formData.append('userId', String(user?.id))
+
+      await createUserFeedback(token, formData as IUserFeedback)
       toast({
         title: 'Feedback criado com sucesso',
         status: 'success',

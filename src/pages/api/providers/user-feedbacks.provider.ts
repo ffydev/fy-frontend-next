@@ -12,6 +12,7 @@ export interface IUserFeedback {
   userId?: string
   doctorId?: string
   isAnswered?: boolean
+  videos?: any
   createdAt?: string
 }
 
@@ -43,7 +44,10 @@ export async function createUserFeedback(
       '/user-feedbacks',
       feedback,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
       },
     )
 
