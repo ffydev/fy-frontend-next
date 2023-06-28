@@ -30,7 +30,7 @@ import React, { useState } from 'react'
 import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 
 const maxFileSize = 300 * 1024 * 1024
-const imageTypes = ['videos/mp4', 'videos/3gp', 'videos/quicktime']
+const imageTypes = ['video/mp4', 'video/3gp', 'video/quicktime']
 
 const createFeedbackFormSchema = z.object({
   diet: z
