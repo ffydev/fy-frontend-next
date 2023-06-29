@@ -46,7 +46,7 @@ export default function ListAnamnesis() {
 
         const response = await findUserAnamnesis(token, selectedUserId)
         setAnamnesis(response.anamnesis)
-        setPictures(response.anamnmesisPictures)
+        setPictures(response.pictures)
       } catch (error) {
         console.error(error)
       }

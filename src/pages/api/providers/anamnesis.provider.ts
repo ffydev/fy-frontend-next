@@ -25,7 +25,7 @@ export interface IAnamnesis {
 
 export interface IFindUserAnamnesis {
   anamnesis: IAnamnesis[]
-  anamnmesisPictures: {
+  pictures: {
     Key: string
   }
 }
