@@ -47,22 +47,16 @@ export async function findUserFeedbacks(
 export async function createUserFeedback(
   token: string,
   feedback: IUserFeedback,
-): Promise<IUserFeedback[]> {
+): Promise<void> {
   try {
-    const response = await api.post<IUserFeedback[]>(
-      '/user-feedbacks',
-      feedback,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
+    return await api.post('/user-feedbacks', feedback, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
       },
-    )
-
-    return response.data
+    })
   } catch (error) {
-    console.error('Failed to find users', error)
+    console.error('Failed to create user feedback', error)
     throw error
   }
 }
