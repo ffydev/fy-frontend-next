@@ -139,6 +139,8 @@ export default function CreatingFeedback() {
         fileList.push(image)
       })
 
+      console.log(fileList)
+
       setSelectedFiles(fileList as any)
       setImageLoaded(false)
     }
@@ -181,7 +183,7 @@ export default function CreatingFeedback() {
       formData.append('others', String(data.others))
       formData.append('userId', String(user?.id))
 
-      if (selectedFiles.length === 0) {
+      if (selectedFiles.length > 0) {
         selectedFiles.forEach((file) => {
           formData.append('videos', file)
         })
