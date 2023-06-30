@@ -139,8 +139,6 @@ export default function CreatingFeedback() {
         fileList.push(image)
       })
 
-      console.log(fileList)
-
       setSelectedFiles(fileList as any)
       setImageLoaded(false)
     }
