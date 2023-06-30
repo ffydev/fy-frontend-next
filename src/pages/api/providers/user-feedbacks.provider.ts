@@ -7,21 +7,30 @@ export interface IUserFeedback {
   weight?: number
   fatigue?: string
   others?: string
-  videoLinks?: string
+  hasVideo?: boolean
   answer?: string
   userId?: string
   doctorId?: string
   isAnswered?: boolean
-  videos?: any
   createdAt?: string
+}
+
+export interface IVideo {
+  key: string
+  videoData: string
+}
+
+export interface IFindUserFeedbacks {
+  feedbacks: IUserFeedback[]
+  videos: IVideo[]
 }
 
 export async function findUserFeedbacks(
   token: string,
   userId: string,
-): Promise<IUserFeedback[]> {
+): Promise<IFindUserFeedbacks> {
   try {
-    const response = await api.get<IUserFeedback[]>(
+    const response = await api.get<IFindUserFeedbacks>(
       `/user-feedbacks?userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },

@@ -5,6 +5,7 @@ import {
   answerFeedback,
   findUserFeedbacks,
   IUserFeedback,
+  IVideo,
 } from '@/pages/api/providers/user-feedbacks.provider'
 import {
   Box,
@@ -19,6 +20,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import { ViewVideos } from './viewVideos'
 
 export default function Feedbacks() {
   const router = useRouter()
@@ -26,6 +28,7 @@ export default function Feedbacks() {
   const { setIsShowingFeedbacks, setIsShowingUsers } = useAdminNavigationStore()
   const { selectedUserId } = useOwnerIsFetchingStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
+  const [videos, setVideos] = useState<IVideo[]>()
   const [answer, setAnswer] = useState<string>('')
   const toast = useToast()
 
@@ -49,7 +52,8 @@ export default function Feedbacks() {
 
         const response = await findUserFeedbacks(token, selectedUserId)
 
-        setFeedbacks(response)
+        setFeedbacks(response.feedbacks)
+        setVideos(response.videos)
       } catch (error) {
         console.error(error)
       }
@@ -90,7 +94,6 @@ export default function Feedbacks() {
     <>
       {feedbacks?.map((feedback: IUserFeedback) => (
         <Box
-          key={feedback.id}
           p={4}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
@@ -100,9 +103,14 @@ export default function Feedbacks() {
           borderColor={'whiteAlpha.100'}
           boxShadow={'lg'}
           m={4}
+          key={feedback.id}
         >
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Data: {new Date(feedback.createdAt!).toLocaleDateString('pt-BR')}
+          </chakra.h1>
+
+          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
+            Peso: {feedback.weight}
           </chakra.h1>
 
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
@@ -118,12 +126,10 @@ export default function Feedbacks() {
           </chakra.h1>
 
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Peso: {feedback.weight}
-          </chakra.h1>
-
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Outros: {feedback.others}
           </chakra.h1>
+
+          <ViewVideos videos={videos!} />
 
           {feedback.isAnswered ? (
             <>
