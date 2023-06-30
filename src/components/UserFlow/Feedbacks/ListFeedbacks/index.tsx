@@ -33,7 +33,7 @@ export default function ListFeedbacks() {
 
         const response = await findUserFeedbacks(token, user?.id!)
 
-        setFeedbacks(response)
+        setFeedbacks(response.feedbacks)
       } catch (error) {
         console.error(error)
       }
