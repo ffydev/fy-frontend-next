@@ -16,13 +16,13 @@ export interface IUserFeedback {
 }
 
 export interface IVideo {
-  key: string
-  videoData: string
+  key?: string
+  videoData?: string
 }
 
 export interface IFindUserFeedbacks {
   feedbacks: IUserFeedback[]
-  videos: IVideo[]
+  videos?: IVideo[]
 }
 
 export async function findUserFeedbacks(

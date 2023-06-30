@@ -129,7 +129,9 @@ export default function Feedbacks() {
             Outros: {feedback.others}
           </chakra.h1>
 
-          <ViewVideos videos={videos!} />
+          {feedback.hasVideo && videos && videos.length > 0 && (
+            <ViewVideos videos={videos!} />
+          )}
 
           {feedback.isAnswered ? (
             <>

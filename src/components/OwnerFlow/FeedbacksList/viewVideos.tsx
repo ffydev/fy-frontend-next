@@ -11,12 +11,12 @@ import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 import { useState } from 'react'
 
 interface IVideo {
-  key: string
-  videoData: string
+  key?: string
+  videoData?: string
 }
 
 interface ViewVideosProps {
-  videos: IVideo[]
+  videos?: IVideo[]
 }
 
 export function ViewVideos({ videos }: ViewVideosProps) {
@@ -24,12 +24,12 @@ export function ViewVideos({ videos }: ViewVideosProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const handleNextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % videos.length)
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % videos!.length)
   }
 
   const handlePreviousSlide = () => {
     setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + videos.length) % videos.length,
+      (prevSlide) => (prevSlide - 1 + videos!.length) % videos!.length,
     )
   }
 
@@ -66,11 +66,13 @@ export function ViewVideos({ videos }: ViewVideosProps) {
               overflow={'hidden'}
             >
               <Center>
-                <video controls={true} width="300px" height="400">
-                  <source
-                    src={`data:video/mp4;base64,${videos[currentSlide].videoData}`}
-                  />
-                </video>
+                {videos && videos.length > 0 && (
+                  <video controls={true} width="300px" height="400">
+                    <source
+                      src={`data:video/mp4;base64,${videos[currentSlide]?.videoData}`}
+                    />
+                  </video>
+                )}
               </Center>
             </Box>
             <Box mt={4} display="flex" justifyContent="center">
