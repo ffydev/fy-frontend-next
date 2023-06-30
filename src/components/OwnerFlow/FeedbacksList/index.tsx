@@ -53,7 +53,9 @@ export default function Feedbacks() {
         const response = await findUserFeedbacks(token, selectedUserId)
 
         setFeedbacks(response.feedbacks)
-        setVideos(response.videos)
+        if (response.videos && response.videos.length > 0) {
+          setVideos(response.videos)
+        }
       } catch (error) {
         console.error(error)
       }
