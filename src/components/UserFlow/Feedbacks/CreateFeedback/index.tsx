@@ -184,7 +184,7 @@ export default function CreatingFeedback() {
         })
       }
 
-      await createUserFeedback(token, formData as any)
+      createUserFeedback(token, formData as any)
       toast({
         title: 'Feedback criado com sucesso',
         status: 'success',
