@@ -46,7 +46,7 @@ export async function findUserFeedbacks(
 
 export async function createUserFeedback(
   token: string,
-  feedback: IUserFeedback,
+  feedback: any,
 ): Promise<void> {
   try {
     return await api.post('/user-feedbacks', feedback, {

@@ -20,10 +20,7 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  IUserFeedback,
-  createUserFeedback,
-} from '@/pages/api/providers/user-feedbacks.provider'
+import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import { MdCloudUpload } from 'react-icons/md'
 import React, { useState } from 'react'
@@ -187,7 +184,7 @@ export default function CreatingFeedback() {
         })
       }
 
-      await createUserFeedback(token, formData as IUserFeedback)
+      await createUserFeedback(token, formData as any)
       toast({
         title: 'Feedback criado com sucesso',
         status: 'success',
