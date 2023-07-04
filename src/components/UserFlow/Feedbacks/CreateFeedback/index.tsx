@@ -107,6 +107,7 @@ export default function CreatingFeedback() {
   const [picturesContent, setPicturesContent] = useState([])
   const [selectedFiles, setSelectedFiles] = useState([])
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -184,7 +185,9 @@ export default function CreatingFeedback() {
         })
       }
 
-      createUserFeedback(token, formData as any)
+      setIsLoading(true)
+
+      await createUserFeedback(token, formData as any)
       toast({
         title: 'Feedback criado com sucesso',
         status: 'success',
@@ -202,6 +205,7 @@ export default function CreatingFeedback() {
     } finally {
       setIsShowingCreateFeedbacks()
       setIsShowingDashboard()
+      setIsLoading(false)
     }
   }
 
@@ -330,12 +334,26 @@ export default function CreatingFeedback() {
                 mt={3}
                 justifyContent={'space-between'}
               >
-                <HandleButton
-                  text="Criar Feedback"
-                  leftIcon={<Plus weight="bold" />}
-                  w={'full'}
-                  type={'submit'}
-                />
+                {isLoading ? (
+                  <Button
+                    isLoading={isLoading}
+                    loadingText="Enviando"
+                    w={'full'}
+                    leftIcon={<MdCloudUpload />}
+                    type="submit"
+                    colorScheme="teal"
+                  >
+                    Enviar
+                  </Button>
+                ) : (
+                  <HandleButton
+                    text="Criar Feedback"
+                    leftIcon={<Plus weight="bold" />}
+                    w={'full'}
+                    type={'submit'}
+                  />
+                )}
+
                 <Button
                   variant={'outline'}
                   w={'full'}
