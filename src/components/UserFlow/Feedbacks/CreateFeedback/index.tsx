@@ -337,7 +337,7 @@ export default function CreatingFeedback() {
                 {isLoading ? (
                   <Button
                     isLoading={isLoading}
-                    loadingText="Enviando"
+                    loadingText="Enviando..."
                     w={'full'}
                     leftIcon={<MdCloudUpload />}
                     type="submit"
