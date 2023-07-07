@@ -179,12 +179,22 @@ export default function CreatingFeedback() {
       formData.append('others', String(data.others))
       formData.append('userId', String(user?.id))
 
+      const MAX_CHUNK_SIZE = 5 * 1024 * 1024
+
       if (selectedFiles.length > 0) {
-        selectedFiles.forEach((file) => {
-          formData.append('videos', file)
+        selectedFiles.forEach((file: any) => {
+          const totalChunks = Math.ceil(file.size / MAX_CHUNK_SIZE)
+
+          for (let partNumber = 0; partNumber < totalChunks; partNumber++) {
+            const start = partNumber * MAX_CHUNK_SIZE
+            const end = Math.min(start + MAX_CHUNK_SIZE, file.size)
+            const chunk = file.slice(start, end)
+            const filename = `video_${partNumber}.${file.name.split('.').pop()}`
+
+            formData.append('videos', chunk, filename)
+          }
         })
       }
-
       setIsLoading(true)
 
       await createUserFeedback(token, formData as any)
