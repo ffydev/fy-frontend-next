@@ -54,7 +54,6 @@ export async function createUserFeedback(
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
-      timeout: 600000,
     })
   } catch (error) {
     console.error('Failed to create user feedback', error)
