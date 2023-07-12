@@ -55,6 +55,7 @@ export default function ListFeedbacks() {
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
           minWidth="250px"
+          m={3}
         >
           <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
             Data: {new Date(feedback.createdAt!).toLocaleDateString('pt-BR')}
