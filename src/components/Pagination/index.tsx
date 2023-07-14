@@ -18,7 +18,7 @@ export default function Pagination({
 }: PaginationProps) {
   return (
     <>
-      <Box mt={3}>
+      <Box mt={3} mb={3}>
         <Flex justifyContent={'center'}>
           <Box mr={3}>
             {hasPreviousPage ? (
