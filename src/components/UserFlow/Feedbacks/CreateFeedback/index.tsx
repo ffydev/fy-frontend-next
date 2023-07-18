@@ -100,8 +100,6 @@ export default function CreatingFeedback() {
     resolver: zodResolver(createFeedbackFormSchema),
   })
   const toast = useToast()
-  const [selectedFiles, setSelectedFiles] = useState([])
-  const [imageLoaded, setImageLoaded] = useState(false)
 
   const [videos, setVideos] = useState<Map<string, Video>>(new Map())
   const [isTranscribing, setIsTranscribing] = useState(false)
@@ -136,12 +134,6 @@ export default function CreatingFeedback() {
       formData.append('fatigue', String(data.fatigue))
       formData.append('others', String(data.others))
       formData.append('userId', String(user?.id))
-
-      if (selectedFiles.length > 0) {
-        selectedFiles.forEach((file: any) => {
-          formData.append('videos', file)
-        })
-      }
 
       await createUserFeedback(token, formData as any)
       toast({

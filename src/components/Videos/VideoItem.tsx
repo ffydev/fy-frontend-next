@@ -1,5 +1,6 @@
 import { Video } from '@/hooks/useVideos'
-import { X } from 'lucide-react'
+import { Box } from '@chakra-ui/react'
+import { CloseButtonComponent } from '../Buttons/CloseButtonComponent'
 
 interface VideoItemProps {
   id: string
@@ -9,24 +10,25 @@ interface VideoItemProps {
 
 export function VideoItem({ id, video, onRemove }: VideoItemProps) {
   return (
-    <div>
-      <button
-        type="button"
-        aria-label="Remover vídeo"
-        onClick={() => onRemove(id)}
-      >
-        <X />
-      </button>
-
+    <Box m={3} position="relative">
       <video
         src={video.previewURL}
         data-disabled={video.isLoading}
         controls={false}
+        width={100}
+        height={100}
+      />
+
+      <CloseButtonComponent
+        onClick={() => onRemove(id)}
+        position="absolute"
+        top={0}
+        right={0}
       />
 
       <span>
         {video.isLoading ? `${video.conversionProgress}%` : video.file.name}
       </span>
-    </div>
+    </Box>
   )
 }
