@@ -8,7 +8,7 @@ interface VideoItemProps {
   onRemove: (id: string) => void
 }
 
-export function VideoItem({ id, video, onRemove }: VideoItemProps) {
+export default function VideoItem({ id, video, onRemove }: VideoItemProps) {
   return (
     <Box m={3} position="relative">
       <video

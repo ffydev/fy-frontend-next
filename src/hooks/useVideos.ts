@@ -3,6 +3,7 @@ import { useReducer } from 'react'
 import { produce, enableMapSet } from 'immer'
 import { ffmpeg } from '@/lib/ffmpeg'
 import { fetchFile } from '@ffmpeg/ffmpeg'
+import { useVideosStore } from '@/stores/VideoStore'
 
 enableMapSet()
 
@@ -17,6 +18,7 @@ export interface Video {
 
 interface VideoState {
   videos: Map<string, Video>
+  finalVideo?: Video
   isConverting: boolean
   isTranscribing: boolean
   finishedConversionAt?: Date
@@ -26,6 +28,7 @@ interface VideoState {
 export enum ActionTypes {
   UPLOAD,
   REMOVE_VIDEO,
+  FINAL_VIDEO,
 
   START_CONVERSION,
   END_CONVERSION,
@@ -44,6 +47,7 @@ interface Action {
 }
 
 export function useVideos() {
+  const { setFinalVideo } = useVideosStore()
   const [
     {
       videos,
@@ -227,29 +231,25 @@ export function useVideos() {
       'scale=320:240',
       '-b:v',
       '256k',
-      '-an', // Remover áudio
+      '-an',
       '-c:v',
       'libx264',
       '-t',
-      '40', // Tempo máximo em segundos
+      '40',
       `${id}.mp4`,
     )
 
     const data = ffmpeg.FS('readFile', `${id}.mp4`)
 
-    // const response = await fetch('/api/upload', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     videoId: id,
-    //   }),
-    // })
+    const blob = new Blob([data.buffer], { type: 'video/mp4' })
 
-    // const { url } = await response.json()
+    const convertedFile = new File([blob], `${id}.mp4`)
 
-    // await fetch(url, {
-    //   method: 'PUT',
-    //   body: data,
-    // })
+    const convertedVideo = {
+      file: convertedFile,
+    }
+
+    setFinalVideo(convertedVideo)
 
     dispatch({
       type: ActionTypes.MARK_VIDEO_AS_CONVERTED,

@@ -19,8 +19,8 @@ import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provide
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import React, { useState } from 'react'
 import { Video } from '@/hooks/useVideos'
-import { UploadVideosStep } from '@/components/Videos/UploadVideosStep'
-import { Mic2 } from 'lucide-react'
+import UploadVideosStep from '@/components/Videos/UploadVideosStep'
+import { useVideosStore } from '@/stores/VideoStore'
 
 const maxFileSize = 300 * 1024 * 1024
 const imageTypes = ['video/mp4', 'video/3gp', 'video/quicktime']
@@ -91,6 +91,7 @@ export default function CreatingFeedback() {
   const { user } = useAuthStore()
   const { setIsShowingDashboard, setIsShowingCreateFeedbacks } =
     useUserNavigationStore()
+  const { finalVideo, reset } = useVideosStore()
 
   const {
     register,
@@ -112,7 +113,7 @@ export default function CreatingFeedback() {
   ) => {
     try {
       const token = getUserToken()
-
+      console.log('teste')
       if (!token) {
         toast({
           title: 'Sua sessão expirou.',
@@ -135,6 +136,14 @@ export default function CreatingFeedback() {
       formData.append('others', String(data.others))
       formData.append('userId', String(user?.id))
 
+      if (finalVideo.length > 0) {
+        const files = Object.entries(finalVideo)
+
+        for (const file of files) {
+          formData.append('videos', file[1].file)
+        }
+      }
+
       await createUserFeedback(token, formData as any)
       toast({
         title: 'Feedback criado com sucesso',
@@ -154,6 +163,7 @@ export default function CreatingFeedback() {
       setIsShowingCreateFeedbacks()
       setIsShowingDashboard()
       setIsTranscribing(false)
+      reset()
     }
   }
 
@@ -215,7 +225,6 @@ export default function CreatingFeedback() {
                 )}
                 {step === 'transcribe' && (
                   <button type="submit" disabled={isTranscribing}>
-                    <Mic2 />
                     Transcrever {videos.size} vídeos
                   </button>
                 )}

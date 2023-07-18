@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { ChangeEvent } from 'react'
-import { VideoItem } from './VideoItem'
+import VideoItem from './VideoItem'
 import { Video, useVideos } from '@/hooks/useVideos'
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { MdCloudUpload } from 'react-icons/md'
@@ -9,7 +9,9 @@ interface UploadVideosStepProps {
   onNextStep: (videos: Map<string, Video>) => void
 }
 
-export function UploadVideosStep({ onNextStep }: UploadVideosStepProps) {
+export default function UploadVideosStep({
+  onNextStep,
+}: UploadVideosStepProps) {
   const {
     videos,
     addFiles,
