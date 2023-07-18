@@ -7,24 +7,20 @@ import {
   FormLabel,
   Text,
   Stack,
-  Button,
   Textarea,
   Input,
   Container,
   useToast,
-  Flex,
-  Spinner,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus, X } from '@phosphor-icons/react'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
-import { MdCloudUpload } from 'react-icons/md'
 import React, { useState } from 'react'
-import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
+import { Video } from '@/hooks/useVideos'
+import { UploadVideosStep } from '@/components/Videos/UploadVideosStep'
+import { Mic2 } from 'lucide-react'
 
 const maxFileSize = 300 * 1024 * 1024
 const imageTypes = ['video/mp4', 'video/3gp', 'video/quicktime']
@@ -104,54 +100,14 @@ export default function CreatingFeedback() {
     resolver: zodResolver(createFeedbackFormSchema),
   })
   const toast = useToast()
-  const [picturesContent, setPicturesContent] = useState([])
   const [selectedFiles, setSelectedFiles] = useState([])
   const [imageLoaded, setImageLoaded] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
-  const handleFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    const files: FileList | null = event.target.files
-    if (files) {
-      const images: File[] = Array.from(files)
-      const imagePreviews: string[] = []
-      const fileList: File[] = []
-
-      images.forEach((image: File) => {
-        const reader: FileReader = new FileReader()
-
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-          const result: any | ArrayBuffer | null = e.target?.result
-
-          if (result) {
-            imagePreviews.push(result.toString())
-          }
-
-          if (imagePreviews.length === images.length) {
-            setPicturesContent(imagePreviews as any)
-          }
-        }
-
-        reader.readAsDataURL(image)
-        fileList.push(image)
-      })
-
-      setSelectedFiles(fileList as any)
-      setImageLoaded(false)
-    }
-  }
-
-  const removeImage = (index: any) => {
-    const updatedPictures = [...picturesContent]
-    const updatedFiles = [...selectedFiles]
-
-    updatedPictures.splice(index, 1)
-    updatedFiles.splice(index, 1)
-
-    setPicturesContent(updatedPictures)
-    setSelectedFiles(updatedFiles)
-  }
+  const [videos, setVideos] = useState<Map<string, Video>>(new Map())
+  const [isTranscribing, setIsTranscribing] = useState(false)
+  const [step, setStep] = useState<'upload' | 'transcribe' | 'generate'>(
+    'upload',
+  )
 
   const onSubmit: SubmitHandler<createFeedbackFormSchemaType> = async (
     data,
@@ -171,6 +127,8 @@ export default function CreatingFeedback() {
         return
       }
 
+      setIsTranscribing(true)
+
       const formData = new FormData()
       formData.append('diet', String(data.diet))
       formData.append('workouts', String(data.workouts))
@@ -184,7 +142,6 @@ export default function CreatingFeedback() {
           formData.append('videos', file)
         })
       }
-      setIsLoading(true)
 
       await createUserFeedback(token, formData as any)
       toast({
@@ -204,13 +161,13 @@ export default function CreatingFeedback() {
     } finally {
       setIsShowingCreateFeedbacks()
       setIsShowingDashboard()
-      setIsLoading(false)
+      setIsTranscribing(false)
     }
   }
 
-  const handleWithCancelCreatingFeedback = () => {
-    setIsShowingCreateFeedbacks()
-    setIsShowingDashboard()
+  const handleUploaded = (videos: Map<string, Video>) => {
+    setVideos(videos)
+    setStep('transcribe')
   }
 
   return (
@@ -261,108 +218,16 @@ export default function CreatingFeedback() {
               </FormControl>
 
               <FormControl gridColumn="span 2" mt={3}>
-                <label>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    p={4}
-                    minW={'full'}
-                    border="2px dashed"
-                    borderColor="gray.300"
-                    borderRadius="md"
-                    textAlign="center"
-                    cursor="pointer"
-                    _hover={{
-                      bgGradient: 'linear(to-r, purple.500, purple.600)',
-                      transition: '0.8s',
-                    }}
-                  >
-                    <MdCloudUpload size={24} />
-                    <Text mt={2} fontSize="sm" fontWeight="bold">
-                      Arraste os vídeos ou clique para fazer o upload
-                    </Text>
-                    <Input
-                      id="fileInput"
-                      onChange={(event) => {
-                        register('videos', {
-                          value: event.target.files,
-                        })
-                        handleFileChange(event)
-                      }}
-                      type="file"
-                      accept=".mp4, .3gp, .quicktime"
-                      multiple
-                      style={{ display: 'none' }}
-                    />
-                  </Box>
-                  {errors.videos && <Text>{errors.videos.message as any}</Text>}
-                </label>
-                <Flex flexWrap="wrap">
-                  {picturesContent?.map((image: any, index: any) => (
-                    <Box key={index} m={3} position="relative">
-                      {!imageLoaded && (
-                        <Spinner
-                          color="teal.500"
-                          size="xl"
-                          alignSelf="center"
-                        />
-                      )}{' '}
-                      <video
-                        src={image}
-                        controls={false}
-                        width={100}
-                        height={100}
-                        style={{ display: imageLoaded ? 'block' : 'none' }}
-                        onLoadedData={() => setImageLoaded(true)}
-                      />
-                      <CloseButtonComponent
-                        onClick={() => removeImage(index)}
-                        position="absolute"
-                        top={0}
-                        right={0}
-                        style={{ display: imageLoaded ? 'block' : 'none' }}
-                      />
-                    </Box>
-                  ))}
-                </Flex>
-              </FormControl>
-
-              <Stack
-                direction={['column', 'row']}
-                mt={3}
-                justifyContent={'space-between'}
-              >
-                {isLoading ? (
-                  <Button
-                    isLoading={isLoading}
-                    loadingText="Enviando..."
-                    w={'full'}
-                    leftIcon={<MdCloudUpload />}
-                    type="submit"
-                    colorScheme="teal"
-                  >
-                    Enviar
-                  </Button>
-                ) : (
-                  <HandleButton
-                    text="Criar Feedback"
-                    leftIcon={<Plus weight="bold" />}
-                    w={'full'}
-                    type={'submit'}
-                  />
+                {step === 'upload' && (
+                  <UploadVideosStep onNextStep={handleUploaded} />
                 )}
-
-                <Button
-                  variant={'outline'}
-                  w={'full'}
-                  leftIcon={<X weight="bold" />}
-                  type="reset"
-                  onClick={handleWithCancelCreatingFeedback}
-                >
-                  Cancelar
-                </Button>
-              </Stack>
+                {step === 'transcribe' && (
+                  <button type="submit" disabled={isTranscribing}>
+                    <Mic2 />
+                    Transcrever {videos.size} vídeos
+                  </button>
+                )}
+              </FormControl>
             </Stack>
           </form>
         </Box>
