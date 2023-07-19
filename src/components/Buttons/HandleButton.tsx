@@ -10,6 +10,7 @@ interface ButtonProps {
   onClick?: () => void
   type?: 'submit' | 'button'
   size?: 'xs' | 'sm' | 'md' | 'lg'
+  disabled?: boolean
 }
 
 export default function HandleButton({
@@ -21,6 +22,7 @@ export default function HandleButton({
   onClick,
   type,
   size,
+  disabled,
 }: ButtonProps) {
   return (
     <>
@@ -38,6 +40,7 @@ export default function HandleButton({
         leftIcon={leftIcon}
         type={type}
         size={size}
+        disabled={disabled}
       >
         {text}
       </Button>

@@ -21,6 +21,8 @@ import React, { useState } from 'react'
 import { Video } from '@/hooks/useVideos'
 import UploadVideosStep from '@/components/Videos/UploadVideosStep'
 import { useVideosStore } from '@/stores/VideoStore'
+import HandleButton from '@/components/Buttons/HandleButton'
+import { Plus } from 'lucide-react'
 
 const maxFileSize = 300 * 1024 * 1024
 const imageTypes = ['video/mp4', 'video/3gp', 'video/quicktime']
@@ -104,7 +106,7 @@ export default function CreatingFeedback() {
 
   const [videos, setVideos] = useState<Map<string, Video>>(new Map())
   const [isTranscribing, setIsTranscribing] = useState(false)
-  const [step, setStep] = useState<'upload' | 'transcribe' | 'generate'>(
+  const [step, setStep] = useState<'upload' | 'converted' | 'generate'>(
     'upload',
   )
 
@@ -113,7 +115,7 @@ export default function CreatingFeedback() {
   ) => {
     try {
       const token = getUserToken()
-      console.log('teste')
+
       if (!token) {
         toast({
           title: 'Sua sessão expirou.',
@@ -169,7 +171,7 @@ export default function CreatingFeedback() {
 
   const handleUploaded = (videos: Map<string, Video>) => {
     setVideos(videos)
-    setStep('transcribe')
+    setStep('converted')
   }
 
   return (
@@ -221,12 +223,25 @@ export default function CreatingFeedback() {
 
               <FormControl gridColumn="span 2" mt={3}>
                 {step === 'upload' && (
-                  <UploadVideosStep onNextStep={handleUploaded} />
+                  <UploadVideosStep
+                    onNextStep={handleUploaded}
+                    textButtonSubmit="Enviar feedback"
+                  />
                 )}
-                {step === 'transcribe' && (
-                  <button type="submit" disabled={isTranscribing}>
-                    Transcrever {videos.size} vídeos
-                  </button>
+                {step === 'converted' && (
+                  <>
+                    <FormControl gridColumn="span 2" mt={3}>
+                      <HandleButton
+                        w="100%"
+                        mr={3}
+                        text="Enviar feedback"
+                        leftIcon={<Plus height="bold" />}
+                        type="submit"
+                        disabled={isTranscribing}
+                      />
+                    </FormControl>
+                    <span>{videos.size} vídeos carregados</span>
+                  </>
                 )}
               </FormControl>
             </Stack>

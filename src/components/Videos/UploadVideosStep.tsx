@@ -1,16 +1,19 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Plus, Video as VideoIcon } from 'lucide-react'
 import { ChangeEvent } from 'react'
 import VideoItem from './VideoItem'
 import { Video, useVideos } from '@/hooks/useVideos'
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, FormControl, Text } from '@chakra-ui/react'
 import { MdCloudUpload } from 'react-icons/md'
+import HandleButton from '../Buttons/HandleButton'
 
 interface UploadVideosStepProps {
   onNextStep: (videos: Map<string, Video>) => void
+  textButtonSubmit?: string
 }
 
 export default function UploadVideosStep({
   onNextStep,
+  textButtonSubmit,
 }: UploadVideosStepProps) {
   const {
     videos,
@@ -88,20 +91,34 @@ export default function UploadVideosStep({
       )}
 
       {hasAnyVideoUploaded && !finishedConversionAt && (
-        <button
-          type="button"
+        <HandleButton
           onClick={startAudioConversion}
           disabled={isConverting}
-        >
-          Carregar Vídeos {videos.size}
-        </button>
+          mr={3}
+          text="Carregar Videos"
+          leftIcon={<VideoIcon height="bold" />}
+        />
       )}
 
       {finishedConversionAt && (
-        <button type="button" onClick={() => onNextStep(videos)}>
-          Prosseguir
-          <ArrowRight />
-        </button>
+        <HandleButton
+          onClick={() => onNextStep(videos)}
+          mr={3}
+          text="Prosseguir"
+          leftIcon={<ArrowRight height="bold" />}
+        />
+      )}
+
+      {!hasAnyVideoUploaded && !finishedConversionAt && (
+        <FormControl gridColumn="span 2" mt={3}>
+          <HandleButton
+            w="100%"
+            mr={3}
+            text={textButtonSubmit || 'Enviar '}
+            leftIcon={<Plus height="bold" />}
+            type="submit"
+          />
+        </FormControl>
       )}
     </div>
   )
