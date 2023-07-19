@@ -35,7 +35,7 @@ export default function UploadVideosStep({
   }
 
   const hasAnyVideoUploaded = videos.size !== 0
-
+  console.log(isConverting)
   return (
     <div>
       <label htmlFor="videos" aria-disabled={hasAnyVideoUploaded}>
@@ -93,7 +93,7 @@ export default function UploadVideosStep({
       {hasAnyVideoUploaded && !finishedConversionAt && (
         <HandleButton
           onClick={startAudioConversion}
-          disabled={isConverting}
+          loading={isConverting}
           mr={3}
           text="Carregar Videos"
           leftIcon={<VideoIcon height="bold" />}
