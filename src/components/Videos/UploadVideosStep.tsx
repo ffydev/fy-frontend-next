@@ -144,7 +144,7 @@ export default function UploadVideosStep({
           loading={isConverting}
           mr={3}
           text="Carregar Videos"
-          leftIcon={<VideoIcon height="bold" />}
+          leftIcon={<VideoIcon size={24} />}
         />
       )}
 
@@ -153,7 +153,7 @@ export default function UploadVideosStep({
           onClick={() => onNextStep(videos)}
           mr={3}
           text="Prosseguir"
-          leftIcon={<ArrowRight height="bold" />}
+          leftIcon={<ArrowRight size={24} />}
         />
       )}
 
@@ -163,7 +163,7 @@ export default function UploadVideosStep({
             w="100%"
             mr={3}
             text={textButtonSubmit || 'Enviar '}
-            leftIcon={<Plus height="bold" />}
+            leftIcon={<Plus size={24} />}
             type="submit"
           />
         </FormControl>

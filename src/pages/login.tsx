@@ -111,6 +111,7 @@ export default function Login() {
             <Stack align={['center', 'center', 'initial']}>
               <Box mb={4}>
                 <Image
+                  priority={true}
                   alt="Logo"
                   src="/logo.png"
                   width={50}
