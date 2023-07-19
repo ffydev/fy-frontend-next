@@ -35,7 +35,7 @@ export default function UploadVideosStep({
   }
 
   const hasAnyVideoUploaded = videos.size !== 0
-  console.log(isConverting)
+
   return (
     <div>
       <label htmlFor="videos" aria-disabled={hasAnyVideoUploaded}>
