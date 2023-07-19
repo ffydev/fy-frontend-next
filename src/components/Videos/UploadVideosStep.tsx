@@ -1,16 +1,57 @@
-import { ArrowRight } from 'lucide-react'
-import { ChangeEvent } from 'react'
+import { ArrowRight, Plus, Video as VideoIcon } from 'lucide-react'
+import { ChangeEvent, useState } from 'react'
 import VideoItem from './VideoItem'
 import { Video, useVideos } from '@/hooks/useVideos'
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, FormControl, Text } from '@chakra-ui/react'
 import { MdCloudUpload } from 'react-icons/md'
+import HandleButton from '../Buttons/HandleButton'
+import { z } from 'zod'
 
 interface UploadVideosStepProps {
   onNextStep: (videos: Map<string, Video>) => void
+  textButtonSubmit?: string
 }
+
+const maxFileSize = 300 * 1024 * 1024
+const imageTypes = ['video/mp4', 'video/3gp', 'video/quicktime']
+
+const videosSchema = z.object({
+  videos: z
+    .any()
+    .refine(
+      (obj) => {
+        if (obj) {
+          Object?.entries(obj)
+          for (const file of obj) {
+            if (file.size > maxFileSize) {
+              return false
+            }
+          }
+          return true
+        }
+      },
+      { message: 'O tamanho de cada vídeo deve ser no máximo 300 megabytes.' },
+    )
+    .refine(
+      (obj) => {
+        if (obj) {
+          Object?.entries(obj)
+          for (const file of obj) {
+            if (!imageTypes.includes(file.type)) {
+              return false
+            }
+          }
+          return true
+        }
+      },
+      { message: 'Por favor, selecione apenas vídeos.' },
+    )
+    .optional(),
+})
 
 export default function UploadVideosStep({
   onNextStep,
+  textButtonSubmit,
 }: UploadVideosStepProps) {
   const {
     videos,
@@ -20,11 +61,19 @@ export default function UploadVideosStep({
     removeVideo,
     startAudioConversion,
   } = useVideos()
+  const [zodError, setZodError] = useState('')
 
   function handleVideoFilesSelected(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files
 
     if (!files) {
+      return
+    }
+
+    const result = videosSchema.safeParse({ videos: files })
+
+    if (!result.success) {
+      setZodError(result.error.errors[0].message)
       return
     }
 
@@ -61,14 +110,16 @@ export default function UploadVideosStep({
 
       <input
         type="file"
-        accept="video/*"
+        accept="video/mp4, video/3gpp, video/quicktime"
         multiple
         id="videos"
         onChange={handleVideoFilesSelected}
         style={{ display: 'none' }}
       />
 
-      {!hasAnyVideoUploaded ? (
+      <span>{zodError}</span>
+
+      {!hasAnyVideoUploaded && !zodError ? (
         <span>Nenhum vídeo selecionado</span>
       ) : (
         <>
@@ -88,20 +139,34 @@ export default function UploadVideosStep({
       )}
 
       {hasAnyVideoUploaded && !finishedConversionAt && (
-        <button
-          type="button"
+        <HandleButton
           onClick={startAudioConversion}
-          disabled={isConverting}
-        >
-          Carregar Vídeos {videos.size}
-        </button>
+          loading={isConverting}
+          mr={3}
+          text="Carregar Videos"
+          leftIcon={<VideoIcon size={24} />}
+        />
       )}
 
       {finishedConversionAt && (
-        <button type="button" onClick={() => onNextStep(videos)}>
-          Prosseguir
-          <ArrowRight />
-        </button>
+        <HandleButton
+          onClick={() => onNextStep(videos)}
+          mr={3}
+          text="Prosseguir"
+          leftIcon={<ArrowRight size={24} />}
+        />
+      )}
+
+      {!hasAnyVideoUploaded && !finishedConversionAt && (
+        <FormControl gridColumn="span 2" mt={3}>
+          <HandleButton
+            w="100%"
+            mr={3}
+            text={textButtonSubmit || 'Enviar '}
+            leftIcon={<Plus size={24} />}
+            type="submit"
+          />
+        </FormControl>
       )}
     </div>
   )

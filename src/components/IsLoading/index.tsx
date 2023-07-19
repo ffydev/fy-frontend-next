@@ -18,6 +18,7 @@ export default function IsLoading() {
   return (
     <Center height="100vh" animation={`${pulse} 1s linear infinite`}>
       <Image
+        priority={true}
         src={'/logo.png'}
         alt={''}
         width={50}

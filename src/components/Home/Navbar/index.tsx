@@ -14,7 +14,8 @@ export default function Navbar() {
               <Link href="#" passHref>
                 <Box p="2">
                   <Image
-                    alt="logo v do Next"
+                    priority={true}
+                    alt=""
                     src="/logo.png"
                     width={40}
                     height={40}

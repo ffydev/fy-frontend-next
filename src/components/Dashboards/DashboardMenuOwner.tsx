@@ -106,6 +106,7 @@ const SidebarContent = ({
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Image
+          priority={true}
           src={'/logo.png'}
           alt={''}
           width={50}
