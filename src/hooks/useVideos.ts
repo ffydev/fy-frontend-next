@@ -228,14 +228,31 @@ export function useVideos() {
       '-i',
       file.name,
       '-b:v',
-      '256k',
-      '-an',
+      '128k', // Reduzindo a taxa de bits para 128k
+      '-an', // Removendo o áudio
       '-c:v',
-      'libx264',
+      'libx264', // Usando o codec libx264
+      '-preset',
+      'fast', // Definindo o perfil de codificação como "fast"
+      '-vf',
+      'scale=640:-2', // Reduzindo a resolução para 640 pixels de largura (altura automática mantendo a proporção)
       '-t',
       '30',
       `${id}.mp4`,
     )
+
+    // await ffmpeg.run(
+    //   '-i',
+    //   file.name,
+    //   '-b:v',
+    //   '282k',
+    //   '-an',
+    //   '-c:v',
+    //   'libx264',
+    //   '-t',
+    //   '30',
+    //   `${id}.mp4`,
+    // )
 
     // await ffmpeg.run(
     //   '-i',
