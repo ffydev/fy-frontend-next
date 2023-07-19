@@ -24,9 +24,6 @@ import { useVideosStore } from '@/stores/VideoStore'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { Plus } from 'lucide-react'
 
-const maxFileSize = 300 * 1024 * 1024
-const imageTypes = ['video/mp4', 'video/3gp', 'video/quicktime']
-
 const createFeedbackFormSchema = z.object({
   diet: z
     .string()
@@ -52,37 +49,6 @@ const createFeedbackFormSchema = z.object({
     .string()
     .min(0)
     .max(200, { message: 'A mensagem deve ter no máximo 200 caracteres' })
-    .optional(),
-  videos: z
-    .any()
-    .refine(
-      (obj) => {
-        if (obj) {
-          Object?.entries(obj)
-          for (const file of obj) {
-            if (file.size > maxFileSize) {
-              return false
-            }
-          }
-          return true
-        }
-      },
-      { message: 'O tamanho de cada vídeo deve ser no máximo 300 megabytes.' },
-    )
-    .refine(
-      (obj) => {
-        if (obj) {
-          Object?.entries(obj)
-          for (const file of obj) {
-            if (!imageTypes.includes(file.type)) {
-              return false
-            }
-          }
-          return true
-        }
-      },
-      { message: 'Por favor, selecione apenas vídeos.' },
-    )
     .optional(),
 })
 
