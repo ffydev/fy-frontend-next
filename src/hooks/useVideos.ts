@@ -227,8 +227,6 @@ export function useVideos() {
     await ffmpeg.run(
       '-i',
       file.name,
-      '-vf',
-      'scale=352:264',
       '-b:v',
       '256k',
       '-an',
@@ -238,6 +236,21 @@ export function useVideos() {
       '30',
       `${id}.mp4`,
     )
+
+    // await ffmpeg.run(
+    //   '-i',
+    //   file.name,
+    //   '-vf',
+    //   'scale=352:264',
+    //   '-b:v',
+    //   '256k',
+    //   '-an',
+    //   '-c:v',
+    //   'libx264',
+    //   '-t',
+    //   '30',
+    //   `${id}.mp4`,
+    // )
 
     const data = ffmpeg.FS('readFile', `${id}.mp4`)
 
