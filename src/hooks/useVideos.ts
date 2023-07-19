@@ -235,7 +235,7 @@ export function useVideos() {
       '-c:v',
       'libx264',
       '-t',
-      '40',
+      '30',
       `${id}.mp4`,
     )
 
