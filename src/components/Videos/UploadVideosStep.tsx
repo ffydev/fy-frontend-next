@@ -110,7 +110,7 @@ export default function UploadVideosStep({
 
       <input
         type="file"
-        accept="video/mp4 video/3gp video/quicktime"
+        accept="video/mp4, video/3gpp, video/quicktime"
         multiple
         id="videos"
         onChange={handleVideoFilesSelected}
