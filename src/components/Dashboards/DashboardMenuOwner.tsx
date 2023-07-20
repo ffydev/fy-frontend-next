@@ -10,28 +10,36 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useState } from 'react'
-import { IconType } from 'react-icons'
-import { FiHome } from 'react-icons/fi'
 import MobileNav from './MobileNav'
 import NavItem from './NavItem'
 import Navigation from '../OwnerFlow/Navigation'
+import Exercises from '../OwnerFlow/Exercises'
+import { House, SneakerMove } from '@phosphor-icons/react'
 
 interface LinkItemProps {
   name: string
-  icon: IconType
+  icon: any
   dashboardHome?: boolean
+  dashboardExercises?: boolean
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Início', icon: FiHome, dashboardHome: true },
+  { name: 'Início', icon: House, dashboardHome: true },
+  { name: 'Exercícios', icon: SneakerMove, dashboardExercises: true },
 ]
 
 export default function DashboardMenuOwner() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [dashboardHome, setDashboardHome] = useState<boolean>(true)
+  const [dashboardExercises, setDashboardExercises] = useState<boolean>(false)
 
   const handleWithShowDashboardHome = () => {
     setDashboardHome(true)
+  }
+
+  const handleWithShowDashboardExercises = () => {
+    setDashboardExercises(true)
+    setDashboardHome(false)
   }
 
   return (
@@ -46,6 +54,7 @@ export default function DashboardMenuOwner() {
         <SidebarContent
           onClose={() => onClose}
           handleWithShowDashboardHome={handleWithShowDashboardHome}
+          handleWithShowDashboardExercises={handleWithShowDashboardExercises}
           display={{ base: 'none', md: 'block' }}
         />
         <Drawer
@@ -61,6 +70,9 @@ export default function DashboardMenuOwner() {
             <SidebarContent
               onClose={onClose}
               handleWithShowDashboardHome={handleWithShowDashboardHome}
+              handleWithShowDashboardExercises={
+                handleWithShowDashboardExercises
+              }
             />
           </DrawerContent>
         </Drawer>
@@ -74,6 +86,13 @@ export default function DashboardMenuOwner() {
               </Box>
             </>
           ) : null}
+          {dashboardExercises ? (
+            <>
+              <Box ml={{ base: 0, md: 60 }}>
+                <Exercises />
+              </Box>
+            </>
+          ) : null}
         </Box>
       </Box>
     </>
@@ -83,11 +102,13 @@ export default function DashboardMenuOwner() {
 interface SidebarProps extends BoxProps {
   onClose: () => void
   handleWithShowDashboardHome: () => void
+  handleWithShowDashboardExercises: () => void
 }
 
 const SidebarContent = ({
   onClose,
   handleWithShowDashboardHome,
+  handleWithShowDashboardExercises,
   ...rest
 }: SidebarProps) => {
   return (
@@ -129,6 +150,22 @@ const SidebarContent = ({
                   bgColor: 'blackAlpha.900',
                 }}
                 onClick={() => handleWithShowDashboardHome()}
+              >
+                {link.name}
+              </Button>
+            ) : null}
+
+            {link.dashboardExercises ? (
+              <Button
+                variant="ghost"
+                _active={{
+                  bgColor: 'blackAlpha.900',
+                  transform: 'scale(0.98)',
+                }}
+                _focus={{
+                  bgColor: 'blackAlpha.900',
+                }}
+                onClick={() => handleWithShowDashboardExercises()}
               >
                 {link.name}
               </Button>
