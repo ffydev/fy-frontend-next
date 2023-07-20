@@ -10,6 +10,7 @@ import { z } from 'zod'
 interface UploadVideosStepProps {
   onNextStep: (videos: Map<string, Video>) => void
   textButtonSubmit?: string
+  isSendingForm?: boolean
 }
 
 const maxFileSize = 300 * 1024 * 1024
@@ -52,6 +53,7 @@ const videosSchema = z.object({
 export default function UploadVideosStep({
   onNextStep,
   textButtonSubmit,
+  isSendingForm,
 }: UploadVideosStepProps) {
   const {
     videos,
@@ -123,7 +125,7 @@ export default function UploadVideosStep({
         <span>Nenhum vídeo selecionado</span>
       ) : (
         <>
-          <Flex>
+          <Flex wrap={'wrap'}>
             {Array.from(videos).map(([id, video]) => {
               return (
                 <VideoItem
@@ -165,6 +167,7 @@ export default function UploadVideosStep({
             text={textButtonSubmit || 'Enviar '}
             leftIcon={<Plus size={24} />}
             type="submit"
+            loading={isSendingForm}
           />
         </FormControl>
       )}

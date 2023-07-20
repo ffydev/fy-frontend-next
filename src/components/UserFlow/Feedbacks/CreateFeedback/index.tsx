@@ -60,6 +60,7 @@ export default function CreatingFeedback() {
   const { setIsShowingDashboard, setIsShowingCreateFeedbacks } =
     useUserNavigationStore()
   const { finalVideo, reset } = useVideosStore()
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false)
 
   const {
     register,
@@ -93,6 +94,7 @@ export default function CreatingFeedback() {
         router.push('/login')
         return
       }
+      setIsSendingFeedback(true)
 
       setIsTranscribing(true)
 
@@ -131,6 +133,7 @@ export default function CreatingFeedback() {
       setIsShowingCreateFeedbacks()
       setIsShowingDashboard()
       setIsTranscribing(false)
+      setIsSendingFeedback(false)
       reset()
     }
   }
@@ -192,6 +195,7 @@ export default function CreatingFeedback() {
                   <UploadVideosStep
                     onNextStep={handleUploaded}
                     textButtonSubmit="Enviar feedback"
+                    isSendingForm={isSendingFeedback}
                   />
                 )}
                 {step === 'converted' && (
