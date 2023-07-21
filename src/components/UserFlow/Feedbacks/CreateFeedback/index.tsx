@@ -121,12 +121,21 @@ export default function CreatingFeedback() {
       })
     } catch (error) {
       console.error(error)
+      if (error?.response?.status === 403) {
       toast({
-        title: 'Erro ao criar feedback',
+        title: 'Erro ao criar feedback. Número máximo de feedbacks atingido.',
         status: 'error',
         duration: 3000,
         isClosable: true,
-      })
+    });
+  } else {
+        toast({
+          title: 'Erro ao criar feedback',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
     } finally {
       setIsShowingCreateFeedbacks()
       setIsShowingDashboard()
