@@ -4,6 +4,7 @@ import { produce, enableMapSet } from 'immer'
 import { ffmpeg } from '@/lib/ffmpeg'
 import { fetchFile } from '@ffmpeg/ffmpeg'
 import { useVideosStore } from '@/stores/VideoStore'
+import { LucideTable } from 'lucide-react'
 
 enableMapSet()
 
@@ -215,6 +216,10 @@ export function useVideos() {
 
     ffmpeg.FS('writeFile', file.name, await fetchFile(file))
 
+    const worker = new Worker(new URL('./videoWorker.ts', import.meta.url))
+
+    worker.postMessage({ videos, id })
+
     ffmpeg.setProgress(({ ratio }) => {
       const progress = Math.round(ratio * 100)
 
@@ -224,36 +229,33 @@ export function useVideos() {
       })
     })
 
-    await ffmpeg.run(
-      '-i',
-      file.name,
-      '-vf',
-      'scale=320:240',
-      '-b:v',
-      '256k',
-      '-an',
-      '-c:v',
-      'libx264',
-      '-t',
-      '30',
-      `${id}.mp4`,
-    )
+    let { finalVideo, progress } = {} as any
 
-    const data = ffmpeg.FS('readFile', `${id}.mp4`)
+    const waitForEvent = (): Promise<void> => {
+      return new Promise((resolve) => {
+        const checkEvent = () => {
+          if (finalVideo !== undefined) {
+            clearInterval(intervalId)
+            resolve()
+          }
+        }
 
-    const blob = new Blob([data.buffer], { type: 'video/mp4' })
+        const intervalId = setInterval(checkEvent, 100)
 
-    const convertedFile = new File([blob], `${id}.mp4`)
-
-    const convertedVideo = {
-      file: convertedFile,
+        worker.onmessage = (event: any) => {
+          finalVideo = event.data.convertedVideo
+          progress = event.data.progress
+        }
+      })
     }
 
-    setFinalVideo(convertedVideo)
-
-    dispatch({
-      type: ActionTypes.MARK_VIDEO_AS_CONVERTED,
-      payload: { id },
+    waitForEvent().then(() => {
+      setFinalVideo(finalVideo)
+      console.log('finalVideo', finalVideo)
+      dispatch({
+        type: ActionTypes.MARK_VIDEO_AS_CONVERTED,
+        payload: { id },
+      })
     })
   }
 
