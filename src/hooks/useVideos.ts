@@ -202,32 +202,9 @@ export function useVideos() {
       payload: { id },
     })
 
-    if (!ffmpeg.isLoaded()) {
-      await ffmpeg.load()
-    }
-
-    const video = videos.get(id)
-
-    if (!video) {
-      throw new Error(`Trying to convert an inexistent video: ${id}`)
-    }
-
-    const { file } = video
-
-    ffmpeg.FS('writeFile', file.name, await fetchFile(file))
-
     const worker = new Worker(new URL('./videoWorker.ts', import.meta.url))
 
     worker.postMessage({ videos, id })
-
-    ffmpeg.setProgress(({ ratio }) => {
-      const progress = Math.round(ratio * 100)
-
-      dispatch({
-        type: ActionTypes.UPDATE_CONVERSION_PROGRESS,
-        payload: { id, progress },
-      })
-    })
 
     let { finalVideo, progress } = {} as any
 
@@ -251,7 +228,12 @@ export function useVideos() {
 
     waitForEvent().then(() => {
       setFinalVideo(finalVideo)
-      console.log('finalVideo', finalVideo)
+
+      dispatch({
+        type: ActionTypes.UPDATE_CONVERSION_PROGRESS,
+        payload: { id, progress },
+      })
+
       dispatch({
         type: ActionTypes.MARK_VIDEO_AS_CONVERTED,
         payload: { id },
