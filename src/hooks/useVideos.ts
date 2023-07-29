@@ -194,7 +194,7 @@ export function useVideos() {
     })
   }
 
-  async function convertVideoToAudio(id: string) {
+  async function convertVideoToLiteVideo(id: string) {
     dispatch({
       type: ActionTypes.MARK_VIDEO_AS_LOADING,
       payload: { id },
@@ -223,7 +223,7 @@ export function useVideos() {
     dispatch({ type: ActionTypes.START_CONVERSION })
 
     for (const id of videos.keys()) {
-      await convertVideoToAudio(id)
+      await convertVideoToLiteVideo(id)
     }
 
     worker.onmessage = () => {

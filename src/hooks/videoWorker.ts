@@ -1,5 +1,5 @@
-import pi from './pi'
+import convertVideoToLiteVideo from './convertVideoToLiteVideo'
 
 addEventListener('message', async (event: any) => {
-  postMessage(await pi(event.data))
+  postMessage(await convertVideoToLiteVideo(event.data))
 })

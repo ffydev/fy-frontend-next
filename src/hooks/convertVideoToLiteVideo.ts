@@ -1,8 +1,8 @@
 import { ffmpeg } from '@/lib/ffmpeg'
 import { fetchFile } from '@ffmpeg/ffmpeg'
 
-export default async function pi(n: any) {
-  const { videos, id } = n
+export default async function convertVideoToLiteVideo(props: any) {
+  const { videos, id } = props
 
   if (!ffmpeg.isLoaded()) {
     await ffmpeg.load()
