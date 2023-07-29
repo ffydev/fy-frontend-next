@@ -46,7 +46,9 @@ interface Action {
 
 export function useVideos() {
   const { setFinalVideo } = useVideosStore()
-  const worker = new Worker(new URL('./videoWorker.ts', import.meta.url))
+  const worker = new Worker(
+    new URL('../services/videoWorker.ts', import.meta.url),
+  )
   const [
     {
       videos,

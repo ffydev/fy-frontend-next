@@ -1,7 +1,7 @@
 import { ffmpeg } from '@/lib/ffmpeg'
 import { fetchFile } from '@ffmpeg/ffmpeg'
 
-class VideoConverter {
+export default class VideoConverterService {
   async convertVideoToLiteVideo(props: any) {
     const { videos, id } = props
 
@@ -57,5 +57,3 @@ class VideoConverter {
     return { convertedVideo, progress }
   }
 }
-
-export default new VideoConverter()
