@@ -202,11 +202,9 @@ export function useVideos() {
 
     worker.postMessage({ videos, id })
 
-    let { finalVideo, progress } = {} as any
-
     worker.onmessage = (event: any) => {
-      finalVideo = event.data.convertedVideo
-      progress = event.data.progress
+      const finalVideo = event.data.convertedVideo
+      const progress = event.data.progress
 
       dispatch({
         type: ActionTypes.UPDATE_CONVERSION_PROGRESS,
