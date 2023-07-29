@@ -94,6 +94,7 @@ export default function CreatingFeedback() {
         router.push('/login')
         return
       }
+
       setIsSendingFeedback(true)
 
       setIsTranscribing(true)
@@ -201,14 +202,24 @@ export default function CreatingFeedback() {
                 {step === 'converted' && (
                   <>
                     <FormControl gridColumn="span 2" mt={3}>
-                      <HandleButton
-                        w="100%"
-                        mr={3}
-                        text="Enviar feedback"
-                        leftIcon={<Plus height="bold" />}
-                        type="submit"
-                        disabled={isTranscribing}
-                      />
+                      {isSendingFeedback ? (
+                        <HandleButton
+                          w="100%"
+                          mr={3}
+                          text="Enviar feedback"
+                          leftIcon={<Plus height="bold" />}
+                          loading={isSendingFeedback}
+                        />
+                      ) : (
+                        <HandleButton
+                          w="100%"
+                          mr={3}
+                          text="Enviar feedback"
+                          leftIcon={<Plus height="bold" />}
+                          type="submit"
+                          loading={isTranscribing}
+                        />
+                      )}
                     </FormControl>
                     <span>{videos.size} vídeos carregados</span>
                   </>
