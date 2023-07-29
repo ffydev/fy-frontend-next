@@ -54,6 +54,8 @@ export default class VideoConverterService {
       file: convertedFile,
     }
 
+    postMessage({ convertedVideo })
+
     return { convertedVideo, progress }
   }
 }

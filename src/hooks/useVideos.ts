@@ -213,7 +213,7 @@ export function useVideos() {
         payload: { id, progress },
       })
 
-      if (progress === 100) {
+      if (progress === 100 && finalVideo !== undefined) {
         setFinalVideo(finalVideo)
 
         dispatch({
