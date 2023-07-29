@@ -23,6 +23,8 @@ class VideoConverter {
 
     ffmpeg.setProgress(({ ratio }) => {
       progress = Math.round(ratio * 100)
+
+      postMessage({ progress })
     })
 
     await ffmpeg.run(
