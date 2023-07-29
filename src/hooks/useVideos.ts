@@ -208,7 +208,6 @@ export function useVideos() {
       finalVideo = event.data.convertedVideo
       progress = event.data.progress
 
-      console.log('progress', progress)
       dispatch({
         type: ActionTypes.UPDATE_CONVERSION_PROGRESS,
         payload: { id, progress },
