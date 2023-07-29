@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useReducer } from 'react'
 import { produce, enableMapSet } from 'immer'
-import { ffmpeg } from '@/lib/ffmpeg'
-import { fetchFile } from '@ffmpeg/ffmpeg'
 import { useVideosStore } from '@/stores/VideoStore'
 
 enableMapSet()
@@ -48,6 +46,9 @@ interface Action {
 
 export function useVideos() {
   const { setFinalVideo } = useVideosStore()
+  const worker = new Worker(
+    new URL('../services/videoWorker.ts', import.meta.url),
+  )
   const [
     {
       videos,
@@ -195,78 +196,41 @@ export function useVideos() {
     })
   }
 
-  async function convertVideoToAudio(id: string) {
+  async function convertVideoToLiteVideo(id: string) {
     dispatch({
       type: ActionTypes.MARK_VIDEO_AS_LOADING,
       payload: { id },
     })
 
-    if (!ffmpeg.isLoaded()) {
-      await ffmpeg.load()
-    }
+    worker.postMessage({ videos, id })
 
-    const video = videos.get(id)
-
-    if (!video) {
-      throw new Error(`Trying to convert an inexistent video: ${id}`)
-    }
-
-    const { file } = video
-
-    ffmpeg.FS('writeFile', file.name, await fetchFile(file))
-
-    ffmpeg.setProgress(({ ratio }) => {
-      const progress = Math.round(ratio * 100)
+    worker.onmessage = (event: any) => {
+      const finalVideo = event.data.convertedVideo
+      const progress = event.data.progress
 
       dispatch({
         type: ActionTypes.UPDATE_CONVERSION_PROGRESS,
         payload: { id, progress },
       })
-    })
 
-    await ffmpeg.run(
-      '-i',
-      file.name,
-      '-b:v',
-      '192k',
-      '-an',
-      '-c:v',
-      'libx264',
-      '-preset',
-      'fast',
-      '-vf',
-      'scale=320:-2',
-      '-t',
-      '30',
-      `${id}.mp4`,
-    )
+      if (progress === 100) {
+        setFinalVideo(finalVideo)
 
-    const data = ffmpeg.FS('readFile', `${id}.mp4`)
-
-    const blob = new Blob([data.buffer], { type: 'video/mp4' })
-
-    const convertedFile = new File([blob], `${id}.mp4`)
-
-    const convertedVideo = {
-      file: convertedFile,
+        dispatch({
+          type: ActionTypes.MARK_VIDEO_AS_CONVERTED,
+          payload: { id },
+        })
+        dispatch({ type: ActionTypes.END_CONVERSION })
+      }
     }
-
-    setFinalVideo(convertedVideo)
-
-    dispatch({
-      type: ActionTypes.MARK_VIDEO_AS_CONVERTED,
-      payload: { id },
-    })
   }
 
   async function startAudioConversion() {
     dispatch({ type: ActionTypes.START_CONVERSION })
 
     for (const id of videos.keys()) {
-      await convertVideoToAudio(id)
+      await convertVideoToLiteVideo(id)
     }
-
-    dispatch({ type: ActionTypes.END_CONVERSION })
   }
 
   return {
