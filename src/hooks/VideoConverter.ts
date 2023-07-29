@@ -33,7 +33,7 @@ class VideoConverter {
       '-vf',
       'scale=320:240',
       '-b:v',
-      '240k',
+      '200k',
       '-an',
       '-c:v',
       'libx264',
