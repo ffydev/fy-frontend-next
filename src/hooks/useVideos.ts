@@ -207,15 +207,20 @@ export function useVideos() {
     worker.onmessage = (event: any) => {
       finalVideo = event.data.convertedVideo
       progress = event.data.progress
+
       setFinalVideo(finalVideo)
+
       dispatch({
         type: ActionTypes.UPDATE_CONVERSION_PROGRESS,
         payload: { id, progress },
       })
+
       dispatch({
         type: ActionTypes.MARK_VIDEO_AS_CONVERTED,
         payload: { id },
       })
+
+      dispatch({ type: ActionTypes.END_CONVERSION })
     }
   }
 
@@ -224,10 +229,6 @@ export function useVideos() {
 
     for (const id of videos.keys()) {
       await convertVideoToLiteVideo(id)
-    }
-
-    worker.onmessage = () => {
-      dispatch({ type: ActionTypes.END_CONVERSION })
     }
   }
 

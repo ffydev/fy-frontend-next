@@ -26,9 +26,9 @@ export default function VideoItem({ id, video, onRemove }: VideoItemProps) {
         right={0}
       />
 
-      <span>
+      {/* <span>
         {video.isLoading ? `${video.conversionProgress}%` : video.file.name}
-      </span>
+      </span> */}
     </Box>
   )
 }
