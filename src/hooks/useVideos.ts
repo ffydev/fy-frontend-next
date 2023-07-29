@@ -46,8 +46,8 @@ interface Action {
 
 export function useVideos() {
   const { setFinalVideo } = useVideosStore()
-  const worker = new Worker(
-    new URL('../services/videoWorker.ts', import.meta.url),
+  const videoWorker = new Worker(
+    new URL('../services/videoWorker.service.ts', import.meta.url),
   )
   const [
     {
@@ -202,9 +202,9 @@ export function useVideos() {
       payload: { id },
     })
 
-    worker.postMessage({ videos, id })
+    videoWorker.postMessage({ videos, id })
 
-    worker.onmessage = (event: any) => {
+    videoWorker.onmessage = (event: any) => {
       const finalVideo = event.data.convertedVideo
       const progress = event.data.progress
 
