@@ -1,4 +1,4 @@
-import VideoConverterService from './VideoConverter'
+import VideoConverterService from './videoConverter'
 
 const videoConverteService = new VideoConverterService()
 
