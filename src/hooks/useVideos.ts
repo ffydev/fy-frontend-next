@@ -1,10 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useReducer } from 'react'
 import { produce, enableMapSet } from 'immer'
-import { ffmpeg } from '@/lib/ffmpeg'
-import { fetchFile } from '@ffmpeg/ffmpeg'
 import { useVideosStore } from '@/stores/VideoStore'
-import { LucideTable } from 'lucide-react'
 
 enableMapSet()
 
@@ -49,6 +46,7 @@ interface Action {
 
 export function useVideos() {
   const { setFinalVideo } = useVideosStore()
+  const worker = new Worker(new URL('./videoWorker.ts', import.meta.url))
   const [
     {
       videos,
@@ -202,43 +200,23 @@ export function useVideos() {
       payload: { id },
     })
 
-    const worker = new Worker(new URL('./videoWorker.ts', import.meta.url))
-
     worker.postMessage({ videos, id })
 
     let { finalVideo, progress } = {} as any
 
-    const waitForEvent = (): Promise<void> => {
-      return new Promise((resolve) => {
-        const checkEvent = () => {
-          if (finalVideo !== undefined) {
-            clearInterval(intervalId)
-            resolve()
-          }
-        }
-
-        const intervalId = setInterval(checkEvent, 100)
-
-        worker.onmessage = (event: any) => {
-          finalVideo = event.data.convertedVideo
-          progress = event.data.progress
-        }
-      })
-    }
-
-    waitForEvent().then(() => {
+    worker.onmessage = (event: any) => {
+      finalVideo = event.data.convertedVideo
+      progress = event.data.progress
       setFinalVideo(finalVideo)
-
       dispatch({
         type: ActionTypes.UPDATE_CONVERSION_PROGRESS,
         payload: { id, progress },
       })
-
       dispatch({
         type: ActionTypes.MARK_VIDEO_AS_CONVERTED,
         payload: { id },
       })
-    })
+    }
   }
 
   async function startAudioConversion() {
@@ -248,7 +226,9 @@ export function useVideos() {
       await convertVideoToAudio(id)
     }
 
-    dispatch({ type: ActionTypes.END_CONVERSION })
+    worker.onmessage = () => {
+      dispatch({ type: ActionTypes.END_CONVERSION })
+    }
   }
 
   return {
