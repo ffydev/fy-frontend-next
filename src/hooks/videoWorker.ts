@@ -1,5 +1,5 @@
-import convertVideoToLiteVideo from './convertVideoToLiteVideo'
+import VideoConverter from './VideoConverter'
 
 addEventListener('message', async (event: any) => {
-  postMessage(await convertVideoToLiteVideo(event.data))
+  postMessage(await VideoConverter.convertVideoToLiteVideo(event.data))
 })
