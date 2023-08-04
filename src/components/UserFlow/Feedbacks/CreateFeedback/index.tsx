@@ -21,8 +21,6 @@ import React, { useState } from 'react'
 import { Video } from '@/hooks/useVideos'
 import UploadVideosStep from '@/components/Videos/UploadVideosStep'
 import { useVideosStore } from '@/stores/VideoStore'
-import HandleButton from '@/components/Buttons/HandleButton'
-import { Plus } from 'lucide-react'
 
 const createFeedbackFormSchema = z.object({
   diet: z
@@ -71,11 +69,9 @@ export default function CreatingFeedback() {
   })
   const toast = useToast()
 
+  // eslint-disable-next-line no-unused-vars
   const [videos, setVideos] = useState<Map<string, Video>>(new Map())
-  const [isTranscribing, setIsTranscribing] = useState(false)
-  const [step, setStep] = useState<'upload' | 'converted' | 'generate'>(
-    'upload',
-  )
+  const [step, setStep] = useState<'upload' | 'converted'>('upload')
 
   const onSubmit: SubmitHandler<createFeedbackFormSchemaType> = async (
     data,
@@ -96,8 +92,6 @@ export default function CreatingFeedback() {
       }
 
       setIsSendingFeedback(true)
-
-      setIsTranscribing(true)
 
       const formData = new FormData()
       formData.append('diet', String(data.diet))
@@ -133,7 +127,6 @@ export default function CreatingFeedback() {
     } finally {
       setIsShowingCreateFeedbacks()
       setIsShowingDashboard()
-      setIsTranscribing(false)
       setIsSendingFeedback(false)
       reset()
     }
@@ -198,31 +191,6 @@ export default function CreatingFeedback() {
                     textButtonSubmit="Enviar feedback"
                     isSendingForm={isSendingFeedback}
                   />
-                )}
-                {step === 'converted' && (
-                  <>
-                    <FormControl gridColumn="span 2" mt={3}>
-                      {isSendingFeedback ? (
-                        <HandleButton
-                          w="100%"
-                          mr={3}
-                          text="Enviar feedback"
-                          leftIcon={<Plus height="bold" />}
-                          loading={isSendingFeedback}
-                        />
-                      ) : (
-                        <HandleButton
-                          w="100%"
-                          mr={3}
-                          text="Enviar feedback"
-                          leftIcon={<Plus height="bold" />}
-                          type="submit"
-                          loading={isTranscribing}
-                        />
-                      )}
-                    </FormControl>
-                    <span>{videos.size} vídeos carregados</span>
-                  </>
                 )}
               </FormControl>
             </Stack>

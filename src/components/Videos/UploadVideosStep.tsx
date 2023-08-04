@@ -1,4 +1,4 @@
-import { ArrowRight, Plus, Video as VideoIcon } from 'lucide-react'
+import { Plus, Video as VideoIcon } from 'lucide-react'
 import { ChangeEvent, useState } from 'react'
 import VideoItem from './VideoItem'
 import { Video, useVideos } from '@/hooks/useVideos'
@@ -150,16 +150,20 @@ export default function UploadVideosStep({
         />
       )}
 
-      {finishedConversionAt && (
-        <HandleButton
-          onClick={() => onNextStep(videos)}
-          mr={3}
-          text="Prosseguir"
-          leftIcon={<ArrowRight size={24} />}
-        />
+      {!hasAnyVideoUploaded && !finishedConversionAt && (
+        <FormControl gridColumn="span 2" mt={3}>
+          <HandleButton
+            w="100%"
+            mr={3}
+            text={textButtonSubmit || 'Enviar '}
+            leftIcon={<Plus size={24} />}
+            type="submit"
+            loading={isSendingForm}
+          />
+        </FormControl>
       )}
 
-      {!hasAnyVideoUploaded && !finishedConversionAt && (
+      {finishedConversionAt && (
         <FormControl gridColumn="span 2" mt={3}>
           <HandleButton
             w="100%"
