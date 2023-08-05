@@ -228,16 +228,14 @@ export function useVideos() {
       '-i',
       file.name,
       '-vf',
-      'scale=320:240',
-      '-b:v',
-      '200k',
+      'scale=280:210',
       '-an',
       '-c:v',
       'libx264',
       '-preset',
       'ultrafast',
       '-t',
-      '30',
+      '23',
       `${id}.mp4`,
     )
 
