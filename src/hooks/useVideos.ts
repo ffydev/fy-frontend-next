@@ -229,8 +229,8 @@ export function useVideos() {
       file.name,
       '-vf',
       'scale=288:216',
-      '-b:v', // bits
-      '480k', // bits
+      '-b:v',
+      '580k',
       '-an',
       '-c:v',
       'libx264',
