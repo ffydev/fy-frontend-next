@@ -5,6 +5,7 @@ interface CloseButtonProps {
   position?: any
   right?: number
   top?: number
+  left?: number
   style?: any
 }
 
@@ -13,6 +14,7 @@ export function CloseButtonComponent({
   position,
   right,
   top,
+  left,
   style,
 }: CloseButtonProps) {
   return (
@@ -29,6 +31,7 @@ export function CloseButtonComponent({
       right={right}
       top={top}
       style={style}
+      left={left}
     />
   )
 }

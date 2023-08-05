@@ -10,12 +10,11 @@ interface VideoItemProps {
 
 export default function VideoItem({ id, video, onRemove }: VideoItemProps) {
   return (
-    <Box m={3} position="relative">
+    <Box m={3} position="relative" width={90}>
       <video
         src={video.previewURL}
         data-disabled={video.isLoading}
         controls={false}
-        width={100}
         height={100}
       />
 
