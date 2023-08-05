@@ -228,7 +228,7 @@ export function useVideos() {
       '-i',
       file.name,
       '-vf',
-      'scale=280:210',
+      'scale=288:216',
       '-an',
       '-c:v',
       'libx264',
