@@ -35,6 +35,7 @@ export default function DashboardMenuOwner() {
 
   const handleWithShowDashboardHome = () => {
     setDashboardHome(true)
+    setDashboardExercises(false)
   }
 
   const handleWithShowDashboardExercises = () => {
