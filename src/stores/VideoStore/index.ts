@@ -18,7 +18,7 @@ export const useVideosStore = create(
     setFinalVideo: (video: any) =>
       set((state) => ({ finalVideo: [...state.finalVideo, video] })),
     reset: () => {
-      set(initialState)
+      set((state) => ({ finalVideo: [] }))
     },
   })),
 )
