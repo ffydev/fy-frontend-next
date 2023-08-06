@@ -30,10 +30,6 @@ const createExerciseFormSchema = z.object({
     .string()
     .nonempty({ message: 'É necessário informar o nome do exercício' })
     .max(50, { message: 'Máximo de 50 caracteres' }),
-  muscleGroup: z
-    .string()
-    .nonempty({ message: 'É necessário informar o nome do grupo' })
-    .max(50, { message: 'Máximo de 50 caracteres' }),
 })
 
 type createExerciseFormSchemaType = z.infer<typeof createExerciseFormSchema>
@@ -146,7 +142,7 @@ export default function ExercisesGroups() {
 
       await createExercise(token, {
         name: data.name,
-        muscleGroup: data.muscleGroup ? data.muscleGroup : selectedMuscleGroup,
+        muscleGroup: selectedMuscleGroup,
       })
 
       toast({
@@ -213,34 +209,13 @@ export default function ExercisesGroups() {
     }
   }
 
+  const handleWithSelecteMuscleGroup = (muscleGroup: string) => {
+    setSelectedMuscleGroup(muscleGroup)
+  }
+
   return (
     <>
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl mt={4}>
-            <Input
-              defaultValue={selectedMuscleGroup}
-              {...register('muscleGroup')}
-              placeholder="Grupo Muscular"
-            />
-            {errors.muscleGroup && <Text>{errors.muscleGroup.message}</Text>}
-          </FormControl>
-
-          <FormControl mt={4}>
-            <Input {...register('name')} placeholder="Exercício" />
-            {errors.name && <Text>{errors.name.message}</Text>}
-          </FormControl>
-
-          <HandleButton
-            mt={3}
-            mr={3}
-            text="Execício"
-            w={'xs'}
-            leftIcon={<Plus weight="bold" />}
-            type="submit"
-          />
-        </form>
-
         <Box
           mt={3}
           backdropBlur={'1rem'}
@@ -258,7 +233,7 @@ export default function ExercisesGroups() {
                 <HandleButton
                   text={muscleGroup.muscleGroup}
                   onClick={() =>
-                    setSelectedMuscleGroup(muscleGroup.muscleGroup!)
+                    handleWithSelecteMuscleGroup(muscleGroup.muscleGroup!)
                   }
                 />
               </WrapItem>
@@ -266,7 +241,7 @@ export default function ExercisesGroups() {
           </Wrap>
 
           <Box>
-            <Wrap spacing={3}>
+            <Wrap spacing={3} minH={200}>
               {exercises.map((exercise) => (
                 <WrapItem key={exercise.id}>
                   <Flex
@@ -291,6 +266,29 @@ export default function ExercisesGroups() {
             </Wrap>
           </Box>
         </Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl mt={4}>
+            <Input
+              defaultValue={selectedMuscleGroup}
+              onChange={(e) => handleWithSelecteMuscleGroup(e.target.value)}
+              placeholder="Grupo Muscular"
+            />
+          </FormControl>
+
+          <FormControl mt={4}>
+            <Input {...register('name')} placeholder="Exercício" />
+            {errors.name && <Text>{errors.name.message}</Text>}
+          </FormControl>
+
+          <HandleButton
+            mt={3}
+            mr={3}
+            text="Execício"
+            w={'xs'}
+            leftIcon={<Plus weight="bold" />}
+            type="submit"
+          />
+        </form>
       </Box>
     </>
   )
