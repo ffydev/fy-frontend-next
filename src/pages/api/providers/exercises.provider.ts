@@ -13,7 +13,7 @@ export async function deleteExercise(token: string, id: string): Promise<void> {
     })
     return
   } catch (error) {
-    console.error(`Failed to delete user with id ${id}`, error)
+    console.error(`Failed to delete exercise with id ${id}`, error)
     throw error
   }
 }
@@ -30,7 +30,7 @@ export async function updateExercise(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to update exercise', error)
     throw error
   }
 }
@@ -67,7 +67,7 @@ export async function createExercise(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to create exercise', error)
     throw error
   }
 }
@@ -99,7 +99,7 @@ export async function findExerciseByMuscleGroup(
 
     return response.data
   } catch (error) {
-    console.error('Failed to find users', error)
+    console.error('Failed to find exercises by muscle group', error)
     throw error
   }
 }
@@ -115,7 +115,7 @@ export async function findExerciseById(
 
     return response.data
   } catch (error) {
-    console.error('Failed to find users', error)
+    console.error('Failed to find exercise by id', error)
     throw error
   }
 }
