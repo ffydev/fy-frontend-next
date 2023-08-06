@@ -9,6 +9,7 @@ interface ButtonProps {
   w?: string
   mr?: number
   ml?: number
+  mt?: number
   onClick?: () => void
   type?: 'submit' | 'button'
   size?: 'xs' | 'sm' | 'md' | 'lg'
@@ -25,6 +26,7 @@ export default function HandleButton({
   w,
   mr,
   ml,
+  mt,
   onClick,
   type,
   size,
@@ -40,6 +42,7 @@ export default function HandleButton({
         backgroundColor={backgroundColor}
         mr={mr}
         ml={ml}
+        mt={mt}
         variant={variant}
         onClick={onClick}
         _hover={{

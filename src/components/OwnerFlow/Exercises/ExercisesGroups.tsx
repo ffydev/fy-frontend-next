@@ -17,19 +17,11 @@ import {
   Text,
   WrapItem,
   Wrap,
-  useDisclosure,
-  ModalFooter,
-  ModalContent,
-  ModalCloseButton,
-  ModalBody,
-  Button,
-  Modal,
-  ModalOverlay,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { NotePencil, Plus } from '@phosphor-icons/react'
+import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -38,7 +30,10 @@ const createExerciseFormSchema = z.object({
     .string()
     .nonempty({ message: 'É necessário informar o nome do exercício' })
     .max(50, { message: 'Máximo de 50 caracteres' }),
-  muscleGroup: z.string().optional(),
+  muscleGroup: z
+    .string()
+    .nonempty({ message: 'É necessário informar o nome do grupo' })
+    .max(50, { message: 'Máximo de 50 caracteres' }),
 })
 
 type createExerciseFormSchemaType = z.infer<typeof createExerciseFormSchema>
@@ -46,8 +41,6 @@ type createExerciseFormSchemaType = z.infer<typeof createExerciseFormSchema>
 export default function ExercisesGroups() {
   const router = useRouter()
   const toast = useToast()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const initialRef = useRef<HTMLInputElement>(null)
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
@@ -224,78 +217,52 @@ export default function ExercisesGroups() {
     <>
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box mb={3}>
-            <Wrap>
-              {muscleGroups.map((muscleGroup) => (
-                <WrapItem key={muscleGroup.id}>
-                  <Flex
-                    backdropBlur={'1rem'}
-                    backdropFilter="blur(5px)"
-                    rounded={'lg'}
-                    border={'1px'}
-                    bgColor={'whiteAlpha.50'}
-                    borderColor={'whiteAlpha.100'}
-                    boxShadow={'lg'}
-                    p={1}
-                    align="center"
-                  >
-                    <Button
-                      onClick={() =>
-                        setSelectedMuscleGroup(muscleGroup.muscleGroup!)
-                      }
-                    >
-                      {muscleGroup.muscleGroup}
-                    </Button>
-                    <HandleButton
-                      ml={3}
-                      leftIcon={<NotePencil weight="bold" />}
-                      onClick={onOpen}
-                    />
-                  </Flex>
-                </WrapItem>
-              ))}
-            </Wrap>
-          </Box>
+          <FormControl mt={4}>
+            <Input
+              defaultValue={selectedMuscleGroup}
+              {...register('muscleGroup')}
+              placeholder="Grupo Muscular"
+            />
+            {errors.muscleGroup && <Text>{errors.muscleGroup.message}</Text>}
+          </FormControl>
 
-          <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-            <ModalContent
-              bgGradient={[
-                'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
-                'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
-              ]}
-              border={'1px'}
-              borderColor={'whiteAlpha.200'}
-              backdropFilter={'auto'}
-              backdropBlur={'1rem'}
-              boxShadow={'lg'}
-            >
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <ModalCloseButton />
-                <ModalBody pb={6}>
-                  <FormControl mt={3} mb={3}>
-                    <Input
-                      {...register('muscleGroup')}
-                      defaultValue={selectedMuscleGroup}
-                    />
-                    {errors.name && <Text>{errors.name.message}</Text>}
-                  </FormControl>
-                </ModalBody>
+          <FormControl mt={4}>
+            <Input {...register('name')} placeholder="Exercício" />
+            {errors.name && <Text>{errors.name.message}</Text>}
+          </FormControl>
 
-                <ModalFooter>
-                  <HandleButton
-                    mr={3}
-                    text="Atualizar"
-                    leftIcon={<Plus weight="bold" />}
-                    type="submit"
-                  />
-                  <Button variant={'outline'} onClick={onClose}>
-                    Cancelar
-                  </Button>
-                </ModalFooter>
-              </form>
-            </ModalContent>
-          </Modal>
+          <HandleButton
+            mt={3}
+            text="Execício"
+            w={'xs'}
+            leftIcon={<Plus weight="bold" />}
+            type="submit"
+          />
+        </form>
+
+        <Box
+          mt={3}
+          backdropBlur={'1rem'}
+          backdropFilter="blur(5px)"
+          rounded={'lg'}
+          border={'1px'}
+          bgColor={'whiteAlpha.50'}
+          borderColor={'whiteAlpha.100'}
+          boxShadow={'lg'}
+          p={1}
+        >
+          <Wrap mb={3}>
+            {muscleGroups.map((muscleGroup) => (
+              <WrapItem key={muscleGroup.id}>
+                <HandleButton
+                  text={muscleGroup.muscleGroup}
+                  onClick={() =>
+                    setSelectedMuscleGroup(muscleGroup.muscleGroup!)
+                  }
+                />
+              </WrapItem>
+            ))}
+          </Wrap>
 
           <Box>
             <Wrap spacing={3}>
@@ -322,21 +289,7 @@ export default function ExercisesGroups() {
               ))}
             </Wrap>
           </Box>
-
-          <FormControl mt={4}>
-            <Input {...register('name')} placeholder="Exercício" />
-            {errors.name && <Text>{errors.name.message}</Text>}
-          </FormControl>
-
-          <Flex mt={3}>
-            <HandleButton
-              text="Adicionar Exercício"
-              leftIcon={<Plus weight="bold" />}
-              w={'full'}
-              type="submit"
-            />
-          </Flex>
-        </form>
+        </Box>
       </Box>
     </>
   )
