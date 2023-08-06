@@ -12,7 +12,6 @@ import {
   Box,
   Flex,
   FormControl,
-  FormLabel,
   Input,
   Select,
   useToast,
@@ -21,7 +20,7 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus } from '@phosphor-icons/react'
+import { NotePencil, Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -230,6 +229,7 @@ export default function ExercisesGroups() {
                   </option>
                 ))}
               </Select>
+              <NotePencil size={32} />
             </Flex>
           </FormControl>
 
@@ -260,7 +260,6 @@ export default function ExercisesGroups() {
           </Box>
 
           <FormControl mt={4}>
-            <FormLabel>Exercício: </FormLabel>
             <Input {...register('name')} placeholder="Exercício" />
             {errors.name && <Text>{errors.name.message}</Text>}
           </FormControl>
