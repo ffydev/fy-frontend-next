@@ -13,17 +13,23 @@ import {
   Flex,
   FormControl,
   Input,
-  Select,
   useToast,
   Text,
   WrapItem,
   Wrap,
   useDisclosure,
+  ModalFooter,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
+  Button,
+  Modal,
+  ModalOverlay,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { NotePencil, Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -32,6 +38,7 @@ const createExerciseFormSchema = z.object({
     .string()
     .nonempty({ message: 'É necessário informar o nome do exercício' })
     .max(50, { message: 'Máximo de 50 caracteres' }),
+  muscleGroup: z.string().optional(),
 })
 
 type createExerciseFormSchemaType = z.infer<typeof createExerciseFormSchema>
@@ -40,6 +47,7 @@ export default function ExercisesGroups() {
   const router = useRouter()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const initialRef = useRef<HTMLInputElement>(null)
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
@@ -216,28 +224,78 @@ export default function ExercisesGroups() {
     <>
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl mt={3} mb={3}>
-            <Flex>
-              <Select
-                onChange={(e) => setSelectedMuscleGroup(e.target.value)}
-                value={selectedMuscleGroup}
-              >
-                <option disabled value="">
-                  Grupo Muscular
-                </option>
-                {muscleGroups.map((muscleGroup: IExercise) => (
-                  <option key={muscleGroup.id} value={muscleGroup.muscleGroup}>
-                    {muscleGroup.muscleGroup}
-                  </option>
-                ))}
-              </Select>
-              <HandleButton
-                ml={3}
-                leftIcon={<NotePencil weight="bold" />}
-                onClick={onOpen}
-              />
-            </Flex>
-          </FormControl>
+          <Box mb={3}>
+            <Wrap>
+              {muscleGroups.map((muscleGroup) => (
+                <WrapItem key={muscleGroup.id}>
+                  <Flex
+                    backdropBlur={'1rem'}
+                    backdropFilter="blur(5px)"
+                    rounded={'lg'}
+                    border={'1px'}
+                    bgColor={'whiteAlpha.50'}
+                    borderColor={'whiteAlpha.100'}
+                    boxShadow={'lg'}
+                    p={1}
+                    align="center"
+                  >
+                    <Button
+                      onClick={() =>
+                        setSelectedMuscleGroup(muscleGroup.muscleGroup!)
+                      }
+                    >
+                      {muscleGroup.muscleGroup}
+                    </Button>
+                    <HandleButton
+                      ml={3}
+                      leftIcon={<NotePencil weight="bold" />}
+                      onClick={onOpen}
+                    />
+                  </Flex>
+                </WrapItem>
+              ))}
+            </Wrap>
+          </Box>
+
+          <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+            <ModalContent
+              bgGradient={[
+                'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+                'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
+              ]}
+              border={'1px'}
+              borderColor={'whiteAlpha.200'}
+              backdropFilter={'auto'}
+              backdropBlur={'1rem'}
+              boxShadow={'lg'}
+            >
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                  <FormControl mt={3} mb={3}>
+                    <Input
+                      {...register('muscleGroup')}
+                      defaultValue={selectedMuscleGroup}
+                    />
+                    {errors.name && <Text>{errors.name.message}</Text>}
+                  </FormControl>
+                </ModalBody>
+
+                <ModalFooter>
+                  <HandleButton
+                    mr={3}
+                    text="Atualizar"
+                    leftIcon={<Plus weight="bold" />}
+                    type="submit"
+                  />
+                  <Button variant={'outline'} onClick={onClose}>
+                    Cancelar
+                  </Button>
+                </ModalFooter>
+              </form>
+            </ModalContent>
+          </Modal>
 
           <Box>
             <Wrap spacing={3}>
