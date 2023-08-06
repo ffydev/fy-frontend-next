@@ -7,6 +7,7 @@ interface ButtonProps {
   leftIcon?: any
   w?: string
   mr?: number
+  ml?: number
   onClick?: () => void
   type?: 'submit' | 'button'
   size?: 'xs' | 'sm' | 'md' | 'lg'
@@ -20,6 +21,7 @@ export default function HandleButton({
   variant,
   w,
   mr,
+  ml,
   onClick,
   type,
   size,
@@ -32,6 +34,7 @@ export default function HandleButton({
         bgGradient={'linear(to-r, purple.600, purple.700)'}
         textColor={'white'}
         mr={mr}
+        ml={ml}
         variant={variant}
         onClick={onClick}
         _hover={{

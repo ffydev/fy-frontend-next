@@ -18,6 +18,7 @@ import {
   Text,
   WrapItem,
   Wrap,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { NotePencil, Plus } from '@phosphor-icons/react'
@@ -38,6 +39,7 @@ type createExerciseFormSchemaType = z.infer<typeof createExerciseFormSchema>
 export default function ExercisesGroups() {
   const router = useRouter()
   const toast = useToast()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
@@ -229,7 +231,11 @@ export default function ExercisesGroups() {
                   </option>
                 ))}
               </Select>
-              <NotePencil size={32} />
+              <HandleButton
+                ml={3}
+                leftIcon={<NotePencil weight="bold" />}
+                onClick={onOpen}
+              />
             </Flex>
           </FormControl>
 
