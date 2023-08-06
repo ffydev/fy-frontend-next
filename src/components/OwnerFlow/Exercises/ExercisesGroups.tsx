@@ -146,7 +146,7 @@ export default function ExercisesGroups() {
 
       await createExercise(token, {
         name: data.name,
-        muscleGroup: selectedMuscleGroup,
+        muscleGroup: data.muscleGroup ? data.muscleGroup : selectedMuscleGroup,
       })
 
       toast({
@@ -233,6 +233,7 @@ export default function ExercisesGroups() {
 
           <HandleButton
             mt={3}
+            mr={3}
             text="Execício"
             w={'xs'}
             leftIcon={<Plus weight="bold" />}
