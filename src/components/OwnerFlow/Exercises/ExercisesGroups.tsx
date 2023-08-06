@@ -32,10 +32,6 @@ const createExerciseFormSchema = z.object({
     .string()
     .nonempty({ message: 'É necessário informar o nome do exercício' })
     .max(50, { message: 'Máximo de 50 caracteres' }),
-  muscleGroup: z
-    .string()
-    .nonempty({ message: 'É necessário informar o grupo muscular' })
-    .max(50, { message: 'Máximo de 50 caracteres' }),
 })
 
 type createExerciseFormSchemaType = z.infer<typeof createExerciseFormSchema>
@@ -148,7 +144,7 @@ export default function ExercisesGroups() {
 
       await createExercise(token, {
         name: data.name,
-        muscleGroup: data.muscleGroup,
+        muscleGroup: selectedMuscleGroup,
       })
 
       toast({
@@ -234,7 +230,6 @@ export default function ExercisesGroups() {
                   </option>
                 ))}
               </Select>
-              <CloseButtonComponent ml={3} />
             </Flex>
           </FormControl>
 
@@ -263,16 +258,6 @@ export default function ExercisesGroups() {
               ))}
             </Wrap>
           </Box>
-
-          <FormControl mt={4}>
-            <FormLabel>Grupo Muscular: </FormLabel>
-            <Input
-              {...register('muscleGroup')}
-              defaultValue={selectedMuscleGroup}
-              placeholder="Grupo Muscular"
-            />
-            {errors.muscleGroup && <Text>{errors.muscleGroup.message}</Text>}
-          </FormControl>
 
           <FormControl mt={4}>
             <FormLabel>Exercício: </FormLabel>
