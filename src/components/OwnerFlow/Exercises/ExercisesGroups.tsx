@@ -16,45 +16,27 @@ import {
   FormControl,
   Input,
   useToast,
-  Text,
   WrapItem,
   Wrap,
   Button,
 } from '@chakra-ui/react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { PenIcon } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-const createExerciseFormSchema = z.object({
-  name: z
-    .string()
-    .nonempty({ message: 'É necessário informar o nome do exercício' })
-    .max(50, { message: 'Máximo de 50 caracteres' }),
-})
-
-type createExerciseFormSchemaType = z.infer<typeof createExerciseFormSchema>
+import { useForm } from 'react-hook-form'
 
 export default function ExercisesGroups() {
   const router = useRouter()
   const toast = useToast()
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
+  const [selectedExercise, setSelectedExercise] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
   const { finalVideo, reset: resetFinalVideo } = useVideosStore()
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isSendingForm, setIsSendingForm] = useState<boolean>(false)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<createExerciseFormSchemaType>({
-    resolver: zodResolver(createExerciseFormSchema),
-  })
+  const { handleSubmit, reset } = useForm()
 
   useEffect(() => {
     const fetchMuscleGroups = async () => {
@@ -126,9 +108,7 @@ export default function ExercisesGroups() {
     fetchExerciseByMuscleGroup()
   }, [selectedMuscleGroup, toast, router, isFetching])
 
-  const onSubmit: SubmitHandler<createExerciseFormSchemaType> = async (
-    data,
-  ) => {
+  const onSubmit = async () => {
     try {
       const token = getUserToken()
 
@@ -150,7 +130,7 @@ export default function ExercisesGroups() {
       console.log(finalVideo)
 
       await createExercise(token, {
-        name: data.name,
+        name: selectedExercise,
         muscleGroup: selectedMuscleGroup,
       })
 
@@ -224,6 +204,10 @@ export default function ExercisesGroups() {
     setSelectedMuscleGroup(muscleGroup)
   }
 
+  const handleWithSelecteExerciseName = (exerciseName: string) => {
+    setSelectedExercise(exerciseName)
+  }
+
   return (
     <>
       <Box>
@@ -276,7 +260,11 @@ export default function ExercisesGroups() {
                   align="center"
                 >
                   {exercise.name}
+
                   <Button
+                    onClick={() =>
+                      handleWithSelecteExerciseName(exercise.name!)
+                    }
                     ml={3}
                     _hover={{
                       bgGradient: 'linear(to-r, red.500, red.600)',
@@ -299,7 +287,7 @@ export default function ExercisesGroups() {
           </Wrap>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl mt={4}>
+          <FormControl mt={4} isRequired>
             <Input
               defaultValue={selectedMuscleGroup}
               onChange={(e) => handleWithSelecteMuscleGroup(e.target.value)}
@@ -307,9 +295,12 @@ export default function ExercisesGroups() {
             />
           </FormControl>
 
-          <FormControl mt={4}>
-            <Input {...register('name')} placeholder="Exercício" />
-            {errors.name && <Text>{errors.name.message}</Text>}
+          <FormControl mt={4} isRequired>
+            <Input
+              defaultValue={selectedExercise}
+              onChange={(e) => handleWithSelecteExerciseName(e.target.value)}
+              placeholder="Exercício"
+            />
           </FormControl>
 
           <FormControl gridColumn="span 2" mt={3}>
