@@ -202,6 +202,7 @@ export default function ExercisesGroups() {
 
   const handleWithSelecteMuscleGroup = (muscleGroup: string) => {
     setSelectedMuscleGroup(muscleGroup)
+    setSelectedExercise('')
   }
 
   const handleWithSelecteExerciseName = (exerciseName: string) => {
