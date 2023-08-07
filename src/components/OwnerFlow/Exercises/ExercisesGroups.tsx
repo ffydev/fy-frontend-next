@@ -259,7 +259,7 @@ export default function ExercisesGroups() {
           borderColor={'whiteAlpha.100'}
           p={1}
         >
-          <Wrap spacing={3} minH={200}>
+          <Wrap spacing={3}>
             {exercises.map((exercise) => (
               <WrapItem key={exercise.id}>
                 <Flex
