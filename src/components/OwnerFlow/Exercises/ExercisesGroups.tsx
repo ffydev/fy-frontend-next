@@ -8,6 +8,7 @@ import {
   deleteExercise,
   findExerciseByMuscleGroup,
   findMuscleGroup,
+  updateExercise,
 } from '@/pages/api/providers/exercises.provider'
 import { useVideosStore } from '@/stores/VideoStore'
 import {
@@ -35,6 +36,9 @@ export default function ExercisesGroups() {
   const { finalVideo, reset: resetFinalVideo } = useVideosStore()
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isSendingForm, setIsSendingForm] = useState<boolean>(false)
+  const [exerciseId, setExerciseId] = useState<string>('')
+  const [isUpdatingExerciseName, setIsUpdatingExerciseName] =
+    useState<boolean>(false)
 
   const { handleSubmit, reset } = useForm()
 
@@ -129,18 +133,33 @@ export default function ExercisesGroups() {
 
       console.log(finalVideo)
 
-      await createExercise(token, {
-        name: selectedExercise,
-        muscleGroup: selectedMuscleGroup,
-      })
+      if (isUpdatingExerciseName) {
+        await updateExercise(token, exerciseId, {
+          name: selectedExercise,
+          muscleGroup: selectedMuscleGroup,
+        })
+        toast({
+          title: 'Exercício Atualizado.',
+          description: 'Exercício Atualizado com sucesso.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
 
-      toast({
-        title: 'Exercício Criado.',
-        description: 'Exercício criado com sucesso.',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
+      if (!isUpdatingExerciseName) {
+        await createExercise(token, {
+          name: selectedExercise,
+          muscleGroup: selectedMuscleGroup,
+        })
+        toast({
+          title: 'Exercício Criado.',
+          description: 'Exercício criado com sucesso.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
     } catch (error) {
       console.error(error)
 
@@ -156,6 +175,7 @@ export default function ExercisesGroups() {
       setIsFetching(!isFetching)
       setIsSendingForm(false)
       resetFinalVideo()
+      setIsUpdatingExerciseName(false)
     }
   }
 
@@ -207,6 +227,12 @@ export default function ExercisesGroups() {
 
   const handleWithSelecteExerciseName = (exerciseName: string) => {
     setSelectedExercise(exerciseName)
+  }
+
+  const handleWithUpdatingExerciseName = (id: string, exerciseName: string) => {
+    setExerciseId(id)
+    setSelectedExercise(exerciseName)
+    setIsUpdatingExerciseName(true)
   }
 
   return (
@@ -264,7 +290,10 @@ export default function ExercisesGroups() {
 
                   <Button
                     onClick={() =>
-                      handleWithSelecteExerciseName(exercise.name!)
+                      handleWithUpdatingExerciseName(
+                        exercise.id!,
+                        exercise.name!,
+                      )
                     }
                     ml={3}
                     _hover={{
@@ -306,7 +335,7 @@ export default function ExercisesGroups() {
 
           <FormControl gridColumn="span 2" mt={3}>
             <UploadVideosStep
-              textButtonSubmit="Criar ou atualizar exercício"
+              textButtonSubmit="Criar ou Atualizar"
               isSendingForm={isSendingForm}
             />
           </FormControl>
