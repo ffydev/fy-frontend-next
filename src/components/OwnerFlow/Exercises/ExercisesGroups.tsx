@@ -19,8 +19,10 @@ import {
   Text,
   WrapItem,
   Wrap,
+  Button,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { PenIcon } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -274,6 +276,19 @@ export default function ExercisesGroups() {
                   align="center"
                 >
                   {exercise.name}
+                  <Button
+                    ml={3}
+                    _hover={{
+                      bgGradient: 'linear(to-r, red.500, red.600)',
+                      transition: '0.8s',
+                    }}
+                    size="xs"
+                    border={'1px'}
+                    borderColor={'whiteAlpha.300'}
+                  >
+                    <PenIcon size={14} />
+                  </Button>
+
                   <CloseButtonComponent
                     ml={3}
                     onClick={() => handleWithDeleteExerciseName(exercise.id!)}
