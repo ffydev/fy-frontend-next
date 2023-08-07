@@ -1,16 +1,16 @@
 import { Plus, Video as VideoIcon } from 'lucide-react'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import VideoItem from './VideoItem'
-import { Video, useVideos } from '@/hooks/useVideos'
+import { useVideos } from '@/hooks/useVideos'
 import { Box, Flex, FormControl, Text } from '@chakra-ui/react'
 import { MdCloudUpload } from 'react-icons/md'
 import HandleButton from '../Buttons/HandleButton'
 import { z } from 'zod'
 
 interface UploadVideosStepProps {
-  onNextStep: (videos: Map<string, Video>) => void
   textButtonSubmit?: string
   isSendingForm?: boolean
+  isCleaningVideoForm?: boolean
 }
 
 const maxFileSize = 300 * 1024 * 1024
@@ -51,9 +51,9 @@ const videosSchema = z.object({
 })
 
 export default function UploadVideosStep({
-  onNextStep,
   textButtonSubmit,
   isSendingForm,
+  isCleaningVideoForm,
 }: UploadVideosStepProps) {
   const {
     videos,
@@ -83,6 +83,14 @@ export default function UploadVideosStep({
   }
 
   const hasAnyVideoUploaded = videos.size !== 0
+
+  useEffect(() => {
+    if (isCleaningVideoForm) {
+      Array.from(videos).forEach(([id]) => {
+        removeVideo(id)
+      })
+    }
+  }, [isSendingForm, videos, removeVideo, isCleaningVideoForm])
 
   return (
     <div>

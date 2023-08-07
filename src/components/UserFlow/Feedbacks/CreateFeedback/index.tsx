@@ -18,7 +18,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import React, { useState } from 'react'
-import { Video } from '@/hooks/useVideos'
 import UploadVideosStep from '@/components/Videos/UploadVideosStep'
 import { useVideosStore } from '@/stores/VideoStore'
 
@@ -68,10 +67,6 @@ export default function CreatingFeedback() {
     resolver: zodResolver(createFeedbackFormSchema),
   })
   const toast = useToast()
-
-  // eslint-disable-next-line no-unused-vars
-  const [videos, setVideos] = useState<Map<string, Video>>(new Map())
-  const [step, setStep] = useState<'upload' | 'converted'>('upload')
 
   const onSubmit: SubmitHandler<createFeedbackFormSchemaType> = async (
     data,
@@ -132,11 +127,6 @@ export default function CreatingFeedback() {
     }
   }
 
-  const handleUploaded = (videos: Map<string, Video>) => {
-    setVideos(videos)
-    setStep('converted')
-  }
-
   return (
     <>
       <Container maxW="7xl" p={{ base: 3, md: 1 }} m={3}>
@@ -185,13 +175,10 @@ export default function CreatingFeedback() {
               </FormControl>
 
               <FormControl gridColumn="span 2" mt={3}>
-                {step === 'upload' && (
-                  <UploadVideosStep
-                    onNextStep={handleUploaded}
-                    textButtonSubmit="Enviar feedback"
-                    isSendingForm={isSendingFeedback}
-                  />
-                )}
+                <UploadVideosStep
+                  textButtonSubmit="Enviar feedback"
+                  isSendingForm={isSendingFeedback}
+                />
               </FormControl>
             </Stack>
           </form>

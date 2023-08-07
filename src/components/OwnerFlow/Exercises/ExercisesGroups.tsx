@@ -1,5 +1,6 @@
 import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 import HandleButton from '@/components/Buttons/HandleButton'
+import UploadVideosStep from '@/components/Videos/UploadVideosStep'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   IExercise,
@@ -8,6 +9,7 @@ import {
   findExerciseByMuscleGroup,
   findMuscleGroup,
 } from '@/pages/api/providers/exercises.provider'
+import { useVideosStore } from '@/stores/VideoStore'
 import {
   Box,
   Flex,
@@ -19,7 +21,6 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -40,7 +41,11 @@ export default function ExercisesGroups() {
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
+  const { finalVideo, reset: resetFinalVideo } = useVideosStore()
   const [isFetching, setIsFetching] = useState<boolean>(false)
+  const [isCreatingOrUpdating, setIsCreatingOrUpdating] =
+    useState<boolean>(false)
+  const [isCleaningVideoForm, setIsCleaningVideoForm] = useState<boolean>(false)
 
   const {
     register,
@@ -140,6 +145,10 @@ export default function ExercisesGroups() {
         return
       }
 
+      setIsCreatingOrUpdating(true)
+
+      console.log(finalVideo)
+
       await createExercise(token, {
         name: data.name,
         muscleGroup: selectedMuscleGroup,
@@ -165,6 +174,9 @@ export default function ExercisesGroups() {
     } finally {
       reset()
       setIsFetching(!isFetching)
+      setIsCreatingOrUpdating(false)
+      setIsCleaningVideoForm(true)
+      resetFinalVideo()
     }
   }
 
@@ -280,14 +292,13 @@ export default function ExercisesGroups() {
             {errors.name && <Text>{errors.name.message}</Text>}
           </FormControl>
 
-          <HandleButton
-            mt={3}
-            mr={3}
-            text="Execício"
-            w={'xs'}
-            leftIcon={<Plus weight="bold" />}
-            type="submit"
-          />
+          <FormControl gridColumn="span 2" mt={3}>
+            <UploadVideosStep
+              textButtonSubmit="Criar ou atualizar exercício"
+              isSendingForm={isCreatingOrUpdating}
+              isCleaningVideoForm={isCleaningVideoForm}
+            />
+          </FormControl>
         </form>
       </Box>
     </>
