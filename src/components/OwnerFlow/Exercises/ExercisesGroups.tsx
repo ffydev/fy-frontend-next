@@ -45,7 +45,6 @@ export default function ExercisesGroups() {
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isCreatingOrUpdating, setIsCreatingOrUpdating] =
     useState<boolean>(false)
-  const [isCleaningVideoForm, setIsCleaningVideoForm] = useState<boolean>(false)
 
   const {
     register,
@@ -175,7 +174,6 @@ export default function ExercisesGroups() {
       reset()
       setIsFetching(!isFetching)
       setIsCreatingOrUpdating(false)
-      setIsCleaningVideoForm(true)
       resetFinalVideo()
     }
   }
@@ -296,7 +294,6 @@ export default function ExercisesGroups() {
             <UploadVideosStep
               textButtonSubmit="Criar ou atualizar exercício"
               isSendingForm={isCreatingOrUpdating}
-              isCleaningVideoForm={isCleaningVideoForm}
             />
           </FormControl>
         </form>

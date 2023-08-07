@@ -10,7 +10,6 @@ import { z } from 'zod'
 interface UploadVideosStepProps {
   textButtonSubmit?: string
   isSendingForm?: boolean
-  isCleaningVideoForm?: boolean
 }
 
 const maxFileSize = 300 * 1024 * 1024
@@ -53,7 +52,6 @@ const videosSchema = z.object({
 export default function UploadVideosStep({
   textButtonSubmit,
   isSendingForm,
-  isCleaningVideoForm,
 }: UploadVideosStepProps) {
   const {
     videos,
@@ -85,12 +83,12 @@ export default function UploadVideosStep({
   const hasAnyVideoUploaded = videos.size !== 0
 
   useEffect(() => {
-    if (isCleaningVideoForm) {
+    if (isSendingForm) {
       Array.from(videos).forEach(([id]) => {
         removeVideo(id)
       })
     }
-  }, [isSendingForm, videos, removeVideo, isCleaningVideoForm])
+  }, [isSendingForm, videos, removeVideo])
 
   return (
     <div>
