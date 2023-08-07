@@ -148,6 +148,7 @@ export default function UploadVideosStep({
 
       {hasAnyVideoUploaded && !finishedConversionAt && (
         <HandleButton
+          mb={3}
           onClick={startAudioConversion}
           loading={isConverting}
           mr={3}
