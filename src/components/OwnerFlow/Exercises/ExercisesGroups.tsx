@@ -233,7 +233,6 @@ export default function ExercisesGroups() {
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
           p={1}
         >
           <Wrap mb={3}>
@@ -248,32 +247,41 @@ export default function ExercisesGroups() {
               </WrapItem>
             ))}
           </Wrap>
+        </Box>
 
-          <Box>
-            <Wrap spacing={3} minH={200}>
-              {exercises.map((exercise) => (
-                <WrapItem key={exercise.id}>
-                  <Flex
-                    backdropBlur={'1rem'}
-                    backdropFilter="blur(5px)"
-                    rounded={'lg'}
-                    border={'1px'}
-                    bgColor={'whiteAlpha.50'}
-                    borderColor={'whiteAlpha.100'}
-                    boxShadow={'lg'}
-                    p={1}
-                    align="center"
-                  >
-                    {exercise.name}
-                    <CloseButtonComponent
-                      ml={3}
-                      onClick={() => handleWithDeleteExerciseName(exercise.id!)}
-                    />
-                  </Flex>
-                </WrapItem>
-              ))}
-            </Wrap>
-          </Box>
+        <Box
+          mt={3}
+          backdropBlur={'1rem'}
+          backdropFilter="blur(5px)"
+          rounded={'lg'}
+          border={'1px'}
+          bgColor={'whiteAlpha.50'}
+          borderColor={'whiteAlpha.100'}
+          p={1}
+        >
+          <Wrap spacing={3} minH={200}>
+            {exercises.map((exercise) => (
+              <WrapItem key={exercise.id}>
+                <Flex
+                  backdropBlur={'1rem'}
+                  backdropFilter="blur(5px)"
+                  rounded={'lg'}
+                  border={'1px'}
+                  bgColor={'whiteAlpha.50'}
+                  borderColor={'whiteAlpha.100'}
+                  boxShadow={'lg'}
+                  p={1}
+                  align="center"
+                >
+                  {exercise.name}
+                  <CloseButtonComponent
+                    ml={3}
+                    onClick={() => handleWithDeleteExerciseName(exercise.id!)}
+                  />
+                </Flex>
+              </WrapItem>
+            ))}
+          </Wrap>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl mt={4}>
