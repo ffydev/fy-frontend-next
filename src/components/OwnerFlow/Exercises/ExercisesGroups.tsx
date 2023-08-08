@@ -131,13 +131,21 @@ export default function ExercisesGroups() {
 
       setIsSendingForm(true)
 
-      console.log(finalVideo)
+      const formData = new FormData()
+      formData.append('name', selectedExercise)
+      formData.append('muscleGroup', selectedMuscleGroup)
+
+      if (finalVideo.length > 0) {
+        const files = Object.entries(finalVideo)
+
+        for (const file of files) {
+          formData.append('videos', file[1].file)
+        }
+      }
 
       if (isUpdatingExerciseName) {
-        await updateExercise(token, exerciseId, {
-          name: selectedExercise,
-          muscleGroup: selectedMuscleGroup,
-        })
+        formData.append('exerciseId', exerciseId)
+        await updateExercise(token, exerciseId, formData as IExercise)
         toast({
           title: 'Exercício Atualizado.',
           description: 'Exercício Atualizado com sucesso.',
@@ -148,10 +156,7 @@ export default function ExercisesGroups() {
       }
 
       if (!isUpdatingExerciseName) {
-        await createExercise(token, {
-          name: selectedExercise,
-          muscleGroup: selectedMuscleGroup,
-        })
+        await createExercise(token, formData as IExercise)
         toast({
           title: 'Exercício Criado.',
           description: 'Exercício criado com sucesso.',

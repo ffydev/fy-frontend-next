@@ -4,6 +4,7 @@ export interface IExercise {
   id?: string
   name?: string
   muscleGroup?: string
+  videos?: any
 }
 
 export async function deleteExercise(token: string, id: string): Promise<void> {
