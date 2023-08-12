@@ -73,7 +73,7 @@ export default function ExercisesGroups() {
       }
     }
     fetchMuscleGroups()
-  }, [toast, router, isFetching])
+  }, [toast, router, isFetching, selectedMuscleGroup])
 
   useEffect(() => {
     if (!selectedMuscleGroup) return
@@ -96,8 +96,10 @@ export default function ExercisesGroups() {
         const response = await findExerciseByMuscleGroup(
           token,
           selectedMuscleGroup,
+          exerciseId,
         )
-        setExercises(response)
+
+        setExercises(response.exercises)
       } catch (error) {
         console.error(error)
         toast({
@@ -110,7 +112,7 @@ export default function ExercisesGroups() {
       }
     }
     fetchExerciseByMuscleGroup()
-  }, [selectedMuscleGroup, toast, router, isFetching])
+  }, [selectedMuscleGroup, toast, router, isFetching, exerciseId])
 
   const onSubmit = async () => {
     try {
@@ -227,6 +229,7 @@ export default function ExercisesGroups() {
   const handleWithSelecteMuscleGroup = (muscleGroup: string) => {
     setSelectedMuscleGroup(muscleGroup)
     setSelectedExercise('')
+    setExerciseId('')
   }
 
   const handleWithSelecteExerciseName = (exerciseName: string) => {
