@@ -21,6 +21,7 @@ import {
   Wrap,
   Button,
 } from '@chakra-ui/react'
+import { Video } from '@phosphor-icons/react'
 import { PenIcon } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -37,8 +38,10 @@ export default function ExercisesGroups() {
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isSendingForm, setIsSendingForm] = useState<boolean>(false)
   const [exerciseId, setExerciseId] = useState<string>('')
+  const [exerciseVideo, setExerciseVideo] = useState<string>('')
   const [isUpdatingExerciseName, setIsUpdatingExerciseName] =
     useState<boolean>(false)
+  const [videoExercise, setVideoExercise] = useState()
 
   const { handleSubmit, reset } = useForm()
 
@@ -96,10 +99,11 @@ export default function ExercisesGroups() {
         const response = await findExerciseByMuscleGroup(
           token,
           selectedMuscleGroup,
-          exerciseId,
+          exerciseVideo,
         )
 
         setExercises(response.exercises)
+        setVideoExercise(response.video)
       } catch (error) {
         console.error(error)
         toast({
@@ -112,7 +116,7 @@ export default function ExercisesGroups() {
       }
     }
     fetchExerciseByMuscleGroup()
-  }, [selectedMuscleGroup, toast, router, isFetching, exerciseId])
+  }, [selectedMuscleGroup, toast, router, isFetching, exerciseVideo])
 
   const onSubmit = async () => {
     try {
@@ -242,6 +246,12 @@ export default function ExercisesGroups() {
     setIsUpdatingExerciseName(true)
   }
 
+  const handleWithFindExerciseVideo = (id: string) => {
+    setExerciseVideo(id)
+  }
+
+  console.log(videoExercise)
+
   return (
     <>
       <Box>
@@ -294,6 +304,20 @@ export default function ExercisesGroups() {
                   align="center"
                 >
                   {exercise.name}
+
+                  <Button
+                    onClick={() => handleWithFindExerciseVideo(exercise.id!)}
+                    ml={3}
+                    _hover={{
+                      bgGradient: 'linear(to-r, red.500, red.600)',
+                      transition: '0.8s',
+                    }}
+                    size="xs"
+                    border={'1px'}
+                    borderColor={'whiteAlpha.300'}
+                  >
+                    <Video size={32} />
+                  </Button>
 
                   <Button
                     onClick={() =>

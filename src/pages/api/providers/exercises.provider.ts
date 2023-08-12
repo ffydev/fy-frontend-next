@@ -89,11 +89,11 @@ export async function findMuscleGroup(token: string): Promise<IExercise[]> {
 export async function findExerciseByMuscleGroup(
   token: string,
   muscleGroup: string,
-  exerciseId?: string,
+  exerciseVideo?: string,
 ): Promise<any> {
   try {
     const response = await api.get<any>(
-      `/exercises/by-muscle-group?muscleGroup=${muscleGroup}&exerciseId=${exerciseId}`,
+      `/exercises/by-muscle-group?muscleGroup=${muscleGroup}&exerciseVideo=${exerciseVideo}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
