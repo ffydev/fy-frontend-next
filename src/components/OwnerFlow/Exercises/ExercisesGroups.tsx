@@ -144,7 +144,6 @@ export default function ExercisesGroups() {
       }
 
       if (isUpdatingExerciseName) {
-        formData.append('exerciseId', exerciseId)
         await updateExercise(token, exerciseId, formData as IExercise)
         toast({
           title: 'Exercício Atualizado.',
@@ -321,6 +320,7 @@ export default function ExercisesGroups() {
             ))}
           </Wrap>
         </Box>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl mt={4} isRequired>
             <Input

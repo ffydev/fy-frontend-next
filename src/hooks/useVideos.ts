@@ -29,6 +29,7 @@ export enum ActionTypes {
   UPLOAD,
   REMOVE_VIDEO,
   FINAL_VIDEO,
+  RESET_STATE,
 
   START_CONVERSION,
   END_CONVERSION,
@@ -48,6 +49,12 @@ interface Action {
 
 export function useVideos() {
   const { setFinalVideo } = useVideosStore()
+  const initialState = {
+    videos: new Map(),
+    isConverting: false,
+    isTranscribing: false,
+  }
+
   const [
     {
       videos,
@@ -171,6 +178,13 @@ export function useVideos() {
 
             break
           }
+
+          case ActionTypes.RESET_STATE: {
+            return { ...initialState }
+          }
+          default: {
+            return state
+          }
         }
       })
     },
@@ -269,6 +283,10 @@ export function useVideos() {
     dispatch({ type: ActionTypes.END_CONVERSION })
   }
 
+  function resetState() {
+    dispatch({ type: ActionTypes.RESET_STATE })
+  }
+
   return {
     videos,
     isConverting,
@@ -278,5 +296,6 @@ export function useVideos() {
     finishedConversionAt,
     finishedTranscriptionAt,
     startAudioConversion,
+    resetState,
   }
 }

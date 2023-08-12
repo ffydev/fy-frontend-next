@@ -1,11 +1,11 @@
 import { Plus, Video as VideoIcon } from 'lucide-react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import VideoItem from './VideoItem'
-import { useVideos } from '@/hooks/useVideos'
 import { Box, Flex, FormControl, Text } from '@chakra-ui/react'
 import { MdCloudUpload } from 'react-icons/md'
 import HandleButton from '../Buttons/HandleButton'
 import { z } from 'zod'
+import { useVideos } from '@/hooks/useVideos'
 
 interface UploadVideosStepProps {
   textButtonSubmit?: string
@@ -17,35 +17,20 @@ const imageTypes = ['video/mp4', 'video/3gp', 'video/quicktime']
 
 const videosSchema = z.object({
   videos: z
-    .any()
-    .refine(
-      (obj) => {
-        if (obj) {
-          Object?.entries(obj)
-          for (const file of obj) {
-            if (file.size > maxFileSize) {
-              return false
-            }
-          }
-          return true
-        }
-      },
-      { message: 'O tamanho de cada vídeo deve ser no máximo 300 megabytes.' },
+    .array(
+      z.object({
+        size: z.number(),
+        type: z.string(),
+      }),
     )
-    .refine(
-      (obj) => {
-        if (obj) {
-          Object?.entries(obj)
-          for (const file of obj) {
-            if (!imageTypes.includes(file.type)) {
-              return false
-            }
-          }
-          return true
+    .refine((arr) => {
+      for (const file of arr) {
+        if (file.size > maxFileSize || !imageTypes.includes(file.type)) {
+          return false
         }
-      },
-      { message: 'Por favor, selecione apenas vídeos.' },
-    )
+      }
+      return true
+    }, 'Por favor, selecione apenas vídeos com tamanho máximo de 300 megabytes.')
     .optional(),
 })
 
@@ -60,6 +45,7 @@ export default function UploadVideosStep({
     finishedConversionAt,
     removeVideo,
     startAudioConversion,
+    resetState,
   } = useVideos()
   const [zodError, setZodError] = useState('')
 
@@ -70,7 +56,7 @@ export default function UploadVideosStep({
       return
     }
 
-    const result = videosSchema.safeParse({ videos: files })
+    const result = videosSchema.safeParse({ videos: Array.from(files) })
 
     if (!result.success) {
       setZodError(result.error.errors[0].message)
@@ -87,8 +73,10 @@ export default function UploadVideosStep({
       Array.from(videos).forEach(([id]) => {
         removeVideo(id)
       })
+      resetState()
     }
-  }, [isSendingForm, videos, removeVideo])
+    return () => {}
+  }, [isSendingForm, videos, removeVideo, addFiles, resetState])
 
   return (
     <div>
