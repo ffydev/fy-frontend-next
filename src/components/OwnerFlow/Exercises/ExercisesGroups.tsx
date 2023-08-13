@@ -21,7 +21,7 @@ import {
   WrapItem,
   Wrap,
   Button,
-  Spacer,
+  Text,
 } from '@chakra-ui/react'
 import { PenIcon } from 'lucide-react'
 import { useRouter } from 'next/router'
@@ -304,9 +304,16 @@ export default function ExercisesGroups() {
                   p={1}
                   align="center"
                 >
-                  {exercise.name}
+                  <Text mr={3}>{exercise.name}</Text>
 
-                  <Spacer />
+                  {exercise.hasVideo && (
+                    <VideosView
+                      videos={videoExercise}
+                      handleWithFindVideos={() =>
+                        handleWithFindExerciseVideo(exercise.id!)
+                      }
+                    />
+                  )}
 
                   <Button
                     onClick={() =>
@@ -316,7 +323,6 @@ export default function ExercisesGroups() {
                       )
                     }
                     ml={3}
-                    mr={3}
                     _hover={{
                       bgGradient: 'linear(to-r, red.500, red.600)',
                       transition: '0.8s',
@@ -327,15 +333,6 @@ export default function ExercisesGroups() {
                   >
                     <PenIcon size={14} />
                   </Button>
-
-                  {exercise.hasVideo && (
-                    <VideosView
-                      videos={videoExercise}
-                      handleWithFindVideos={() =>
-                        handleWithFindExerciseVideo(exercise.id!)
-                      }
-                    />
-                  )}
 
                   <CloseButtonComponent
                     ml={3}
