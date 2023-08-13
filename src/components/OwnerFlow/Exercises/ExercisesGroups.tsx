@@ -367,7 +367,7 @@ export default function ExercisesGroups() {
             />
           </FormControl>
 
-          <FormControl gridColumn="span 2" mt={3}>
+          <FormControl gridColumn="span 2" mt={3} mb={3}>
             <UploadVideosStep
               textButtonSubmit="Criar ou Atualizar"
               isSendingForm={isSendingForm}
