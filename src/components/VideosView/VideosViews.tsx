@@ -19,7 +19,7 @@ interface ViewVideosProps {
   videos?: IVideo[]
 }
 
-export function ViewVideos({ videos }: ViewVideosProps) {
+export function VideosView({ videos }: ViewVideosProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
 

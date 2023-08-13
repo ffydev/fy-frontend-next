@@ -20,7 +20,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
-import { ViewVideos } from './viewVideos'
+import { VideosView } from '@/components/VideosView/Videosviews'
 
 export default function Feedbacks() {
   const router = useRouter()
@@ -134,7 +134,7 @@ export default function Feedbacks() {
           {feedback.hasVideo &&
             videos &&
             videos.length > 0 &&
-            videos[0].videoData && <ViewVideos videos={videos} />}
+            videos[0].videoData && <VideosView videos={videos} />}
 
           {feedback.isAnswered ? (
             <>

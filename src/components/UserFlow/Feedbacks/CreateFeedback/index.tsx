@@ -18,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFeedback } from '@/pages/api/providers/user-feedbacks.provider'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import React, { useState } from 'react'
-import UploadVideosStep from '@/components/Videos/UploadVideosStep'
+import UploadVideosStep from '@/components/VideosUpload/UploadVideosStep'
 import { useVideosStore } from '@/stores/VideoStore'
 
 const createFeedbackFormSchema = z.object({

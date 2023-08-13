@@ -1,6 +1,6 @@
 import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 import HandleButton from '@/components/Buttons/HandleButton'
-import UploadVideosStep from '@/components/Videos/UploadVideosStep'
+import UploadVideosStep from '@/components/VideosUpload/UploadVideosStep'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   IExercise,
