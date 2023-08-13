@@ -20,7 +20,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
-import { VideosView } from '@/components/VideosView/Videosviews'
+import { VideosView } from '@/components/VideosView'
 
 export default function Feedbacks() {
   const router = useRouter()

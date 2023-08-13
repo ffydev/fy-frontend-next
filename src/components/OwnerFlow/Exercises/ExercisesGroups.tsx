@@ -1,6 +1,7 @@
 import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 import HandleButton from '@/components/Buttons/HandleButton'
 import UploadVideosStep from '@/components/VideosUpload/UploadVideosStep'
+import { VideosView } from '@/components/VideosView'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   IExercise,
@@ -20,8 +21,8 @@ import {
   WrapItem,
   Wrap,
   Button,
+  Spacer,
 } from '@chakra-ui/react'
-import { Video } from '@phosphor-icons/react'
 import { PenIcon } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -305,21 +306,7 @@ export default function ExercisesGroups() {
                 >
                   {exercise.name}
 
-                  {exercise.hasVideo && (
-                    <Button
-                      onClick={() => handleWithFindExerciseVideo(exercise.id!)}
-                      ml={3}
-                      _hover={{
-                        bgGradient: 'linear(to-r, red.500, red.600)',
-                        transition: '0.8s',
-                      }}
-                      size="xs"
-                      border={'1px'}
-                      borderColor={'whiteAlpha.300'}
-                    >
-                      <Video size={32} />
-                    </Button>
-                  )}
+                  <Spacer />
 
                   <Button
                     onClick={() =>
@@ -329,6 +316,7 @@ export default function ExercisesGroups() {
                       )
                     }
                     ml={3}
+                    mr={3}
                     _hover={{
                       bgGradient: 'linear(to-r, red.500, red.600)',
                       transition: '0.8s',
@@ -339,6 +327,15 @@ export default function ExercisesGroups() {
                   >
                     <PenIcon size={14} />
                   </Button>
+
+                  {exercise.hasVideo && (
+                    <VideosView
+                      videos={videoExercise}
+                      handleWithFindVideos={() =>
+                        handleWithFindExerciseVideo(exercise.id!)
+                      }
+                    />
+                  )}
 
                   <CloseButtonComponent
                     ml={3}

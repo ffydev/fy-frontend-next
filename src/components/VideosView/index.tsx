@@ -7,7 +7,7 @@ import {
   ModalOverlay,
   Center,
 } from '@chakra-ui/react'
-import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
+import { ArrowLeft, ArrowRight, Video } from '@phosphor-icons/react'
 import { useState } from 'react'
 
 interface IVideo {
@@ -17,9 +17,10 @@ interface IVideo {
 
 interface ViewVideosProps {
   videos?: IVideo[]
+  handleWithFindVideos: () => void
 }
 
-export function VideosView({ videos }: ViewVideosProps) {
+export function VideosView({ videos, handleWithFindVideos }: ViewVideosProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -41,10 +42,24 @@ export function VideosView({ videos }: ViewVideosProps) {
     setIsModalOpen(false)
   }
 
+  const handleWithOpenModalAndFindVideos = () => {
+    openModal()
+    handleWithFindVideos()
+  }
+
   return (
     <>
-      <Button mt={6} size={'sm'} onClick={openModal}>
-        Visualizar Videos
+      <Button
+        _hover={{
+          bgGradient: 'linear(to-r, red.500, red.600)',
+          transition: '0.8s',
+        }}
+        size="xs"
+        border={'1px'}
+        borderColor={'whiteAlpha.300'}
+        onClick={() => handleWithOpenModalAndFindVideos()}
+      >
+        <Video size={32} />
       </Button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
