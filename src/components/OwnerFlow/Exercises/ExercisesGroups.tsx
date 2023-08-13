@@ -305,19 +305,21 @@ export default function ExercisesGroups() {
                 >
                   {exercise.name}
 
-                  <Button
-                    onClick={() => handleWithFindExerciseVideo(exercise.id!)}
-                    ml={3}
-                    _hover={{
-                      bgGradient: 'linear(to-r, red.500, red.600)',
-                      transition: '0.8s',
-                    }}
-                    size="xs"
-                    border={'1px'}
-                    borderColor={'whiteAlpha.300'}
-                  >
-                    <Video size={32} />
-                  </Button>
+                  {exercise.hasVideo && (
+                    <Button
+                      onClick={() => handleWithFindExerciseVideo(exercise.id!)}
+                      ml={3}
+                      _hover={{
+                        bgGradient: 'linear(to-r, red.500, red.600)',
+                        transition: '0.8s',
+                      }}
+                      size="xs"
+                      border={'1px'}
+                      borderColor={'whiteAlpha.300'}
+                    >
+                      <Video size={32} />
+                    </Button>
+                  )}
 
                   <Button
                     onClick={() =>

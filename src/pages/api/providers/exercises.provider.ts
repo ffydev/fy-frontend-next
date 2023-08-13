@@ -4,6 +4,7 @@ export interface IExercise {
   id?: string
   name?: string
   muscleGroup?: string
+  hasVideo?: boolean
   videos?: any
 }
 
