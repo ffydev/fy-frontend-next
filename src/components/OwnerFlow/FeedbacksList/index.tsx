@@ -31,6 +31,7 @@ export default function Feedbacks() {
   const [videos, setVideos] = useState<IVideo[]>()
   const [answer, setAnswer] = useState<string>('')
   const toast = useToast()
+  const [feedbackVideo, setFeedbackVideo] = useState('')
 
   useEffect(() => {
     const fetchFeedbacksData = async () => {
@@ -50,18 +51,28 @@ export default function Feedbacks() {
           return
         }
 
-        const response = await findUserFeedbacks(token, selectedUserId)
+        const response = await findUserFeedbacks(
+          token,
+          selectedUserId,
+          feedbackVideo,
+        )
 
         setFeedbacks(response.feedbacks)
-        if (response.videos && response.videos.length > 0) {
-          setVideos(response.videos)
-        }
+
+        setVideos(response.videos)
       } catch (error) {
         console.error(error)
+        toast({
+          title: 'Erro ao buscar feedbacks.',
+          description: 'Por favor, tente novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
       }
     }
     fetchFeedbacksData()
-  }, [router, selectedUserId, toast])
+  }, [router, selectedUserId, toast, feedbackVideo])
 
   const handleWithAswerFeedback = async (id: string) => {
     try {
@@ -90,6 +101,10 @@ export default function Feedbacks() {
       setIsShowingFeedbacks()
       setIsShowingUsers()
     }
+  }
+
+  const handleWithFindVideos = async (id: string) => {
+    setFeedbackVideo(id)
   }
 
   return (
@@ -131,10 +146,14 @@ export default function Feedbacks() {
             Outros: {feedback.others}
           </chakra.h1>
 
-          {feedback.hasVideo &&
-            videos &&
-            videos.length > 0 &&
-            videos[0].videoData && <VideosView videos={videos} />}
+          {feedback.hasVideo && (
+            <VideosView
+              videos={videos}
+              handleWithFindVideos={() =>
+                handleWithFindVideos(feedback.userId!)
+              }
+            />
+          )}
 
           {feedback.isAnswered ? (
             <>

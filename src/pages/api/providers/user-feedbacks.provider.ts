@@ -28,10 +28,11 @@ export interface IFindUserFeedbacks {
 export async function findUserFeedbacks(
   token: string,
   userId: string,
+  feedbackVideo?: string,
 ): Promise<IFindUserFeedbacks> {
   try {
     const response = await api.get<IFindUserFeedbacks>(
-      `/user-feedbacks?userId=${userId}`,
+      `/user-feedbacks?userId=${userId}&feedbackVideo=${feedbackVideo}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
