@@ -27,6 +27,7 @@ import { PenIcon } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { MuscleGroupUpdate } from './MuscleGroupUpdate'
 
 export default function ExercisesGroups() {
   const router = useRouter()
@@ -277,6 +278,7 @@ export default function ExercisesGroups() {
                 />
               </WrapItem>
             ))}
+            <MuscleGroupUpdate oldName={selectedMuscleGroup} />
           </Wrap>
         </Box>
 
