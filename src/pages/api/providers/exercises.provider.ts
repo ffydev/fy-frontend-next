@@ -131,11 +131,12 @@ export async function updateMuscleGroup(
   try {
     const response = await api.patch<IExercise>(
       `/exercises/muscle-group?oldName=${oldName}&newName=${newName}`,
+      {},
       {
         headers: { Authorization: `Bearer ${token}` },
       },
     )
-
+    console.log(response)
     return response.data
   } catch (error) {
     console.error('Failed to update muscle group', error)
