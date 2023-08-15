@@ -119,7 +119,7 @@ export default function ExercisesGroups() {
     }
     fetchExerciseByMuscleGroup()
   }, [selectedMuscleGroup, toast, router, isFetching, exerciseVideo])
-
+  console.log(isFetching)
   const onSubmit = async () => {
     try {
       const token = getUserToken()
@@ -252,8 +252,6 @@ export default function ExercisesGroups() {
     setExerciseVideo(id)
   }
 
-  console.log(videoExercise)
-
   return (
     <>
       <Box>
@@ -278,7 +276,10 @@ export default function ExercisesGroups() {
                 />
               </WrapItem>
             ))}
-            <MuscleGroupUpdate oldName={selectedMuscleGroup} />
+            <MuscleGroupUpdate
+              oldName={selectedMuscleGroup}
+              setIsFetching={setIsFetching}
+            />
           </Wrap>
         </Box>
 

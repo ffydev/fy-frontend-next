@@ -26,6 +26,7 @@ import { z } from 'zod'
 
 interface MuscleGroupUpdateProps {
   oldName: string
+  setIsFetching: any
 }
 
 const updateMusclegroupFormSchema = z.object({
@@ -36,7 +37,10 @@ type updateMuscleGroupFormSchemaType = z.infer<
   typeof updateMusclegroupFormSchema
 >
 
-export function MuscleGroupUpdate({ oldName }: MuscleGroupUpdateProps) {
+export function MuscleGroupUpdate({
+  oldName,
+  setIsFetching,
+}: MuscleGroupUpdateProps) {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = useRef<HTMLInputElement>(null)
@@ -70,6 +74,8 @@ export function MuscleGroupUpdate({ oldName }: MuscleGroupUpdateProps) {
         return
       }
 
+      setIsFetching(true)
+
       await updateMuscleGroup(token, oldName, data.newName)
 
       onClose()
@@ -93,6 +99,7 @@ export function MuscleGroupUpdate({ oldName }: MuscleGroupUpdateProps) {
       })
     } finally {
       reset()
+      setIsFetching(false)
     }
   }
 
