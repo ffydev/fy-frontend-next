@@ -122,3 +122,23 @@ export async function findExerciseById(
     throw error
   }
 }
+
+export async function updateMuscleGroup(
+  token: string,
+  oldName: string,
+  newName: string,
+): Promise<IExercise> {
+  try {
+    const response = await api.patch<IExercise>(
+      `/exercises/muscle-group?oldName=${oldName}&newName=${newName}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to update muscle group', error)
+    throw error
+  }
+}
