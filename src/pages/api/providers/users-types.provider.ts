@@ -14,7 +14,7 @@ export async function findUsersTypes(token: string): Promise<IUserType[]> {
     })
     return response.data
   } catch (error) {
-    console.error('Failed to find users', error)
+    console.error('Failed to find users types', error)
     throw error
   }
 }

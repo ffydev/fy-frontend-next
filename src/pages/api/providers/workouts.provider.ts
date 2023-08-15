@@ -67,7 +67,7 @@ export async function deleteWorkout(token: string, id: string): Promise<void> {
     })
     return
   } catch (error) {
-    console.error(`Failed to delete user with id ${id}`, error)
+    console.error(`Failed to delete workout with id ${id}`, error)
     throw error
   }
 }

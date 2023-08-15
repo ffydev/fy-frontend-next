@@ -24,7 +24,7 @@ export async function createSet(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to create set', error)
     throw error
   }
 }
@@ -54,7 +54,7 @@ export async function updateSet(
 
     return response.data
   } catch (error) {
-    console.error('Failed to delete set', error)
+    console.error('Failed to update set', error)
     throw error
   }
 }

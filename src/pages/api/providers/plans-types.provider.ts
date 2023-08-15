@@ -12,7 +12,7 @@ export async function findPlansTypes(token: string): Promise<IPlanType[]> {
     })
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to find plans types', error)
     throw error
   }
 }

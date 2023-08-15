@@ -24,7 +24,7 @@ export async function updatePlan(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to update plan', error)
     throw error
   }
 }

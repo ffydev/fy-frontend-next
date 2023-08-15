@@ -62,7 +62,7 @@ export async function findUserAnamnesis(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to find anamnesis', error)
     throw error
   }
 }

@@ -53,7 +53,7 @@ export async function updateExerciseByUser(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to update exercise by user', error)
     throw error
   }
 }
@@ -76,7 +76,7 @@ export async function createExercise(
 
 export async function findMuscleGroup(token: string): Promise<IExercise[]> {
   try {
-    const response = await api.get<IExercise[]>('/exercises/muscle-groups', {
+    const response = await api.get<IExercise[]>('/exercises/muscle-group', {
       headers: { Authorization: `Bearer ${token}` },
     })
 

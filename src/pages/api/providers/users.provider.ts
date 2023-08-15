@@ -133,7 +133,7 @@ export async function updateUserByUser(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to update user', error)
     throw error
   }
 }

@@ -40,7 +40,7 @@ export async function findUserFeedbacks(
 
     return response.data
   } catch (error) {
-    console.error('Failed to find users', error)
+    console.error('Failed to find feedbacks', error)
     throw error
   }
 }
@@ -74,7 +74,7 @@ export async function answerFeedback(
 
     return response.data
   } catch (error) {
-    console.error('Failed to create user', error)
+    console.error('Failed to answer feedback', error)
     throw error
   }
 }
