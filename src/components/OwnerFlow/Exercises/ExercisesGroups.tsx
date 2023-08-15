@@ -119,7 +119,7 @@ export default function ExercisesGroups() {
     }
     fetchExerciseByMuscleGroup()
   }, [selectedMuscleGroup, toast, router, isFetching, exerciseVideo])
-  console.log(isFetching)
+
   const onSubmit = async () => {
     try {
       const token = getUserToken()
