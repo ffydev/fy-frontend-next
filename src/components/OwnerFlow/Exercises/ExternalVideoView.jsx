@@ -69,7 +69,7 @@ export function ExternalVideoView({ src }) {
                     type="text/html"
                     width="640"
                     height="360"
-                    src="http://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
+                    src="https://www.youtube.com/embed?v=3E7OltLyOCg&ab_channel=NERDAVONTADE?autoplay=1&origin=https://andresena.fitexperience.app"
                     frameborder="0"
                   />
                 </AspectRatio>
