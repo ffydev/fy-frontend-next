@@ -1,7 +1,5 @@
 import { CloseButtonComponent } from '@/components/Buttons/CloseButtonComponent'
 import HandleButton from '@/components/Buttons/HandleButton'
-import UploadVideosStep from '@/components/VideosUpload/UploadVideosStep'
-import { VideosView } from '@/components/VideosView'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   IExercise,
@@ -11,7 +9,6 @@ import {
   findMuscleGroup,
   updateExercise,
 } from '@/pages/api/providers/exercises.provider'
-import { useVideosStore } from '@/stores/VideoStore'
 import {
   Box,
   Flex,
@@ -28,6 +25,8 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { MuscleGroupUpdate } from './MuscleGroupUpdate'
+import { ExternalVideoView } from './ExternalVideoView'
+import { Plus } from '@phosphor-icons/react'
 
 export default function ExercisesGroups() {
   const router = useRouter()
@@ -35,15 +34,13 @@ export default function ExercisesGroups() {
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>('')
   const [selectedExercise, setSelectedExercise] = useState<string>('')
+  const [link, setLink] = useState<string>('')
   const [exercises, setExercises] = useState<IExercise[]>([])
-  const { finalVideo, reset: resetFinalVideo } = useVideosStore()
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isSendingForm, setIsSendingForm] = useState<boolean>(false)
   const [exerciseId, setExerciseId] = useState<string>('')
-  const [exerciseVideo, setExerciseVideo] = useState<string>('')
   const [isUpdatingExerciseName, setIsUpdatingExerciseName] =
     useState<boolean>(false)
-  const [videoExercise, setVideoExercise] = useState()
 
   const { handleSubmit, reset } = useForm()
 
@@ -101,11 +98,9 @@ export default function ExercisesGroups() {
         const response = await findExerciseByMuscleGroup(
           token,
           selectedMuscleGroup,
-          exerciseVideo,
         )
 
-        setExercises(response.exercises)
-        setVideoExercise(response.video)
+        setExercises(response)
       } catch (error) {
         console.error(error)
         toast({
@@ -118,7 +113,7 @@ export default function ExercisesGroups() {
       }
     }
     fetchExerciseByMuscleGroup()
-  }, [selectedMuscleGroup, toast, router, isFetching, exerciseVideo])
+  }, [selectedMuscleGroup, toast, router, isFetching])
 
   const onSubmit = async () => {
     try {
@@ -142,14 +137,7 @@ export default function ExercisesGroups() {
       const formData = new FormData()
       formData.append('name', selectedExercise)
       formData.append('muscleGroup', selectedMuscleGroup)
-
-      if (finalVideo.length > 0) {
-        const files = Object.entries(finalVideo)
-
-        for (const file of files) {
-          formData.append('videos', file[1].file)
-        }
-      }
+      formData.append('link', link)
 
       if (isUpdatingExerciseName) {
         await updateExercise(token, exerciseId, formData as IExercise)
@@ -186,7 +174,6 @@ export default function ExercisesGroups() {
       reset()
       setIsFetching(!isFetching)
       setIsSendingForm(false)
-      resetFinalVideo()
       setIsUpdatingExerciseName(false)
     }
   }
@@ -248,10 +235,6 @@ export default function ExercisesGroups() {
     setIsUpdatingExerciseName(true)
   }
 
-  const handleWithFindExerciseVideo = (id: string) => {
-    setExerciseVideo(id)
-  }
-
   return (
     <>
       <Box>
@@ -310,12 +293,7 @@ export default function ExercisesGroups() {
                   <Text mr={3}>{exercise.name}</Text>
 
                   {exercise.hasVideo && (
-                    <VideosView
-                      videos={videoExercise}
-                      handleWithFindVideos={() =>
-                        handleWithFindExerciseVideo(exercise.id!)
-                      }
-                    />
+                    <ExternalVideoView src={exercise.link} />
                   )}
 
                   <Button
@@ -365,11 +343,20 @@ export default function ExercisesGroups() {
           </FormControl>
 
           <FormControl gridColumn="span 2" mt={3} mb={3}>
-            <UploadVideosStep
-              textButtonSubmit="Criar ou Atualizar"
-              isSendingForm={isSendingForm}
+            <Input
+              defaultValue={link}
+              onChange={(e) => setLink(e.target.value)}
+              placeholder="Link do vídeo"
             />
           </FormControl>
+          <HandleButton
+            loading={isSendingForm}
+            mt={3}
+            mb={3}
+            text="Criar ou Atualizar"
+            leftIcon={<Plus weight="bold" />}
+            type="submit"
+          />
         </form>
       </Box>
     </>
