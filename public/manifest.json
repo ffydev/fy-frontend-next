@@ -1,0 +1,30 @@
+{
+  "background_color": "#4f09a2",
+  "description": "Tem dificuldade em acompanhar sua performance nos treinos?\nAcompanhe de perto o desempenho da sua saúde com nosso sistema de monitoramento de performance.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "andresena.fitexperience",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "andresena.fitexperience",
+  "start_url": "/",
+  "theme_color": "#4f09a2",
+  "categories": [
+    "fitness"
+  ],
+  
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/x-icon"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home Page",
+      "url": ".",
+      "description": "Login"
+    }
+  ],
+  "id": "1"
+}
