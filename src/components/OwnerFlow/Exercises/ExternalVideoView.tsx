@@ -11,11 +11,11 @@ import {
 import { Video } from '@phosphor-icons/react'
 import { useState } from 'react'
 
-// interface ViewVideosProps {
-//   src?: string
-// }
+interface ViewVideosProps {
+  src?: string
+}
 
-export function ExternalVideoView({ src }) {
+export function ExternalVideoView({ src }: ViewVideosProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => {
@@ -64,15 +64,13 @@ export function ExternalVideoView({ src }) {
             >
               <Center>
                 <AspectRatio maxW="560px" ratio={1}>
-                  <iframe
-                    width="560"
-                    height="315"
-                    src="https://www.youtube.com/embed/3sg53f7U5nw"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                  ></iframe>
+                  <AspectRatio maxW="560px" ratio={1}>
+                    <iframe
+                      title="naruto"
+                      src="https://www.youtube.com/embed/QhBnZ6NPOY0"
+                      allowFullScreen
+                    />
+                  </AspectRatio>
                 </AspectRatio>
               </Center>
             </Box>
