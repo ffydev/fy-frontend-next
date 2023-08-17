@@ -19,7 +19,6 @@ import {
   Wrap,
   Button,
   Text,
-  AspectRatio,
 } from '@chakra-ui/react'
 import { PenIcon } from 'lucide-react'
 import { useRouter } from 'next/router'
@@ -296,14 +295,6 @@ export default function ExercisesGroups() {
                   {exercise.hasVideo && (
                     <ExternalVideoView src={exercise.link} />
                   )}
-
-                  <AspectRatio maxW="560px" ratio={1}>
-                    <iframe
-                      title="naruto"
-                      src="https://www.youtube.com/embed/QhBnZ6NPOY0"
-                      allowFullScreen
-                    />
-                  </AspectRatio>
 
                   <Button
                     onClick={() =>
