@@ -65,13 +65,14 @@ export function ExternalVideoView({ src }) {
               <Center>
                 <AspectRatio maxW="560px" ratio={1}>
                   <iframe
-                    id="ytplayer"
-                    type="text/html"
-                    width="640"
-                    height="360"
-                    src="https://www.youtube.com/embed?v=3E7OltLyOCg&ab_channel=NERDAVONTADE?autoplay=1&origin=https://andresena.fitexperience.app"
+                    width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/3sg53f7U5nw"
+                    title="YouTube video player"
                     frameborder="0"
-                  />
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                  ></iframe>
                 </AspectRatio>
               </Center>
             </Box>
