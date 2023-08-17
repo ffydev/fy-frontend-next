@@ -65,8 +65,8 @@ export function ExternalVideoView({ src }: ViewVideosProps) {
               <Center>
                 <AspectRatio maxW="560px" ratio={1}>
                   <iframe
-                    title="Title"
-                    src={'https://youtube.com/shorts/w3NES7fmdR0?feature=share'}
+                    title="naruto"
+                    src="https://www.youtube.com/embed/QhBnZ6NPOY0"
                     allowFullScreen
                   />
                 </AspectRatio>
