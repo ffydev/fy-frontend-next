@@ -64,7 +64,11 @@ export function ExternalVideoView({ src }: ViewVideosProps) {
             >
               <Center>
                 <AspectRatio maxW="560px" ratio={1}>
-                  <iframe title="Title" src={src} allowFullScreen />
+                  <iframe
+                    title="Title"
+                    src={'https://youtube.com/shorts/w3NES7fmdR0?feature=share'}
+                    allowFullScreen
+                  />
                 </AspectRatio>
               </Center>
             </Box>
