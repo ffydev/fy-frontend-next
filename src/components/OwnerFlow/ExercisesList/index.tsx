@@ -112,7 +112,7 @@ export default function ExercisesList() {
           selectedMuscleGroup,
         )
 
-        setExercises(response.exercises)
+        setExercises(response)
       } catch (error) {
         console.error(error)
         toast({
