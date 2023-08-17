@@ -1,3 +1,5 @@
+const withPWA = require("next-pwa");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -20,6 +22,13 @@ const nextConfig = {
       },
     ]
   },
-}
+};
+
+
+module.exports = withPWA({
+    dest: "public",
+    register:true,
+});
+
 
 module.exports = nextConfig
