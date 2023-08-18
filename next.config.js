@@ -1,4 +1,4 @@
-const withPWA = require('next-pwa')
+const withPWA = require("next-pwa");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -12,7 +12,20 @@ const nextConfig = {
         headers: [
           {
             key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
+            value: 'credentialless',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+      {
+        source: '/exercises',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'unsafe-none',
           },
           {
             key: 'Cross-Origin-Opener-Policy',
@@ -22,11 +35,13 @@ const nextConfig = {
       },
     ]
   },
-}
+};
+
 
 module.exports = withPWA({
-  dest: 'public',
-  register: true,
-})
+    dest: "public",
+    register:true,
+});
+
 
 module.exports = nextConfig

@@ -10,12 +10,15 @@ import {
 } from '@chakra-ui/react'
 import { Video } from '@phosphor-icons/react'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+
 
 // interface ViewVideosProps {
 //   src?: string
 // }
 
 export function ExternalVideoView({ src }) {
+  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => {
@@ -27,6 +30,7 @@ export function ExternalVideoView({ src }) {
   }
 
   const handleWithOpenModal = () => {
+
     openModal()
   }
 
@@ -46,38 +50,25 @@ export function ExternalVideoView({ src }) {
       </Button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
+
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
-          bgColor={'blackAlpha.100'}
-          border={'1px'}
-          borderColor={'whiteAlpha.200'}
-          backdropFilter={'auto'}
-          backdropBlur={'1rem'}
-          boxShadow={'lg'}
-        >
-          <ModalBody>
-            <Box
-              position="relative"
-              flexDirection="column"
-              p={4}
-              overflow={'hidden'}
-            >
-              <Center>
-                <AspectRatio maxW="560px" ratio={1}>
-                  <AspectRatio maxW="560px" ratio={1}>
-                    <iframe
-                      loading="lazy"
-                      sandbox="allow-same-origin allow-scripts"
-                      referrerpolicy="no-referrer"
-                      src="https://www.youtube.com/embed/QhBnZ6NPOY0"
-                    ></iframe>
-                  </AspectRatio>
-                </AspectRatio>
-              </Center>
-            </Box>
-          </ModalBody>
+       
+        > 
+          <iframe  width="560" height="315"   src={src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe>
+
         </ModalContent>
       </Modal>
     </>
   )
+
+}
+
+export async function getServerSideProps(context) {
+  // Define the headers you want for this route
+  context.res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+
+  return {
+    props: {},
+  };
 }
