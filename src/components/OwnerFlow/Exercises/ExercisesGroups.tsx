@@ -115,6 +115,17 @@ export default function ExercisesGroups() {
     fetchExerciseByMuscleGroup()
   }, [selectedMuscleGroup, toast, router, isFetching])
 
+  function extractSrcFromIframe(link: string) {
+    const srcMatch = link.match(/src="([^"]*)"/)
+
+    if (srcMatch && srcMatch.length >= 2) {
+      const srcValue = srcMatch[1]
+      return srcValue
+    } else {
+      return ''
+    }
+  }
+
   const onSubmit = async () => {
     try {
       const token = getUserToken()
@@ -134,13 +145,14 @@ export default function ExercisesGroups() {
 
       setIsSendingForm(true)
 
-      const formData = new FormData()
-      formData.append('name', selectedExercise)
-      formData.append('muscleGroup', selectedMuscleGroup)
-      formData.append('link', link)
+      setLink(extractSrcFromIframe(link))
 
       if (isUpdatingExerciseName) {
-        await updateExercise(token, exerciseId, formData as IExercise)
+        await updateExercise(token, exerciseId, {
+          name: selectedExercise,
+          muscleGroup: selectedMuscleGroup,
+          link,
+        } as IExercise)
         toast({
           title: 'Exercício Atualizado.',
           description: 'Exercício Atualizado com sucesso.',
@@ -151,7 +163,11 @@ export default function ExercisesGroups() {
       }
 
       if (!isUpdatingExerciseName) {
-        await createExercise(token, formData as IExercise)
+        await createExercise(token, {
+          name: selectedExercise,
+          muscleGroup: selectedMuscleGroup,
+          link,
+        } as IExercise)
         toast({
           title: 'Exercício Criado.',
           description: 'Exercício criado com sucesso.',

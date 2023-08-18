@@ -1,24 +1,12 @@
-import {
-  Box,
-  Modal,
-  ModalContent,
-  ModalBody,
-  Button,
-  ModalOverlay,
-  Center,
-  AspectRatio,
-} from '@chakra-ui/react'
+import { Modal, ModalContent, Button, ModalOverlay } from '@chakra-ui/react'
 import { Video } from '@phosphor-icons/react'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
-
 
 // interface ViewVideosProps {
 //   src?: string
 // }
 
 export function ExternalVideoView({ src }) {
-  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => {
@@ -30,7 +18,6 @@ export function ExternalVideoView({ src }) {
   }
 
   const handleWithOpenModal = () => {
-
     openModal()
   }
 
@@ -50,25 +37,28 @@ export function ExternalVideoView({ src }) {
       </Button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent
-       
-        > 
-          <iframe  width="560" height="315"   src={src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe>
-
+        <ModalContent>
+          <iframe
+            width="560"
+            height="315"
+            src={src}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
         </ModalContent>
       </Modal>
     </>
   )
-
 }
 
 export async function getServerSideProps(context) {
   // Define the headers you want for this route
-  context.res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+  context.res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
 
   return {
     props: {},
-  };
+  }
 }
