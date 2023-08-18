@@ -2,11 +2,11 @@ import { Modal, ModalContent, Button, ModalOverlay } from '@chakra-ui/react'
 import { Video } from '@phosphor-icons/react'
 import { useState } from 'react'
 
-// interface ViewVideosProps {
-//   src?: string
-// }
+interface ViewVideosProps {
+  src?: string
+}
 
-export function ExternalVideoView({ src }) {
+export function ExternalVideoView({ src }: ViewVideosProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => {
@@ -44,7 +44,6 @@ export function ExternalVideoView({ src }) {
             height="315"
             src={src}
             title="YouTube video player"
-            frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>
@@ -54,8 +53,7 @@ export function ExternalVideoView({ src }) {
   )
 }
 
-export async function getServerSideProps(context) {
-  // Define the headers you want for this route
+export async function getServerSideProps(context: any) {
   context.res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
 
   return {
