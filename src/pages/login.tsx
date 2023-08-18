@@ -20,6 +20,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { signIn } from './api/providers/auth.provider'
 import HandleButton from '@/components/Buttons/HandleButton'
+import { AddToHomeScreen } from '@/components/Notification'
 
 const loginFormSchema = z.object({
   username: z.string().email({
@@ -95,6 +96,7 @@ export default function Login() {
 
   return (
     <>
+      <AddToHomeScreen />
       <BoxBgImage>
         <Flex minH={'100vh'} align={'center'} justify={'center'}>
           <Box

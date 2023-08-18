@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-
 import {
   Button,
   Modal,
@@ -25,7 +24,7 @@ export function AddToHomeScreen() {
     if (deferredPrompt) {
       onOpen()
     }
-  }, [deferredPrompt])
+  }, [deferredPrompt, onOpen])
 
   const handleClick = () => {
     if (deferredPrompt) {
