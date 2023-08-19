@@ -35,15 +35,7 @@ export function ExternalVideoView({ src }) {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent>
-          <iframe
-            width="560"
-            height="315"
-            src={src}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-            allowFullScreen
-            frameBorder={0}
-          ></iframe>
+          <iframe title="naruto" src={src} />
         </ModalContent>
       </Modal>
     </>

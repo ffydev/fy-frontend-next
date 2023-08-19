@@ -8,7 +8,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: '/dashboard',
         headers: [
           {
             key: 'Cross-Origin-Embedder-Policy',
@@ -29,7 +29,7 @@ const nextConfig = {
           },
           {
             key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
+            value: 'cross-origin',
           },
         ],
       },
@@ -42,7 +42,7 @@ const nextConfig = {
           },
           {
             key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
+            value: 'cross-origin',
           },
         ],
       },
