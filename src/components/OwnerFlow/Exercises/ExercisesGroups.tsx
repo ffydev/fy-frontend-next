@@ -120,7 +120,8 @@ export default function ExercisesGroups() {
 
     if (srcMatch && srcMatch.length >= 2) {
       const srcValue = srcMatch[1]
-      return srcValue
+
+      return srcValue.replace(/^"|"$/g, '')
     } else {
       return ''
     }
@@ -145,13 +146,13 @@ export default function ExercisesGroups() {
 
       setIsSendingForm(true)
 
-      setLink(extractSrcFromIframe(link))
+      const filteredLink = extractSrcFromIframe(link)
 
       if (isUpdatingExerciseName) {
         await updateExercise(token, exerciseId, {
           name: selectedExercise,
           muscleGroup: selectedMuscleGroup,
-          link,
+          link: filteredLink,
         } as IExercise)
         toast({
           title: 'Exercício Atualizado.',
@@ -166,7 +167,7 @@ export default function ExercisesGroups() {
         await createExercise(token, {
           name: selectedExercise,
           muscleGroup: selectedMuscleGroup,
-          link,
+          link: filteredLink,
         } as IExercise)
         toast({
           title: 'Exercício Criado.',
