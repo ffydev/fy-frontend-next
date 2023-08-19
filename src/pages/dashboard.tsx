@@ -80,9 +80,18 @@ export default function Dashboard() {
             </Center>
           ) : (
             <>
-              {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
-              {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
-              {user?.userType?.name === 'User' && <DashboardMenuUser />}
+              <Box
+                bgGradient={[
+                  'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+                  'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
+                ]}
+                minH="100vh"
+              >
+                {' '}
+                {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
+                {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
+                {user?.userType?.name === 'User' && <DashboardMenuUser />}
+              </Box>
             </>
           )}
         </>
