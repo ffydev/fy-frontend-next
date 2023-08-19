@@ -123,7 +123,6 @@ export function Workouts() {
             <Tab
               key={workout.id}
               onClick={() => setSelectedWorkoutId(workout.id!)}
-              mb={4}
             >
               {workout.workoutType}
             </Tab>

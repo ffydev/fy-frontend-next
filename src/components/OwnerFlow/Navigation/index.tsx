@@ -51,7 +51,7 @@ export default function Navigation() {
     <>
       {isShowingUsers && (
         <>
-          <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+          <Stack direction={['column', 'row']} spacing={6} w={'full'}>
             <Container maxW={'7xl'}>
               <Users />
             </Container>
@@ -66,7 +66,6 @@ export default function Navigation() {
             align={'start'}
             alignSelf={'center'}
             position={'relative'}
-            mt={3}
             ml={3}
             pt={6}
             pb={6}
@@ -101,7 +100,6 @@ export default function Navigation() {
             align={'start'}
             alignSelf={'center'}
             position={'relative'}
-            mt={3}
             ml={3}
             pt={6}
             pb={6}
@@ -136,7 +134,6 @@ export default function Navigation() {
             align={'start'}
             alignSelf={'center'}
             position={'relative'}
-            mt={3}
             ml={3}
             pt={6}
             pb={6}

@@ -160,8 +160,8 @@ export function UsersList({ users, planTypes }: UsersListProps) {
 
   return (
     <>
-      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={4} w={'full'}>
+      <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={3}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={3} w={'full'}>
           {users.map((user: IUserInterface) => (
             <Box
               key={user.id}
