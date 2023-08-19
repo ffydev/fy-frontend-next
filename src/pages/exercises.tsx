@@ -1,5 +1,5 @@
 import ExercisesGroups from '@/components/OwnerFlow/Exercises/ExercisesGroups'
-import Navbar from '@/components/OwnerFlow/Navbar'
+import Navbar from '@/components/OwnerFlow/Navigation/Navbar'
 import { useAuthStore } from '@/stores/AuthStore'
 import { Box, Container, Stack, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'

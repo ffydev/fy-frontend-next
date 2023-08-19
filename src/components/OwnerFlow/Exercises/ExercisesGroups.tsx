@@ -25,7 +25,8 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { MuscleGroupUpdate } from './MuscleGroupUpdate'
-import { ExternalVideoView } from './ExternalVideoView'
+import ExternalVideoView from '@/components/ExternalVideoView'
+
 import { Plus } from '@phosphor-icons/react'
 
 export default function ExercisesGroups() {

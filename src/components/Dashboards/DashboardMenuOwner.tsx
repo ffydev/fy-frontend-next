@@ -1,4 +1,4 @@
-import Navbar from '../OwnerFlow/Navbar'
+import Navbar from '../OwnerFlow/Navigation/Navbar'
 import Navigation from '../OwnerFlow/Navigation'
 
 export default function DashboardMenuOwner() {

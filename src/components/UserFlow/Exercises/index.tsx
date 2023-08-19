@@ -18,7 +18,7 @@ import z from 'zod'
 import { useState } from 'react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
-import { ExternalVideoView } from '@/components/OwnerFlow/Exercises/ExternalVideoView'
+import ExternalVideoView from '@/components/ExternalVideoView'
 
 interface WorkoutsExercisesProps {
   workoutsExercises?: IWorkoutsExercises[]

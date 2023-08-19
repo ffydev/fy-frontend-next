@@ -2,7 +2,7 @@ import { Modal, ModalContent, Button, ModalOverlay } from '@chakra-ui/react'
 import { Video } from '@phosphor-icons/react'
 import { useState } from 'react'
 
-export function ExternalVideoView({ src }) {
+export default function ExternalVideoView({ src }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => {
