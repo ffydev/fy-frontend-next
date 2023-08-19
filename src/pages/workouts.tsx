@@ -1,4 +1,7 @@
-import { getUserToken } from '@/pages/api/providers/auth.provider'
+import {
+  findCurrentUser,
+  getUserToken,
+} from '@/pages/api/providers/auth.provider'
 import {
   IWorkout,
   findWorkoutsNamesByUserId,
@@ -29,13 +32,60 @@ import { ArrowLeft } from '@phosphor-icons/react'
 
 export default function Workouts() {
   const router = useRouter()
-  const { user } = useAuthStore()
+  const { user, setIsLoadingLogin, setUser, isLoadingLogin } = useAuthStore()
   const [workoutsNames, setWorkoutsNames] = useState<IWorkout[]>([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<string>('')
   const [workoutsExercises, setWorkoutsExercises] = useState<
     IWorkoutsExercises[]
   >([])
   const toast = useToast()
+
+  useEffect(() => {
+    if (!isLoadingLogin && !user) {
+      setIsLoadingLogin(true)
+    }
+
+    if (user) {
+      setIsLoadingLogin(false)
+    }
+  }, [user, setIsLoadingLogin, isLoadingLogin])
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = getUserToken()
+      if (!token) {
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.push('/login')
+        return
+      }
+
+      const currentUserData = await findCurrentUser(token)
+
+      if (!currentUserData) {
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.push('/login')
+        return
+      }
+
+      setUser(currentUserData)
+    }
+
+    if (!user) {
+      fetchUserData()
+    }
+  }, [router, setUser, toast, user])
 
   useEffect(() => {
     const fetchWorkoutsNames = async () => {

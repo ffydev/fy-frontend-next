@@ -10,6 +10,8 @@ import { Box, Center, useToast } from '@chakra-ui/react'
 
 export default function Dashboard() {
   const router = useRouter()
+  const toast = useToast()
+
   const {
     user,
     setUser,
@@ -18,7 +20,16 @@ export default function Dashboard() {
     setIsLoadingLogin,
     isLoadingLogin,
   } = useAuthStore()
-  const toast = useToast()
+
+  useEffect(() => {
+    if (!isLoadingLogin && !user) {
+      setIsLoadingLogin(true)
+    }
+
+    if (user) {
+      setIsLoadingLogin(false)
+    }
+  }, [user, setIsLoadingLogin, isLoadingLogin])
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -35,7 +46,6 @@ export default function Dashboard() {
         return
       }
 
-      setIsLoadingLogin(true)
       const currentUserData = await findCurrentUser(token)
 
       if (!currentUserData) {
@@ -51,20 +61,10 @@ export default function Dashboard() {
       }
 
       setUser(currentUserData)
-      setTimeout(() => {
-        setIsLoadingLogin(false)
-      }, 700)
     }
 
     fetchUserData()
-  }, [
-    router,
-    signOut,
-    setUser,
-    isFetchingCurrentUser,
-    setIsLoadingLogin,
-    toast,
-  ])
+  }, [router, signOut, setUser, isFetchingCurrentUser, toast])
 
   return (
     <>

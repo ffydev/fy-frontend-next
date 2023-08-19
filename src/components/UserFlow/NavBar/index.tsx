@@ -55,11 +55,13 @@ export default function Navbar() {
 
       return setNameInitial(`${firstName[0]}}`)
     }
+
+    return setNameInitial('U')
   }
 
   useEffect(() => {
     getingFirstNameInitials(user?.firstName)
-  })
+  }, [user])
 
   return (
     <>
