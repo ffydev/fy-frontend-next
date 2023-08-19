@@ -52,7 +52,7 @@ export default function Navigation() {
       {isShowingUsers && (
         <>
           <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-            <Container maxW={'7xl'}>
+            <Container maxW={'8xl'}>
               <Users />
             </Container>
           </Stack>
@@ -87,7 +87,7 @@ export default function Navigation() {
               </Heading>
             </Flex>
           </Stack>
-          <Container maxW="7xl" p={3}>
+          <Container maxW={'8xl'}>
             <Workouts />
           </Container>
         </>
@@ -121,7 +121,7 @@ export default function Navigation() {
               </Heading>
             </Flex>
           </Stack>
-          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+          <Container maxW={'8xl'}>
             <ListAnamnesis />
           </Container>
         </>
@@ -154,7 +154,7 @@ export default function Navigation() {
               </Heading>
             </Flex>
           </Stack>
-          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
+          <Container maxW={'8xl'}>
             <Feedbacks />
           </Container>
         </>
