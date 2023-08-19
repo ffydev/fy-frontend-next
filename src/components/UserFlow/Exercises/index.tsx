@@ -106,38 +106,34 @@ export default function ExercisesList({
             workoutExercise?.workoutsExercisesNames &&
             workoutExercise?.workoutsExercisesNames?.map(
               (workoutExerciseName) => (
-                <>
-                  <Flex
-                    key={workoutExerciseName.id}
-                    flexWrap={'wrap'}
-                    justifyContent={'start'}
-                    alignItems={'center'}
+                <Flex
+                  key={workoutExerciseName.exercises?.id}
+                  flexWrap={'wrap'}
+                  justifyContent={'start'}
+                  alignItems={'center'}
+                  mb={3}
+                  mt={3}
+                >
+                  <Text
+                    textAlign={'center'}
+                    bgColor={'purple.700'}
+                    borderRadius={3}
+                    fontSize="sm"
                     mb={3}
-                    mt={3}
+                    mr={3}
+                    px={'1'}
                   >
-                    <Flex flexWrap={'unset'}>
-                      <Text
-                        textAlign={'center'}
-                        bgColor={'purple.700'}
-                        borderRadius={3}
-                        fontSize="sm"
-                        mb={3}
-                        mr={3}
-                        px={'1'}
-                      >
-                        {workoutExerciseName?.exercises?.muscleGroup}
-                      </Text>
+                    {workoutExerciseName?.exercises?.muscleGroup}
+                  </Text>
 
-                      <Text>{workoutExerciseName?.exercises?.name}</Text>
+                  <Text>{workoutExerciseName?.exercises?.name}</Text>
 
-                      {workoutExerciseName.exercises!.hasVideo && (
-                        <ExternalVideoView
-                          src={workoutExerciseName.exercises!.link}
-                        />
-                      )}
-                    </Flex>
-                  </Flex>
-                </>
+                  {workoutExerciseName.exercises!.hasVideo && (
+                    <ExternalVideoView
+                      src={workoutExerciseName.exercises!.link}
+                    />
+                  )}
+                </Flex>
               ),
             )}
 
