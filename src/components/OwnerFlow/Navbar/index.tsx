@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface Props {
   children: React.ReactNode
@@ -30,19 +31,20 @@ const NavLink = (props: Props) => {
   const link = children!.toString().toLowerCase()
 
   return (
-    <Box
-      as="a"
-      px={2}
-      py={1}
-      rounded={'md'}
-      _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
-      }}
-      href={link}
-    >
-      {children}
-    </Box>
+    <Link href={link} passHref>
+      <Box
+        as="a"
+        px={2}
+        py={1}
+        rounded={'md'}
+        _hover={{
+          textDecoration: 'none',
+          bg: useColorModeValue('gray.200', 'gray.700'),
+        }}
+      >
+        {children}
+      </Box>
+    </Link>
   )
 }
 
