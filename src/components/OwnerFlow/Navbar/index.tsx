@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Flex,
@@ -18,6 +18,8 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useAuthStore } from '@/stores/AuthStore'
+import { useRouter } from 'next/router'
 
 interface Props {
   children: React.ReactNode
@@ -34,6 +36,29 @@ const NavLink = (props: Props) => {
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [nameInitial, setNameInitial] = useState<string>('')
+  const { user, signOut } = useAuthStore()
+  const router = useRouter()
+
+  const handleWithSignOut = () => {
+    localStorage.removeItem('fyToken')
+    router.replace('/login').then(() => {
+      signOut()
+    })
+  }
+
+  function getingFirstNameInitials(name?: string) {
+    if (name !== undefined && name !== '' && name !== null) {
+      const nameSplited = name.split(' ')
+      const firstName = nameSplited[0]
+
+      return setNameInitial(`${firstName[0]}}`)
+    }
+  }
+
+  useEffect(() => {
+    getingFirstNameInitials(user?.firstName)
+  })
 
   return (
     <>
@@ -85,10 +110,15 @@ export default function Navbar() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
+                <MenuItem
+                  onClick={() => handleWithSignOut()}
+                  _hover={{
+                    bgColor: 'blackAlpha.400',
+                    rounded: 'lg',
+                  }}
+                >
+                  Sair
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
