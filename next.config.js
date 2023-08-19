@@ -34,7 +34,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/workots',
+        source: '/workouts',
         headers: [
           {
             key: 'Cross-Origin-Embedder-Policy',

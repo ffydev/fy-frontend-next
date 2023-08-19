@@ -18,6 +18,7 @@ import z from 'zod'
 import { useState } from 'react'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
+import { ExternalVideoView } from '@/components/OwnerFlow/Exercises/ExternalVideoView'
 
 interface WorkoutsExercisesProps {
   workoutsExercises?: IWorkoutsExercises[]
@@ -114,18 +115,27 @@ export default function ExercisesList({
                     mb={3}
                     mt={3}
                   >
-                    <Text
-                      textAlign={'center'}
-                      bgColor={'purple.700'}
-                      borderRadius={3}
-                      fontSize="sm"
-                      p={1}
-                    >
-                      {workoutExerciseName?.exercises?.muscleGroup}
-                    </Text>
-                    <Text fontSize="md" p={1}>
-                      {workoutExerciseName?.exercises?.name}
-                    </Text>
+                    <Flex flexWrap={'unset'}>
+                      <Text
+                        textAlign={'center'}
+                        bgColor={'purple.700'}
+                        borderRadius={3}
+                        fontSize="sm"
+                        mb={3}
+                        mr={3}
+                        px={'1'}
+                      >
+                        {workoutExerciseName?.exercises?.muscleGroup}
+                      </Text>
+
+                      <Text>{workoutExerciseName?.exercises?.name}</Text>
+
+                      {workoutExerciseName.exercises!.hasVideo && (
+                        <ExternalVideoView
+                          src={workoutExerciseName.exercises!.link}
+                        />
+                      )}
+                    </Flex>
                   </Flex>
                 </>
               ),
