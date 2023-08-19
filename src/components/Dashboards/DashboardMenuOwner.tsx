@@ -10,6 +10,7 @@ export default function DashboardMenuOwner() {
           'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
           'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
         ]}
+        minH="100vh"
       >
         <Navbar />
         <Navigation />
