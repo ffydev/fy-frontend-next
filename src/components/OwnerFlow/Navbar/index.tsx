@@ -32,7 +32,11 @@ const NavLink = (props: Props) => {
   const { children } = props
   const link = children!.toString().toLowerCase()
 
-  return <Link href={link}>{children}</Link>
+  return (
+    <Link href={link}>
+      {children === 'Exercises' ? 'Exercícios' : children}
+    </Link>
+  )
 }
 
 export default function Navbar() {
