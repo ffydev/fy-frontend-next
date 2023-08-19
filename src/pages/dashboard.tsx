@@ -87,7 +87,6 @@ export default function Dashboard() {
                 ]}
                 minH="100vh"
               >
-                {' '}
                 {user?.userType?.name === 'Admin' && <DashboardMenuOwner />}
                 {user?.userType?.name === 'Owner' && <DashboardMenuOwner />}
                 {user?.userType?.name === 'User' && <DashboardMenuUser />}
