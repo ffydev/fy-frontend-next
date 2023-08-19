@@ -35,7 +35,13 @@ export function ExternalVideoView({ src }) {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent>
-          <iframe title="naruto" src={src} />
+          <iframe
+            height={300}
+            title="naruto"
+            src={src + '?autoplay=1'}
+            allowFullScreen={true}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+          />
         </ModalContent>
       </Modal>
     </>
