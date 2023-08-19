@@ -367,6 +367,7 @@ export default function ExercisesGroups() {
           </FormControl>
           <HandleButton
             loading={isSendingForm}
+            w={'full'}
             mt={3}
             mb={3}
             text="Criar ou Atualizar"
