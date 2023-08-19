@@ -10,7 +10,6 @@ import {
   chakra,
 } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import { Workouts } from '../Workouts'
 import HandleButton from '@/components/Buttons/HandleButton'
 import {
   ArrowLeft,
@@ -24,16 +23,16 @@ import CreatingFeedback from '../Feedbacks/CreateFeedback'
 import ListFeedbacks from '../Feedbacks/ListFeedbacks'
 import { useAuthStore } from '@/stores/AuthStore'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
+import { useRouter } from 'next/router'
 
 export default function Navigation() {
   const { user } = useAuthStore()
+  const router = useRouter()
   const {
     isShowingDashboard,
-    isShowingWorkouts,
     isShowingCreateAnamnesis,
     isShowingFeedbacks,
     isShowingCreateFeedbacks,
-    setIsShowingWorkouts,
     setIsShowingCreateAnamnesis,
     setIsShowingFeedbacks,
     setIsShowingCreateFeedbacks,
@@ -41,9 +40,8 @@ export default function Navigation() {
     reset,
   } = useUserNavigationStore()
 
-  const handleWithWorkouts = () => {
-    setIsShowingWorkouts()
-    setIsShowingDashboard()
+  const handleWithShowWorkouts = () => {
+    router.push('/workouts')
   }
 
   const handleWithCreateAnamnesis = () => {
@@ -89,7 +87,7 @@ export default function Navigation() {
                 backdropFilter="blur(15px)"
                 boxShadow={'lg'}
                 _hover={{ cursor: 'pointer' }}
-                onClick={() => handleWithWorkouts()}
+                onClick={() => handleWithShowWorkouts()}
               >
                 <VStack spacing={5}>
                   <Box
@@ -247,41 +245,6 @@ export default function Navigation() {
             </SimpleGrid>
           </Container>
         </Stack>
-      )}
-
-      {isShowingWorkouts && (
-        <>
-          <Stack
-            direction={'column'}
-            align={'start'}
-            alignSelf={'center'}
-            position={'relative'}
-            mt={3}
-            ml={3}
-            pt={6}
-            pb={6}
-          >
-            <Flex>
-              <HandleButton
-                leftIcon={<ArrowLeft size={28} weight="bold" />}
-                onClick={handleWithWorkouts}
-              />
-              <Heading
-                ml={3}
-                as="h3"
-                size="lg"
-                fontWeight="medium"
-                textAlign="center"
-              >
-                Workouts
-              </Heading>
-            </Flex>
-          </Stack>
-
-          <Container maxW="7xl" p={{ base: 3, md: 1 }}>
-            <Workouts />
-          </Container>
-        </>
       )}
 
       {isShowingFeedbacks && (
