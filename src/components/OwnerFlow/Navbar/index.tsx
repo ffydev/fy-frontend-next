@@ -27,25 +27,9 @@ const Links = ['Dashboard', 'Exercises']
 
 const NavLink = (props: Props) => {
   const { children } = props
-
   const link = children!.toString().toLowerCase()
 
-  return (
-    <Link href={link} passHref>
-      <Box
-        as="a"
-        px={2}
-        py={1}
-        rounded={'md'}
-        _hover={{
-          textDecoration: 'none',
-          bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-      >
-        {children}
-      </Box>
-    </Link>
-  )
+  return <Link href={link}>{children}</Link>
 }
 
 export default function Navbar() {
