@@ -427,7 +427,7 @@ export default function ExercisesList() {
                         onClick={() => setSelectedExerciseNameId(exercise.id!)}
                         colorScheme={
                           exercise.id === selectedExerciseNameId
-                            ? 'green'
+                            ? 'purple'
                             : 'gray'
                         }
                       >

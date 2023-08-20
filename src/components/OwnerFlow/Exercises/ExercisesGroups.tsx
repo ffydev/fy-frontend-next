@@ -307,7 +307,13 @@ export default function ExercisesGroups() {
                   p={1}
                   align="center"
                 >
-                  <Text mr={3}>{exercise.name}</Text>
+                  <Text
+                    cursor="pointer"
+                    color={exercise.id === exerciseId ? 'purple.400' : 'white'}
+                    mr={3}
+                  >
+                    {exercise.name}
+                  </Text>
 
                   {exercise.hasVideo && (
                     <ExternalVideoView src={exercise.link} />
