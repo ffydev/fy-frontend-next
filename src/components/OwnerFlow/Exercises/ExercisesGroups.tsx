@@ -304,7 +304,6 @@ export default function ExercisesGroups() {
                   border={'1px'}
                   bgColor={'whiteAlpha.50'}
                   borderColor={'whiteAlpha.100'}
-                  boxShadow={'lg'}
                   p={1}
                   align="center"
                 >

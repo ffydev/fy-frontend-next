@@ -28,7 +28,6 @@ import {
   Thead,
   Tr,
   Th,
-  FormControl,
   Select,
   Modal,
   ModalOverlay,
@@ -38,6 +37,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Button,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
@@ -90,7 +90,7 @@ export default function ExercisesList() {
   }, [toast, router])
 
   useEffect(() => {
-    if (!selectedMuscleGroup) return
+    if (selectedMuscleGroup === '') return
     const fetchExerciseByMuscleGroup = async () => {
       try {
         const token = getUserToken()
@@ -319,7 +319,6 @@ export default function ExercisesList() {
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
         >
           <Flex minW="auto">
             <Spacer />
@@ -384,7 +383,7 @@ export default function ExercisesList() {
             </Box>
 
             <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+              <ModalOverlay />
               <ModalContent
                 bgGradient={[
                   'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
@@ -393,64 +392,49 @@ export default function ExercisesList() {
                 border={'1px'}
                 borderColor={'whiteAlpha.200'}
                 backdropFilter={'auto'}
-                backdropBlur={'1rem'}
-                boxShadow={'lg'}
               >
                 <ModalHeader>
                   <ModalCloseButton />
                 </ModalHeader>
                 <ModalBody>
-                  <FormControl mb={3} mt={3}>
-                    <Select
-                      bgGradient={'transparent'}
-                      onChange={(e) => setSelectedMuscleGroup(e.target.value)}
-                      value={selectedMuscleGroup}
-                      defaultValue=""
+                  <Select
+                    bgGradient={'transparent'}
+                    onChange={(e) => setSelectedMuscleGroup(e.target.value)}
+                    value={selectedMuscleGroup}
+                    defaultValue=""
+                  >
+                    <option
+                      style={{ backgroundColor: '#322659' }}
+                      disabled
+                      value=""
                     >
+                      Grupo Muscular
+                    </option>
+                    {muscleGroups.map((muscleGroup: IExercise) => (
                       <option
                         style={{ backgroundColor: '#322659' }}
-                        disabled
-                        value=""
+                        key={muscleGroup.id}
+                        value={muscleGroup.muscleGroup}
                       >
-                        Grupo Muscular
+                        {muscleGroup.muscleGroup}
                       </option>
-                      {muscleGroups.map((muscleGroup: IExercise) => (
-                        <option
-                          style={{ backgroundColor: '#322659' }}
-                          key={muscleGroup.id}
-                          value={muscleGroup.muscleGroup}
-                        >
-                          {muscleGroup.muscleGroup}
-                        </option>
-                      ))}
-                    </Select>
-                  </FormControl>
+                    ))}
+                  </Select>
 
-                  <FormControl>
-                    <Select
-                      onChange={(e) =>
-                        setSelectedExerciseNameId(e.target.value)
-                      }
-                      bgGradient={'transparent'}
-                    >
-                      <option
-                        style={{ backgroundColor: '#322659' }}
-                        disabled
-                        value=""
+                  {exercises.map((exercise) => (
+                    <Flex key={exercise.id} mr={3} mb={3} mt={3}>
+                      <Button
+                        onClick={() => setSelectedExerciseNameId(exercise.id!)}
+                        colorScheme={
+                          exercise.id === selectedExerciseNameId
+                            ? 'green'
+                            : 'gray'
+                        }
                       >
-                        Exercícios
-                      </option>
-                      {exercises.map((exercise: IExercise) => (
-                        <option
-                          style={{ backgroundColor: '#322659' }}
-                          key={exercise.id}
-                          value={exercise.id}
-                        >
-                          {exercise.name}
-                        </option>
-                      ))}
-                    </Select>
-                  </FormControl>
+                        {exercise.name}
+                      </Button>
+                    </Flex>
+                  ))}
                 </ModalBody>
 
                 <ModalFooter>
