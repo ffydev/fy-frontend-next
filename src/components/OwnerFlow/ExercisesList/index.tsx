@@ -314,7 +314,6 @@ export default function ExercisesList() {
           key={workoutExercise.id}
           p={4}
           backdropBlur={'1rem'}
-          
           rounded={'lg'}
           border={'1px'}
           bgColor={'whiteAlpha.50'}
@@ -391,7 +390,6 @@ export default function ExercisesList() {
                 ]}
                 border={'1px'}
                 borderColor={'whiteAlpha.200'}
-                
               >
                 <ModalHeader>
                   <ModalCloseButton />

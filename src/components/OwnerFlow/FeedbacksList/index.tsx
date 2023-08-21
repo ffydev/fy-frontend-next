@@ -113,7 +113,6 @@ export default function Feedbacks() {
         <Box
           p={4}
           backdropBlur={'1rem'}
-          
           rounded={'lg'}
           border={'1px'}
           bgColor={'whiteAlpha.50'}

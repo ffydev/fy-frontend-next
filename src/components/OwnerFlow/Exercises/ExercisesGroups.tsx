@@ -259,7 +259,6 @@ export default function ExercisesGroups() {
         <Box
           mt={3}
           backdropBlur={'1rem'}
-          
           rounded={'lg'}
           border={'1px'}
           bgColor={'whiteAlpha.50'}
@@ -287,7 +286,6 @@ export default function ExercisesGroups() {
         <Box
           mt={3}
           backdropBlur={'1rem'}
-          
           rounded={'lg'}
           border={'1px'}
           bgColor={'whiteAlpha.50'}
@@ -299,7 +297,6 @@ export default function ExercisesGroups() {
               <WrapItem key={exercise.id}>
                 <Flex
                   backdropBlur={'1rem'}
-                  
                   rounded={'lg'}
                   border={'1px'}
                   bgColor={'whiteAlpha.50'}

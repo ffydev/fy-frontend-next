@@ -52,7 +52,6 @@ export default function ListFeedbacks() {
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
           backdropBlur={'1rem'}
-          
           minWidth="250px"
           m={3}
         >

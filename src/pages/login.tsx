@@ -106,7 +106,6 @@ export default function Login() {
             border={'1px'}
             borderColor={'whiteAlpha.200'}
             backdropBlur={'1rem'}
-            
             p={8}
             m={4}
           >
