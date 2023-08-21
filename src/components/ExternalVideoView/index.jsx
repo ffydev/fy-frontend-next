@@ -33,7 +33,7 @@ export default function ExternalVideoView({ src }) {
       </Button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+        <ModalOverlay bg="blackAlpha.300" />
         <ModalContent>
           <iframe
             height={300}

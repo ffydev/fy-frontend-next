@@ -48,12 +48,11 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
       </Button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal} size={'4xl'}>
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+        <ModalOverlay bg="blackAlpha.300" />
         <ModalContent
           bgColor={'blackAlpha.100'}
           border={'1px'}
           borderColor={'whiteAlpha.200'}
-          backdropFilter={'auto'}
           backdropBlur={'1rem'}
         >
           <ModalBody>

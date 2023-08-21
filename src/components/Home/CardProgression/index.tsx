@@ -52,7 +52,6 @@ export default function CardProgression() {
                   p={5}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
                   rounded="2xl"
@@ -125,7 +124,6 @@ export default function CardProgression() {
                   p={5}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
                   rounded="2xl"
@@ -198,7 +196,6 @@ export default function CardProgression() {
                   p={5}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
                   rounded="2xl"

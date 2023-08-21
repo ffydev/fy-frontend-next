@@ -111,8 +111,6 @@ export default function CompleteUserRegistration() {
         rounded={'lg'}
         border={'1px'}
         borderColor={'whiteAlpha.200'}
-        backdropBlur={'1rem'}
-        backdropFilter="blur(15px)"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>

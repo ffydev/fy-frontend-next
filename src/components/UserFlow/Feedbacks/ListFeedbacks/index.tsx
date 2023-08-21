@@ -52,7 +52,7 @@ export default function ListFeedbacks() {
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
           backdropBlur={'1rem'}
-          backdropFilter="blur(5px)"
+          
           minWidth="250px"
           m={3}
         >

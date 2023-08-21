@@ -44,7 +44,6 @@ export default function FormPlanilha() {
               p={6}
               boxShadow={'2xl'}
               bgColor={'whiteAlpha.200'}
-              backdropFilter="auto"
               backdropBlur="1rem"
               border={'1px'}
               borderColor={'whiteAlpha.200'}

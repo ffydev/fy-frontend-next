@@ -113,7 +113,7 @@ export function MuscleGroupUpdate({
         />
       </Stack>
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+        <ModalOverlay bg="blackAlpha.300"  />
         <ModalContent
           bgGradient={[
             'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
@@ -121,7 +121,7 @@ export function MuscleGroupUpdate({
           ]}
           border={'1px'}
           borderColor={'whiteAlpha.200'}
-          backdropFilter={'auto'}
+          
           backdropBlur={'1rem'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>

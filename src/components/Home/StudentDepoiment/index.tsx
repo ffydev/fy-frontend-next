@@ -106,7 +106,6 @@ export function StudentDepoiment() {
                   p={5}
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
-                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
                   borderTopLeftRadius="lg"
@@ -120,7 +119,6 @@ export function StudentDepoiment() {
                   p={5}
                   bgColor={'rgba(97,36,182,0.3)'}
                   backdropBlur={'1rem'}
-                  backdropFilter="blur(10px)"
                   border={'1px'}
                   borderColor={'whiteAlpha.200'}
                   borderBottomLeftRadius="lg"
@@ -162,7 +160,6 @@ export function StudentDepoiment() {
                 p={5}
                 bgColor={'whiteAlpha.200'}
                 backdropBlur={'1rem'}
-                backdropFilter="blur(10px)"
                 border={'1px'}
                 borderColor={'whiteAlpha.200'}
                 borderTopLeftRadius="lg"
@@ -176,7 +173,6 @@ export function StudentDepoiment() {
                 p={5}
                 bgColor={'rgba(97,36,182,0.3)'}
                 backdropBlur={'1rem'}
-                backdropFilter="blur(10px)"
                 border={'1px'}
                 borderColor={'whiteAlpha.200'}
                 borderBottomLeftRadius="lg"

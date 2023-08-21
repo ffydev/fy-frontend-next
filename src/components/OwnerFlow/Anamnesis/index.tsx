@@ -55,7 +55,6 @@ export default function ListAnamnesis() {
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
           backdropBlur={'1rem'}
-          backdropFilter="blur(5px)"
         >
           <Text m={3}>
             Data: {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
