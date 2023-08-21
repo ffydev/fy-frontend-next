@@ -14,13 +14,12 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { signIn } from './api/providers/auth.provider'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { AddToHomeScreen } from '@/components/Notification'
-import IsLoading from '@/components/IsLoading'
 
 const loginFormSchema = z.object({
   username: z.string().email({
@@ -37,8 +36,7 @@ type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const router = useRouter()
-  const { setError, error, setIsLoadingLogin } = useAuthStore()
-  const [isloadingButton, setIsLoadingButton] = useState(false)
+  const { setError, error } = useAuthStore()
 
   const {
     register,
@@ -50,7 +48,6 @@ export default function Login() {
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
-      setIsLoadingButton(true)
       const response = await signIn({
         username: data.username,
         password: data.password,
@@ -58,15 +55,11 @@ export default function Login() {
 
       if (response) {
         router.push('/dashboard')
-        setIsLoadingButton(true)
         return setError(undefined)
       }
-      setIsLoadingButton(false)
       return setError('Usuário ou senha inválidos')
     } catch (error) {
       setError('Usuário ou senha inválidos')
-    } finally {
-      setIsLoadingLogin(true)
     }
   }
 
@@ -96,7 +89,6 @@ export default function Login() {
 
   return (
     <>
-      {isloadingButton ? <IsLoading /> : null}
       <AddToHomeScreen />
       <BoxBgImage>
         <Flex minH={'100vh'} align={'center'} justify={'center'}>
