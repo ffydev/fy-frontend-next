@@ -329,36 +329,34 @@ export default function ExercisesList() {
           {workoutExercise &&
             workoutExercise?.workoutsExercisesNames &&
             workoutExercise?.workoutsExercisesNames?.map(
-              (workoutExerciseName) => (
-                <>
-                  <Flex
-                    key={workoutExerciseName.exercises?.id}
-                    direction="row"
-                    align="center"
-                    mb={2}
-                    justify="start"
+              (workoutExerciseName, index) => (
+                <Flex
+                  key={workoutExerciseName.exercises?.id}
+                  direction="row"
+                  align="center"
+                  mb={2}
+                  justify="start"
+                >
+                  <Text
+                    p={1}
+                    bgColor={'purple.700'}
+                    borderRadius={3}
+                    fontSize="sm"
+                    mr={1}
                   >
-                    <Text
-                      p={1}
-                      bgColor={'purple.700'}
-                      borderRadius={3}
-                      fontSize="sm"
-                      mr={1}
-                    >
-                      {workoutExerciseName?.exercises?.muscleGroup}
-                    </Text>
+                    {workoutExerciseName?.exercises?.muscleGroup}
+                  </Text>
 
-                    <Text fontSize="sm" mr={1} p={1}>
-                      {workoutExerciseName?.exercises?.name}
-                    </Text>
+                  <Text fontSize="sm" mr={1} p={1}>
+                    {workoutExerciseName?.exercises?.name}
+                  </Text>
 
-                    <CloseButtonComponent
-                      onClick={() =>
-                        handleWithDeleteExerciseName(workoutExerciseName.id!)
-                      }
-                    />
-                  </Flex>
-                </>
+                  <CloseButtonComponent
+                    onClick={() =>
+                      handleWithDeleteExerciseName(workoutExerciseName.id!)
+                    }
+                  />
+                </Flex>
               ),
             )}
 
