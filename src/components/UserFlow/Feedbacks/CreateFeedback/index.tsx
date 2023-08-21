@@ -140,7 +140,6 @@ export default function CreatingFeedback() {
           borderColor={'whiteAlpha.200'}
           backdropBlur={'1rem'}
           backdropFilter="blur(15px)"
-          boxShadow={'lg'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack m={3}>

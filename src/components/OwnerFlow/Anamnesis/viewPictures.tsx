@@ -55,7 +55,6 @@ export function ViewPictures({ pictures }: ViewPicturesProps) {
           borderColor={'whiteAlpha.200'}
           backdropFilter={'auto'}
           backdropBlur={'1rem'}
-          boxShadow={'lg'}
         >
           <ModalBody>
             <Box

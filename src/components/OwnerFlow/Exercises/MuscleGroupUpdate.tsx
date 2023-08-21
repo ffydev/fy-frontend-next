@@ -123,7 +123,6 @@ export function MuscleGroupUpdate({
           borderColor={'whiteAlpha.200'}
           backdropFilter={'auto'}
           backdropBlur={'1rem'}
-          boxShadow={'lg'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <ModalCloseButton />

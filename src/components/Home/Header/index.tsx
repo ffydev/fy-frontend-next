@@ -43,7 +43,7 @@ export function Header() {
               marginInline="auto"
             >
               <Box
-                boxShadow={'lg'}
+              
                 bgColor={'whiteAlpha.200'}
                 backdropBlur={'1rem'}
                 backdropFilter="blur(10px)"

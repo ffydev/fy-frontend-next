@@ -100,7 +100,6 @@ export default function ExercisesList({
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
         >
           {workoutExercise &&
             workoutExercise?.workoutsExercisesNames &&

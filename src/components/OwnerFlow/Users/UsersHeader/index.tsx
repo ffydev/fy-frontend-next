@@ -89,7 +89,6 @@ export default function UsersHeader({
             bgGradient={'linear(to-r, gray.800, gray.900)'}
             variant={'filled'}
             rounded={'lg'}
-            boxShadow={'lg'}
             focusBorderColor={'purple.400'}
             size={'md'}
             onChange={(event) => setUserTypeId(event.target.value)}
@@ -113,7 +112,6 @@ export default function UsersHeader({
             bgGradient={'linear(to-r, gray.800, gray.900)'}
             variant={'filled'}
             rounded={'lg'}
-            boxShadow={'lg'}
             focusBorderColor={'purple.400'}
             _placeholder={{ opacity: 1, color: 'whiteAlpha.900' }}
             placeholder="Pesquisar"
@@ -127,7 +125,6 @@ export default function UsersHeader({
             <Box
               bgGradient={'linear(to-r, gray.800, gray.900)'}
               rounded={'lg'}
-              boxShadow={'lg'}
               p={'2'}
               w={'full'}
             >

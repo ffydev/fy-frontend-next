@@ -150,7 +150,6 @@ export default function Profile() {
           borderColor={'whiteAlpha.200'}
           backdropFilter={'auto'}
           backdropBlur={'1rem'}
-          boxShadow={'lg'}
         >
           <ModalCloseButton />
           <ModalBody pb={6}>

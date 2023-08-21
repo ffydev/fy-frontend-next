@@ -69,7 +69,6 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
         >
           <Tag mb={3} size={'md'} bgGradient={'gray'} variant={'subtle'}>
             Plano
@@ -123,7 +122,6 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
               bgGradient={'linear(to-r, gray.800, gray.900)'}
               variant={'filled'}
               rounded={'lg'}
-              boxShadow={'lg'}
               focusBorderColor={'purple.400'}
               size={'md'}
               value={planTypeId}

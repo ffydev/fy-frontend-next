@@ -85,7 +85,6 @@ export default function Navigation() {
                 borderColor={'whiteAlpha.200'}
                 backdropBlur={'1rem'}
                 backdropFilter="blur(15px)"
-                boxShadow={'lg'}
                 _hover={{ cursor: 'pointer' }}
                 onClick={() => handleWithShowWorkouts()}
               >
@@ -126,7 +125,6 @@ export default function Navigation() {
                 borderColor={'whiteAlpha.200'}
                 backdropBlur={'1rem'}
                 backdropFilter="blur(15px)"
-                boxShadow={'lg'}
                 _hover={{ cursor: 'pointer' }}
                 onClick={() => handleWithCreateFeedbacks()}
               >
@@ -167,7 +165,6 @@ export default function Navigation() {
                 borderColor={'whiteAlpha.200'}
                 backdropBlur={'1rem'}
                 backdropFilter="blur(15px)"
-                boxShadow={'lg'}
                 _hover={{ cursor: 'pointer' }}
                 onClick={() => handleWithShowFeedbacks()}
               >
@@ -209,7 +206,6 @@ export default function Navigation() {
                   borderColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
                   backdropFilter="blur(15px)"
-                  boxShadow={'lg'}
                   _hover={{ cursor: 'pointer' }}
                   onClick={() => handleWithCreateAnamnesis()}
                 >

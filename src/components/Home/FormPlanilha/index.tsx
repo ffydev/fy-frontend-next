@@ -32,7 +32,6 @@ export default function FormPlanilha() {
               left="-7px"
               bgGradient="linear(to-l, rgba(97,36,182,0.4) 0%, rgba(57,35,98,0.4) 33%, rgba(47,37,70,0.4) 71%)"
               transform="rotate(-10deg)"
-              boxShadow={'lg'}
               backdropBlur={'1rem'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}

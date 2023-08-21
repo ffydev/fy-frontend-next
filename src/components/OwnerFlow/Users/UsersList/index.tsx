@@ -172,7 +172,6 @@ export function UsersList({ users, planTypes }: UsersListProps) {
               borderColor={'whiteAlpha.200'}
               backdropBlur={'1rem'}
               backdropFilter="blur(15px)"
-              boxShadow={'lg'}
             >
               <Flex minWidth="max-content">
                 <Spacer />

@@ -51,7 +51,6 @@ export default function ListFeedbacks() {
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
           minWidth="250px"

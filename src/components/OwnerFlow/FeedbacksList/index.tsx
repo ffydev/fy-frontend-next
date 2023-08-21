@@ -118,7 +118,6 @@ export default function Feedbacks() {
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
           m={4}
           key={feedback.id}
         >

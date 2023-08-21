@@ -1,15 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  Box,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  useToast,
-} from '@chakra-ui/react'
+import { Box, Text, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import {
   IAnamnesis,
@@ -64,156 +54,39 @@ export default function ListAnamnesis() {
           border={'1px'}
           bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          boxShadow={'lg'}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
           maxWidth={'lg'}
         >
-          <Box overflowY="auto" maxHeight="300px">
-            <TableContainer
-              display={'block'}
-              overflowY={'hidden'}
-              overflowX={'auto'}
-              whiteSpace={'nowrap'}
-            >
-              <Table>
-                <Thead>
-                  <Tr>
-                    <Th>Data:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>
-                      {new Date(anamnesis.createdAt!).toLocaleDateString(
-                        'pt-BR',
-                      )}
-                    </Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Idade:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.age}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Gênero:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.gender}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Altura:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.height}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Peso:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.weight}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Plano alimentar em casa:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.mealPlanAtHome}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Preferências alimentares:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td> {anamnesis.foodPreferences}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Alimentação nas últimas 24 horas:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.lastDayFoodIntake}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Atividades físicas:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.physicalActivities}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Dor ou desconforto nas articulações:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.jointPainDiscomfort}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Comorbidades:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.comorbidities}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Orçamento para suplementação alimentar:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.budgetForDietSupplementation}</Td>
-                  </Tr>
-                </Tbody>
-                <Thead>
-                  <Tr>
-                    <Th>Suplementos/Fármacos utilizados:</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>{anamnesis.supplementsPharmaceuticalsUsed}</Td>
-                  </Tr>
-                </Tbody>
-              </Table>
-            </TableContainer>
-          </Box>
+          <Text>
+            <Text>
+              Data: {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
+            </Text>
+            <Text>Idade: {anamnesis.age}</Text>
+            <Text>Gênero: {anamnesis.gender}</Text>
+            <Text>Altura: {anamnesis.height}</Text>
+            <Text>Peso: {anamnesis.weight}</Text>
+            <Text>Plano alimentar em casa: {anamnesis.mealPlanAtHome}</Text>
+            <Text>Preferências alimentares: {anamnesis.foodPreferences}</Text>
+            <Text>
+              Alimentação nas últimas 24 horas: {anamnesis.lastDayFoodIntake}
+            </Text>
+            <Text>Atividades físicas: {anamnesis.physicalActivities}</Text>
+            <Text>
+              Dor ou desconforto nas articulações:{' '}
+              {anamnesis.jointPainDiscomfort}
+            </Text>
+            <Text>Comorbidades: {anamnesis.comorbidities}</Text>
+            <Text>
+              Orçamento para suplementação alimentar:{' '}
+              {anamnesis.budgetForDietSupplementation}
+            </Text>
+            <Text>
+              Suplementos/Fármacos utilizados:{' '}
+              {anamnesis.supplementsPharmaceuticalsUsed}
+            </Text>
+          </Text>
+
           <ViewPictures pictures={pictures} />
         </Box>
       ))}

@@ -282,7 +282,6 @@ export default function AnamnesisCreate() {
           borderColor={'whiteAlpha.200'}
           backdropBlur={'1rem'}
           backdropFilter="blur(15px)"
-          boxShadow={'lg'}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid templateColumns="repeat(2, 1fr)" gap={6}>

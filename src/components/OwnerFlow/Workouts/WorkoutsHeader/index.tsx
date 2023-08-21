@@ -102,7 +102,6 @@ export default function WorkoutsHeader() {
               bgGradient={'linear(to-r, gray.800, gray.900)'}
               variant={'filled'}
               rounded={'lg'}
-              boxShadow={'lg'}
               focusBorderColor={'purple.400'}
               size={'md'}
               defaultValue="" // Adicionar o atributo defaultValue

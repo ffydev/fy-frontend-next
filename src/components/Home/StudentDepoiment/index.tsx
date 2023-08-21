@@ -104,7 +104,7 @@ export function StudentDepoiment() {
               <Flex key={index} direction="column">
                 <Box
                   p={5}
-                  boxShadow={'lg'}
+                
                   bgColor={'whiteAlpha.200'}
                   backdropBlur={'1rem'}
                   backdropFilter="blur(10px)"
@@ -119,7 +119,7 @@ export function StudentDepoiment() {
                   justify="space-between"
                   alignItems="center"
                   p={5}
-                  boxShadow={'lg'}
+                
                   bgColor={'rgba(97,36,182,0.3)'}
                   backdropBlur={'1rem'}
                   backdropFilter="blur(10px)"
@@ -162,7 +162,7 @@ export function StudentDepoiment() {
             <Flex key={index} direction="column">
               <Box
                 p={5}
-                boxShadow={'lg'}
+              
                 bgColor={'whiteAlpha.200'}
                 backdropBlur={'1rem'}
                 backdropFilter="blur(10px)"
@@ -177,7 +177,7 @@ export function StudentDepoiment() {
                 justify="space-between"
                 alignItems="center"
                 p={5}
-                boxShadow={'lg'}
+              
                 bgColor={'rgba(97,36,182,0.3)'}
                 backdropBlur={'1rem'}
                 backdropFilter="blur(10px)"

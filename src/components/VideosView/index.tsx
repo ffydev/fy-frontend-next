@@ -70,7 +70,6 @@ export function VideosView({ videos, handleWithFindVideos }: ViewVideosProps) {
           borderColor={'whiteAlpha.200'}
           backdropFilter={'auto'}
           backdropBlur={'1rem'}
-          boxShadow={'lg'}
           key={currentSlide}
         >
           <ModalBody>
