@@ -72,7 +72,7 @@ export default function Exercises() {
         minH="100vh"
       >
         <Navbar />
-        <Stack direction={['column', 'row']} spacing={6} w={'full'} mt={10}>
+        <Stack direction={['column', 'row']} spacing={6} w={'full'}>
           <Container maxW={'7xl'}>
             <ExercisesGroups />
           </Container>

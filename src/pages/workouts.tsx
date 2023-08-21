@@ -212,7 +212,7 @@ export default function Workouts() {
           </Flex>
         </Stack>
 
-        <Stack direction={['column', 'row']} spacing={6} w={'full'}>
+        <Stack direction={['column', 'row']} w={'full'}>
           <Container maxW={'7xl'}>
             <Tabs size="md" variant="enclosed" colorScheme={'purple'} isLazy>
               <TabList>

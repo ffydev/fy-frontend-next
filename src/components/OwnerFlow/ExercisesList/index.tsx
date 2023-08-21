@@ -333,23 +333,23 @@ export default function ExercisesList() {
               (workoutExerciseName) => (
                 <>
                   <Flex
-                    key={workoutExerciseName.id}
-                    flexWrap={'wrap'}
-                    justifyContent={'start'}
-                    alignItems={'center'}
-                    mb={3}
-                    mt={3}
+                    key={workoutExerciseName.exercises?.id}
+                    direction="row"
+                    align="center"
+                    mb={2}
+                    justify="start"
                   >
                     <Text
-                      textAlign={'center'}
+                      p={1}
                       bgColor={'purple.700'}
                       borderRadius={3}
                       fontSize="sm"
-                      p={1}
+                      mr={1}
                     >
                       {workoutExerciseName?.exercises?.muscleGroup}
                     </Text>
-                    <Text fontSize="md" p={1}>
+
+                    <Text fontSize="sm" mr={1} p={1}>
                       {workoutExerciseName?.exercises?.name}
                     </Text>
 

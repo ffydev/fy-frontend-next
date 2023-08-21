@@ -107,25 +107,24 @@ export default function ExercisesList({
               (workoutExerciseName) => (
                 <Flex
                   key={workoutExerciseName.exercises?.id}
-                  flexWrap={'wrap'}
-                  justifyContent={'start'}
-                  alignItems={'center'}
-                  mb={3}
-                  mt={3}
+                  direction="row"
+                  align="center"
+                  mb={2}
+                  justify="start"
                 >
                   <Text
-                    textAlign={'center'}
+                    p={1}
                     bgColor={'purple.700'}
                     borderRadius={3}
                     fontSize="sm"
-                    mb={3}
-                    mr={3}
-                    px={'1'}
+                    mr={1}
                   >
                     {workoutExerciseName?.exercises?.muscleGroup}
                   </Text>
 
-                  <Text>{workoutExerciseName?.exercises?.name}</Text>
+                  <Text fontSize="sm" mr={1} p={1}>
+                    {workoutExerciseName?.exercises?.name}
+                  </Text>
 
                   {workoutExerciseName.exercises!.hasVideo && (
                     <ExternalVideoView
