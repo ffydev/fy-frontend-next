@@ -56,35 +56,33 @@ export default function ListAnamnesis() {
           borderColor={'whiteAlpha.100'}
           backdropBlur={'1rem'}
           backdropFilter="blur(5px)"
-          maxWidth={'lg'}
         >
-          <Text>
-            <Text>
-              Data: {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
-            </Text>
-            <Text>Idade: {anamnesis.age}</Text>
-            <Text>Gênero: {anamnesis.gender}</Text>
-            <Text>Altura: {anamnesis.height}</Text>
-            <Text>Peso: {anamnesis.weight}</Text>
-            <Text>Plano alimentar em casa: {anamnesis.mealPlanAtHome}</Text>
-            <Text>Preferências alimentares: {anamnesis.foodPreferences}</Text>
-            <Text>
-              Alimentação nas últimas 24 horas: {anamnesis.lastDayFoodIntake}
-            </Text>
-            <Text>Atividades físicas: {anamnesis.physicalActivities}</Text>
-            <Text>
-              Dor ou desconforto nas articulações:{' '}
-              {anamnesis.jointPainDiscomfort}
-            </Text>
-            <Text>Comorbidades: {anamnesis.comorbidities}</Text>
-            <Text>
-              Orçamento para suplementação alimentar:{' '}
-              {anamnesis.budgetForDietSupplementation}
-            </Text>
-            <Text>
-              Suplementos/Fármacos utilizados:{' '}
-              {anamnesis.supplementsPharmaceuticalsUsed}
-            </Text>
+          <Text m={3}>
+            Data: {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}
+          </Text>
+          <Text m={3}>Idade: {anamnesis.age}</Text>
+          <Text m={3}>Gênero: {anamnesis.gender}</Text>
+          <Text m={3}>Altura: {anamnesis.height}</Text>
+          <Text m={3}>Peso: {anamnesis.weight}</Text>
+          <Text m={3}>Plano alimentar em casa: {anamnesis.mealPlanAtHome}</Text>
+          <Text m={3}>
+            Preferências alimentares: {anamnesis.foodPreferences}
+          </Text>
+          <Text m={3}>
+            Alimentação nas últimas 24 horas: {anamnesis.lastDayFoodIntake}
+          </Text>
+          <Text m={3}>Atividades físicas: {anamnesis.physicalActivities}</Text>
+          <Text m={3}>
+            Dor ou desconforto nas articulações: {anamnesis.jointPainDiscomfort}
+          </Text>
+          <Text m={3}>Comorbidades: {anamnesis.comorbidities}</Text>
+          <Text m={3}>
+            Orçamento para suplementação alimentar:{' '}
+            {anamnesis.budgetForDietSupplementation}
+          </Text>
+          <Text m={3}>
+            Suplementos/Fármacos utilizados:{' '}
+            {anamnesis.supplementsPharmaceuticalsUsed}
           </Text>
 
           <ViewPictures pictures={pictures} />
