@@ -1,10 +1,19 @@
 import ExercisesGroups from '@/components/OwnerFlow/Exercises/ExercisesGroups'
 import Navbar from '@/components/OwnerFlow/Navigation/Navbar'
 import { useAuthStore } from '@/stores/AuthStore'
-import { Box, Container, Stack, useToast } from '@chakra-ui/react'
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Stack,
+  useToast,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { findCurrentUser, getUserToken } from './api/providers/auth.provider'
+import HandleButton from '@/components/Buttons/HandleButton'
+import { ArrowLeft } from '@phosphor-icons/react'
 
 export default function Exercises() {
   const router = useRouter()
@@ -62,6 +71,11 @@ export default function Exercises() {
 
     fetchUserData()
   }, [router, signOut, setUser, isFetchingCurrentUser, toast])
+
+  const handleWithNavigateToDashboard = () => {
+    router.push('/dashboard')
+  }
+
   return (
     <>
       <Box
@@ -72,6 +86,32 @@ export default function Exercises() {
         minH="100vh"
       >
         <Navbar />
+        <Stack
+          direction={'column'}
+          align={'start'}
+          alignSelf={'center'}
+          position={'relative'}
+          ml={3}
+          pt={6}
+          pb={6}
+        >
+          <Flex>
+            <HandleButton
+              onClick={() => handleWithNavigateToDashboard()}
+              leftIcon={<ArrowLeft size={28} weight="bold" />}
+            />
+            <Heading
+              ml={3}
+              as="h3"
+              size="lg"
+              fontWeight="medium"
+              textAlign="center"
+            >
+              Exercícios
+            </Heading>
+          </Flex>
+        </Stack>
+
         <Stack direction={['column', 'row']} spacing={6} w={'full'}>
           <Container maxW={'7xl'}>
             <ExercisesGroups />
