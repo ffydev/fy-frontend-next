@@ -329,7 +329,7 @@ export default function ExercisesList() {
           {workoutExercise &&
             workoutExercise?.workoutsExercisesNames &&
             workoutExercise?.workoutsExercisesNames?.map(
-              (workoutExerciseName, index) => (
+              (workoutExerciseName) => (
                 <Flex
                   key={workoutExerciseName.exercises?.id}
                   direction="row"
