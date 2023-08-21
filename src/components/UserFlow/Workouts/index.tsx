@@ -4,7 +4,6 @@ import {
   findWorkoutsNamesByUserId,
 } from '@/pages/api/providers/workouts.provider'
 import {
-  Box,
   SimpleGrid,
   Stack,
   Tab,
@@ -130,13 +129,16 @@ export function Workouts() {
             </Tab>
           ))}
         </TabList>
-        <Box p={4} width="100%">
-          <Stack direction={['column', 'row']} w={'full'}>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w={'full'}>
-              <ExercisesList workoutsExercises={workoutsExercises} />
-            </SimpleGrid>
-          </Stack>
-        </Box>
+        <Stack direction={['column', 'row']} spacing={3} w={'full'} mt={3}>
+          <SimpleGrid
+            columns={{ base: 1, md: 2 }}
+            spacing={3}
+            mb={4}
+            w={'full'}
+          >
+            {workoutsExercises && <ExercisesList />}
+          </SimpleGrid>
+        </Stack>
       </Tabs>
     </>
   )

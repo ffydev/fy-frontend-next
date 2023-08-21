@@ -226,17 +226,12 @@ export default function Workouts() {
                   </Tab>
                 ))}
               </TabList>
-              <Box p={4} width="100%">
-                <Stack direction={['column', 'row']} w={'full'}>
-                  <SimpleGrid
-                    columns={{ base: 1, md: 3 }}
-                    spacing={6}
-                    w={'full'}
-                  >
-                    <ExercisesList workoutsExercises={workoutsExercises} />
-                  </SimpleGrid>
-                </Stack>
-              </Box>
+
+              <Stack direction={['column', 'row']} w={'full'} mt={3}>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} w={'full'}>
+                  <ExercisesList workoutsExercises={workoutsExercises} />
+                </SimpleGrid>
+              </Stack>
             </Tabs>
           </Container>
         </Stack>
