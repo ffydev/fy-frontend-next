@@ -8,7 +8,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Spinner,
   Stack,
   Text,
 } from '@chakra-ui/react'
@@ -21,6 +20,7 @@ import { z } from 'zod'
 import { signIn } from './api/providers/auth.provider'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { AddToHomeScreen } from '@/components/Notification'
+import IsLoading from '@/components/IsLoading'
 
 const loginFormSchema = z.object({
   username: z.string().email({
@@ -96,6 +96,7 @@ export default function Login() {
 
   return (
     <>
+      {isloadingButton ? <IsLoading /> : null}
       <AddToHomeScreen />
       <BoxBgImage>
         <Flex minH={'100vh'} align={'center'} justify={'center'}>
@@ -161,12 +162,7 @@ export default function Login() {
                   {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
                 <Stack spacing={6} direction={['column', 'row']} pt={4}>
-                  {isloadingButton ? (
-                    <Spinner color="teal.500" size="xl" alignSelf="center" />
-                  ) : (
-                    <HandleButton w={'full'} text="Entrar" type="submit" />
-                  )}
-
+                  <HandleButton w={'full'} text="Entrar" type="submit" />
                   <Button
                     w={'full'}
                     variant={'outline'}
