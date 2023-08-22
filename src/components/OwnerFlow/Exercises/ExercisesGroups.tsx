@@ -255,95 +255,88 @@ export default function ExercisesGroups() {
 
   return (
     <>
-      <Box>
-        <Box
-          mt={3}
-          backdropBlur={'1rem'}
-          rounded={'lg'}
-          border={'1px'}
-          bgColor={'whiteAlpha.50'}
-          borderColor={'whiteAlpha.100'}
-          p={1}
-        >
-          <Wrap mb={3}>
-            {muscleGroups.map((muscleGroup) => (
-              <WrapItem key={muscleGroup.id}>
-                <HandleButton
-                  text={muscleGroup.muscleGroup}
-                  onClick={() =>
-                    handleWithSelecteMuscleGroup(muscleGroup.muscleGroup!)
-                  }
-                />
-              </WrapItem>
-            ))}
-            <MuscleGroupUpdate
-              oldName={selectedMuscleGroup}
-              setIsFetching={setIsFetching}
-            />
-          </Wrap>
-        </Box>
+      <Box
+        mt={3}
+        backdropBlur={'1rem'}
+        rounded={'lg'}
+        border={'1px'}
+        bgColor={'whiteAlpha.50'}
+        borderColor={'whiteAlpha.100'}
+        p={1}
+      >
+        <Wrap mb={3}>
+          {muscleGroups.map((muscleGroup) => (
+            <WrapItem key={muscleGroup.id}>
+              <HandleButton
+                text={muscleGroup.muscleGroup}
+                onClick={() =>
+                  handleWithSelecteMuscleGroup(muscleGroup.muscleGroup!)
+                }
+              />
+            </WrapItem>
+          ))}
+          <MuscleGroupUpdate
+            oldName={selectedMuscleGroup}
+            setIsFetching={setIsFetching}
+          />
+        </Wrap>
+      </Box>
 
-        <Box
-          mt={3}
-          backdropBlur={'1rem'}
-          rounded={'lg'}
-          border={'1px'}
-          bgColor={'whiteAlpha.50'}
-          borderColor={'whiteAlpha.100'}
-          p={1}
-        >
-          <Wrap spacing={3}>
-            {exercises.map((exercise) => (
-              <WrapItem key={exercise.id}>
-                <Flex
-                  backdropBlur={'1rem'}
-                  rounded={'lg'}
-                  border={'1px'}
-                  bgColor={'whiteAlpha.50'}
-                  borderColor={'whiteAlpha.100'}
-                  p={1}
-                  align="center"
+      <Box
+        mt={3}
+        backdropBlur={'1rem'}
+        rounded={'lg'}
+        border={'1px'}
+        bgColor={'whiteAlpha.50'}
+        borderColor={'whiteAlpha.100'}
+        p={1}
+      >
+        <Wrap spacing={3}>
+          {exercises.map((exercise) => (
+            <WrapItem key={exercise.id}>
+              <Flex
+                backdropBlur={'1rem'}
+                rounded={'lg'}
+                border={'1px'}
+                bgColor={'whiteAlpha.50'}
+                borderColor={'whiteAlpha.100'}
+                p={1}
+                align="center"
+              >
+                <Text
+                  cursor="pointer"
+                  color={exercise.id === exerciseId ? 'purple.400' : 'white'}
+                  mr={3}
                 >
-                  <Text
-                    cursor="pointer"
-                    color={exercise.id === exerciseId ? 'purple.400' : 'white'}
-                    mr={3}
-                  >
-                    {exercise.name}
-                  </Text>
+                  {exercise.name}
+                </Text>
 
-                  {exercise.hasVideo && (
-                    <ExternalVideoView src={exercise.link} />
-                  )}
+                {exercise.hasVideo && <ExternalVideoView src={exercise.link} />}
 
-                  <Button
-                    onClick={() =>
-                      handleWithUpdatingExerciseName(
-                        exercise.id!,
-                        exercise.name!,
-                      )
-                    }
-                    ml={3}
-                    _hover={{
-                      bgGradient: 'linear(to-r, red.500, red.600)',
-                      transition: '0.8s',
-                    }}
-                    size="xs"
-                    border={'1px'}
-                    borderColor={'whiteAlpha.300'}
-                  >
-                    <PenIcon size={14} />
-                  </Button>
+                <Button
+                  onClick={() =>
+                    handleWithUpdatingExerciseName(exercise.id!, exercise.name!)
+                  }
+                  ml={3}
+                  _hover={{
+                    bgGradient: 'linear(to-r, red.500, red.600)',
+                    transition: '0.8s',
+                  }}
+                  size="xs"
+                  border={'1px'}
+                  borderColor={'whiteAlpha.300'}
+                >
+                  <PenIcon size={14} />
+                </Button>
 
-                  <CloseButtonComponent
-                    ml={3}
-                    onClick={() => handleWithDeleteExerciseName(exercise.id!)}
-                  />
-                </Flex>
-              </WrapItem>
-            ))}
-          </Wrap>
-        </Box>
+                <CloseButtonComponent
+                  ml={3}
+                  onClick={() => handleWithDeleteExerciseName(exercise.id!)}
+                />
+              </Flex>
+            </WrapItem>
+          ))}
+        </Wrap>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl mt={4} isRequired>
