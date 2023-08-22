@@ -381,76 +381,6 @@ export default function ExercisesList() {
               />
             </Box>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay bg="blackAlpha.300" />
-              <ModalContent
-                bgGradient={[
-                  'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
-                  'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
-                ]}
-                border={'1px'}
-                borderColor={'whiteAlpha.200'}
-              >
-                <ModalHeader>
-                  <ModalCloseButton />
-                </ModalHeader>
-                <ModalBody>
-                  <Select
-                    bgGradient={'transparent'}
-                    onChange={(e) => setSelectedMuscleGroup(e.target.value)}
-                    value={selectedMuscleGroup}
-                    defaultValue=""
-                  >
-                    <option
-                      style={{ backgroundColor: '#322659' }}
-                      disabled
-                      value=""
-                    >
-                      Grupo Muscular
-                    </option>
-                    {muscleGroups.map((muscleGroup: IExercise) => (
-                      <option
-                        style={{ backgroundColor: '#322659' }}
-                        key={muscleGroup.id}
-                        value={muscleGroup.muscleGroup}
-                      >
-                        {muscleGroup.muscleGroup}
-                      </option>
-                    ))}
-                  </Select>
-
-                  <Wrap mt={3} overflow={'auto'}>
-                    {exercises.map((exercise) => (
-                      <WrapItem key={exercise.id}>
-                        <Button
-                          onClick={() =>
-                            setSelectedExerciseNameId(exercise.id!)
-                          }
-                          colorScheme={
-                            exercise.id === selectedExerciseNameId
-                              ? 'purple'
-                              : 'gray'
-                          }
-                        >
-                          {exercise.name}
-                        </Button>
-                      </WrapItem>
-                    ))}
-                  </Wrap>
-                </ModalBody>
-
-                <ModalFooter>
-                  <HandleButton
-                    text="Tipo de exercício"
-                    leftIcon={<Plus weight="bold" />}
-                    onClick={() =>
-                      handleWithAddExerciseName(selectedExerciseNameId!)
-                    }
-                  />
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-
             <Table variant="unstyled" size={'sm'}>
               <Thead>
                 <Tr borderBottom={'1px solid grey'}>
@@ -491,6 +421,66 @@ export default function ExercisesList() {
           </Flex>
         </Box>
       ))}
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay bg="blackAlpha.300" />
+        <ModalContent
+          bgGradient={[
+            'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
+            'linear(to-b, gray.900 27.17%, purple.900 85.87%)',
+          ]}
+          border={'1px'}
+          borderColor={'whiteAlpha.200'}
+        >
+          <ModalHeader>
+            <ModalCloseButton />
+          </ModalHeader>
+          <ModalBody>
+            <Select
+              bgGradient={'transparent'}
+              onChange={(e) => setSelectedMuscleGroup(e.target.value)}
+              value={selectedMuscleGroup}
+            >
+              <option style={{ backgroundColor: '#322659' }} disabled value="">
+                Grupo Muscular
+              </option>
+              {muscleGroups.map((muscleGroup: IExercise) => (
+                <option
+                  style={{ backgroundColor: '#322659' }}
+                  key={muscleGroup.id}
+                  value={muscleGroup.muscleGroup}
+                >
+                  {muscleGroup.muscleGroup}
+                </option>
+              ))}
+            </Select>
+
+            <Wrap spacing={3} mt={3}>
+              {exercises.map((exercise) => (
+                <WrapItem key={exercise.id}>
+                  <Button
+                    key={exercise.id}
+                    onClick={() => setSelectedExerciseNameId(exercise.id!)}
+                    colorScheme={
+                      exercise.id === selectedExerciseNameId ? 'purple' : 'gray'
+                    }
+                  >
+                    {exercise.name}
+                  </Button>
+                </WrapItem>
+              ))}
+            </Wrap>
+          </ModalBody>
+
+          <ModalFooter>
+            <HandleButton
+              text="Tipo de exercício"
+              leftIcon={<Plus weight="bold" />}
+              onClick={() => handleWithAddExerciseName(selectedExerciseNameId!)}
+            />
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }
