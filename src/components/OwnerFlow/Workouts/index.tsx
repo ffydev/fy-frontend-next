@@ -47,6 +47,8 @@ export function Workouts() {
         )
 
         setWorkoutsNames(response)
+        setSelectedWorkoutId('')
+        setSelectedWorkoutId(workoutsNames[0]?.id as string)
       } catch (error) {
         console.error(error)
         toast({
@@ -58,15 +60,19 @@ export function Workouts() {
         })
       }
     }
+
     fetchWorkoutsNames()
-  }, [isFetchingWorkoutsNames, router, selectedUserId, toast])
+  }, [
+    isFetchingWorkoutsNames,
+    router,
+    selectedUserId,
+    toast,
+    setSelectedWorkoutId,
+    workoutsNames,
+  ])
 
   useEffect(() => {
     if (workoutsNames.length > 0) {
-      if (!selectedWorkoutId) {
-        setSelectedWorkoutId(workoutsNames[0]?.id as string)
-      }
-
       if (selectedWorkoutId) {
         const fetchUserWorkouts = async () => {
           try {
