@@ -20,6 +20,7 @@ import { z } from 'zod'
 import { signIn } from './api/providers/auth.provider'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { AddToHomeScreen } from '@/components/Notification'
+import NotificationIos from '@/components/Notification/notificationIos'
 
 const loginFormSchema = z.object({
   username: z.string().email({
@@ -162,6 +163,7 @@ export default function Login() {
                   >
                     Cancelar
                   </Button>
+                  <NotificationIos/>
                 </Stack>
               </Stack>
             </form>
