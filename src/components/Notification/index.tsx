@@ -14,30 +14,30 @@ import Image from 'next/image'
 export function AddToHomeScreen() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
     function checkWindowSize() {
-      setIsMobile(window.innerWidth <= 768); 
+      setIsMobile(window.innerWidth <= 768)
     }
 
-    checkWindowSize();
-    window.addEventListener('resize', checkWindowSize);
+    checkWindowSize()
+    window.addEventListener('resize', checkWindowSize)
 
     return () => {
-      window.removeEventListener('resize', checkWindowSize);
-    };
-  }, []);
+      window.removeEventListener('resize', checkWindowSize)
+    }
+  }, [])
 
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    });
+      e.preventDefault()
+      setDeferredPrompt(e)
+    })
 
     if (isMobile && deferredPrompt) {
-      onOpen();
+      onOpen()
     }
-  }, [deferredPrompt, isMobile, onOpen]);
+  }, [deferredPrompt, isMobile, onOpen])
 
   const handleClick = () => {
     if (deferredPrompt) {

@@ -163,7 +163,7 @@ export default function Login() {
                   >
                     Cancelar
                   </Button>
-                  <NotificationIos/>
+                  <NotificationIos />
                 </Stack>
               </Stack>
             </form>
