@@ -419,11 +419,10 @@ export default function ExercisesList() {
                     ))}
                   </Select>
 
-                  <Wrap mt={3}>
+                  <Wrap mt={3} overflow={'auto'}>
                     {exercises.map((exercise) => (
                       <WrapItem key={exercise.id}>
                         <Button
-                          mt={1}
                           onClick={() =>
                             setSelectedExerciseNameId(exercise.id!)
                           }
