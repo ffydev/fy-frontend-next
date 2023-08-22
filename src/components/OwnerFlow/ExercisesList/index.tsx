@@ -38,6 +38,8 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
+  Wrap,
+  WrapItem,
 } from '@chakra-ui/react'
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
@@ -380,7 +382,7 @@ export default function ExercisesList() {
             </Box>
 
             <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
+              <ModalOverlay bg="blackAlpha.300" />
               <ModalContent
                 bgGradient={[
                   'linear(to-tr, gray.900 27.17%, purple.900 85.87%)',
@@ -417,20 +419,25 @@ export default function ExercisesList() {
                     ))}
                   </Select>
 
-                  {exercises.map((exercise) => (
-                    <Flex key={exercise.id} mr={3} mb={3} mt={3}>
-                      <Button
-                        onClick={() => setSelectedExerciseNameId(exercise.id!)}
-                        colorScheme={
-                          exercise.id === selectedExerciseNameId
-                            ? 'purple'
-                            : 'gray'
-                        }
-                      >
-                        {exercise.name}
-                      </Button>
-                    </Flex>
-                  ))}
+                  <Wrap mt={3}>
+                    {exercises.map((exercise) => (
+                      <WrapItem key={exercise.id}>
+                        <Button
+                          mt={1}
+                          onClick={() =>
+                            setSelectedExerciseNameId(exercise.id!)
+                          }
+                          colorScheme={
+                            exercise.id === selectedExerciseNameId
+                              ? 'purple'
+                              : 'gray'
+                          }
+                        >
+                          {exercise.name}
+                        </Button>
+                      </WrapItem>
+                    ))}
+                  </Wrap>
                 </ModalBody>
 
                 <ModalFooter>
