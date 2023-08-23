@@ -8,6 +8,7 @@ import { Workouts } from '../Workouts'
 import ListAnamnesis from '../Anamnesis'
 import Feedbacks from '../FeedbacksList'
 import Users from '../Users'
+import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
 
 export default function Navigation() {
   const {
@@ -23,12 +24,14 @@ export default function Navigation() {
   } = useAdminNavigationStore()
   const { setSelectedUserId } = useOwnerIsFetchingStore()
   const { setSelectedWorkoutId } = useOwnerIsFetchingStore()
+  const { setWorkoutsExercises } = useWorkoutsExercisesStore()
 
   const handleWithHideWorkouts = () => {
     setIsShowingWorkouts()
     setIsShowingUsers()
     setSelectedUserId('')
     setSelectedWorkoutId('')
+    setWorkoutsExercises([])
   }
 
   const handleWithHideFeedbacks = () => {
