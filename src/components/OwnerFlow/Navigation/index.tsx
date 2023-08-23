@@ -22,11 +22,13 @@ export default function Navigation() {
     reset,
   } = useAdminNavigationStore()
   const { setSelectedUserId } = useOwnerIsFetchingStore()
+  const { setSelectedWorkoutId } = useOwnerIsFetchingStore()
 
   const handleWithHideWorkouts = () => {
     setIsShowingWorkouts()
     setIsShowingUsers()
     setSelectedUserId('')
+    setSelectedWorkoutId('')
   }
 
   const handleWithHideFeedbacks = () => {

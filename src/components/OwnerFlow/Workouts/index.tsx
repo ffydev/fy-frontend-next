@@ -45,10 +45,11 @@ export function Workouts() {
           token,
           selectedUserId as string,
         )
-
         setWorkoutsNames(response)
-        setSelectedWorkoutId('')
-        setSelectedWorkoutId(workoutsNames[0]?.id as string)
+
+        if (response.length > 0) {
+          setSelectedWorkoutId(response[0].id!)
+        }
       } catch (error) {
         console.error(error)
         toast({
@@ -63,62 +64,50 @@ export function Workouts() {
 
     fetchWorkoutsNames()
   }, [
-    isFetchingWorkoutsNames,
     router,
     selectedUserId,
     toast,
     setSelectedWorkoutId,
-    workoutsNames,
+    isFetchingWorkoutsNames,
   ])
 
   useEffect(() => {
-    if (workoutsNames.length > 0) {
-      if (selectedWorkoutId) {
-        const fetchUserWorkouts = async () => {
-          try {
-            const token = getUserToken()
+    if (selectedWorkoutId !== '') {
+      const fetchUserWorkouts = async () => {
+        try {
+          const token = getUserToken()
 
-            if (!token) {
-              toast({
-                title: 'Sua sessão expirou.',
-                description: 'Por favor, faça login novamente.',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-              })
-              router.push('/login')
-              return
-            }
-            const response = await findWorkoutsExercisesByWorkout(
-              token,
-              selectedWorkoutId as string,
-            )
-
-            setWorkoutsExercises(response)
-          } catch (error) {
-            console.error(error)
+          if (!token) {
             toast({
-              title: 'Erro ao buscar workouts.',
-              description: 'Por favor, tente novamente.',
+              title: 'Sua sessão expirou.',
+              description: 'Por favor, faça login novamente.',
               status: 'error',
               duration: 3000,
               isClosable: true,
             })
+            router.push('/login')
+            return
           }
+          const response = await findWorkoutsExercisesByWorkout(
+            token,
+            selectedWorkoutId as string,
+          )
+
+          setWorkoutsExercises(response)
+        } catch (error) {
+          console.error(error)
+          toast({
+            title: 'Erro ao buscar workouts.',
+            description: 'Por favor, tente novamente.',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
         }
-        fetchUserWorkouts()
       }
+      fetchUserWorkouts()
     }
-  }, [
-    selectedWorkoutId,
-    workoutsNames,
-    setSelectedWorkoutId,
-    router,
-    selectedUserId,
-    isFetchingWorkoutsNames,
-    toast,
-    setWorkoutsExercises,
-  ])
+  }, [selectedWorkoutId, toast, router, setWorkoutsExercises])
 
   return (
     <>
