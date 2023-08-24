@@ -57,7 +57,7 @@ export function Workouts() {
           isClosable: true,
         })
       } finally {
-        if (workoutsNames.length > 0) {
+        if (workoutsNames.length > 0 && selectedWorkoutId === '') {
           setSelectedWorkoutId(workoutsNames[0].id!)
         }
       }
@@ -71,6 +71,7 @@ export function Workouts() {
     isFetchingWorkoutsNames,
     workoutsNames,
     setSelectedWorkoutId,
+    selectedWorkoutId,
   ])
 
   useEffect(() => {
