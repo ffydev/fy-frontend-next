@@ -18,6 +18,10 @@ export interface ILogin {
   password: string
 }
 
+export interface ICaptcha {
+  token: string
+}
+
 export async function signIn(login: ILogin): Promise<IUser | null> {
   try {
     const response = await api.post(`/login`, login)
@@ -46,4 +50,19 @@ export async function findCurrentUser(token: string): Promise<IUser | null> {
 
 export const getUserToken = () => {
   return localStorage.getItem('fyToken')
+}
+
+export async function validateCaptcha(
+  captcha: ICaptcha,
+): Promise<Boolean | null> {
+  try {
+    const response = await api.post(`/validate-captcha`, captcha)
+
+    if (response.data) {
+      return response.data
+    }
+    return response.data
+  } catch (error) {
+    return null
+  }
 }

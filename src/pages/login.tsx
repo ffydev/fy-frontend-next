@@ -14,10 +14,10 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { signIn } from './api/providers/auth.provider'
+import { signIn, validateCaptcha } from './api/providers/auth.provider'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { AddToHomeScreen } from '@/components/Notification'
 import NotificationIos from '@/components/Notification/notificationIos'
@@ -35,10 +35,11 @@ const loginFormSchema = z.object({
 
 type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
-function onChange(value: any) {
-  console.log('Captcha value:', value)
-}
 export default function Login() {
+  const [isValidCaptcha, setIsValidCaptcha] = useState<boolean | undefined>(
+    false,
+  )
+
   const router = useRouter()
   const { setError, error } = useAuthStore()
 
@@ -50,7 +51,21 @@ export default function Login() {
     resolver: zodResolver(loginFormSchema),
   })
 
+  const onChange = async (value: string | null) => {
+    if (typeof value === 'string') {
+      const response = await validateCaptcha({
+        token: value,
+      })
+      if (typeof response === 'boolean') {
+        setIsValidCaptcha(response)
+      }
+    }
+  }
+
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
+    if (process.env.NODE_ENV !== 'development' && !isValidCaptcha) {
+      return setError('Captcha is required')
+    }
     try {
       const response = await signIn({
         username: data.username,
@@ -156,10 +171,13 @@ export default function Login() {
                   />
                   {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
-                <ReCAPTCHA
-                  sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                  onChange={onChange}
-                />
+                {process.env.NODE_ENV !== 'development' ? (
+                  <ReCAPTCHA
+                    sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                    onChange={onChange}
+                  />
+                ) : null}
+
                 <Stack spacing={6} direction={['column', 'row']} pt={4}>
                   <HandleButton w={'full'} text="Entrar" type="submit" />
                   <Button
