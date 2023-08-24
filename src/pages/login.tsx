@@ -21,7 +21,7 @@ import { signIn } from './api/providers/auth.provider'
 import HandleButton from '@/components/Buttons/HandleButton'
 import { AddToHomeScreen } from '@/components/Notification'
 import NotificationIos from '@/components/Notification/notificationIos'
-
+import ReCAPTCHA from 'react-google-recaptcha'
 const loginFormSchema = z.object({
   username: z.string().email({
     message: 'E-mail inválido',
@@ -35,6 +35,9 @@ const loginFormSchema = z.object({
 
 type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
+function onChange(value: any) {
+  console.log('Captcha value:', value)
+}
 export default function Login() {
   const router = useRouter()
   const { setError, error } = useAuthStore()
@@ -153,6 +156,10 @@ export default function Login() {
                   />
                   {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
+                <ReCAPTCHA
+                  sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                  onChange={onChange}
+                />
                 <Stack spacing={6} direction={['column', 'row']} pt={4}>
                   <HandleButton w={'full'} text="Entrar" type="submit" />
                   <Button
