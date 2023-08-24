@@ -45,6 +45,7 @@ export function Workouts() {
           token,
           selectedUserId as string,
         )
+
         setWorkoutsNames(response)
       } catch (error) {
         console.error(error)
@@ -55,11 +56,22 @@ export function Workouts() {
           duration: 3000,
           isClosable: true,
         })
+      } finally {
+        if (workoutsNames.length > 0) {
+          setSelectedWorkoutId(workoutsNames[0].id!)
+        }
       }
     }
 
     fetchWorkoutsNames()
-  }, [router, selectedUserId, toast, isFetchingWorkoutsNames])
+  }, [
+    router,
+    selectedUserId,
+    toast,
+    isFetchingWorkoutsNames,
+    workoutsNames,
+    setSelectedWorkoutId,
+  ])
 
   useEffect(() => {
     if (selectedWorkoutId !== '') {
@@ -97,7 +109,13 @@ export function Workouts() {
       }
       fetchUserWorkouts()
     }
-  }, [selectedWorkoutId, toast, router, setWorkoutsExercises])
+  }, [
+    toast,
+    router,
+    setWorkoutsExercises,
+    selectedWorkoutId,
+    setSelectedWorkoutId,
+  ])
 
   return (
     <>
