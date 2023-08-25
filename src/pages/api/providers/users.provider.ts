@@ -15,6 +15,9 @@ export interface IUserInterface {
   userType: IUserType
   isRegistered: boolean
   hasAnamnesis: boolean
+  userFeedback: {
+    isAnswered: boolean
+  }
   deletedAt?: string
 }
 export interface ICreateUserWithIPlan {

@@ -193,12 +193,16 @@ export function UsersList({ users, planTypes }: UsersListProps) {
 
                   <Button
                     mr={2}
-                    background={'purple.700'}
+                    background={
+                      user.userFeedback.isAnswered ? 'purple.700' : 'red.700'
+                    }
                     size={'xs'}
                     onClick={() => handleWithShowUserFeedbacks(user.id)}
                     value={user.id}
                   >
-                    Feedbacks
+                    {user.userFeedback.isAnswered
+                      ? 'Feedback'
+                      : 'Feedback Pendente'}
                   </Button>
 
                   <Button
