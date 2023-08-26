@@ -204,15 +204,15 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                   <Button
                     mr={2}
                     background={
-                      user.userFeedback.isAnswered ? 'purple.700' : 'red.700'
+                      user.userFeedback.length > 0 ? 'red.700' : 'purple.700'
                     }
                     size={'xs'}
                     onClick={() => handleWithShowUserFeedbacks(user.id)}
                     value={user.id}
                   >
-                    {user.userFeedback.isAnswered
-                      ? 'Feedback'
-                      : 'Feedback Pendente'}
+                    {user.userFeedback.length > 0
+                      ? 'Feedback Pendente'
+                      : 'Feedback'}
                   </Button>
 
                   <Button

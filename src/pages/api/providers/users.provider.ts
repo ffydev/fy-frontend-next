@@ -1,5 +1,6 @@
 import { api } from '../apis/api'
 import { IPlan } from './plans.provider'
+import { IUserFeedback } from './user-feedbacks.provider'
 import { IUserType } from './users-types.provider'
 import { IWorkout } from './workouts.provider'
 
@@ -20,9 +21,7 @@ export interface IUserInterface {
     imageKey: string
     imageData: string
   }
-  userFeedback: {
-    isAnswered: boolean
-  }
+  userFeedback: IUserFeedback[]
   deletedAt?: string
 }
 
