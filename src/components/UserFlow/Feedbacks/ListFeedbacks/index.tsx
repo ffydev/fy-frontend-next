@@ -2,12 +2,14 @@ import { useAuthStore } from '@/stores/AuthStore'
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 import {
   IUserFeedback,
+  IVideo,
   findUserFeedbacks,
   updateUserFeedback,
 } from '@/pages/api/providers/user-feedbacks.provider'
 import { Box, chakra, useToast, FormLabel, Input } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { VideosView } from '@/components/VideosView'
 
 export default function ListFeedbacks() {
   const { user } = useAuthStore()
@@ -19,6 +21,8 @@ export default function ListFeedbacks() {
   const [fatigue, setFatigue] = useState<string>('')
   const [weight, setWeight] = useState<string>('')
   const [others, setOthers] = useState<string>('')
+  const [feedbackVideo, setFeedbackVideo] = useState('')
+  const [videos, setVideos] = useState<IVideo[]>()
 
   const handleUpdateUserFeedback = async (feedbackId: string) => {
     try {
@@ -71,15 +75,24 @@ export default function ListFeedbacks() {
           return
         }
 
-        const response = await findUserFeedbacks(token, user?.id!)
+        const response = await findUserFeedbacks(
+          token,
+          user?.id!,
+          feedbackVideo,
+        )
 
         setFeedbacks(response.feedbacks)
+        setVideos(response.videos)
       } catch (error) {
         console.error(error)
       }
     }
     fetchFeedbacksData()
-  }, [router, user?.id, toast])
+  }, [router, user?.id, toast, feedbackVideo])
+
+  const handleWithFindVideos = async (id: string) => {
+    setFeedbackVideo(id)
+  }
 
   return (
     <>
@@ -163,6 +176,15 @@ export default function ListFeedbacks() {
                 onBlur={() => handleUpdateUserFeedback(feedback.id!)}
               />
             </>
+          )}
+
+          {feedback.hasVideo && (
+            <VideosView
+              videos={videos}
+              handleWithFindVideos={() =>
+                handleWithFindVideos(feedback.userId!)
+              }
+            />
           )}
 
           {feedback.isAnswered ? (
