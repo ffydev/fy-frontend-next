@@ -13,6 +13,8 @@ import {
   Text,
   Grid,
   useToast,
+  Flex,
+  Box,
 } from '@chakra-ui/react'
 import { useAuthStore } from '@/stores/AuthStore'
 import HandleButton from '../Buttons/HandleButton'
@@ -23,6 +25,19 @@ import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { CloseButtonComponent } from '../Buttons/CloseButtonComponent'
+import Image from 'next/image'
+import { MdCloudUpload } from 'react-icons/md'
+
+const maxFileSize = 10 * 1024 * 1024
+const imageTypes = [
+  'image/png',
+  'image/jpeg',
+  'image/jpg',
+  'image/heic',
+  'image/heif',
+]
 
 const updateUserFormSchema = z
   .object({
@@ -30,6 +45,38 @@ const updateUserFormSchema = z
     lastName: z.string(),
     password: z.string().optional(),
     confirmPassword: z.string().optional(),
+    avatar: z
+      .any()
+      .refine(
+        (obj) => {
+          if (obj && obj.length > 0) {
+            Object.entries(obj)
+            for (const file of obj) {
+              if (file.size > maxFileSize) {
+                return false
+              }
+            }
+            return true
+          }
+          return true
+        },
+        { message: 'O tamanho de cada foto deve ser no máximo 10 megabytes.' },
+      )
+      .refine(
+        (obj) => {
+          if (obj && obj.length > 0) {
+            Object.entries(obj)
+            for (const file of obj) {
+              if (!imageTypes.includes(file.type)) {
+                return false
+              }
+            }
+            return true
+          }
+          return true
+        },
+        { message: 'Por favor, selecione apenas imagens.' },
+      ),
   })
   .refine(
     (data) => {
@@ -69,6 +116,8 @@ type updateUserFormSchemaType = z.infer<typeof updateUserFormSchema>
 export default function Profile() {
   const { user, setIsFetchingCurrentUser } = useAuthStore()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [avatar, setAvatar] = useState([])
+  const [avatarPreviewContent, setAvatarPreviewContent] = useState([])
   const router = useRouter()
   const {
     register,
@@ -79,6 +128,42 @@ export default function Profile() {
     resolver: zodResolver(updateUserFormSchema),
   })
   const toast = useToast()
+
+  const handleFileChange = (event: any) => {
+    const files = event.target.files
+    const images = Array.from(files)
+
+    const imagePreviews: any = []
+    const fileList: any = []
+
+    images.forEach((image) => {
+      const reader = new FileReader()
+
+      reader.onload = (e: any) => {
+        imagePreviews.push(e.target.result)
+        if (imagePreviews.length === images.length) {
+          setAvatarPreviewContent(imagePreviews)
+        }
+      }
+
+      reader.readAsDataURL(image as any)
+
+      fileList.push(image)
+    })
+
+    setAvatar(fileList)
+  }
+
+  const removeImage = (index: any) => {
+    const updatedPictures = [...avatarPreviewContent]
+    const updatedFiles = [...avatar]
+
+    updatedPictures.splice(index, 1)
+    updatedFiles.splice(index, 1)
+
+    setAvatarPreviewContent(updatedPictures)
+    setAvatar(updatedFiles)
+  }
 
   const onSubmit: SubmitHandler<updateUserFormSchemaType> = async (data) => {
     try {
@@ -96,11 +181,20 @@ export default function Profile() {
         return
       }
 
-      await updateUserByUser(token, user?.id!, {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        password: data.password,
-      })
+      const formData = new FormData()
+
+      if (avatar && avatar.length > 0) {
+        formData.append('avatar', avatar[0])
+      }
+
+      formData.append('firstName', data.firstName)
+      formData.append('lastName', data.lastName)
+
+      if (data.password) {
+        formData.append('password', data.password)
+      }
+
+      await updateUserByUser(token, user?.id!, formData as any)
       onClose()
       toast({
         title: 'Perfil atualizado com sucesso!',
@@ -194,6 +288,66 @@ export default function Profile() {
                   />
                   {errors.confirmPassword && (
                     <Text>{errors.confirmPassword.message}</Text>
+                  )}
+                </FormControl>
+
+                <FormControl gridColumn="span 2">
+                  <label>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      p={4}
+                      minW={'full'}
+                      border="2px dashed"
+                      borderColor="gray.300"
+                      borderRadius="md"
+                      textAlign="center"
+                      cursor="pointer"
+                      _hover={{
+                        bgGradient: 'linear(to-r, purple.500, purple.600)',
+                        transition: '0.8s',
+                      }}
+                    >
+                      <MdCloudUpload size={24} />
+                      <Text mt={2} fontSize="sm" fontWeight="bold">
+                        Arraste a imagem ou clique aqui (Opcional)
+                      </Text>
+                      <Input
+                        id="fileInput"
+                        onChange={(event) => {
+                          register('avatar', {
+                            value: event.target.files,
+                          })
+                          handleFileChange(event)
+                        }}
+                        type="file"
+                        accept=".png, .jpg, .jpeg, .heic, .heif"
+                        style={{ display: 'none' }}
+                      />
+                    </Box>
+                  </label>
+
+                  <Flex flexWrap="wrap">
+                    {avatarPreviewContent?.map((image: any, index: any) => (
+                      <Box key={index} m={3} position="relative">
+                        <CloseButtonComponent
+                          onClick={() => removeImage(index)}
+                          position="absolute"
+                          right={0}
+                        />
+                        <Image
+                          src={image}
+                          alt="Imagens selecionadas pelo usuário"
+                          width={100}
+                          height={100}
+                        />
+                      </Box>
+                    ))}
+                  </Flex>
+
+                  {errors?.avatar && (
+                    <Text>{errors.avatar.message as any}</Text>
                   )}
                 </FormControl>
               </Grid>
