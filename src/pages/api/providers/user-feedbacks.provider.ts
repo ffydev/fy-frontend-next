@@ -4,7 +4,7 @@ export interface IUserFeedback {
   id?: string
   diet?: string
   workouts?: string
-  weight?: number
+  weight?: string
   fatigue?: string
   others?: string
   hasVideo?: boolean
@@ -75,6 +75,23 @@ export async function answerFeedback(
     return response.data
   } catch (error) {
     console.error('Failed to answer feedback', error)
+    throw error
+  }
+}
+
+export async function updateUserFeedback(
+  token: string,
+  id: string,
+  feedback: IUserFeedback,
+): Promise<IUserFeedback> {
+  try {
+    const response = await api.patch(`/user-feedbacks/${id}`, feedback, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to update feedback', error)
     throw error
   }
 }
