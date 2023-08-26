@@ -15,6 +15,7 @@ export default function Dashboard() {
   const {
     user,
     setUser,
+    setUserAvatar,
     signOut,
     isFetchingCurrentUser,
     setIsLoadingLogin,
@@ -61,10 +62,11 @@ export default function Dashboard() {
       }
 
       setUser(currentUserData.user)
+      setUserAvatar(currentUserData.avatar)
     }
 
     fetchUserData()
-  }, [router, signOut, setUser, isFetchingCurrentUser, toast])
+  }, [router, signOut, setUser, isFetchingCurrentUser, toast, setUserAvatar])
 
   return (
     <>

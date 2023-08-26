@@ -15,6 +15,7 @@ import {
   useToast,
   Flex,
   Box,
+  Avatar,
 } from '@chakra-ui/react'
 import { useAuthStore } from '@/stores/AuthStore'
 import HandleButton from '../Buttons/HandleButton'
@@ -114,7 +115,7 @@ const updateUserFormSchema = z
 type updateUserFormSchemaType = z.infer<typeof updateUserFormSchema>
 
 export default function Profile() {
-  const { user, setIsFetchingCurrentUser } = useAuthStore()
+  const { user, userAvatar, setIsFetchingCurrentUser } = useAuthStore()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [avatar, setAvatar] = useState([])
   const [avatarPreviewContent, setAvatarPreviewContent] = useState([])
@@ -245,6 +246,15 @@ export default function Profile() {
         >
           <ModalCloseButton />
           <ModalBody pb={6}>
+            <Avatar
+              name="Avatar"
+              size={'lg'}
+              src={
+                user.hasAvatar
+                  ? `data:image/jpeg;base64,${userAvatar.imageData}`
+                  : 'logo.png'
+              }
+            />
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>
                 <FormControl gridColumn="span 1">

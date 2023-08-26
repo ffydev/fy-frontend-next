@@ -14,6 +14,11 @@ export interface IUser {
   }
 }
 
+export interface IAvatar {
+  imageKey: string
+  imageData: string
+}
+
 interface ICurrentUser {
   user: IUser
   avatar: {
