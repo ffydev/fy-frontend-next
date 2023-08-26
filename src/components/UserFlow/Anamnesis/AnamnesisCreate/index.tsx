@@ -175,7 +175,7 @@ export default function AnamnesisCreate() {
         return
       }
 
-      setUser(currentUserData)
+      setUser(currentUserData.user)
     } catch (error) {
       console.error(error)
       toast({

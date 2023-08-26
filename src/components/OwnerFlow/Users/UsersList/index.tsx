@@ -8,6 +8,7 @@ import {
   updateUser,
 } from '@/pages/api/providers/users.provider'
 import {
+  Avatar,
   Box,
   Button,
   Flex,
@@ -173,7 +174,16 @@ export function UsersList({ users, planTypes }: UsersListProps) {
               backdropBlur={'1rem'}
               backdropFilter="blur(15px)"
             >
-              <Flex minWidth="max-content">
+              <Flex minWidth="max-content" mb={3}>
+                <Avatar
+                  name="Avatar"
+                  size={'lg'}
+                  src={
+                    user.hasAvatar
+                      ? `data:image/jpeg;base64,${user.avatar.imageData}`
+                      : 'logo.png'
+                  }
+                />
                 <Spacer />
                 <CloseButtonComponent
                   onClick={() => handleWithDeleteUser(user.id)}

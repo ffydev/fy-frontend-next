@@ -15,11 +15,17 @@ export interface IUserInterface {
   userType: IUserType
   isRegistered: boolean
   hasAnamnesis: boolean
+  hasAvatar: boolean
+  avatar: {
+    imageKey: string
+    imageData: string
+  }
   userFeedback: {
     isAnswered: boolean
   }
   deletedAt?: string
 }
+
 export interface ICreateUserWithIPlan {
   email: string
   firstName?: string

@@ -79,7 +79,7 @@ export default function Workouts() {
         return
       }
 
-      setUser(currentUserData)
+      setUser(currentUserData.user)
     }
 
     if (!user) {

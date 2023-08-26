@@ -60,7 +60,7 @@ export default function Dashboard() {
         return
       }
 
-      setUser(currentUserData)
+      setUser(currentUserData.user)
     }
 
     fetchUserData()

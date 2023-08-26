@@ -12,6 +12,7 @@ import {
   Stack,
   HStack,
   Button,
+  Flex,
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import HandleButton from '@/components/Buttons/HandleButton'
@@ -19,6 +20,19 @@ import { Plus, X } from '@phosphor-icons/react'
 import { updateUserByUser } from '@/pages/api/providers/users.provider'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { MdCloudUpload } from 'react-icons/md'
+import { useState } from 'react'
+import Image from 'next/image'
+import { CloseButtonComponent } from '../Buttons/CloseButtonComponent'
+
+const maxFileSize = 10 * 1024 * 1024
+const imageTypes = [
+  'image/png',
+  'image/jpeg',
+  'image/jpg',
+  'image/heic',
+  'image/heif',
+]
 
 const createOwnerFormSchema = z
   .object({
@@ -42,6 +56,38 @@ const createOwnerFormSchema = z
           .map((word) => word[0].toUpperCase() + word.slice(1))
           .join(' '),
       ),
+    avatar: z
+      .any()
+      .refine(
+        (obj) => {
+          if (obj && obj.length > 0) {
+            Object.entries(obj)
+            for (const file of obj) {
+              if (file.size > maxFileSize) {
+                return false
+              }
+            }
+            return true
+          }
+          return true
+        },
+        { message: 'O tamanho de cada foto deve ser no máximo 10 megabytes.' },
+      )
+      .refine(
+        (obj) => {
+          if (obj && obj.length > 0) {
+            Object.entries(obj)
+            for (const file of obj) {
+              if (!imageTypes.includes(file.type)) {
+                return false
+              }
+            }
+            return true
+          }
+          return true
+        },
+        { message: 'Por favor, selecione apenas imagens.' },
+      ),
     password: z
       .string()
       .min(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
@@ -59,6 +105,44 @@ type createOwnerFormSchemaType = z.infer<typeof createOwnerFormSchema>
 export default function CompleteUserRegistration() {
   const router = useRouter()
   const { user, setIsFetchingCurrentUser } = useAuthStore()
+  const [avatar, setAvatar] = useState([])
+  const [avatarPreviewContent, setAvatarPreviewContent] = useState([])
+
+  const handleFileChange = (event: any) => {
+    const files = event.target.files
+    const images = Array.from(files)
+
+    const imagePreviews: any = []
+    const fileList: any = []
+
+    images.forEach((image) => {
+      const reader = new FileReader()
+
+      reader.onload = (e: any) => {
+        imagePreviews.push(e.target.result)
+        if (imagePreviews.length === images.length) {
+          setAvatarPreviewContent(imagePreviews)
+        }
+      }
+
+      reader.readAsDataURL(image as any)
+
+      fileList.push(image)
+    })
+
+    setAvatar(fileList)
+  }
+
+  const removeImage = (index: any) => {
+    const updatedPictures = [...avatarPreviewContent]
+    const updatedFiles = [...avatar]
+
+    updatedPictures.splice(index, 1)
+    updatedFiles.splice(index, 1)
+
+    setAvatarPreviewContent(updatedPictures)
+    setAvatar(updatedFiles)
+  }
 
   const {
     register,
@@ -77,13 +161,17 @@ export default function CompleteUserRegistration() {
         return
       }
 
-      const userData = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        password: data.password,
+      const formData = new FormData()
+
+      if (avatar && avatar.length > 0) {
+        formData.append('avatar', avatar[0])
       }
 
-      await updateUserByUser(token, user!.id, userData)
+      formData.append('firstName', data.firstName)
+      formData.append('lastName', data.lastName)
+      formData.append('password', data.password)
+
+      await updateUserByUser(token, user!.id, formData as any)
       setIsFetchingCurrentUser()
     } catch (error) {
       console.error(error)
@@ -151,6 +239,64 @@ export default function CompleteUserRegistration() {
               {errors.confirmPassword && (
                 <Text>{errors.confirmPassword.message}</Text>
               )}
+            </FormControl>
+
+            <FormControl gridColumn="span 2">
+              <label>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  p={4}
+                  minW={'full'}
+                  border="2px dashed"
+                  borderColor="gray.300"
+                  borderRadius="md"
+                  textAlign="center"
+                  cursor="pointer"
+                  _hover={{
+                    bgGradient: 'linear(to-r, purple.500, purple.600)',
+                    transition: '0.8s',
+                  }}
+                >
+                  <MdCloudUpload size={24} />
+                  <Text mt={2} fontSize="sm" fontWeight="bold">
+                    Arraste a imagem ou clique aqui (Opcional)
+                  </Text>
+                  <Input
+                    id="fileInput"
+                    onChange={(event) => {
+                      register('avatar', {
+                        value: event.target.files,
+                      })
+                      handleFileChange(event)
+                    }}
+                    type="file"
+                    accept=".png, .jpg, .jpeg, .heic, .heif"
+                    style={{ display: 'none' }}
+                  />
+                </Box>
+              </label>
+
+              <Flex flexWrap="wrap">
+                {avatarPreviewContent?.map((image: any, index: any) => (
+                  <Box key={index} m={3} position="relative">
+                    <CloseButtonComponent
+                      onClick={() => removeImage(index)}
+                      position="absolute"
+                      right={0}
+                    />
+                    <Image
+                      src={image}
+                      alt="Imagens selecionadas pelo usuário"
+                      width={100}
+                      height={100}
+                    />
+                  </Box>
+                ))}
+              </Flex>
+
+              {errors?.avatar && <Text>{errors.avatar.message as any}</Text>}
             </FormControl>
           </Grid>
 

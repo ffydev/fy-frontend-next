@@ -8,8 +8,17 @@ export interface IUser {
   isRegistered: boolean
   hasAnamnesis: boolean
   access_token?: string
+  hasAvatar: boolean
   userType: {
     name: string
+  }
+}
+
+interface ICurrentUser {
+  user: IUser
+  avatar: {
+    imageKey: string
+    imageData: string
   }
 }
 
@@ -36,9 +45,11 @@ export async function signIn(login: ILogin): Promise<IUser | null> {
   }
 }
 
-export async function findCurrentUser(token: string): Promise<IUser | null> {
+export async function findCurrentUser(
+  token: string,
+): Promise<ICurrentUser | null> {
   try {
-    const response = await api.get<IUser>('/users/profile', {
+    const response = await api.get<ICurrentUser>('/users/profile', {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data

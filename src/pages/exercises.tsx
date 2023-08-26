@@ -66,7 +66,7 @@ export default function Exercises() {
         return
       }
 
-      setUser(currentUserData)
+      setUser(currentUserData.user)
     }
 
     fetchUserData()
