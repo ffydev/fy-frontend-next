@@ -353,12 +353,13 @@ export default function Profile() {
               </Grid>
               <ModalFooter>
                 <HandleButton
+                  w={'full'}
                   mr={3}
                   text="Atualizar dados"
                   leftIcon={<Plus weight="bold" />}
                   type="submit"
                 />
-                <Button variant={'outline'} onClick={onClose}>
+                <Button w={'full'} variant={'outline'} onClick={onClose}>
                   Cancelar
                 </Button>
               </ModalFooter>
