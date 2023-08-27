@@ -200,21 +200,23 @@ export default function ListFeedbacks() {
 
           {feedback.isAnswered ? (
             <>
-              <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-                Dieta: {feedback.diet}
-              </chakra.h1>
-              <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-                Treinos: {feedback.workouts}
-              </chakra.h1>
-              <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-                Fadiga: {feedback.fatigue}
-              </chakra.h1>
-              <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-                Peso: {feedback.weight}
-              </chakra.h1>
-              <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-                Outros: {feedback.others}
-              </chakra.h1>
+              <Stack m={3}>
+                <chakra.h1 fontSize="lg" lineHeight={6}>
+                  Dieta: {feedback.diet}
+                </chakra.h1>
+                <chakra.h1 fontSize="lg" lineHeight={6}>
+                  Treinos: {feedback.workouts}
+                </chakra.h1>
+                <chakra.h1 fontSize="lg" lineHeight={6}>
+                  Fadiga: {feedback.fatigue}
+                </chakra.h1>
+                <chakra.h1 fontSize="lg" lineHeight={6}>
+                  Peso: {feedback.weight}
+                </chakra.h1>
+                <chakra.h1 fontSize="lg" lineHeight={6}>
+                  Outros: {feedback.others}
+                </chakra.h1>
+              </Stack>
             </>
           ) : (
             <>
