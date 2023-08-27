@@ -24,9 +24,9 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { ArrowLeft } from '@phosphor-icons/react'
 import {
   IUserFeedback,
-  IVideo,
   findPendingUsersFeedbacks,
 } from './api/providers/user-feedbacks.provider'
+import { FeedbackPending } from '@/components/OwnerFlow/FeedbacksList/FeedbackPending'
 
 export default function Feedbacks() {
   const router = useRouter()
@@ -40,8 +40,6 @@ export default function Feedbacks() {
     isLoadingLogin,
   } = useAuthStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
-  const [videos, setVideos] = useState<IVideo[]>()
-  const [feedbackVideo, setFeedbackVideo] = useState('')
 
   useEffect(() => {
     if (!isLoadingLogin && !user) {
@@ -106,11 +104,9 @@ export default function Feedbacks() {
           return
         }
 
-        const response = await findPendingUsersFeedbacks(token, feedbackVideo)
+        const response = await findPendingUsersFeedbacks(token)
 
-        setFeedbacks(response.feedbacks)
-
-        setVideos(response.videos)
+        setFeedbacks(response)
       } catch (error) {
         console.error(error)
         toast({
@@ -123,7 +119,7 @@ export default function Feedbacks() {
       }
     }
     fetchFeedbacksData()
-  }, [router, toast, feedbackVideo])
+  }, [router, toast])
 
   const handleWithNavigateToDashboard = () => {
     router.push('/dashboard')
@@ -177,7 +173,8 @@ export default function Feedbacks() {
                     <Tr>
                       <Th></Th>
                       <Th>Nome</Th>
-                      <Th>Data</Th>
+                      <Th>Enviado em</Th>
+                      <Th>Visualizar</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -202,6 +199,9 @@ export default function Feedbacks() {
                           {new Date(feedback.createdAt!).toLocaleDateString(
                             'pt-BR',
                           )}
+                        </Td>
+                        <Td>
+                          <FeedbackPending userFeedbackId={feedback.id!} />
                         </Td>
                       </Tr>
                     ))}

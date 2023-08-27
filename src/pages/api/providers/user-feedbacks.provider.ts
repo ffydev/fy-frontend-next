@@ -27,6 +27,11 @@ export interface IFindUserFeedbacks {
   videos?: IVideo[]
 }
 
+export interface IFindUserFeedbackById {
+  feedback: IUserFeedback
+  videos?: IVideo[]
+}
+
 export async function findUserFeedbacks(
   token: string,
   userId: string,
@@ -100,11 +105,10 @@ export async function updateUserFeedback(
 
 export async function findPendingUsersFeedbacks(
   token: string,
-  feedbackVideo?: string,
-): Promise<IFindUserFeedbacks> {
+): Promise<IUserFeedback[]> {
   try {
-    const response = await api.get<IFindUserFeedbacks>(
-      `/user-feedbacks/pendings?feedbackVideo=${feedbackVideo}`,
+    const response = await api.get<IUserFeedback[]>(
+      '/user-feedbacks/pendings',
       {
         headers: { Authorization: `Bearer ${token}` },
       },
@@ -113,6 +117,26 @@ export async function findPendingUsersFeedbacks(
     return response.data
   } catch (error) {
     console.error('Failed to find pending feedbacks', error)
+    throw error
+  }
+}
+
+export async function findUserFeedbackById(
+  token: string,
+  id: string,
+  feedbackVideo: string,
+): Promise<IFindUserFeedbackById> {
+  try {
+    const response = await api.get<IFindUserFeedbackById>(
+      `/user-feedbacks/by-id?userFeedbackId=${id}&feedbackVideo=${feedbackVideo}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to find feedback', error)
     throw error
   }
 }
