@@ -6,7 +6,17 @@ import {
   Flex,
   Heading,
   Stack,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
   useToast,
+  Avatar,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -120,8 +130,6 @@ export default function Feedbacks() {
     router.push('/dashboard')
   }
 
-  console.log(feedbacks, videos)
-
   return (
     <>
       <Box
@@ -153,13 +161,54 @@ export default function Feedbacks() {
               fontWeight="medium"
               textAlign="center"
             >
-              Feedbacks
+              Feedbacks pendentes
             </Heading>
           </Flex>
         </Stack>
 
         <Stack direction={['column', 'row']} spacing={6} w={'full'}>
-          <Container maxW={'7xl'}></Container>
+          <Container maxW={'7xl'}>
+            <Stack m={3}>
+              <TableContainer>
+                <Table variant="simple">
+                  <TableCaption>
+                    Imperial to metric conversion factors
+                  </TableCaption>
+                  <Thead>
+                    <Tr>
+                      <Th></Th>
+                      <Th>Nome</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {feedbacks?.map((feedback) => (
+                      <Tr key={feedback.id}>
+                        <Td>
+                          <Avatar
+                            name="Avatar"
+                            size={'lg'}
+                            src={
+                              feedback?.User?.hasAvatar
+                                ? `data:image/jpeg;base64,${feedback?.User?.avatar?.imageData}`
+                                : 'logo.png'
+                            }
+                          />
+                        </Td>
+                        <Td>{feedback?.User?.firstName}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                  <Tfoot>
+                    <Tr>
+                      <Th>To convert</Th>
+                      <Th>into</Th>
+                      <Th isNumeric>multiply by</Th>
+                    </Tr>
+                  </Tfoot>
+                </Table>
+              </TableContainer>
+            </Stack>
+          </Container>
         </Stack>
       </Box>
     </>
