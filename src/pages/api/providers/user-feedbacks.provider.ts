@@ -95,3 +95,22 @@ export async function updateUserFeedback(
     throw error
   }
 }
+
+export async function findPendingUsersFeedbacks(
+  token: string,
+  feedbackVideo?: string,
+): Promise<IFindUserFeedbacks> {
+  try {
+    const response = await api.get<IFindUserFeedbacks>(
+      `/user-feedbacks/pendings?feedbackVideo=${feedbackVideo}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to find pending feedbacks', error)
+    throw error
+  }
+}
