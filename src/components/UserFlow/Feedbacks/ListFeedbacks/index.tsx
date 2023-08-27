@@ -6,25 +6,79 @@ import {
   findUserFeedbacks,
   updateUserFeedback,
 } from '@/pages/api/providers/user-feedbacks.provider'
-import { Box, chakra, useToast, FormLabel, Input } from '@chakra-ui/react'
+import {
+  Box,
+  chakra,
+  useToast,
+  FormLabel,
+  Input,
+  Stack,
+  FormControl,
+  Textarea,
+  Text,
+  Flex,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { VideosView } from '@/components/VideosView'
+import { z } from 'zod'
+import { useVideosStore } from '@/stores/VideoStore'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import UploadVideosStep from '@/components/VideosUpload/UploadVideosStep'
+
+const updateFeedbackFormSchema = z.object({
+  diet: z
+    .string()
+    .min(0)
+    .max(200, { message: 'A mensagem deve ter no máximo 200 caracteres' })
+    .optional(),
+  workouts: z
+    .string()
+    .min(0)
+    .max(200, { message: 'A mensagem deve ter no máximo 200 caracteres' })
+    .optional(),
+  weight: z.coerce
+    .number()
+    .min(1, { message: 'O peso deve ser informado' })
+    .max(400, { message: 'Peso máximo 400KG' })
+    .optional(),
+  fatigue: z
+    .string()
+    .min(0)
+    .max(200, { message: 'A mensagem deve ter no máximo 200 caracteres' })
+    .optional(),
+  others: z
+    .string()
+    .min(0)
+    .max(200, { message: 'A mensagem deve ter no máximo 200 caracteres' })
+    .optional(),
+})
+
+type updateFeedbackFormSchemaType = z.infer<typeof updateFeedbackFormSchema>
 
 export default function ListFeedbacks() {
   const { user } = useAuthStore()
   const router = useRouter()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
   const toast = useToast()
-  const [diet, setDiet] = useState<string>('')
-  const [workouts, setWorkouts] = useState<string>('')
-  const [fatigue, setFatigue] = useState<string>('')
-  const [weight, setWeight] = useState<string>('')
-  const [others, setOthers] = useState<string>('')
+  const [feedbackId, setFeedbackId] = useState<string>('')
   const [feedbackVideo, setFeedbackVideo] = useState('')
   const [videos, setVideos] = useState<IVideo[]>()
+  const { finalVideo, reset } = useVideosStore()
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false)
 
-  const handleUpdateUserFeedback = async (feedbackId: string) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<updateFeedbackFormSchemaType>({
+    resolver: zodResolver(updateFeedbackFormSchema),
+  })
+
+  const onSubmit: SubmitHandler<updateFeedbackFormSchemaType> = async (
+    data,
+  ) => {
     try {
       const token = getUserToken()
 
@@ -40,24 +94,45 @@ export default function ListFeedbacks() {
         return
       }
 
-      await updateUserFeedback(token, feedbackId, {
-        diet: diet !== '' ? diet : undefined,
-        workouts: workouts !== '' ? workouts : undefined,
-        fatigue: fatigue !== '' ? fatigue : undefined,
-        weight: weight !== '' ? weight : undefined,
-        others: others !== '' ? others : undefined,
-      })
+      setIsSendingFeedback(true)
 
+      const formData = new FormData()
+      formData.append('diet', String(data.diet))
+      formData.append('workouts', String(data.workouts))
+      formData.append('weight', String(data.weight))
+      formData.append('fatigue', String(data.fatigue))
+      formData.append('others', String(data.others))
+      formData.append('userId', String(user?.id))
+
+      if (finalVideo.length > 0) {
+        const files = Object.entries(finalVideo)
+
+        for (const file of files) {
+          formData.append('videos', file[1].file)
+        }
+      }
+
+      await updateUserFeedback(token, feedbackId, formData as any)
       toast({
-        title: 'Feedback atualizado com sucesso.',
+        title: 'Feedback atualizado com sucesso',
         status: 'success',
         duration: 3000,
         isClosable: true,
       })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao atualizar feedback',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    } finally {
+      setIsSendingFeedback(false)
+      reset()
     }
   }
+
   useEffect(() => {
     const fetchFeedbacksData = async () => {
       try {
@@ -108,9 +183,20 @@ export default function ListFeedbacks() {
           minWidth="250px"
           m={3}
         >
-          <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
-            Data: {new Date(feedback.createdAt!).toLocaleDateString('pt-BR')}
-          </chakra.h1>
+          <Flex>
+            <chakra.h1 fontSize="lg" lineHeight={6} mb={3} mr={3}>
+              Data: {new Date(feedback.createdAt!).toLocaleDateString('pt-BR')}
+            </chakra.h1>
+
+            {feedback.hasVideo && (
+              <VideosView
+                videos={videos}
+                handleWithFindVideos={() =>
+                  handleWithFindVideos(feedback.userId!)
+                }
+              />
+            )}
+          </Flex>
 
           {feedback.isAnswered ? (
             <>
@@ -132,59 +218,72 @@ export default function ListFeedbacks() {
             </>
           ) : (
             <>
-              <FormLabel>Dieta</FormLabel>
-              <Input
-                defaultValue={feedback.diet}
-                mb={3}
-                onChange={(event) => setDiet(event.target.value)}
-                onBlur={() => handleUpdateUserFeedback(feedback.id!)}
-              />
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Stack m={3}>
+                  <FormControl gridColumn="span 1">
+                    <FormLabel>Peso</FormLabel>
+                    <Input
+                      defaultValue={feedback.weight}
+                      {...register('weight')}
+                      placeholder="Peso"
+                      onChange={() => setFeedbackId(feedback.id!)}
+                    />
+                    {errors.weight && <Text>{errors.weight.message}</Text>}
+                  </FormControl>
 
-              <FormLabel>Treinos</FormLabel>
-              <Input
-                contentEditable={!feedback.isAnswered}
-                value={feedback.workouts}
-                mb={3}
-                onChange={(event) => setWorkouts(event.target.value)}
-                onBlur={() => handleUpdateUserFeedback(feedback.id!)}
-              />
+                  <FormControl gridColumn="span 1">
+                    <FormLabel>Dieta</FormLabel>
+                    <Textarea
+                      defaultValue={feedback.diet}
+                      {...register('diet')}
+                      placeholder="Dieta"
+                      onChange={() => setFeedbackId(feedback.id!)}
+                    />
+                    {errors.diet && <Text>{errors.diet.message}</Text>}
+                  </FormControl>
 
-              <FormLabel>Fadiga</FormLabel>
-              <Input
-                contentEditable={!feedback.isAnswered}
-                defaultValue={feedback.fatigue}
-                mb={3}
-                onChange={(event) => setFatigue(event.target.value)}
-                onBlur={() => handleUpdateUserFeedback(feedback.id!)}
-              />
+                  <FormControl gridColumn="span 1">
+                    <FormLabel>Treinos</FormLabel>
+                    <Textarea
+                      defaultValue={feedback.workouts}
+                      {...register('workouts')}
+                      placeholder="Treinos"
+                      onChange={() => setFeedbackId(feedback.id!)}
+                    />
+                    {errors.workouts && <Text>{errors.workouts.message}</Text>}
+                  </FormControl>
 
-              <FormLabel>Peso</FormLabel>
-              <Input
-                contentEditable={!feedback.isAnswered}
-                value={feedback.weight}
-                mb={3}
-                onChange={(event) => setWeight(event.target.value)}
-                onBlur={() => handleUpdateUserFeedback(feedback.id!)}
-              />
+                  <FormControl gridColumn="span 1">
+                    <FormLabel>Fadiga</FormLabel>
+                    <Textarea
+                      defaultValue={feedback.fatigue}
+                      {...register('fatigue')}
+                      placeholder="Fadiga"
+                      onChange={() => setFeedbackId(feedback.id!)}
+                    />
+                    {errors.fatigue && <Text>{errors.fatigue.message}</Text>}
+                  </FormControl>
 
-              <FormLabel>Outros</FormLabel>
-              <Input
-                contentEditable={!feedback.isAnswered}
-                value={feedback.others}
-                mb={3}
-                onChange={(event) => setOthers(event.target.value)}
-                onBlur={() => handleUpdateUserFeedback(feedback.id!)}
-              />
+                  <FormControl gridColumn="span 1">
+                    <FormLabel>Outros</FormLabel>
+                    <Textarea
+                      defaultValue={feedback.others}
+                      {...register('others')}
+                      placeholder="Outros"
+                      onChange={() => setFeedbackId(feedback.id!)}
+                    />
+                    {errors.others && <Text>{errors.others.message}</Text>}
+                  </FormControl>
+
+                  <FormControl gridColumn="span 2" mt={3}>
+                    <UploadVideosStep
+                      textButtonSubmit="Atualizar feedback"
+                      isSendingForm={isSendingFeedback}
+                    />
+                  </FormControl>
+                </Stack>
+              </form>
             </>
-          )}
-
-          {feedback.hasVideo && (
-            <VideosView
-              videos={videos}
-              handleWithFindVideos={() =>
-                handleWithFindVideos(feedback.userId!)
-              }
-            />
           )}
 
           {feedback.isAnswered ? (
