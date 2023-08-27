@@ -293,7 +293,7 @@ export default function ListFeedbacks() {
 
                   <FormControl gridColumn="span 2" mt={3}>
                     <UploadVideosStep
-                      textButtonSubmit="Atualizar feedback"
+                      textButtonSubmit="Atualizar Feedback"
                       isSendingForm={isSendingFeedback}
                     />
                   </FormControl>
