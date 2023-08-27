@@ -277,6 +277,20 @@ export default function ListFeedbacks() {
                     {errors.others && <Text>{errors.others.message}</Text>}
                   </FormControl>
 
+                  <chakra.h1
+                    w="fit-content"
+                    p={1}
+                    bg="red.500"
+                    color="red.700"
+                    fontSize="lg"
+                    lineHeight={6}
+                    display="inline-block"
+                    borderRadius={4}
+                    textColor={'whiteAlpha.900'}
+                  >
+                    Vídeos enviados anteriormente serão substituídos
+                  </chakra.h1>
+
                   <FormControl gridColumn="span 2" mt={3}>
                     <UploadVideosStep
                       textButtonSubmit="Atualizar feedback"
