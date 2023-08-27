@@ -11,7 +11,6 @@ import {
   TableContainer,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
@@ -178,6 +177,7 @@ export default function Feedbacks() {
                     <Tr>
                       <Th></Th>
                       <Th>Nome</Th>
+                      <Th>Data</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -194,7 +194,15 @@ export default function Feedbacks() {
                             }
                           />
                         </Td>
-                        <Td>{feedback?.User?.firstName}</Td>
+                        <Td>
+                          {feedback?.User?.firstName} {''}
+                          {feedback?.User?.lastName}
+                        </Td>
+                        <Td>
+                          {new Date(feedback.createdAt!).toLocaleDateString(
+                            'pt-BR',
+                          )}
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
