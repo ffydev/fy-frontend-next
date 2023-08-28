@@ -26,17 +26,13 @@ interface Props {
   children: React.ReactNode
 }
 
-const Links = ['Dashboard', 'Exercises', 'Feedbacks']
+const Links = ['Dashboard', 'Users', 'Exercises', 'Feedbacks']
 
 const NavLink = (props: Props) => {
   const { children } = props
   const link = children!.toString().toLowerCase()
 
-  return (
-    <Link href={link}>
-      {children === 'Exercises' ? 'Exercícios' : children}
-    </Link>
-  )
+  return <Link href={link}>{children}</Link>
 }
 
 export default function Navbar() {
