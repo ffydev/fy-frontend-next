@@ -167,12 +167,9 @@ export function UsersList({ users, planTypes }: UsersListProps) {
             <Box
               key={user.id}
               p={4}
-              bgColor={'whiteAlpha.100'}
               rounded={'lg'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}
-              backdropBlur={'1rem'}
-              backdropFilter="blur(15px)"
             >
               <Flex minWidth="max-content" mb={3}>
                 <Avatar

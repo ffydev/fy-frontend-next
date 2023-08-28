@@ -120,12 +120,7 @@ export default function Navbar() {
                   bg={'purple.400'}
                 />
               </MenuButton>
-              <MenuList
-                border={'1px'}
-                borderColor={'whiteAlpha.200'}
-                backdropFilter="auto"
-                backdropBlur="1rem"
-              >
+              <MenuList border={'1px'} borderColor={'whiteAlpha.200'}>
                 <>
                   <Profile />
                 </>

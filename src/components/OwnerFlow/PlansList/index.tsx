@@ -67,7 +67,6 @@ export default function PlanList({ plan, planTypes }: PlanListProps) {
           width="100%"
           rounded={'lg'}
           border={'1px'}
-          bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
         >
           <Tag mb={3} size={'md'} bgGradient={'gray'} variant={'subtle'}>

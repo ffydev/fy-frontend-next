@@ -44,8 +44,6 @@ export default function Navigation() {
               rounded={'lg'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}
-              backdropBlur={'1rem'}
-              backdropFilter="blur(15px)"
               _hover={{ cursor: 'pointer' }}
               onClick={() => handleWithShowUsers()}
             >
@@ -75,8 +73,6 @@ export default function Navigation() {
               rounded={'lg'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}
-              backdropBlur={'1rem'}
-              backdropFilter="blur(15px)"
               _hover={{ cursor: 'pointer' }}
               onClick={() => handleWithShowFeedbacks()}
             >
@@ -106,8 +102,6 @@ export default function Navigation() {
               rounded={'lg'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}
-              backdropBlur={'1rem'}
-              backdropFilter="blur(15px)"
               _hover={{ cursor: 'pointer' }}
               onClick={() => handleWithShowExercises()}
             >
