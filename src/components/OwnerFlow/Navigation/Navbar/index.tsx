@@ -90,7 +90,17 @@ export default function Navbar() {
               display={{ base: 'none', md: 'flex' }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <>
+                  <Box
+                    _hover={{
+                      bgColor: 'purple.500',
+                      rounded: 'lg',
+                    }}
+                    p={1}
+                  >
+                    <NavLink key={link}>{link}</NavLink>
+                  </Box>
+                </>
               ))}
             </HStack>
           </HStack>
@@ -139,7 +149,17 @@ export default function Navbar() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <>
+                  <Box
+                    _hover={{
+                      bgColor: 'purple.500',
+                      rounded: 'lg',
+                    }}
+                    p={1}
+                  >
+                    <NavLink key={link}>{link}</NavLink>
+                  </Box>
+                </>
               ))}
             </Stack>
           </Box>
