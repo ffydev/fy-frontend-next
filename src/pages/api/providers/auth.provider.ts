@@ -1,5 +1,10 @@
 import { api } from '../apis/api'
 
+export interface IAvatar {
+  imageKey: string
+  imageData: string
+}
+
 export interface IUser {
   id: string
   firstName: string
@@ -12,11 +17,7 @@ export interface IUser {
   userType: {
     name: string
   }
-}
-
-export interface IAvatar {
-  imageKey: string
-  imageData: string
+  avatar: IAvatar
 }
 
 interface ICurrentUser {

@@ -63,7 +63,7 @@ export function VideosView({ videos, handleWithFindVideos }: ViewVideosProps) {
       </Button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <ModalOverlay bg="blackAlpha.300" />
+        <ModalOverlay bg="blackAlpha.900" />
         <ModalContent
           bgColor={'blackAlpha.100'}
           border={'1px'}
