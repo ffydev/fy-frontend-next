@@ -17,7 +17,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalHeader,
   ModalOverlay,
   Textarea,
   chakra,
@@ -30,9 +29,13 @@ import { useEffect, useState } from 'react'
 
 interface IFeedbackPendingProps {
   userFeedbackId: string
+  setIsFetchingFeedbacks: (isFetching: boolean) => void
 }
 
-export function FeedbackPending({ userFeedbackId }: IFeedbackPendingProps) {
+export function FeedbackPending({
+  userFeedbackId,
+  setIsFetchingFeedbacks,
+}: IFeedbackPendingProps) {
   const { user } = useAuthStore()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
@@ -109,9 +112,24 @@ export function FeedbackPending({ userFeedbackId }: IFeedbackPendingProps) {
         answer,
       })
 
+      toast({
+        title: 'Feedback respondido com sucesso.',
+        description: 'O feedback foi respondido com sucesso.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+      setIsFetchingFeedbacks(true)
       onClose()
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Erro ao responder feedback.',
+        description: 'Por favor, tente novamente.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     }
   }
 
@@ -130,7 +148,6 @@ export function FeedbackPending({ userFeedbackId }: IFeedbackPendingProps) {
           borderColor={'whiteAlpha.200'}
           backdropBlur={'1rem'}
         >
-          <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box

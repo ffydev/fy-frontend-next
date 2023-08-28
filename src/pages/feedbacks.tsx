@@ -40,6 +40,7 @@ export default function Feedbacks() {
     isLoadingLogin,
   } = useAuthStore()
   const [feedbacks, setFeedbacks] = useState<IUserFeedback[]>()
+  const [isFetchingFeedbacks, setIsFetchingFeedbacks] = useState(false)
 
   useEffect(() => {
     if (!isLoadingLogin && !user) {
@@ -107,6 +108,7 @@ export default function Feedbacks() {
         const response = await findPendingUsersFeedbacks(token)
 
         setFeedbacks(response)
+        setIsFetchingFeedbacks(false)
       } catch (error) {
         console.error(error)
         toast({
@@ -119,7 +121,7 @@ export default function Feedbacks() {
       }
     }
     fetchFeedbacksData()
-  }, [router, toast])
+  }, [router, toast, isFetchingFeedbacks])
 
   const handleWithNavigateToDashboard = () => {
     router.push('/dashboard')
@@ -201,7 +203,10 @@ export default function Feedbacks() {
                           )}
                         </Td>
                         <Td>
-                          <FeedbackPending userFeedbackId={feedback.id!} />
+                          <FeedbackPending
+                            userFeedbackId={feedback.id!}
+                            setIsFetchingFeedbacks={setIsFetchingFeedbacks}
+                          />
                         </Td>
                       </Tr>
                     ))}
