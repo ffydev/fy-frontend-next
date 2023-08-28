@@ -52,9 +52,7 @@ export default function ListAnamnesis() {
           p={6}
           rounded={'lg'}
           border={'1px'}
-          bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
-          backdropBlur={'1rem'}
         >
           <Text m={3}>
             Data: {new Date(anamnesis.createdAt!).toLocaleDateString('pt-BR')}

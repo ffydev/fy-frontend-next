@@ -257,10 +257,8 @@ export default function ExercisesGroups() {
     <>
       <Box
         mt={3}
-        backdropBlur={'1rem'}
         rounded={'lg'}
         border={'1px'}
-        bgColor={'whiteAlpha.50'}
         borderColor={'whiteAlpha.100'}
         p={1}
       >
@@ -284,10 +282,8 @@ export default function ExercisesGroups() {
 
       <Box
         mt={3}
-        backdropBlur={'1rem'}
         rounded={'lg'}
         border={'1px'}
-        bgColor={'whiteAlpha.50'}
         borderColor={'whiteAlpha.100'}
         p={1}
       >
@@ -295,10 +291,8 @@ export default function ExercisesGroups() {
           {exercises.map((exercise) => (
             <WrapItem key={exercise.id}>
               <Flex
-                backdropBlur={'1rem'}
                 rounded={'lg'}
                 border={'1px'}
-                bgColor={'whiteAlpha.50'}
                 borderColor={'whiteAlpha.100'}
                 p={1}
                 align="center"

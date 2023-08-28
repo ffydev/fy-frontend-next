@@ -134,7 +134,6 @@ export default function CreatingFeedback() {
           mt={3}
           mb={4}
           p={8}
-          bgColor={'whiteAlpha.100'}
           rounded={'lg'}
           border={'1px'}
           borderColor={'whiteAlpha.200'}

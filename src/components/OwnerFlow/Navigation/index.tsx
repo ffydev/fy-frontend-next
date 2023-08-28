@@ -40,7 +40,6 @@ export default function Navigation() {
           >
             <Box
               p={4}
-              bgColor={'whiteAlpha.100'}
               rounded={'lg'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}
@@ -69,7 +68,6 @@ export default function Navigation() {
 
             <Box
               p={4}
-              bgColor={'whiteAlpha.100'}
               rounded={'lg'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}
@@ -98,7 +96,6 @@ export default function Navigation() {
 
             <Box
               p={4}
-              bgColor={'whiteAlpha.100'}
               rounded={'lg'}
               border={'1px'}
               borderColor={'whiteAlpha.200'}

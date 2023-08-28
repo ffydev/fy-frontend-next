@@ -96,7 +96,6 @@ export default function ExercisesList({
           p={4}
           rounded={'lg'}
           border={'1px'}
-          bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
         >
           {workoutExercise &&
