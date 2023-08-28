@@ -7,7 +7,6 @@ import {
   Heading,
   Stack,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,

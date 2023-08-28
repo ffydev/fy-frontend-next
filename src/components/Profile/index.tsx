@@ -2,7 +2,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Button,
@@ -11,11 +10,11 @@ import {
   FormLabel,
   Input,
   Text,
-  Grid,
   useToast,
   Flex,
   Box,
   Avatar,
+  Stack,
 } from '@chakra-ui/react'
 import { useAuthStore } from '@/stores/AuthStore'
 import HandleButton from '../Buttons/HandleButton'
@@ -246,17 +245,17 @@ export default function Profile() {
         >
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Avatar
-              name="Avatar"
-              size={'lg'}
-              src={
-                user.hasAvatar
-                  ? `data:image/jpeg;base64,${userAvatar.imageData}`
-                  : 'logo.png'
-              }
-            />
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid templateColumns="repeat(1, 1fr)" gap={6} mt={4}>
+            <Stack spacing={3}>
+              <Avatar
+                name="Avatar"
+                size={'lg'}
+                src={
+                  user.hasAvatar
+                    ? `data:image/jpeg;base64,${userAvatar.imageData}`
+                    : 'logo.png'
+                }
+              />
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl gridColumn="span 1">
                   <FormLabel>Primeiro Nome</FormLabel>
                   <Input
@@ -288,7 +287,7 @@ export default function Profile() {
                   {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
 
-                <FormControl gridColumn="span 1">
+                <FormControl gridColumn="span 1" mb={3}>
                   <FormLabel>Confirmar senha</FormLabel>
                   <Input
                     defaultValue={undefined}
@@ -360,20 +359,21 @@ export default function Profile() {
                     <Text>{errors.avatar.message as any}</Text>
                   )}
                 </FormControl>
-              </Grid>
-              <ModalFooter>
-                <HandleButton
-                  w={'full'}
-                  mr={3}
-                  text="Atualizar dados"
-                  leftIcon={<Plus weight="bold" />}
-                  type="submit"
-                />
-                <Button w={'full'} variant={'outline'} onClick={onClose}>
-                  Cancelar
-                </Button>
-              </ModalFooter>
-            </form>
+
+                <Flex justify={'space-between'} mt={3}>
+                  <HandleButton
+                    w={'full'}
+                    mr={3}
+                    text="Atualizar dados"
+                    leftIcon={<Plus weight="bold" />}
+                    type="submit"
+                  />
+                  <Button w={'full'} variant={'outline'} onClick={onClose}>
+                    Cancelar
+                  </Button>
+                </Flex>
+              </form>
+            </Stack>
           </ModalBody>
         </ModalContent>
       </Modal>
