@@ -6,9 +6,13 @@ import {
   SimpleGrid,
   Stack,
   VStack,
-  chakra,
 } from '@chakra-ui/react'
-import { ArrowLeft, Users as UsersIcon } from '@phosphor-icons/react'
+import {
+  ArrowLeft,
+  ListBullets,
+  PersonSimpleRun,
+  Users as UsersIcon,
+} from '@phosphor-icons/react'
 import { useEffect } from 'react'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
@@ -18,8 +22,10 @@ import ListAnamnesis from '../Anamnesis'
 import Feedbacks from '../FeedbacksList'
 import Users from '../Users'
 import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
+import { useRouter } from 'next/router'
 
 export default function Navigation() {
+  const router = useRouter()
   const {
     isShowingOwnerDashboard,
     isShowingUsers,
@@ -40,6 +46,14 @@ export default function Navigation() {
   const handleWithShowUsers = () => {
     setIsShowingOwnerDashboard()
     setIsShowingUsers()
+  }
+
+  const handleWithShowFeedbacks = () => {
+    router.push('/feedbacks')
+  }
+
+  const handleWithShowExercises = () => {
+    router.push('/exercises')
   }
 
   const handleWithHideUsers = () => {
@@ -110,16 +124,69 @@ export default function Navigation() {
                     textTransform={'capitalize'}
                     textAlign={'center'}
                   >
-                    Usuários{' '}
-                    <chakra.span
-                      fontWeight={'medium'}
-                      fontSize={['lg', '2xl']}
-                      textTransform={'capitalize'}
-                      textAlign={'center'}
-                      color={'purple.300'}
-                    >
-                      Listar Usuários
-                    </chakra.span>
+                    Usuários
+                  </Heading>
+                </VStack>
+              </Box>
+
+              <Box
+                p={4}
+                bgColor={'whiteAlpha.100'}
+                rounded={'lg'}
+                border={'1px'}
+                borderColor={'whiteAlpha.200'}
+                backdropBlur={'1rem'}
+                backdropFilter="blur(15px)"
+                _hover={{ cursor: 'pointer' }}
+                onClick={() => handleWithShowFeedbacks()}
+              >
+                <VStack spacing={5}>
+                  <Box
+                    boxShadow="xl"
+                    _hover={{ boxShadow: 'lg' }}
+                    borderRadius="full"
+                    color={'purple.300'}
+                  >
+                    <ListBullets size={96} weight="fill" />
+                  </Box>
+                  <Heading
+                    fontWeight={'medium'}
+                    fontSize={'3xl'}
+                    textTransform={'capitalize'}
+                    textAlign={'center'}
+                  >
+                    Feedbacks
+                  </Heading>
+                </VStack>
+              </Box>
+
+              <Box
+                p={4}
+                bgColor={'whiteAlpha.100'}
+                rounded={'lg'}
+                border={'1px'}
+                borderColor={'whiteAlpha.200'}
+                backdropBlur={'1rem'}
+                backdropFilter="blur(15px)"
+                _hover={{ cursor: 'pointer' }}
+                onClick={() => handleWithShowExercises()}
+              >
+                <VStack spacing={5}>
+                  <Box
+                    boxShadow="xl"
+                    _hover={{ boxShadow: 'lg' }}
+                    borderRadius="full"
+                    color={'purple.300'}
+                  >
+                    <PersonSimpleRun size={96} weight="fill" />
+                  </Box>
+                  <Heading
+                    fontWeight={'medium'}
+                    fontSize={'3xl'}
+                    textTransform={'capitalize'}
+                    textAlign={'center'}
+                  >
+                    Exercícios
                   </Heading>
                 </VStack>
               </Box>
