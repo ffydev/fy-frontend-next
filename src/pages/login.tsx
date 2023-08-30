@@ -52,12 +52,14 @@ export default function Login() {
   })
 
   const onChange = async (value: string | null) => {
-    if (typeof value === 'string') {
-      const response = await validateCaptcha({
-        token: value,
-      })
-      if (typeof response === 'boolean') {
-        setIsValidCaptcha(response)
+    if (!isValidCaptcha) {
+      if (typeof value === 'string') {
+        const response = await validateCaptcha({
+          token: value,
+        })
+        if (typeof response === 'boolean') {
+          setIsValidCaptcha(response)
+        }
       }
     }
   }

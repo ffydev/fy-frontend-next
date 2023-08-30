@@ -74,10 +74,6 @@ export async function validateCaptcha(
 ): Promise<Boolean | null> {
   try {
     const response = await api.post(`/validate-captcha`, captcha)
-
-    if (response.data) {
-      return response.data
-    }
     return response.data
   } catch (error) {
     return null
