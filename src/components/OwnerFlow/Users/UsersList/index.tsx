@@ -269,13 +269,13 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                       ).toLocaleDateString('pt-BR')}`}</FormLabel>
 
                       <Button
-                        title={'Ativar'}
-                        background={'whiteAlpha.400'}
+                        title={'Reativar'}
+                        background={'red.700'}
                         size={'xs'}
                         onClick={() => handleWithActiveUser(user.id)}
                         value={user.id}
                       >
-                        Ativar
+                        Reativar
                       </Button>
                     </Flex>
                   )}
