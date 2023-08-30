@@ -82,7 +82,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
         email: email !== '' ? email : undefined,
         firstName: firstName !== '' ? firstName : undefined,
         lastName: lastName !== '' ? lastName : undefined,
-        deletedAt: deletedAt !== '' ? deletedAt : undefined,
+        deletedAt: deletedAt !== '' ? null : undefined,
       })
 
       toast({
