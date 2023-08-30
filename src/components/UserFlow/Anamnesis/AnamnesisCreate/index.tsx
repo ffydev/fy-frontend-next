@@ -303,7 +303,9 @@ export default function AnamnesisCreate() {
                   placeholder="Digite sua idade"
                   isRequired
                 />
-                {errors.age && <Text>{errors.age.message}</Text>}
+                {errors.age && (
+                  <Text color={'red.600'}>{errors.age.message}</Text>
+                )}
               </FormControl>
 
               <FormControl gridColumn="span 1">
@@ -313,7 +315,9 @@ export default function AnamnesisCreate() {
                   placeholder="Digite sua altura em cm"
                   isRequired
                 />
-                {errors.height && <Text>{errors.height.message}</Text>}
+                {errors.height && (
+                  <Text color={'red.600'}>{errors.height.message}</Text>
+                )}
               </FormControl>
 
               <FormControl gridColumn="span 1">
@@ -323,7 +327,9 @@ export default function AnamnesisCreate() {
                   placeholder="Digite seu peso em kg"
                   isRequired
                 />
-                {errors.weight && <Text>{errors.weight.message}</Text>}
+                {errors.weight && (
+                  <Text color={'red.600'}>{errors.weight.message}</Text>
+                )}
               </FormControl>
 
               <FormControl gridColumn="span 1">
@@ -463,7 +469,9 @@ export default function AnamnesisCreate() {
                   ))}
                 </Flex>
                 {errors?.pictures && (
-                  <Text>{errors.pictures.message as any}</Text>
+                  <Text color={'red.600'}>
+                    {errors.pictures.message as any}
+                  </Text>
                 )}
               </FormControl>
             </Grid>
