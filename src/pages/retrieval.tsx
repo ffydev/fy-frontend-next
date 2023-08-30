@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useAuthStore } from '@/stores/AuthStore'
 import {
   Box,
