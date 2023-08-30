@@ -74,15 +74,14 @@ const createAnamnesisFormSchema = z.object({
   supplementsPharmaceuticalsUsed: z.string().optional(),
   pictures: z
     .any()
-    .refine((obj) => Object.keys(obj).length > 0, {
-      message: 'Por favor, selecione suas fotos.',
-    })
     .refine(
       (obj) => {
-        Object.entries(obj)
-        for (const file of obj) {
-          if (file.size > maxFileSize) {
-            return false
+        if (obj && obj.length > 0) {
+          Object.entries(obj)
+          for (const file of obj) {
+            if (file.size > maxFileSize) {
+              return false
+            }
           }
         }
         return true
@@ -91,15 +90,17 @@ const createAnamnesisFormSchema = z.object({
     )
     .refine(
       (obj) => {
-        Object.entries(obj)
-        for (const file of obj) {
-          if (!imageTypes.includes(file.type)) {
-            return false
+        if (obj && obj.length > 0) {
+          Object.entries(obj)
+          for (const file of obj) {
+            if (!imageTypes.includes(file.type)) {
+              return false
+            }
           }
+          return true
         }
-        return true
       },
-      { message: 'Por favor, selecione apenas imagens.' },
+      { message: 'Por favor, selecione suas imagens.' },
     ),
 })
 
