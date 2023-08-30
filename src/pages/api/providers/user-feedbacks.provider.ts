@@ -14,7 +14,7 @@ export interface IUserFeedback {
   doctorId?: string
   isAnswered?: boolean
   createdAt?: string
-  User: IUser
+  User?: IUser
   avatar?: IAvatar
 }
 
