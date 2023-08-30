@@ -32,7 +32,11 @@ const NavLink = (props: Props) => {
   const { children } = props
   const link = children!.toString().toLowerCase()
 
-  return <Link href={link}>{children}</Link>
+  return (
+    <Link key={link} href={link}>
+      {children}
+    </Link>
+  )
 }
 
 export default function Navbar() {
@@ -89,18 +93,17 @@ export default function Navbar() {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}
             >
-              {Links.map((link) => (
-                <>
-                  <Box
-                    _hover={{
-                      bgColor: 'purple.500',
-                      rounded: 'lg',
-                    }}
-                    p={1}
-                  >
-                    <NavLink key={link}>{link}</NavLink>
-                  </Box>
-                </>
+              {Links.map((link, index) => (
+                <Box
+                  key={index}
+                  _hover={{
+                    bgColor: 'purple.500',
+                    rounded: 'lg',
+                  }}
+                  p={1}
+                >
+                  <NavLink key={link}>{link}</NavLink>
+                </Box>
               ))}
             </HStack>
           </HStack>
@@ -143,18 +146,17 @@ export default function Navbar() {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <>
-                  <Box
-                    _hover={{
-                      bgColor: 'purple.500',
-                      rounded: 'lg',
-                    }}
-                    p={1}
-                  >
-                    <NavLink key={link}>{link}</NavLink>
-                  </Box>
-                </>
+              {Links.map((link, index) => (
+                <Box
+                  key={index}
+                  _hover={{
+                    bgColor: 'purple.500',
+                    rounded: 'lg',
+                  }}
+                  p={1}
+                >
+                  <NavLink key={link}>{link}</NavLink>
+                </Box>
               ))}
             </Stack>
           </Box>
