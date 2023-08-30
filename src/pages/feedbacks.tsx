@@ -126,8 +126,6 @@ export default function Feedbacks() {
     router.push('/dashboard')
   }
 
-  console.log(feedbacks)
-
   return (
     <>
       <Box
