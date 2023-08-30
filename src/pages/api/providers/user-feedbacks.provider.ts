@@ -1,5 +1,5 @@
 import { api } from '../apis/api'
-import { IUser } from './auth.provider'
+import { IAvatar, IUser } from './auth.provider'
 
 export interface IUserFeedback {
   id?: string
@@ -14,7 +14,8 @@ export interface IUserFeedback {
   doctorId?: string
   isAnswered?: boolean
   createdAt?: string
-  User?: IUser
+  User: IUser
+  avatar?: IAvatar
 }
 
 export interface IVideo {

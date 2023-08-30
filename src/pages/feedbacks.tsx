@@ -126,6 +126,8 @@ export default function Feedbacks() {
     router.push('/dashboard')
   }
 
+  console.log(feedbacks)
+
   return (
     <>
       <Box
@@ -184,7 +186,7 @@ export default function Feedbacks() {
                             size={'lg'}
                             src={
                               feedback?.User?.hasAvatar
-                                ? `data:image/jpeg;base64,${feedback?.User?.avatar?.imageData}`
+                                ? `data:image/jpeg;base64,${feedback?.avatar?.imageData}`
                                 : 'logo.png'
                             }
                           />
