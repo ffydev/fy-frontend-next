@@ -173,12 +173,11 @@ export default function Login() {
                   />
                   {errors.password && <Text>{errors.password.message}</Text>}
                 </FormControl>
-                {process.env.NODE_ENV !== 'development' ? (
-                  <ReCAPTCHA
-                    sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                    onChange={onChange}
-                  />
-                ) : null}
+
+                <ReCAPTCHA
+                  sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                  onChange={onChange}
+                />
 
                 <Stack spacing={6} direction={['column', 'row']} pt={4}>
                   <HandleButton w={'full'} text="Entrar" type="submit" />
