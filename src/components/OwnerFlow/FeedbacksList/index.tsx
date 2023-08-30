@@ -112,10 +112,8 @@ export default function Feedbacks() {
       {feedbacks?.map((feedback: IUserFeedback) => (
         <Box
           p={4}
-          backdropBlur={'1rem'}
           rounded={'lg'}
           border={'1px'}
-          bgColor={'whiteAlpha.50'}
           borderColor={'whiteAlpha.100'}
           m={4}
           key={feedback.id}

@@ -77,7 +77,7 @@ export default function UsersHeader({
   return (
     <>
       <Heading as="h3" size="lg" pb="6" fontWeight="medium" textAlign="left">
-        Usuários {usersCount > 0 && `(${usersCount})`}
+        {usersCount > 0 && `(${usersCount})`}
       </Heading>
       <Stack direction={['column', 'row']} spacing={6} w={'full'}>
         <FormControl width={'100%'}>

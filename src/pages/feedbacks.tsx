@@ -7,7 +7,6 @@ import {
   Heading,
   Stack,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -168,9 +167,6 @@ export default function Feedbacks() {
             <Stack m={3}>
               <TableContainer>
                 <Table variant="simple">
-                  <TableCaption>
-                    Imperial to metric conversion factors
-                  </TableCaption>
                   <Thead>
                     <Tr>
                       <Th></Th>

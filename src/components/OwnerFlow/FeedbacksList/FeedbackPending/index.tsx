@@ -17,6 +17,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalHeader,
   ModalOverlay,
   Textarea,
   chakra,
@@ -148,17 +149,10 @@ export function FeedbackPending({
           borderColor={'whiteAlpha.200'}
           backdropBlur={'1rem'}
         >
+          <ModalHeader textAlign={'center'}>Feedback</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box
-              p={4}
-              backdropBlur={'1rem'}
-              rounded={'lg'}
-              border={'1px'}
-              bgColor={'whiteAlpha.50'}
-              borderColor={'whiteAlpha.100'}
-              m={4}
-            >
+            <Box p={2} rounded={'lg'} borderColor={'whiteAlpha.100'} m={1}>
               <chakra.h1 fontSize="lg" lineHeight={6} mb={3}>
                 Data:{' '}
                 {new Date(feedback?.createdAt!).toLocaleDateString('pt-BR')}

@@ -26,17 +26,13 @@ interface Props {
   children: React.ReactNode
 }
 
-const Links = ['Dashboard', 'Exercises', 'Feedbacks']
+const Links = ['Dashboard', 'Users', 'Exercises', 'Feedbacks']
 
 const NavLink = (props: Props) => {
   const { children } = props
   const link = children!.toString().toLowerCase()
 
-  return (
-    <Link href={link}>
-      {children === 'Exercises' ? 'Exercícios' : children}
-    </Link>
-  )
+  return <Link href={link}>{children}</Link>
 }
 
 export default function Navbar() {
@@ -94,7 +90,17 @@ export default function Navbar() {
               display={{ base: 'none', md: 'flex' }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <>
+                  <Box
+                    _hover={{
+                      bgColor: 'purple.500',
+                      rounded: 'lg',
+                    }}
+                    p={1}
+                  >
+                    <NavLink key={link}>{link}</NavLink>
+                  </Box>
+                </>
               ))}
             </HStack>
           </HStack>
@@ -114,12 +120,7 @@ export default function Navbar() {
                   bg={'purple.400'}
                 />
               </MenuButton>
-              <MenuList
-                border={'1px'}
-                borderColor={'whiteAlpha.200'}
-                backdropFilter="auto"
-                backdropBlur="1rem"
-              >
+              <MenuList border={'1px'} borderColor={'whiteAlpha.200'}>
                 <>
                   <Profile />
                 </>
@@ -143,7 +144,17 @@ export default function Navbar() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <>
+                  <Box
+                    _hover={{
+                      bgColor: 'purple.500',
+                      rounded: 'lg',
+                    }}
+                    p={1}
+                  >
+                    <NavLink key={link}>{link}</NavLink>
+                  </Box>
+                </>
               ))}
             </Stack>
           </Box>

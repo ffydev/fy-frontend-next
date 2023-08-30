@@ -12,7 +12,7 @@ import Pagination from '@/components/Pagination'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { useToast } from '@chakra-ui/react'
 
-export default function Users() {
+export default function UsersFetch() {
   const router = useRouter()
   const [users, setUsers] = useState<IUserInterface[]>([])
   const [usersCount, setUsersCount] = useState<number>(0)
