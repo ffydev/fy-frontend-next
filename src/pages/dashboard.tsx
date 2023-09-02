@@ -71,7 +71,10 @@ export default function Dashboard() {
   return (
     <>
       {isLoadingLogin ? (
-        <IsLoading />
+        <>
+          <h1>asdasdasdsadasdsa</h1>
+          <IsLoading />
+        </>
       ) : (
         <>
           {user?.isRegistered === false ? (

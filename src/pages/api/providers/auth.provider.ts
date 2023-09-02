@@ -79,3 +79,12 @@ export async function validateCaptcha(
     return null
   }
 }
+
+export async function recoveryPassword(email: string): Promise<void> {
+  try {
+    return await api.post(`/retrieval/${email}`)
+  } catch (error) {
+    console.error('Failed to recovery password', error)
+    throw error
+  }
+}
