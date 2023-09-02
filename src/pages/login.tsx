@@ -186,7 +186,7 @@ export default function Login() {
 
                     <ReCAPTCHA
                       sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                      onChange={onChange}
+                      onClick={() => onChange}
                     />
 
                     <Stack direction={['column', 'row']}>
