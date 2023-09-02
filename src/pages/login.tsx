@@ -39,6 +39,7 @@ type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const [isValidCaptcha, setIsValidCaptcha] = useState<boolean>(false)
+  const [currentCaptcha, setCurrentCaptcha] = useState<string>('')
   const router = useRouter()
   const { setError, error } = useAuthStore()
   const [isRecorveringPassword, setIsRecorveringPassword] =
@@ -52,23 +53,26 @@ export default function Login() {
     resolver: zodResolver(loginFormSchema),
   })
 
-  const onChange = async (value: string | null) => {
+  const onChangeCaptcha = async (value: string | null) => {
     if (!isValidCaptcha) {
       if (typeof value === 'string') {
-        const response = await validateCaptcha({
-          token: value,
-        })
-        if (typeof response === 'boolean') {
-          setIsValidCaptcha(response)
-        }
+        setCurrentCaptcha(value)
       }
     }
-    console.log(isValidCaptcha, 'onChange')
+  }
+
+  const validateCurrentCaptcha = async () => {
+    const response = await validateCaptcha({
+      token: currentCaptcha,
+    })
+    if (typeof response === 'boolean') {
+      setIsValidCaptcha(response)
+    }
   }
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
-      console.log(isValidCaptcha, 'onSubmit')
+      validateCurrentCaptcha()
       if (isValidCaptcha) {
         const response = await signIn({
           username: data.username,
@@ -187,7 +191,7 @@ export default function Login() {
                     {process.env.NODE_ENV !== 'development' ? (
                       <ReCAPTCHA
                         sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                        onClick={(value: any) => onChange(value)}
+                        onChange={onChangeCaptcha}
                       />
                     ) : null}
 
