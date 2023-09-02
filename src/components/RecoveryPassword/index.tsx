@@ -13,7 +13,7 @@ import HandleButton from '../Buttons/HandleButton'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { recoveryPassword } from '@/pages/api/providers/auth.provider'
+import { initRecoveryPassword } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 
 const recoveryFormSchema = z.object({
@@ -37,7 +37,7 @@ export default function RecoveryPassword() {
 
   const onSubmitLogin: SubmitHandler<recoveryFormSchemaType> = async (data) => {
     try {
-      await recoveryPassword(data.username)
+      await initRecoveryPassword(data.username)
 
       toast({
         title: 'E-mail enviado com sucesso',

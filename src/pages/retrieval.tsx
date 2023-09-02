@@ -23,6 +23,7 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { AddToHomeScreen } from '@/components/Notification'
 import NotificationIos from '@/components/Notification/notificationIos'
 import { useSearchParams } from 'next/navigation'
+import { recoveryPassword } from './api/providers/users.provider'
 
 const retrievalPasswordFormSchema = z
   .object({
@@ -85,33 +86,33 @@ export default function Retrieval() {
     resolver: zodResolver(retrievalPasswordFormSchema),
   })
 
-  // const onSubmitLogin: SubmitHandler<retrievalPasswordFormSchemaType> = async (
-  //   data,
-  // ) => {
-  //   try {
-  //     const response = await retrievalPassword({
-  //       email: router.query.email as string,
-  //       password: data.password,
-  //     })
+  const onSubmitLogin: SubmitHandler<retrievalPasswordFormSchemaType> = async (
+    data,
+  ) => {
+    try {
+      const response = await recoveryPassword(
+        router.query.token as string,
+        router.query.email as string,
+        data.password,
+      )
 
-  //     if (response) {
-  //       router.push('/login')
-  //     }
-  //     toast({
-  //       title: 'Senha atualizada com sucesso!',
-  //       status: 'success',
-  //       duration: 3000,
-  //       isClosable: true,
-  //     })
-  //   } catch (error) {
-  //     toast({
-  //       title: 'Ocorreu um erro ao atualizar a senha',
-  //       status: 'error',
-  //       duration: 3000,
-  //       isClosable: true,
-  //     })
-  //   }
-  // }
+      router.push('/login')
+
+      toast({
+        title: 'Senha atualizada com sucesso!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+    } catch (error) {
+      toast({
+        title: 'Ocorreu um erro ao atualizar a senha',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }
 
   const BoxBgImage = (props: BoxProps) => {
     return (
@@ -163,65 +164,65 @@ export default function Retrieval() {
                 />
               </Box>
             </Stack>
-            {/* <form onSubmit={handleSubmit(onSubmitLogin)}> */}
-            <Stack spacing={4} w={'full'} maxW={'sm'}>
-              <Heading
-                as={'h1'}
-                fontSize={'2xl'}
-                textAlign={{ base: 'center', md: 'left' }}
-              >
-                Recupere sua senha
-              </Heading>
-              {error && (
-                <>
-                  <Text
-                    color={'red.400'}
-                    as={'h2'}
-                    fontSize={'lg'}
-                    textAlign={{ base: 'center', md: 'left' }}
-                  >
-                    {error}
-                  </Text>
-                </>
-              )}
-
-              <FormControl>
-                <FormLabel>Sua Senha</FormLabel>
-                <Input
-                  type={'password'}
-                  placeholder="Coloque sua senha"
-                  {...register('password')}
-                />
-                {errors.password && <Text>{errors.password.message}</Text>}
-              </FormControl>
-
-              <FormControl gridColumn="span 1" mb={3}>
-                <FormLabel>Confirmar senha</FormLabel>
-                <Input
-                  defaultValue={undefined}
-                  type={'password'}
-                  {...register('confirmPassword')}
-                  placeholder="Confirmar senha"
-                />
-                {errors.confirmPassword && (
-                  <Text>{errors.confirmPassword.message}</Text>
-                )}
-              </FormControl>
-
-              <Stack spacing={6} direction={['column', 'row']} pt={4}>
-                <HandleButton w={'full'} text="Atualizar" type="submit" />
-                <Button
-                  w={'full'}
-                  variant={'outline'}
-                  colorScheme="purple"
-                  type="reset"
+            <form onSubmit={handleSubmit(onSubmitLogin)}>
+              <Stack spacing={4} w={'full'} maxW={'sm'}>
+                <Heading
+                  as={'h1'}
+                  fontSize={'2xl'}
+                  textAlign={{ base: 'center', md: 'left' }}
                 >
-                  Cancelar
-                </Button>
-                <NotificationIos />
+                  Recupere sua senha
+                </Heading>
+                {error && (
+                  <>
+                    <Text
+                      color={'red.400'}
+                      as={'h2'}
+                      fontSize={'lg'}
+                      textAlign={{ base: 'center', md: 'left' }}
+                    >
+                      {error}
+                    </Text>
+                  </>
+                )}
+
+                <FormControl>
+                  <FormLabel>Sua Senha</FormLabel>
+                  <Input
+                    type={'password'}
+                    placeholder="Coloque sua senha"
+                    {...register('password')}
+                  />
+                  {errors.password && <Text>{errors.password.message}</Text>}
+                </FormControl>
+
+                <FormControl gridColumn="span 1" mb={3}>
+                  <FormLabel>Confirmar senha</FormLabel>
+                  <Input
+                    defaultValue={undefined}
+                    type={'password'}
+                    {...register('confirmPassword')}
+                    placeholder="Confirmar senha"
+                  />
+                  {errors.confirmPassword && (
+                    <Text>{errors.confirmPassword.message}</Text>
+                  )}
+                </FormControl>
+
+                <Stack spacing={6} direction={['column', 'row']} pt={4}>
+                  <HandleButton w={'full'} text="Atualizar" type="submit" />
+                  <Button
+                    w={'full'}
+                    variant={'outline'}
+                    colorScheme="purple"
+                    type="reset"
+                  >
+                    Cancelar
+                  </Button>
+                  <NotificationIos />
+                </Stack>
               </Stack>
-            </Stack>
-            {/* </form> */}
+            </form>
           </Box>
         </Flex>
       </BoxBgImage>

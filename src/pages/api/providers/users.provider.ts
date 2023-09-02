@@ -145,3 +145,24 @@ export async function updateUserByUser(
     throw error
   }
 }
+
+export async function recoveryPassword(
+  token: string,
+  email: string,
+  password: string,
+) {
+  try {
+    return await api.patch(
+      `/users/retrieval?email=${email}`,
+      {
+        password,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+  } catch (error) {
+    console.error('Failed to recovery password', error)
+    throw error
+  }
+}

@@ -80,7 +80,7 @@ export async function validateCaptcha(
   }
 }
 
-export async function recoveryPassword(email: string): Promise<void> {
+export async function initRecoveryPassword(email: string): Promise<void> {
   try {
     return await api.post(`/retrieval/${email}`)
   } catch (error) {
