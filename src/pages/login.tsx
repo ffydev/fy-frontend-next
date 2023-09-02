@@ -43,7 +43,8 @@ export default function Login() {
   )
   const router = useRouter()
   const { setError, error } = useAuthStore()
-  const [isRecorverPassword, setIsRecorverPassword] = useState<boolean>(false)
+  const [isRecorveringPassword, setIsRecorveringPassword] =
+    useState<boolean>(false)
 
   const {
     register,
@@ -136,7 +137,7 @@ export default function Login() {
                 />
               </Box>
             </Stack>
-            {isRecorverPassword ? (
+            {isRecorveringPassword ? (
               <RetrievalPassword />
             ) : (
               <>
@@ -211,19 +212,19 @@ export default function Login() {
               align={'start'}
               justify={'space-between'}
             >
-              {isRecorverPassword ? (
+              {isRecorveringPassword ? (
                 <Button
                   w={'full'}
                   variant={'outline'}
                   colorScheme="purple"
                   type="reset"
-                  onClick={() => setIsRecorverPassword(false)}
+                  onClick={() => setIsRecorveringPassword(false)}
                 >
                   Voltar
                 </Button>
               ) : (
                 <Text
-                  onClick={() => setIsRecorverPassword(true)}
+                  onClick={() => setIsRecorveringPassword(true)}
                   color={'blue.400'}
                 >
                   Esqueci a senha

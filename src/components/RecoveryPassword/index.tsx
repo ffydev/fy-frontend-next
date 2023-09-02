@@ -16,13 +16,13 @@ import { z } from 'zod'
 import { initRecoveryPassword } from '@/pages/api/providers/auth.provider'
 import { useRouter } from 'next/router'
 
-const recoveryFormSchema = z.object({
+const retrievalFormSchema = z.object({
   username: z.string().email({
     message: 'E-mail inválido',
   }),
 })
 
-type recoveryFormSchemaType = z.infer<typeof recoveryFormSchema>
+type retrievalFormSchemaType = z.infer<typeof retrievalFormSchema>
 
 export default function RetrievalPassword() {
   const toast = useToast()
@@ -31,11 +31,13 @@ export default function RetrievalPassword() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<recoveryFormSchemaType>({
-    resolver: zodResolver(recoveryFormSchema),
+  } = useForm<retrievalFormSchemaType>({
+    resolver: zodResolver(retrievalFormSchema),
   })
 
-  const onSubmitLogin: SubmitHandler<recoveryFormSchemaType> = async (data) => {
+  const onSubmitLogin: SubmitHandler<retrievalFormSchemaType> = async (
+    data,
+  ) => {
     try {
       await initRecoveryPassword(data.username)
 
