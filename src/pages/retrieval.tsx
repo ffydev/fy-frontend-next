@@ -90,7 +90,7 @@ export default function Retrieval() {
     data,
   ) => {
     try {
-      const response = await recoveryPassword(
+      await recoveryPassword(
         router.query.token as string,
         router.query.email as string,
         data.password,
