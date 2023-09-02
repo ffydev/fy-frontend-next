@@ -38,9 +38,7 @@ const loginFormSchema = z.object({
 type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
-  const [isValidCaptcha, setIsValidCaptcha] = useState<boolean | undefined>(
-    false,
-  )
+  const [isValidCaptcha, setIsValidCaptcha] = useState<boolean>(false)
   const router = useRouter()
   const { setError, error } = useAuthStore()
   const [isRecorveringPassword, setIsRecorveringPassword] =
