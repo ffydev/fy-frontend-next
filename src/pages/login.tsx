@@ -68,20 +68,19 @@ export default function Login() {
   }
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
-    if (process.env.NODE_ENV !== 'development' && !isValidCaptcha) {
-      return setError('Captcha is required')
-    }
     try {
-      const response = await signIn({
-        username: data.username,
-        password: data.password,
-      })
+      if (isValidCaptcha) {
+        const response = await signIn({
+          username: data.username,
+          password: data.password,
+        })
 
-      if (response) {
-        router.push('/dashboard')
-        return setError(undefined)
+        if (response) {
+          router.push('/dashboard')
+          return setError(undefined)
+        }
+        return setError('Usuário ou senha inválidos')
       }
-      return setError('Usuário ou senha inválidos')
     } catch (error) {
       setError('Usuário ou senha inválidos')
     }

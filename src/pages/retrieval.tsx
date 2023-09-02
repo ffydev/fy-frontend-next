@@ -28,7 +28,6 @@ import { recoveryPassword } from './api/providers/users.provider'
 const retrievalPasswordFormSchema = z
   .object({
     password: z.string().nonempty(),
-
     confirmPassword: z.string().nonempty(),
   })
   .refine(
