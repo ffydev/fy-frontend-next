@@ -8,6 +8,19 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/login',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'credentialless',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+      {
         source: '/dashboard',
         headers: [
           {
