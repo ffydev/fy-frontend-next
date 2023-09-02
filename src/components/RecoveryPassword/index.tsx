@@ -24,7 +24,7 @@ const recoveryFormSchema = z.object({
 
 type recoveryFormSchemaType = z.infer<typeof recoveryFormSchema>
 
-export default function RecoveryPassword() {
+export default function RetrievalPassword() {
   const toast = useToast()
   const router = useRouter()
   const {

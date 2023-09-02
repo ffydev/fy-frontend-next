@@ -22,7 +22,8 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import { AddToHomeScreen } from '@/components/Notification'
 import NotificationIos from '@/components/Notification/notificationIos'
 import ReCAPTCHA from 'react-google-recaptcha'
-import RecoveryPassword from '@/components/RecoveryPassword'
+import RetrievalPassword from '@/components/RecoveryPassword'
+
 const loginFormSchema = z.object({
   username: z.string().email({
     message: 'E-mail inválido',
@@ -136,7 +137,7 @@ export default function Login() {
               </Box>
             </Stack>
             {isRecorverPassword ? (
-              <RecoveryPassword />
+              <RetrievalPassword />
             ) : (
               <>
                 <form onSubmit={handleSubmit(onSubmitLogin)}>
