@@ -69,6 +69,7 @@ export default function Login() {
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
+      console.log(isValidCaptcha)
       if (isValidCaptcha) {
         const response = await signIn({
           username: data.username,
