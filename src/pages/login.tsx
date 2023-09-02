@@ -182,11 +182,11 @@ export default function Login() {
                         <Text>{errors.password.message}</Text>
                       )}
                     </FormControl>
-                    {/* 
-                <ReCAPTCHA
-                  sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                  onChange={onChange}
-                /> */}
+
+                    <ReCAPTCHA
+                      sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                      onChange={onChange}
+                    />
 
                     <Stack direction={['column', 'row']}>
                       <HandleButton w={'full'} text="Entrar" type="submit" />
