@@ -184,10 +184,12 @@ export default function Login() {
                       )}
                     </FormControl>
 
-                    <ReCAPTCHA
-                      sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                      onClick={() => onChange}
-                    />
+                    {process.env.NODE_ENV !== 'development' ? (
+                      <ReCAPTCHA
+                        sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                        onClick={(value: any) => onChange(value)}
+                      />
+                    ) : null}
 
                     <Stack direction={['column', 'row']}>
                       <HandleButton w={'full'} text="Entrar" type="submit" />
