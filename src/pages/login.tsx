@@ -42,6 +42,7 @@ export default function Login() {
   const { setError, error } = useAuthStore()
   const [isRecorveringPassword, setIsRecorveringPassword] =
     useState<boolean>(false)
+  const [isVisibleCaptcha, setIsVisibleCaptcha] = useState<boolean>(true)
 
   const {
     register,
@@ -67,19 +68,23 @@ export default function Login() {
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
-      const isValidCaptcha = await validateCurrentCaptcha()
+      if (process.env.NODE_ENV !== 'development') {
+        const isValidCaptcha = await validateCurrentCaptcha()
 
-      if (isValidCaptcha) {
-        const response = await signIn({
-          username: data.username,
-          password: data.password,
-        })
-
-        if (response) {
-          router.push('/dashboard')
-          return setError(undefined)
+        if (!isValidCaptcha) {
+          return setError('Captcha Invalido')
         }
-        return setError('Usuário ou senha inválidos')
+        setIsVisibleCaptcha(false)
+      }
+
+      const response = await signIn({
+        username: data.username,
+        password: data.password,
+      })
+
+      if (response) {
+        router.push('/dashboard')
+        return setError(undefined)
       }
     } catch (error) {
       setError('Usuário ou senha inválidos')
@@ -183,7 +188,13 @@ export default function Login() {
                         <Text>{errors.password.message}</Text>
                       )}
                     </FormControl>
-
+                    {process.env.NODE_ENV !== 'development' &&
+                    isVisibleCaptcha ? (
+                      <ReCAPTCHA
+                        sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                        ref={captchaRef}
+                      />
+                    ) : null}
                     <Stack direction={['column', 'row']}>
                       <HandleButton w={'full'} text="Entrar" type="submit" />
                       <Button
@@ -198,14 +209,6 @@ export default function Login() {
                     </Stack>
                   </Stack>
                 </form>
-                <div style={{ marginTop: 5 }}>
-                  {process.env.NODE_ENV !== 'development' ? (
-                    <ReCAPTCHA
-                      sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                      ref={captchaRef}
-                    />
-                  ) : null}
-                </div>
               </>
             )}
             <Stack
