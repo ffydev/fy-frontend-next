@@ -199,7 +199,7 @@ export default function Login() {
                   </Stack>
                 </form>
                 <div style={{ marginTop: 5 }}>
-                  {process.env.NODE_ENV === 'development' ? (
+                  {process.env.NODE_ENV !== 'development' ? (
                     <ReCAPTCHA
                       sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
                       ref={captchaRef}
