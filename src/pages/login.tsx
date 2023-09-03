@@ -38,8 +38,6 @@ const loginFormSchema = z.object({
 type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
-  const [isValidCaptcha, setIsValidCaptcha] = useState<boolean>(false)
-
   const router = useRouter()
   const { setError, error } = useAuthStore()
   const [isRecorveringPassword, setIsRecorveringPassword] =
@@ -61,14 +59,16 @@ export default function Login() {
         token,
       })
       if (typeof response === 'boolean') {
-        setIsValidCaptcha(response)
+        return response
       }
     }
+    return false
   }
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
-      validateCurrentCaptcha()
+      const isValidCaptcha = await validateCurrentCaptcha()
+
       if (isValidCaptcha) {
         const response = await signIn({
           username: data.username,
