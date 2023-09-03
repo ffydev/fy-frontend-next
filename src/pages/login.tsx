@@ -184,13 +184,6 @@ export default function Login() {
                       )}
                     </FormControl>
 
-                    {process.env.NODE_ENV !== 'development' ? (
-                      <ReCAPTCHA
-                        sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                        ref={captchaRef}
-                      />
-                    ) : null}
-
                     <Stack direction={['column', 'row']}>
                       <HandleButton w={'full'} text="Entrar" type="submit" />
                       <Button
@@ -205,6 +198,14 @@ export default function Login() {
                     </Stack>
                   </Stack>
                 </form>
+                <div style={{ marginTop: 5 }}>
+                  {process.env.NODE_ENV === 'development' ? (
+                    <ReCAPTCHA
+                      sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                      ref={captchaRef}
+                    />
+                  ) : null}
+                </div>
               </>
             )}
             <Stack
