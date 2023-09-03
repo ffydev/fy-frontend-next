@@ -14,7 +14,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { signIn, validateCaptcha } from './api/providers/auth.provider'
@@ -39,7 +39,7 @@ type loginFormSchemaType = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const [isValidCaptcha, setIsValidCaptcha] = useState<boolean>(false)
-  const [currentCaptcha, setCurrentCaptcha] = useState<string>('')
+
   const router = useRouter()
   const { setError, error } = useAuthStore()
   const [isRecorveringPassword, setIsRecorveringPassword] =
@@ -52,21 +52,17 @@ export default function Login() {
   } = useForm<loginFormSchemaType>({
     resolver: zodResolver(loginFormSchema),
   })
-
-  const onChangeCaptcha = async (value: string | null) => {
-    if (!isValidCaptcha) {
-      if (typeof value === 'string') {
-        setCurrentCaptcha(value)
-      }
-    }
-  }
+  const captchaRef: any = useRef(null)
 
   const validateCurrentCaptcha = async () => {
-    const response = await validateCaptcha({
-      token: currentCaptcha,
-    })
-    if (typeof response === 'boolean') {
-      setIsValidCaptcha(response)
+    const token = captchaRef.current.getValue()
+    if (typeof token === 'string') {
+      const response = await validateCaptcha({
+        token,
+      })
+      if (typeof response === 'boolean') {
+        setIsValidCaptcha(response)
+      }
     }
   }
 
@@ -191,7 +187,7 @@ export default function Login() {
                     {process.env.NODE_ENV !== 'development' ? (
                       <ReCAPTCHA
                         sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
-                        onChange={onChangeCaptcha}
+                        ref={captchaRef}
                       />
                     ) : null}
 
