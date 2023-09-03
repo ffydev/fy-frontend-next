@@ -68,7 +68,7 @@ export default function Login() {
 
   const onSubmitLogin: SubmitHandler<loginFormSchemaType> = async (data) => {
     try {
-      if (process.env.NODE_ENV !== 'development') {
+      if (process.env.NODE_ENV === 'production') {
         const isValidCaptcha = await validateCurrentCaptcha()
 
         if (!isValidCaptcha) {
@@ -191,7 +191,7 @@ export default function Login() {
                     {process.env.NODE_ENV !== 'development' &&
                     isVisibleCaptcha ? (
                       <ReCAPTCHA
-                        sitekey="6LexJ9AnAAAAADk0hoK8TODYhKF4sxuqhNul1tqk"
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                         ref={captchaRef}
                       />
                     ) : null}
