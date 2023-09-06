@@ -74,9 +74,8 @@ export default function Retrieval() {
   const searchParams = useSearchParams()
 
   const email = searchParams.get('email')
-  const token = searchParams.get('token')
+  const token = searchParams.get('accessToken')
 
-  console.log(email, token)
   const {
     register,
     handleSubmit,
