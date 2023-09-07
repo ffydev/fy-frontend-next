@@ -1,6 +1,6 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 
-import { useToast, SimpleGrid, Box } from '@chakra-ui/react'
+import { useToast, SimpleGrid } from '@chakra-ui/react'
 
 import { useRouter } from 'next/router'
 
@@ -42,7 +42,7 @@ export default function Graphics() {
       }
     }
     fetchMuscleGroups()
-  }, [toast])
+  }, [router, toast])
 
   return (
     <div style={{ overflowX: 'auto' }}>
