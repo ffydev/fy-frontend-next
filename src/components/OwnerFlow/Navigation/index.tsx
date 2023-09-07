@@ -9,6 +9,7 @@ import {
 import {
   ListBullets,
   PersonSimpleRun,
+  ChartLineUp,
   Users as UsersIcon,
 } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
@@ -26,6 +27,10 @@ export default function Navigation() {
 
   const handleWithShowUsers = () => {
     router.push('/users')
+  }
+
+  const handleWithShowRepports = () => {
+    router.push('/repports')
   }
 
   return (
@@ -118,6 +123,33 @@ export default function Navigation() {
                   textAlign={'center'}
                 >
                   Exercícios
+                </Heading>
+              </VStack>
+            </Box>
+            <Box
+              p={4}
+              rounded={'lg'}
+              border={'1px'}
+              borderColor={'whiteAlpha.200'}
+              _hover={{ cursor: 'pointer' }}
+              onClick={() => handleWithShowRepports()}
+            >
+              <VStack spacing={5}>
+                <Box
+                  boxShadow="xl"
+                  _hover={{ boxShadow: 'lg' }}
+                  borderRadius="full"
+                  color={'purple.300'}
+                >
+                  <ChartLineUp size={96} weight="fill" />
+                </Box>
+                <Heading
+                  fontWeight={'medium'}
+                  fontSize={'3xl'}
+                  textTransform={'capitalize'}
+                  textAlign={'center'}
+                >
+                  Relatórios
                 </Heading>
               </VStack>
             </Box>
