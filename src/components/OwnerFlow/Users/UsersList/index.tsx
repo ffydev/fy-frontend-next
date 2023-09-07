@@ -177,9 +177,10 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                   size={'lg'}
                   src={
                     user.hasAvatar
-                      ? `data:image/jpeg;base64,${
-                          user.avatar.imageData || 'logo.png'
-                        }`
+                      ? `data:image/jpeg;base64,${user?.avatar?.imageData}` !==
+                        ''
+                        ? `data:image/jpeg;base64,${user.avatar.imageData}`
+                        : 'logo.png'
                       : 'logo.png'
                   }
                 />
