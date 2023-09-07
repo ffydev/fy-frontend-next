@@ -184,7 +184,9 @@ export default function Feedbacks() {
                             size={'lg'}
                             src={
                               feedback?.User?.hasAvatar
-                                ? `data:image/jpeg;base64,${feedback?.avatar?.imageData}`
+                                ? `data:image/jpeg;base64,${
+                                    feedback?.avatar?.imageData || 'logo.png'
+                                  }`
                                 : 'logo.png'
                             }
                           />

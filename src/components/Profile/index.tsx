@@ -251,7 +251,9 @@ export default function Profile() {
                 size={'lg'}
                 src={
                   user.hasAvatar
-                    ? `data:image/jpeg;base64,${userAvatar.imageData}`
+                    ? `data:image/jpeg;base64,${
+                        userAvatar.imageData || 'logo.png'
+                      }`
                     : 'logo.png'
                 }
               />
