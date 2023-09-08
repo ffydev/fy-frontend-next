@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import Chart from 'react-apexcharts'
-
+import dynamic from 'next/dynamic'
+import { AppState } from '../interfaces'
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 interface ChartAreaState {
   options: {
     chart: {
@@ -36,7 +37,7 @@ interface ChartAreaState {
 }
 
 class ChartArea extends Component<{}, ChartAreaState> {
-  constructor(props: any) {
+  constructor(props: AppState) {
     super(props)
 
     this.state = {
@@ -81,12 +82,14 @@ class ChartArea extends Component<{}, ChartAreaState> {
       <div className="app">
         <div className="row">
           <div className="mixed-chart">
-            <Chart
-              options={this.state.options}
-              series={this.state.series}
-              type="area"
-              width="500"
-            />
+            {typeof window !== 'undefined' && (
+              <Chart
+                options={this.state.options}
+                series={this.state.series}
+                type="area"
+                width="500"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -94,4 +97,4 @@ class ChartArea extends Component<{}, ChartAreaState> {
   }
 }
 
-export default ChartArea
+export { ChartArea }

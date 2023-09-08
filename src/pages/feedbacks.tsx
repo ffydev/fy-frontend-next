@@ -176,38 +176,39 @@ export default function Feedbacks() {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {feedbacks?.map((feedback) => (
-                      <Tr key={feedback.id}>
-                        <Td>
-                          <Avatar
-                            name="Avatar"
-                            size={'lg'}
-                            src={
-                              feedback?.User?.hasAvatar
-                                ? `data:image/jpeg;base64,${
-                                    feedback?.avatar?.imageData || 'logo.png'
-                                  }`
-                                : 'logo.png'
-                            }
-                          />
-                        </Td>
-                        <Td>
-                          {feedback?.User?.firstName} {''}
-                          {feedback?.User?.lastName}
-                        </Td>
-                        <Td>
-                          {new Date(feedback.createdAt!).toLocaleDateString(
-                            'pt-BR',
-                          )}
-                        </Td>
-                        <Td>
-                          <FeedbackPending
-                            userFeedbackId={feedback.id!}
-                            setIsFetchingFeedbacks={setIsFetchingFeedbacks}
-                          />
-                        </Td>
-                      </Tr>
-                    ))}
+                    {(feedbacks && feedbacks?.length > 0) ??
+                      feedbacks?.map((feedback) => (
+                        <Tr key={feedback.id}>
+                          <Td>
+                            <Avatar
+                              name="Avatar"
+                              size={'lg'}
+                              src={
+                                feedback?.User?.hasAvatar
+                                  ? `data:image/jpeg;base64,${
+                                      feedback?.avatar?.imageData || 'logo.png'
+                                    }`
+                                  : 'logo.png'
+                              }
+                            />
+                          </Td>
+                          <Td>
+                            {feedback?.User?.firstName} {''}
+                            {feedback?.User?.lastName}
+                          </Td>
+                          <Td>
+                            {new Date(feedback.createdAt!).toLocaleDateString(
+                              'pt-BR',
+                            )}
+                          </Td>
+                          <Td>
+                            <FeedbackPending
+                              userFeedbackId={feedback.id!}
+                              setIsFetchingFeedbacks={setIsFetchingFeedbacks}
+                            />
+                          </Td>
+                        </Tr>
+                      ))}
                   </Tbody>
                 </Table>
               </TableContainer>

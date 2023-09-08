@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import Chart from 'react-apexcharts'
+import dynamic from 'next/dynamic'
+import { AppState } from '../interfaces'
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 class ChartBar extends Component<{}, any> {
-  constructor(props: any) {
+  constructor(props: AppState) {
     super(props)
 
     this.state = {
@@ -70,12 +72,14 @@ class ChartBar extends Component<{}, any> {
       <div className="app">
         <div className="row">
           <div className="mixed-chart">
-            <Chart
-              options={this.state.options}
-              series={this.state.series}
-              type="bar" // Alterado para gráfico de barras
-              width="500"
-            />
+            {typeof window !== 'undefined' && (
+              <Chart
+                options={this.state.options}
+                series={this.state.series}
+                type="bar"
+                width="500"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -83,4 +87,4 @@ class ChartBar extends Component<{}, any> {
   }
 }
 
-export default ChartBar
+export { ChartBar }

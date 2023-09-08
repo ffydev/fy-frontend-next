@@ -1,14 +1,11 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
 
-import { useToast, SimpleGrid } from '@chakra-ui/react'
+import { useToast, SimpleGrid, Stack, Select, Flex } from '@chakra-ui/react'
 
 import { useRouter } from 'next/router'
 
 import { useEffect } from 'react'
-import ChartLine from '../Graphics/Line'
-import ChartBar from '../Graphics/Bars'
-import ChartArea from '../Graphics/Area'
-import ChartPie from '../Graphics/Pie'
+import { ChartLine, ChartArea, ChartBar, ChartPie } from '../Graphics'
 
 export default function Graphics() {
   const router = useRouter()
@@ -46,9 +43,30 @@ export default function Graphics() {
 
   return (
     <div style={{ overflowX: 'auto' }}>
+      <Flex flexDirection="row" marginStart={8}>
+        <Stack spacing={2} mr={4}>
+          <Select placeholder="Selecione o Período">
+            <option value="7">7</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+          </Select>
+        </Stack>
+        <Stack spacing={2} mr={4}>
+          <Select placeholder="Selecione o grupo">
+            <option value="7">Peito</option>
+            <option value="15">Braços</option>
+            <option value="30">Resto</option>
+          </Select>
+        </Stack>
+        <Stack spacing={2}>
+          <Select placeholder="Selecione o excercicio">
+            <option value="7">Peito</option>
+            <option value="15">Braços</option>
+            <option value="30">Resto</option>
+          </Select>
+        </Stack>
+      </Flex>
       <SimpleGrid columns={[1, 2]} spacing={10} px={4} py={8}>
-        <ChartLine />
-        <ChartLine />
         <ChartLine />
         <ChartLine />
         <ChartLine />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Chart from 'react-apexcharts'
+import dynamic from 'next/dynamic'
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface ChartPieState {
   options: {
@@ -62,12 +63,14 @@ class ChartPie extends Component<{}, ChartPieState> {
       <div className="app">
         <div className="row">
           <div className="mixed-chart">
-            <Chart
-              options={this.state.options}
-              series={this.state.series}
-              type="pie"
-              width="380"
-            />
+            {typeof window !== 'undefined' && (
+              <Chart
+                options={this.state.options}
+                series={this.state.series}
+                type="pie"
+                width="380"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -75,4 +78,4 @@ class ChartPie extends Component<{}, ChartPieState> {
   }
 }
 
-export default ChartPie
+export { ChartPie }
