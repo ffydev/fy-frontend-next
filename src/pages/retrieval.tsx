@@ -163,7 +163,7 @@ export default function Retrieval() {
               </Box>
             </Stack>
             <form onSubmit={handleSubmit(onSubmitLogin)}>
-              <Stack spacing={4} w={'full'} maxW={'sm'}>
+              <Stack spacing={4} w={'full'} maxW={'lg'}>
                 <Heading
                   as={'h1'}
                   fontSize={'2xl'}
