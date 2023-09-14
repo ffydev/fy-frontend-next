@@ -37,15 +37,15 @@ export interface ICaptcha {
   token: string
 }
 
-export async function signIn(login: ILogin): Promise<IUser | null> {
+export async function signIn(login: ILogin) {
   try {
     const response = await api.post(`/login`, login)
 
-    if (response.data) {
+    if (response && response.data) {
       localStorage.setItem('fyToken', response.data.access_token)
-      return response.data as IUser
+      return response.data
     }
-    return null
+    return response
   } catch (error) {
     return null
   }

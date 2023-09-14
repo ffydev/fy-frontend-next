@@ -82,12 +82,16 @@ export default function Login() {
         password: data.password,
       })
 
-      if (response) {
+      if (!response) {
+        return setError('Usuário ou senha inválidos')
+      }
+
+      if (response && response.access_token) {
         router.push('/dashboard')
         return setError(undefined)
       }
     } catch (error) {
-      setError('Usuário ou senha inválidos')
+      setError('Erro ao fazer login, por favor tente novamente')
     }
   }
 
