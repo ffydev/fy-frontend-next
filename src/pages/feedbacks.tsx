@@ -176,7 +176,8 @@ export default function Feedbacks() {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {(feedbacks && feedbacks?.length > 0) ??
+                    {feedbacks &&
+                      feedbacks?.length > 0 &&
                       feedbacks?.map((feedback) => (
                         <Tr key={feedback.id}>
                           <Td>
