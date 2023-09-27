@@ -64,12 +64,12 @@ export function Workouts() {
     }
 
     fetchWorkoutsNames()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     router,
     selectedUserId,
     toast,
     isFetchingWorkoutsNames,
-    workoutsNames,
     setSelectedWorkoutId,
     selectedWorkoutId,
   ])
