@@ -44,7 +44,10 @@ import {
 import { Plus } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-
+export interface HistoryExercise {
+  exerciseId: string
+  userId: string
+}
 export default function ExercisesList() {
   const router = useRouter()
   const toast = useToast()
@@ -179,7 +182,10 @@ export default function ExercisesList() {
     setWorkoutsExercises(workoutsExercises)
   }
 
-  const handleWithCreateSet = async (workoutExerciseId: string) => {
+  const handleWithCreateSet = async (
+    workoutExerciseId: string,
+    exerciseId: string,
+  ) => {
     try {
       const token = getUserToken()
 
@@ -196,7 +202,7 @@ export default function ExercisesList() {
         return
       }
 
-      const response = await createSet(token, workoutExerciseId)
+      const response = await createSet(token, workoutExerciseId, exerciseId)
 
       if (response) {
         createSetAtWorkoutExercise(
@@ -350,7 +356,18 @@ export default function ExercisesList() {
                   <Text fontSize="sm" mr={1} p={1}>
                     {workoutExerciseName?.exercises?.name}
                   </Text>
-
+                  {}
+                  <HandleButton
+                    text="Série"
+                    leftIcon={<Plus weight="bold" />}
+                    onClick={() =>
+                      handleWithCreateSet(
+                        workoutExercise.id!,
+                        `${workoutExerciseName.exercises?.id}`,
+                      )
+                    }
+                    size={'xs'}
+                  />
                   <CloseButtonComponent
                     onClick={() =>
                       handleWithDeleteExerciseName(workoutExerciseName.id!)
@@ -410,12 +427,12 @@ export default function ExercisesList() {
           </Stack>
 
           <Flex mt={3}>
-            <HandleButton
+            {/* <HandleButton
               text="Série"
               leftIcon={<Plus weight="bold" />}
               onClick={() => handleWithCreateSet(workoutExercise.id!)}
               size={'xs'}
-            />
+            /> */}
           </Flex>
         </Box>
       ))}
