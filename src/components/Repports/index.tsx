@@ -5,7 +5,7 @@ import { useToast, SimpleGrid, Stack, Select, Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { useEffect, useState } from 'react'
-import { ChartLine, ChartArea, ChartPie } from '../Graphics'
+import { ChartLine, ChartArea, ChartPie, ChartBar } from '../Graphics'
 import {
   IExercise,
   findExerciseByMuscleGroup,
@@ -27,19 +27,9 @@ export default function Graphics() {
 
   const fetchData = async () => {
     if (selectedPeriod && exerciseId) {
-      console.log(selectedPeriod)
       const weeksData = await getHistory(selectedPeriod, exerciseId)
-      const categories: any = []
-      const newSeries = weeksData.map((weekWeights: any, weekIndex: number) => {
-        categories.push(`semana ${weekIndex + 1}`)
-        return {
-          name: `semana ${weekIndex + 1}`,
-          data: weekWeights,
-        }
-      })
-
-      setCategories(categories)
-      setSeries(newSeries)
+      setCategories(weeksData.categories)
+      setSeries(weeksData.series)
     }
   }
 
@@ -159,7 +149,8 @@ export default function Graphics() {
       </Flex>
       <SimpleGrid columns={[1, 2]} spacing={10} px={4} py={8}>
         <ChartLine series={series} categories={categories} />
-        <ChartPie />
+        <ChartBar series={series} categories={categories} />
+        <ChartPie series={series} labels={categories} />
         <ChartArea series={series} categories={categories} />
       </SimpleGrid>
     </div>
