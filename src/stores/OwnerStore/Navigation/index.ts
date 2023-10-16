@@ -6,6 +6,7 @@ const initialState = {
   isShowingWorkouts: false,
   isShowingAnamnesis: false,
   isShowingFeedbacks: false,
+  isShowingRepports: false,
 }
 
 export const useAdminNavigationStore = create(
@@ -18,6 +19,9 @@ export const useAdminNavigationStore = create(
       set((state) => ({ isShowingAnamnesis: !state.isShowingAnamnesis })),
     setIsShowingFeedbacks: () =>
       set((state) => ({ isShowingFeedbacks: !state.isShowingFeedbacks })),
+    setIsShowingRepports: () => {
+      set((state) => ({ isShowingRepports: !state.isShowingRepports }))
+    },
     reset: () => {
       set(initialState)
     },
