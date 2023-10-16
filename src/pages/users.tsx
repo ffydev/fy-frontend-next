@@ -4,6 +4,7 @@ import Feedbacks from '@/components/OwnerFlow/FeedbacksList'
 import Navbar from '@/components/OwnerFlow/Navigation/Navbar'
 import UsersFetch from '@/components/OwnerFlow/Users'
 import { Workouts } from '@/components/OwnerFlow/Workouts'
+import Graphics from '@/components/Repports'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { useAdminNavigationStore } from '@/stores/OwnerStore/Navigation'
 import { useWorkoutsExercisesStore } from '@/stores/OwnerStore/WorkoutsExercises'
@@ -21,10 +22,12 @@ export default function Users() {
     isShowingWorkouts,
     isShowingAnamnesis,
     isShowingFeedbacks,
+    isShowingRepports,
     setIsShowingUsers,
     setIsShowingWorkouts,
     setIsShowingAnamnesis,
     setIsShowingFeedbacks,
+    setIsShowingRepports,
   } = useAdminNavigationStore()
 
   const handleWithNavigateToDashboard = () => {
@@ -50,6 +53,13 @@ export default function Users() {
     setIsShowingUsers()
     setSelectedUserId('')
   }
+
+  const handleWithHideRepports = () => {
+    setIsShowingRepports()
+    setIsShowingUsers()
+    setSelectedUserId('')
+  }
+
   return (
     <>
       <Box
@@ -194,6 +204,39 @@ export default function Users() {
             </Stack>
             <Container maxW={'8xl'}>
               <Feedbacks />
+            </Container>
+          </>
+        )}
+
+        {isShowingRepports && (
+          <>
+            <Stack
+              direction={'column'}
+              align={'start'}
+              alignSelf={'center'}
+              position={'relative'}
+              ml={3}
+              pt={6}
+              pb={6}
+            >
+              <Flex>
+                <HandleButton
+                  leftIcon={<ArrowLeft size={28} weight="bold" />}
+                  onClick={handleWithHideRepports}
+                />
+                <Heading
+                  ml={3}
+                  as="h3"
+                  size="lg"
+                  fontWeight="medium"
+                  textAlign="center"
+                >
+                  Relatórios
+                </Heading>
+              </Flex>
+            </Stack>
+            <Container maxW={'8xl'}>
+              <Graphics />
             </Container>
           </>
         )}
