@@ -124,21 +124,6 @@ export async function findExerciseById(
   }
 }
 
-export async function getHistory(
-  period: string,
-  exerciseId: string,
-): Promise<any> {
-  try {
-    const response = await api.get<any>(
-      `/sets/repport?days=${period}&exerciseId=${exerciseId}`,
-    )
-
-    return response.data
-  } catch (error) {
-    console.error('Failed to find exercise by id', error)
-    throw error
-  }
-}
 export async function updateMuscleGroup(
   token: string,
   oldName: string,
