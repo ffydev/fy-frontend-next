@@ -60,3 +60,20 @@ export async function updateSet(
     throw error
   }
 }
+
+export async function getHistory(
+  period: string,
+  exerciseId: string,
+  userId: string,
+): Promise<any> {
+  try {
+    const response = await api.get<any>(
+      `/sets/repport?days=${period}&exerciseId=${exerciseId}&userId=${userId}`,
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to find exercise by id', error)
+    throw error
+  }
+}
