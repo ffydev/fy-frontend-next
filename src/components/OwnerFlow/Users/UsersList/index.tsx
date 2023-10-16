@@ -39,6 +39,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
     setIsShowingWorkouts,
     setIsShowingAnamnesis,
     setIsShowingFeedbacks,
+    setIsShowingRepports,
   } = useAdminNavigationStore()
   const { setIsFetchingUsers, setSelectedUserId } = useOwnerIsFetchingStore()
   const toast = useToast()
@@ -149,6 +150,12 @@ export function UsersList({ users, planTypes }: UsersListProps) {
     setIsShowingAnamnesis()
   }
 
+  const handleWithShowUserRepports = (userId: string) => {
+    setSelectedUserId(userId)
+    setIsShowingUsers()
+    setIsShowingRepports()
+  }
+
   const handleWithActiveUser = async (userId: string) => {
     try {
       setDeletedAt('Ativar')
@@ -223,6 +230,16 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                     value={user.id}
                   >
                     Anamnese
+                  </Button>
+
+                  <Button
+                    mr={2}
+                    background={'purple.700'}
+                    size={'xs'}
+                    onClick={() => handleWithShowUserRepports(user.id)}
+                    value={user.id}
+                  >
+                    Repports
                   </Button>
                 </Flex>
               )}
