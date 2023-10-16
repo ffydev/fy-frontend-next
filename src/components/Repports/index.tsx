@@ -1,21 +1,20 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-
 import { useToast, SimpleGrid, Stack, Select, Flex } from '@chakra-ui/react'
-
 import { useRouter } from 'next/router'
-
 import { useEffect, useState } from 'react'
 import { ChartLine, ChartArea, ChartPie, ChartBar } from '../Graphics'
 import {
   IExercise,
   findExerciseByMuscleGroup,
   findMuscleGroup,
-  getHistory,
 } from '@/pages/api/providers/exercises.provider'
+import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
+import { getHistory } from '@/pages/api/providers/sets.provider'
 
 export default function Graphics() {
   const router = useRouter()
   const toast = useToast()
+  const { selectedUserId } = useOwnerIsFetchingStore()
   const [exerciseId, setExerciseId] = useState<string>()
   const [exercises, setExercises] = useState<IExercise[]>([])
   const [muscleGroups, setMuscleGroups] = useState<IExercise[]>([])
@@ -27,7 +26,11 @@ export default function Graphics() {
 
   const fetchData = async () => {
     if (selectedPeriod && exerciseId) {
-      const weeksData = await getHistory(selectedPeriod, exerciseId)
+      const weeksData = await getHistory(
+        selectedPeriod,
+        exerciseId,
+        selectedUserId,
+      )
       setCategories(weeksData.categories)
       setSeries(weeksData.series)
     }
