@@ -9,7 +9,6 @@ import {
 import {
   ListBullets,
   PersonSimpleRun,
-  ChartLineUp,
   Users as UsersIcon,
 } from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
@@ -27,10 +26,6 @@ export default function Navigation() {
 
   const handleWithShowUsers = () => {
     router.push('/users')
-  }
-
-  const handleWithShowRepports = () => {
-    router.push('/repports')
   }
 
   return (
@@ -126,7 +121,7 @@ export default function Navigation() {
                 </Heading>
               </VStack>
             </Box>
-            <Box
+            {/* <Box
               p={4}
               rounded={'lg'}
               border={'1px'}
@@ -152,7 +147,7 @@ export default function Navigation() {
                   Relatórios
                 </Heading>
               </VStack>
-            </Box>
+            </Box> */}
           </SimpleGrid>
         </Container>
       </Stack>

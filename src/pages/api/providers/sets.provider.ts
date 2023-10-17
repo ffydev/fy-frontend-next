@@ -62,6 +62,7 @@ export async function updateSet(
 }
 
 export async function getHistory(
+  token: string,
   period: string,
   exerciseId: string,
   userId: string,
@@ -69,6 +70,9 @@ export async function getHistory(
   try {
     const response = await api.get<any>(
       `/sets/repport?days=${period}&exerciseId=${exerciseId}&userId=${userId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
     )
 
     return response.data

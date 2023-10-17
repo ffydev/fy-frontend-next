@@ -88,14 +88,54 @@ export async function findMuscleGroup(token: string): Promise<IExercise[]> {
   }
 }
 
+export async function findMuscleGroupByUser(
+  token: string,
+  userId: string,
+  period: string,
+): Promise<IExercise[]> {
+  try {
+    const response = await api.get<IExercise[]>(
+      `/exercises/muscle-group-by-user?userId=${userId}&period=${period}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to find muscle groups', error)
+    throw error
+  }
+}
+
 export async function findExerciseByMuscleGroup(
   token: string,
   muscleGroup: string,
-  exerciseVideo?: string,
 ): Promise<any> {
   try {
     const response = await api.get<any>(
-      `/exercises/by-muscle-group?muscleGroup=${muscleGroup}&exerciseVideo=${exerciseVideo}`,
+      `/exercises/by-muscle-group?muscleGroup=${muscleGroup}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to find exercises by muscle group', error)
+    throw error
+  }
+}
+
+export async function findExerciseByMuscleGroupAndUser(
+  token: string,
+  muscleGroup: string,
+  userId: string,
+  period: string,
+): Promise<any> {
+  try {
+    const response = await api.get<any>(
+      `/exercises/by-muscle-group-and-user?muscleGroup=${muscleGroup}&userId=${userId}&period=${period}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },

@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { ChartLine, ChartArea, ChartPie, ChartBar } from '../Graphics'
 import {
   IExercise,
-  findExerciseByMuscleGroup,
-  findMuscleGroup,
+  findExerciseByMuscleGroupAndUser,
+  findMuscleGroupByUser,
 } from '@/pages/api/providers/exercises.provider'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { getHistory } from '@/pages/api/providers/sets.provider'
@@ -26,13 +26,38 @@ export default function Graphics() {
 
   const fetchData = async () => {
     if (selectedPeriod && exerciseId) {
-      const weeksData = await getHistory(
-        selectedPeriod,
-        exerciseId,
-        selectedUserId,
-      )
-      setCategories(weeksData.categories)
-      setSeries(weeksData.series)
+      try {
+        const token = getUserToken()
+
+        if (!token) {
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+          router.push('/login')
+          return
+        }
+
+        const weeksData = await getHistory(
+          token,
+          selectedPeriod,
+          exerciseId,
+          selectedUserId,
+        )
+        setCategories(weeksData.categories)
+        setSeries(weeksData.series)
+      } catch {
+        toast({
+          title: 'Erro ao buscar histórico.',
+          description: 'Por favor, tente novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
     }
   }
 
@@ -56,9 +81,11 @@ export default function Graphics() {
         return
       }
 
-      const response = await findExerciseByMuscleGroup(
+      const response = await findExerciseByMuscleGroupAndUser(
         token,
         selectedMuscleGroup,
+        selectedUserId,
+        selectedPeriod,
       )
       setExercises(response)
     } catch (error) {
@@ -92,7 +119,11 @@ export default function Graphics() {
         return
       }
 
-      const response = await findMuscleGroup(token)
+      const response = await findMuscleGroupByUser(
+        token,
+        selectedUserId,
+        selectedPeriod,
+      )
       setMuscleGroups(response)
     } catch (error) {
       console.error(error)
