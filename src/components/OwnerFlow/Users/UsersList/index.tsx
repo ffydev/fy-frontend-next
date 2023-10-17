@@ -160,7 +160,12 @@ export function UsersList({ users, planTypes }: UsersListProps) {
     try {
       setDeletedAt('Ativar')
     } catch (error) {
-      console.log(error)
+      toast({
+        title: 'Erro ao reativar usuário.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     } finally {
       await handleUpdateUser(userId)
     }
