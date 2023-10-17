@@ -239,7 +239,7 @@ export function UsersList({ users, planTypes }: UsersListProps) {
                     onClick={() => handleWithShowUserRepports(user.id)}
                     value={user.id}
                   >
-                    Repports
+                    Relatórios
                   </Button>
                 </Flex>
               )}
