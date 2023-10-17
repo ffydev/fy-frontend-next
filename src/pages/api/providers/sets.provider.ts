@@ -69,7 +69,7 @@ export async function getHistory(
 ): Promise<any> {
   try {
     const response = await api.get<any>(
-      `/sets/repport?days=${period}&exerciseId=${exerciseId}&userId=${userId}`,
+      `/sets/repport?period=${period}&exerciseId=${exerciseId}&userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
