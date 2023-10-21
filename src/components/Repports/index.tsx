@@ -1,5 +1,5 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useToast, SimpleGrid, Stack, Select, Flex } from '@chakra-ui/react'
+import { useToast, SimpleGrid, Stack, Select, Wrap } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { ChartLine, ChartArea, ChartPie, ChartBar } from '../Graphics'
@@ -10,8 +10,13 @@ import {
 } from '@/pages/api/providers/exercises.provider'
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { getHistory } from '@/pages/api/providers/sets.provider'
+import Repetitions from './Repetitions'
 
-export default function Graphics() {
+interface GraphicsProps {
+  userId?: string
+}
+
+export default function Graphics({ userId }: GraphicsProps) {
   const router = useRouter()
   const toast = useToast()
   const { selectedUserId } = useOwnerIsFetchingStore()
@@ -23,7 +28,7 @@ export default function Graphics() {
   const [selectedPeriod, setSelectedPeriod] = useState('30')
   const [series, setSeries] = useState<any[]>([])
   const [categories, setCategories] = useState<any[]>([])
-
+  console.log('userId', userId)
   const fetchData = async () => {
     if (selectedPeriod && exerciseId) {
       try {
@@ -45,8 +50,9 @@ export default function Graphics() {
           token,
           selectedPeriod,
           exerciseId,
-          selectedUserId,
+          userId || selectedUserId,
         )
+
         setCategories(weeksData.categories)
         setSeries(weeksData.series)
       } catch {
@@ -143,7 +149,7 @@ export default function Graphics() {
 
   return (
     <div style={{ overflowX: 'auto' }}>
-      <Flex flexDirection="row" marginStart={8}>
+      <Wrap flexDirection="row" marginStart={8}>
         <Stack spacing={2} mr={4}>
           <Select
             placeholder="Selecione o Período"
@@ -180,13 +186,15 @@ export default function Graphics() {
             ))}
           </Select>
         </Stack>
-      </Flex>
+      </Wrap>
       <SimpleGrid columns={[1, 2]} spacing={10} px={4} py={8}>
         <ChartLine series={series} categories={categories} />
         <ChartBar series={series} categories={categories} />
         <ChartPie series={series} labels={categories} />
         <ChartArea series={series} categories={categories} />
       </SimpleGrid>
+
+      <Repetitions repetitions={series[0]?.rmSemana} />
     </div>
   )
 }

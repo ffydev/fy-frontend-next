@@ -14,6 +14,7 @@ import HandleButton from '@/components/Buttons/HandleButton'
 import {
   ArrowLeft,
   Barbell,
+  Graph,
   Receipt,
   UserList,
   WechatLogo,
@@ -24,6 +25,7 @@ import ListFeedbacks from '../Feedbacks/ListFeedbacks'
 import { useAuthStore } from '@/stores/AuthStore'
 import { useUserNavigationStore } from '@/stores/UserStore/Navigation'
 import { useRouter } from 'next/router'
+import Graphics from '@/components/Repports'
 
 export default function Navigation() {
   const { user } = useAuthStore()
@@ -33,10 +35,12 @@ export default function Navigation() {
     isShowingCreateAnamnesis,
     isShowingFeedbacks,
     isShowingCreateFeedbacks,
+    isShowingRepports,
     setIsShowingCreateAnamnesis,
     setIsShowingFeedbacks,
     setIsShowingCreateFeedbacks,
     setIsShowingDashboard,
+    setIsShowingRepports,
     reset,
   } = useUserNavigationStore()
 
@@ -56,6 +60,11 @@ export default function Navigation() {
 
   const handleWithCreateFeedbacks = () => {
     setIsShowingCreateFeedbacks()
+    setIsShowingDashboard()
+  }
+
+  const handleWithShowRepports = () => {
+    setIsShowingRepports()
     setIsShowingDashboard()
   }
 
@@ -226,6 +235,43 @@ export default function Navigation() {
                   </VStack>
                 </Box>
               )}
+
+              <Box
+                p={4}
+                rounded={'lg'}
+                border={'1px'}
+                borderColor={'whiteAlpha.200'}
+                _hover={{ cursor: 'pointer' }}
+                onClick={() => handleWithShowRepports()}
+              >
+                <VStack spacing={5}>
+                  <Box
+                    boxShadow="xl"
+                    _hover={{ boxShadow: 'lg' }}
+                    borderRadius="full"
+                    color={'purple.300'}
+                  >
+                    <Graph size={96} weight="fill" />
+                  </Box>
+                  <Heading
+                    fontWeight={'medium'}
+                    fontSize={'3xl'}
+                    textTransform={'capitalize'}
+                    textAlign={'center'}
+                  >
+                    Relatórios{' '}
+                    <chakra.span
+                      fontWeight={'medium'}
+                      fontSize={['lg', '2xl']}
+                      textTransform={'capitalize'}
+                      textAlign={'center'}
+                      color={'purple.300'}
+                    >
+                      Gráficos de Evolução
+                    </chakra.span>
+                  </Heading>
+                </VStack>
+              </Box>
             </SimpleGrid>
           </Container>
         </Stack>
@@ -330,6 +376,40 @@ export default function Navigation() {
           </Stack>
           <Center>
             <AnamnesisCreate />
+          </Center>
+        </>
+      ) : null}
+
+      {isShowingRepports ? (
+        <>
+          <Stack
+            direction={'column'}
+            align={'start'}
+            alignSelf={'center'}
+            position={'relative'}
+            mt={3}
+            ml={3}
+            pt={6}
+            pb={6}
+          >
+            <Flex>
+              <HandleButton
+                leftIcon={<ArrowLeft size={28} weight="bold" />}
+                onClick={() => handleWithShowRepports()}
+              />
+              <Heading
+                ml={3}
+                as="h3"
+                size="lg"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                Relatórios
+              </Heading>
+            </Flex>
+          </Stack>
+          <Center>
+            <Graphics userId={user.id} />
           </Center>
         </>
       ) : null}

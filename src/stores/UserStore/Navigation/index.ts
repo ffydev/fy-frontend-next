@@ -6,6 +6,7 @@ const initialState = {
   isShowingCreateAnamnesis: false,
   isShowingFeedbacks: false,
   isShowingCreateFeedbacks: false,
+  isShowingRepports: false,
 }
 
 export const useUserNavigationStore = create(
@@ -22,6 +23,9 @@ export const useUserNavigationStore = create(
       set((state) => ({
         isShowingCreateFeedbacks: !state.isShowingCreateFeedbacks,
       })),
+    setIsShowingRepports: () => {
+      set((state) => ({ isShowingRepports: !state.isShowingRepports }))
+    },
     reset: () => {
       set(initialState)
     },
