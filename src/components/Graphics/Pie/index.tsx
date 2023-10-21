@@ -26,6 +26,9 @@ const ChartPie: React.FC<any> = ({ series, labels }) => {
         breakpoint: 480,
         options: {
           legend: {
+            labels: {
+              colors: '#fff',
+            },
             position: 'bottom',
           },
         },

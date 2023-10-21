@@ -2,7 +2,7 @@ import { getUserToken } from '@/pages/api/providers/auth.provider'
 import { useToast, SimpleGrid, Stack, Select, Wrap } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { ChartLine, ChartArea, ChartPie, ChartBar } from '../Graphics'
+import { ChartLine, ChartBar } from '../Graphics'
 import {
   IExercise,
   findExerciseByMuscleGroupAndUser,
@@ -190,8 +190,6 @@ export default function Graphics({ userId }: GraphicsProps) {
       <SimpleGrid columns={[1, 2]} spacing={10} px={4} py={8}>
         <ChartLine series={series} categories={categories} />
         <ChartBar series={series} categories={categories} />
-        <ChartPie series={series} labels={categories} />
-        <ChartArea series={series} categories={categories} />
       </SimpleGrid>
 
       <Repetitions repetitions={series[0]?.rmSemana} />
