@@ -90,7 +90,7 @@ export default function Graphics({ userId }: GraphicsProps) {
       const response = await findExerciseByMuscleGroupAndUser(
         token,
         selectedMuscleGroup,
-        selectedUserId,
+        userId || selectedUserId,
         selectedPeriod,
       )
       setExercises(response)
@@ -127,7 +127,7 @@ export default function Graphics({ userId }: GraphicsProps) {
 
       const response = await findMuscleGroupByUser(
         token,
-        selectedUserId,
+        userId || selectedUserId,
         selectedPeriod,
       )
       setMuscleGroups(response)
