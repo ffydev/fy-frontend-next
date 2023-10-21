@@ -335,9 +335,9 @@ export default function ExercisesList() {
           {workoutExercise &&
             workoutExercise?.workoutsExercisesNames &&
             workoutExercise?.workoutsExercisesNames?.map(
-              (workoutExerciseName) => (
+              (workoutExerciseName, index) => (
                 <Flex
-                  key={workoutExerciseName.exercises?.id}
+                  key={index}
                   direction="row"
                   align="center"
                   mb={2}
@@ -425,15 +425,6 @@ export default function ExercisesList() {
               <SetsList sets={workoutExercise.sets} />
             )}
           </Stack>
-
-          <Flex mt={3}>
-            {/* <HandleButton
-              text="Série"
-              leftIcon={<Plus weight="bold" />}
-              onClick={() => handleWithCreateSet(workoutExercise.id!)}
-              size={'xs'}
-            /> */}
-          </Flex>
         </Box>
       ))}
 
