@@ -17,8 +17,8 @@ export async function createSet(
 ): Promise<ISet> {
   try {
     const response = await api.post<ISet>(
-      `/sets/${workoutExerciseId}`,
-      { exerciseId },
+      `/sets?workoutExerciseId=${workoutExerciseId}&exerciseId=${exerciseId}`,
+      {},
       {
         headers: { Authorization: `Bearer ${token}` },
       },
