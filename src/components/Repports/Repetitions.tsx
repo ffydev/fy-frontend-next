@@ -9,7 +9,7 @@ export default function Repetitions({ repetitions }: RepetitionsProps) {
     <Table variant="simple">
       <Thead>
         <Tr>
-          <Th>Valor</Th>
+          <Th>Força Máxima (Brzycki)</Th>
         </Tr>
       </Thead>
       <Tbody>
