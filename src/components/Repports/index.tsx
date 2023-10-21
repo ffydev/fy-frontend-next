@@ -28,7 +28,7 @@ export default function Graphics({ userId }: GraphicsProps) {
   const [selectedPeriod, setSelectedPeriod] = useState('30')
   const [series, setSeries] = useState<any[]>([])
   const [categories, setCategories] = useState<any[]>([])
-  console.log('userId', userId)
+
   const fetchData = async () => {
     if (selectedPeriod && exerciseId) {
       try {
