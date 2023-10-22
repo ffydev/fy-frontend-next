@@ -1,5 +1,13 @@
 import { getUserToken } from '@/pages/api/providers/auth.provider'
-import { useToast, SimpleGrid, Stack, Select, Wrap } from '@chakra-ui/react'
+import {
+  useToast,
+  SimpleGrid,
+  Stack,
+  Select,
+  Wrap,
+  Flex,
+  Heading,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { ChartLine, ChartBar } from '../Graphics'
@@ -149,6 +157,9 @@ export default function Graphics({ userId }: GraphicsProps) {
 
   return (
     <div style={{ overflowX: 'auto' }}>
+      <Heading mb={3} marginStart={8} size="lg" color="gray.500">
+        GRÁFICOS DE EVOLULÇÃO DE CARGA
+      </Heading>
       <Wrap flexDirection="row" marginStart={8}>
         <Stack spacing={2} mr={4}>
           <Select
@@ -191,8 +202,12 @@ export default function Graphics({ userId }: GraphicsProps) {
         <ChartLine series={series} categories={categories} />
         <ChartBar series={series} categories={categories} />
       </SimpleGrid>
-
-      <Repetitions repetitions={series[0]?.rmSemana} />
+      <Flex>
+        {' '}
+        <Repetitions repetitions={series[0]?.rmSemana} />
+        <Repetitions repetitions={series[0]?.rmSemana} />
+        <Repetitions repetitions={series[0]?.rmSemana} />
+      </Flex>
     </div>
   )
 }

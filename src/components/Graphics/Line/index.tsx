@@ -28,7 +28,7 @@ const ChartLine: React.FC<ChartLineProps> = ({ series, categories }) => {
     fill: {
       type: 'gradient',
       gradient: {
-        gradientToColors: ['#e8f808', '#6078ea', '#6094ea'],
+        gradientToColors: ['#6078ea', '#6094ea'],
       },
     },
     tooltip: {
