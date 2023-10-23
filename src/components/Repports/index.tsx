@@ -41,7 +41,7 @@ export default function Graphics({ userId }: GraphicsProps) {
   const [userWeightsCategories, setUserWeightsCategories] = useState<any[]>([])
 
   const fetchData = async () => {
-    if (selectedPeriod && exerciseId) {
+    if (selectedPeriod && exerciseId && (userId || selectedUserId)) {
       try {
         const token = getUserToken()
 
@@ -160,28 +160,30 @@ export default function Graphics({ userId }: GraphicsProps) {
 
   const fetchUserWeights = async () => {
     try {
-      const token = getUserToken()
+      if (selectedPeriod && (userId || selectedUserId)) {
+        const token = getUserToken()
 
-      if (!token) {
-        toast({
-          title: 'Sua sessão expirou.',
-          description: 'Por favor, faça login novamente.',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-        router.push('/login')
-        return
+        if (!token) {
+          toast({
+            title: 'Sua sessão expirou.',
+            description: 'Por favor, faça login novamente.',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+          router.push('/login')
+          return
+        }
+
+        const response = await findUserWeights(
+          token,
+          userId || selectedUserId,
+          selectedPeriod,
+        )
+
+        setUserWeightsSeries(response.series)
+        setUserWeightsCategories(response.categories)
       }
-
-      const response = await findUserWeights(
-        token,
-        userId || selectedUserId,
-        selectedPeriod,
-      )
-
-      setUserWeightsSeries(response.series)
-      setUserWeightsCategories(response.categories)
     } catch (error) {
       console.error(error)
       toast({
@@ -196,7 +198,7 @@ export default function Graphics({ userId }: GraphicsProps) {
   useEffect(() => {
     fetchUserWeights()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [selectedPeriod])
 
   return (
     <div style={{ overflowX: 'auto' }}>
