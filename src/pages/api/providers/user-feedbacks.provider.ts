@@ -141,3 +141,23 @@ export async function findUserFeedbackById(
     throw error
   }
 }
+
+export async function findUserWeights(
+  token: string,
+  userId: string,
+  period: string,
+) {
+  try {
+    const response = await api.get(
+      `/user-feedbacks/weight?userId=${userId}&period=${period}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to find user weight', error)
+    throw error
+  }
+}

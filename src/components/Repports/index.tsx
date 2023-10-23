@@ -5,12 +5,12 @@ import {
   Stack,
   Select,
   Wrap,
-  Flex,
+  Container,
   Heading,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { ChartLine, ChartBar } from '../Graphics'
+import { ChartLine } from '../Graphics'
 import {
   IExercise,
   findExerciseByMuscleGroupAndUser,
@@ -19,6 +19,7 @@ import {
 import { useOwnerIsFetchingStore } from '@/stores/OwnerStore/IsFetching'
 import { getHistory } from '@/pages/api/providers/sets.provider'
 import Repetitions from './Repetitions'
+import { findUserWeights } from '@/pages/api/providers/user-feedbacks.provider'
 
 interface GraphicsProps {
   userId?: string
@@ -36,6 +37,8 @@ export default function Graphics({ userId }: GraphicsProps) {
   const [selectedPeriod, setSelectedPeriod] = useState('30')
   const [series, setSeries] = useState<any[]>([])
   const [categories, setCategories] = useState<any[]>([])
+  const [userWeightsSeries, setUserWeightsSeries] = useState<any[]>([])
+  const [userWeightsCategories, setUserWeightsCategories] = useState<any[]>([])
 
   const fetchData = async () => {
     if (selectedPeriod && exerciseId) {
@@ -155,11 +158,48 @@ export default function Graphics({ userId }: GraphicsProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const fetchUserWeights = async () => {
+    try {
+      const token = getUserToken()
+
+      if (!token) {
+        toast({
+          title: 'Sua sessão expirou.',
+          description: 'Por favor, faça login novamente.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.push('/login')
+        return
+      }
+
+      const response = await findUserWeights(
+        token,
+        userId || selectedUserId,
+        selectedPeriod,
+      )
+
+      setUserWeightsSeries(response.series)
+      setUserWeightsCategories(response.categories)
+    } catch (error) {
+      console.error(error)
+      toast({
+        title: 'Erro ao buscar histórico de pesos do paciente.',
+        description: 'Por favor, tente novamente.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }
+  useEffect(() => {
+    fetchUserWeights()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div style={{ overflowX: 'auto' }}>
-      <Heading mb={3} marginStart={8} size="lg" color="gray.500">
-        GRÁFICOS DE EVOLULÇÃO DE CARGA
-      </Heading>
       <Wrap flexDirection="row" marginStart={8}>
         <Stack spacing={2} mr={4}>
           <Select
@@ -198,16 +238,25 @@ export default function Graphics({ userId }: GraphicsProps) {
           </Select>
         </Stack>
       </Wrap>
-      <SimpleGrid columns={[1, 2]} spacing={10} px={4} py={8}>
-        <ChartLine series={series} categories={categories} />
-        <ChartBar series={series} categories={categories} />
-      </SimpleGrid>
-      <Flex>
-        {' '}
-        <Repetitions repetitions={series[0]?.rmSemana} />
-        <Repetitions repetitions={series[0]?.rmSemana} />
-        <Repetitions repetitions={series[0]?.rmSemana} />
-      </Flex>
+      <Wrap flexDirection="row" marginStart={8}>
+        <SimpleGrid columns={[1, 2]} spacing={10} px={4} py={8}>
+          <Container>
+            <Heading size="md">Histórico de Cargas</Heading>
+            <ChartLine series={series} categories={categories} />{' '}
+          </Container>
+          <Container>
+            <Heading size="md">Histórico de Peso</Heading>
+            <ChartLine
+              series={userWeightsSeries}
+              categories={userWeightsCategories}
+            />
+          </Container>
+          <Repetitions repetitions={series[0]?.rmSemana} />
+          <Repetitions repetitions={series[0]?.rmSemana} />
+          <Repetitions repetitions={series[0]?.rmSemana} />
+          <Repetitions repetitions={series[0]?.rmSemana} />
+        </SimpleGrid>
+      </Wrap>
     </div>
   )
 }
