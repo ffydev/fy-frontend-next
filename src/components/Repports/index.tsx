@@ -253,10 +253,10 @@ export default function Graphics({ userId }: GraphicsProps) {
               categories={userWeightsCategories}
             />
           </Container>
-          <Repetitions repetitions={series[0]?.rmSemana} />
-          <Repetitions repetitions={series[0]?.rmSemana} />
-          <Repetitions repetitions={series[0]?.rmSemana} />
-          <Repetitions repetitions={series[0]?.rmSemana} />
+          <Repetitions
+            repetitions={series[0]?.rmSemana}
+            categories={categories}
+          />
         </SimpleGrid>
       </Wrap>
     </div>
