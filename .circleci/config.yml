@@ -132,7 +132,7 @@ jobs:
           remote-docker-layer-caching: true
           repo: $ECR_REPO_NAME
           skip-when-tags-exist: false
-          tag: 'latest,$CIRCLE_SHA1'
+          tag: 'latest'
   deploy:
     machine:
       image: ubuntu-2204:2023.04.2
