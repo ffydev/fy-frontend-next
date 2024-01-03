@@ -57,7 +57,7 @@ jobs:
 #                          },
 #                          {
 #                              "type": "mrkdwn",
-#                              "text": "*Commit*: $CIRCLE_SHA1"
+#                              "text": "*Commit*: latest"
 #                          },
 #                          {
 #                              "type": "mrkdwn",
@@ -157,7 +157,7 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "docker rm --force frontend_app_1; docker pull 972398102957.dkr.ecr.sa-east-1.amazonaws.com/fy-production-frontend:$CIRCLE_SHA1; docker run --name frontend_app_1 --network frontend --env-file ~/infra/frontend/.env --restart unless-stopped -d 972398102957.dkr.ecr.sa-east-1.amazonaws.com/fy-production-frontend:$CIRCLE_SHA1"
+            ssh $SSH_USER@$SSH_HOST "docker rm --force frontend_app_1; docker pull 972398102957.dkr.ecr.sa-east-1.amazonaws.com/fy-production-frontend:latest; docker run --name frontend_app_1 --network frontend --env-file ~/infra/frontend/.env --restart unless-stopped -d 972398102957.dkr.ecr.sa-east-1.amazonaws.com/fy-production-frontend:latest"
       - run:
           name: Restart Nginx over SSH
           command: |
