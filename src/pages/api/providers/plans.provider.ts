@@ -1,4 +1,4 @@
-import { backendApi } from '../apis/backendApi'
+import { backendApi } from '../backendApi'
 import { IPlanType } from './plans-types.provider'
 
 export interface IPlan {

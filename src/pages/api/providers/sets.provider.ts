@@ -1,4 +1,4 @@
-import { backendApi } from '../apis/backendApi'
+import { backendApi } from '../backendApi'
 
 export interface ISet {
   id?: string

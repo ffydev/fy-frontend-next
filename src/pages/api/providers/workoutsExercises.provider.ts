@@ -1,4 +1,4 @@
-import { backendApi } from '../apis/backendApi'
+import { backendApi } from '../backendApi'
 import { IExercise } from './exercises.provider'
 import { ISet } from './sets.provider'
 import { IWorkout } from './workouts.provider'

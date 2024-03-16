@@ -1,4 +1,4 @@
-import { backendApi } from '../apis/backendApi'
+import { backendApi } from '../backendApi'
 import { IUserInterface } from './users.provider'
 
 export interface IUserType {

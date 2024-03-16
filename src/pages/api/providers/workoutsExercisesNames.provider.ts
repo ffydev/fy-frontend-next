@@ -1,4 +1,4 @@
-import { backendApi } from '../apis/backendApi'
+import { backendApi } from '../backendApi'
 import { IExercise } from './exercises.provider'
 
 export interface IWorkoutExerciseName {

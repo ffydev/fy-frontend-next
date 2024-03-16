@@ -1,4 +1,4 @@
-import { backendApi } from '../apis/backendApi'
+import { backendApi } from '../backendApi'
 import { IAvatar, IUser } from './auth.provider'
 
 export interface IUserFeedback {
