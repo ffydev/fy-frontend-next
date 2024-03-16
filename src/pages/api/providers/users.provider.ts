@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 import { IPlan } from './plans.provider'
 import { IUserFeedback } from './user-feedbacks.provider'
 import { IUserType } from './users-types.provider'
@@ -67,7 +67,7 @@ export async function createUser(
   user: ICreateUserWithIPlan,
 ): Promise<IUserInterface> {
   try {
-    const response = await api.post<IUserInterface>('/users', user, {
+    const response = await backendApi.post<IUserInterface>('/users', user, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -83,7 +83,7 @@ export async function findUsers(
   query: IUserFilter,
 ): Promise<usersDataInterface> {
   try {
-    const response = await api.get<usersDataInterface>(
+    const response = await backendApi.get<usersDataInterface>(
       `/users?userTypeId=${query.userTypeId}&search=${query.search}&isDeleted=${query.isDeleted}&skip=${query.skip}&take=${query.take}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -98,7 +98,7 @@ export async function findUsers(
 
 export async function deleteUser(token: string, id: string): Promise<void> {
   try {
-    await api.delete(`/users/${id}`, {
+    await backendApi.delete(`/users/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return
@@ -114,7 +114,7 @@ export async function updateUser(
   user: IUpdateUser,
 ): Promise<IUserInterface> {
   try {
-    const response = await api.patch<IUserInterface>(`/users/${id}`, user, {
+    const response = await backendApi.patch<IUserInterface>(`/users/${id}`, user, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -131,7 +131,7 @@ export async function updateUserByUser(
   user: IUpdateUser,
 ): Promise<IUserInterface> {
   try {
-    const response = await api.patch<IUserInterface>(
+    const response = await backendApi.patch<IUserInterface>(
       `/users/update-by-user/${id}`,
       user,
       {
@@ -152,7 +152,7 @@ export async function recoveryPassword(
   password: string,
 ) {
   try {
-    return await api.patch(
+    return await backendApi.patch(
       `/users/retrieval?email=${email}`,
       {
         password,

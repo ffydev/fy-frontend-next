@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 
 export interface IAvatar {
   imageKey: string
@@ -39,7 +39,7 @@ export interface ICaptcha {
 
 export async function signIn(login: ILogin) {
   try {
-    const response = await api.post(`/login`, login)
+    const response = await backendApi.post(`/login`, login)
 
     if (response && response.data) {
       localStorage.setItem('fyToken', response.data.access_token)
@@ -55,7 +55,7 @@ export async function findCurrentUser(
   token: string,
 ): Promise<ICurrentUser | null> {
   try {
-    const response = await api.get<ICurrentUser>('/users/profile', {
+    const response = await backendApi.get<ICurrentUser>('/users/profile', {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data
@@ -73,7 +73,7 @@ export async function validateCaptcha(
   captcha: ICaptcha,
 ): Promise<Boolean | null> {
   try {
-    const response = await api.post(`/validate-captcha`, captcha)
+    const response = await backendApi.post(`/validate-captcha`, captcha)
     return response.data
   } catch (error) {
     return null
@@ -82,7 +82,7 @@ export async function validateCaptcha(
 
 export async function initRecoveryPassword(email: string): Promise<void> {
   try {
-    return await api.post(`/retrieval/${email}`)
+    return await backendApi.post(`/retrieval/${email}`)
   } catch (error) {
     console.error('Failed to recovery password', error)
     throw error

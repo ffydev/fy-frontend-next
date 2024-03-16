@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 
 export interface IAnamnesis {
   id?: string
@@ -36,7 +36,7 @@ export async function createAnamnesis(
   anamnesis: IAnamnesis,
 ): Promise<void> {
   try {
-    return await api.post('/anamnesis', anamnesis, {
+    return await backendApi.post('/anamnesis', anamnesis, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
@@ -53,7 +53,7 @@ export async function findUserAnamnesis(
   userId: string,
 ): Promise<IFindUserAnamnesis> {
   try {
-    const response = await api.get<IFindUserAnamnesis>(
+    const response = await backendApi.get<IFindUserAnamnesis>(
       `/anamnesis/by-user?userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },

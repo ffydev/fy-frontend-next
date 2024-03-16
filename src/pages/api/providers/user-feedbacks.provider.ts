@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 import { IAvatar, IUser } from './auth.provider'
 
 export interface IUserFeedback {
@@ -39,7 +39,7 @@ export async function findUserFeedbacks(
   feedbackVideo?: string,
 ): Promise<IFindUserFeedbacks> {
   try {
-    const response = await api.get<IFindUserFeedbacks>(
+    const response = await backendApi.get<IFindUserFeedbacks>(
       `/user-feedbacks?userId=${userId}&feedbackVideo=${feedbackVideo}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -58,7 +58,7 @@ export async function createUserFeedback(
   feedback: any,
 ): Promise<void> {
   try {
-    return await api.post('/user-feedbacks', feedback, {
+    return await backendApi.post('/user-feedbacks', feedback, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
@@ -76,7 +76,7 @@ export async function answerFeedback(
   feedback: IUserFeedback,
 ): Promise<IUserFeedback> {
   try {
-    const response = await api.patch(`/user-feedbacks/${id}`, feedback, {
+    const response = await backendApi.patch(`/user-feedbacks/${id}`, feedback, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -93,7 +93,7 @@ export async function updateUserFeedback(
   feedback: IUserFeedback,
 ): Promise<IUserFeedback> {
   try {
-    const response = await api.patch(`/user-feedbacks/${id}`, feedback, {
+    const response = await backendApi.patch(`/user-feedbacks/${id}`, feedback, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -108,7 +108,7 @@ export async function findPendingUsersFeedbacks(
   token: string,
 ): Promise<IUserFeedback[]> {
   try {
-    const response = await api.get<IUserFeedback[]>(
+    const response = await backendApi.get<IUserFeedback[]>(
       '/user-feedbacks/pendings',
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -128,7 +128,7 @@ export async function findUserFeedbackById(
   feedbackVideo: string,
 ): Promise<IFindUserFeedbackById> {
   try {
-    const response = await api.get<IFindUserFeedbackById>(
+    const response = await backendApi.get<IFindUserFeedbackById>(
       `/user-feedbacks/by-id?userFeedbackId=${id}&feedbackVideo=${feedbackVideo}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -148,7 +148,7 @@ export async function findUserWeights(
   period: string,
 ) {
   try {
-    const response = await api.get(
+    const response = await backendApi.get(
       `/user-feedbacks/weight?userId=${userId}&period=${period}`,
       {
         headers: { Authorization: `Bearer ${token}` },

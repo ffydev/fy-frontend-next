@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 import { IPlanType } from './plans-types.provider'
 
 export interface IPlan {
@@ -18,7 +18,7 @@ export async function updatePlan(
   plan: IPlan,
 ): Promise<IPlan> {
   try {
-    const response = await api.patch<IPlan>(`/plans/${id}`, plan, {
+    const response = await backendApi.patch<IPlan>(`/plans/${id}`, plan, {
       headers: { Authorization: `Bearer ${token}` },
     })
 

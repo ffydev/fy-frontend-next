@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 import { IExercise } from './exercises.provider'
 
 export interface IWorkout {
@@ -14,7 +14,7 @@ export async function createWorkout(
   workout: IWorkout,
 ): Promise<IWorkout> {
   try {
-    const response = await api.post<IWorkout>('/workouts', workout, {
+    const response = await backendApi.post<IWorkout>('/workouts', workout, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data
@@ -29,7 +29,7 @@ export async function findWorkoutsNamesByUserId(
   userId: string,
 ): Promise<IWorkout[]> {
   try {
-    const response = await api.get<IWorkout[]>(`/workouts/names/${userId}`, {
+    const response = await backendApi.get<IWorkout[]>(`/workouts/names/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return response.data
@@ -44,7 +44,7 @@ export async function findWorkoutsByUserId(
   workoutId: string,
 ): Promise<IWorkout[]> {
   try {
-    const response = await api.get<IWorkout[]>(
+    const response = await backendApi.get<IWorkout[]>(
       `/workouts/by-user/${workoutId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -62,7 +62,7 @@ export async function findWorkoutsByUserId(
 
 export async function deleteWorkout(token: string, id: string): Promise<void> {
   try {
-    await api.delete(`/workouts/${id}`, {
+    await backendApi.delete(`/workouts/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return

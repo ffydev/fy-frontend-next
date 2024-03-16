@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 import { IExercise } from './exercises.provider'
 
 export interface IWorkoutExerciseName {
@@ -13,7 +13,7 @@ export async function createWorkoutsExerciseName(
   workoutExerciseName: IWorkoutExerciseName,
 ): Promise<IWorkoutExerciseName> {
   try {
-    const response = await api.post<IWorkoutExerciseName>(
+    const response = await backendApi.post<IWorkoutExerciseName>(
       `/workouts-exercises-names`,
       workoutExerciseName,
       {
@@ -36,7 +36,7 @@ export async function deleteWorkoutExerciseName(
   workoutExerciseNameId: string,
 ) {
   try {
-    const response = await api.delete(
+    const response = await backendApi.delete(
       `/workouts-exercises-names/${workoutExerciseNameId}`,
       {
         headers: { Authorization: `Bearer ${token}` },

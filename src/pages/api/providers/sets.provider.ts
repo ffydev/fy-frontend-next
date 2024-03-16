@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 
 export interface ISet {
   id?: string
@@ -16,7 +16,7 @@ export async function createSet(
   exerciseId: string,
 ): Promise<ISet> {
   try {
-    const response = await api.post<ISet>(
+    const response = await backendApi.post<ISet>(
       `/sets?workoutExerciseId=${workoutExerciseId}&exerciseId=${exerciseId}`,
       {},
       {
@@ -33,7 +33,7 @@ export async function createSet(
 
 export async function deleteSet(token: string, id: string) {
   try {
-    const response = await api.delete(`/sets/${id}`, {
+    const response = await backendApi.delete(`/sets/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -50,7 +50,7 @@ export async function updateSet(
   set: ISet,
 ): Promise<ISet> {
   try {
-    const response = await api.patch(`/sets/${id}`, set, {
+    const response = await backendApi.patch(`/sets/${id}`, set, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -68,7 +68,7 @@ export async function getHistory(
   userId: string,
 ): Promise<any> {
   try {
-    const response = await api.get<any>(
+    const response = await backendApi.get<any>(
       `/sets/repport?period=${period}&exerciseId=${exerciseId}&userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` },

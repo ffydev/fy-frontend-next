@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 import { IExercise } from './exercises.provider'
 import { ISet } from './sets.provider'
 import { IWorkout } from './workouts.provider'
@@ -18,7 +18,7 @@ export async function createWorkoutsExercise(
   workoutsExcercises: IWorkoutsExercises,
 ): Promise<IWorkoutsExercises> {
   try {
-    const response = await api.post<IWorkoutsExercises>(
+    const response = await backendApi.post<IWorkoutsExercises>(
       `/workouts-exercises`,
       workoutsExcercises,
       {
@@ -38,7 +38,7 @@ export async function findWorkoutsExercisesByWorkout(
   workoutId: string,
 ): Promise<IWorkoutsExercises[]> {
   try {
-    const response = await api.get<IWorkoutsExercises[]>(
+    const response = await backendApi.get<IWorkoutsExercises[]>(
       `/workouts-exercises/${workoutId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -59,7 +59,7 @@ export async function deleteWorkoutExercise(
   workoutExerciseId: string,
 ) {
   try {
-    const response = await api.delete(
+    const response = await backendApi.delete(
       `/workouts-exercises/${workoutExerciseId}`,
       {
         headers: { Authorization: `Bearer ${token}` },

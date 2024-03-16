@@ -1,4 +1,4 @@
-import { api } from '../apis/backendApi'
+import { backendApi } from '../apis/backendApi'
 
 export interface IExercise {
   id?: string
@@ -11,7 +11,7 @@ export interface IExercise {
 
 export async function deleteExercise(token: string, id: string): Promise<void> {
   try {
-    await api.delete(`/exercises/${id}`, {
+    await backendApi.delete(`/exercises/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     return
@@ -27,7 +27,7 @@ export async function updateExercise(
   exercise: IExercise,
 ): Promise<IExercise> {
   try {
-    const response = await api.patch<IExercise>(`/exercises/${id}`, exercise, {
+    const response = await backendApi.patch<IExercise>(`/exercises/${id}`, exercise, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -44,7 +44,7 @@ export async function updateExerciseByUser(
   exercise: IExercise,
 ): Promise<IExercise> {
   try {
-    const response = await api.patch<IExercise>(
+    const response = await backendApi.patch<IExercise>(
       `/exercises/exercise-by-user/${id}`,
       exercise,
       {
@@ -64,7 +64,7 @@ export async function createExercise(
   exercise: IExercise,
 ): Promise<IExercise> {
   try {
-    const response = await api.post<IExercise>(`/exercises`, exercise, {
+    const response = await backendApi.post<IExercise>(`/exercises`, exercise, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -77,7 +77,7 @@ export async function createExercise(
 
 export async function findMuscleGroup(token: string): Promise<IExercise[]> {
   try {
-    const response = await api.get<IExercise[]>('/exercises/muscle-group', {
+    const response = await backendApi.get<IExercise[]>('/exercises/muscle-group', {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -94,7 +94,7 @@ export async function findMuscleGroupByUser(
   period: string,
 ): Promise<IExercise[]> {
   try {
-    const response = await api.get<IExercise[]>(
+    const response = await backendApi.get<IExercise[]>(
       `/exercises/muscle-group-by-user?userId=${userId}&period=${period}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -113,7 +113,7 @@ export async function findExerciseByMuscleGroup(
   muscleGroup: string,
 ): Promise<any> {
   try {
-    const response = await api.get<any>(
+    const response = await backendApi.get<any>(
       `/exercises/by-muscle-group?muscleGroup=${muscleGroup}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -134,7 +134,7 @@ export async function findExerciseByMuscleGroupAndUser(
   period: string,
 ): Promise<any> {
   try {
-    const response = await api.get<any>(
+    const response = await backendApi.get<any>(
       `/exercises/by-muscle-group-and-user?muscleGroup=${muscleGroup}&userId=${userId}&period=${period}`,
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -153,7 +153,7 @@ export async function findExerciseById(
   id: string,
 ): Promise<IExercise> {
   try {
-    const response = await api.get<IExercise>(`/exercises/exercise/${id}`, {
+    const response = await backendApi.get<IExercise>(`/exercises/exercise/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
 
@@ -170,7 +170,7 @@ export async function updateMuscleGroup(
   newName: string,
 ) {
   try {
-    const response = await api.post(
+    const response = await backendApi.post(
       `/exercises/muscle-group`,
       {
         oldName,
