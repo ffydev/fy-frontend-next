@@ -1,4 +1,4 @@
-import { api } from '../apis/api'
+import { api } from '../apis/backendApi'
 import { IPlan } from './plans.provider'
 import { IUserFeedback } from './user-feedbacks.provider'
 import { IUserType } from './users-types.provider'

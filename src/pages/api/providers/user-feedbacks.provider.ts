@@ -1,4 +1,4 @@
-import { api } from '../apis/api'
+import { api } from '../apis/backendApi'
 import { IAvatar, IUser } from './auth.provider'
 
 export interface IUserFeedback {
