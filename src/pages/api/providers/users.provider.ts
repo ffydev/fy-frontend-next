@@ -153,7 +153,7 @@ export async function recoveryPassword(
 ) {
   try {
     return await backendApi.patch(
-      `/users/retrieval?email=${email}`,
+      `/users/retrieval/password?email=${email}`,
       {
         password,
       },
