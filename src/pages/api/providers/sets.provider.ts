@@ -4,7 +4,7 @@ export interface ISet {
   id?: string
   weight?: string
   reps?: string
-  workoutExerciseId?: string
+  workoutsExercisesId?: string
   rir?: string
   setType?: string
   exerciseId?: string
@@ -12,13 +12,16 @@ export interface ISet {
 
 export async function createSet(
   token: string,
-  workoutExerciseId: string,
+  workoutsExercisesId: string,
   exerciseId: string,
 ): Promise<ISet> {
   try {
     const response = await backendApi.post<ISet>(
-      `/sets?workoutExerciseId=${workoutExerciseId}&exerciseId=${exerciseId}`,
-      {},
+      '/sets',
+      {
+        workoutsExercisesId,
+        exerciseId,
+      },
       {
         headers: { Authorization: `Bearer ${token}` },
       },
