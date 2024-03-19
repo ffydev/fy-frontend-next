@@ -27,9 +27,13 @@ export async function updateExercise(
   exercise: IExercise,
 ): Promise<IExercise> {
   try {
-    const response = await backendApi.patch<IExercise>(`/exercises/${id}`, exercise, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await backendApi.patch<IExercise>(
+      `/exercises/${id}`,
+      exercise,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {
@@ -77,9 +81,12 @@ export async function createExercise(
 
 export async function findMuscleGroup(token: string): Promise<IExercise[]> {
   try {
-    const response = await backendApi.get<IExercise[]>('/exercises/muscle-group', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await backendApi.get<IExercise[]>(
+      '/exercises/distinct-muscle-group',
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {
@@ -153,9 +160,12 @@ export async function findExerciseById(
   id: string,
 ): Promise<IExercise> {
   try {
-    const response = await backendApi.get<IExercise>(`/exercises/exercise/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const response = await backendApi.get<IExercise>(
+      `/exercises/exercise/${id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
     return response.data
   } catch (error) {
