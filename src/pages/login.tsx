@@ -86,7 +86,7 @@ export default function Login() {
         return setError('Usuário ou senha inválidos')
       }
 
-      if (response && response.token) {
+      if (response && response.access_token) {
         router.push('/dashboard')
         return setError(undefined)
       }

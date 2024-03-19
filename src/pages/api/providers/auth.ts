@@ -43,7 +43,7 @@ export async function signIn(login: ILogin) {
 
     if (response && response.data) {
       localStorage.setItem('fyToken', response.data.access_token)
-      return response.data
+      return response
     }
     return response
   } catch (error) {
